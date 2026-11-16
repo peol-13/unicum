@@ -7,7 +7,7 @@
 <meta name="description" content="App Android gratuita e open source per runner: sonno, recupero, pasti, corse e programma dell'allenatore in una schermata. Senza account, i dati restano sul telefono.">
 <meta property="og:title" content="UNICUM · Your health. Unified.">
 <meta property="og:description" content="Anello, orologio, pasti e programma di corsa in un'app sola. Gratis, open source, senza account.">
-<meta property="og:image" content="https://peol-13.github.io/unicum/screenshots/05-home.png">
+<meta property="og:image" content="https://peol-13.github.io/unicum/screenshots/app-home.jpg">
 <meta name="theme-color" content="#045F6A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,57 +16,143 @@
   :root {
     --primary: #045F6A; --secondary: #3FA7A3; --accent: #A7D8D3;
     --bg: #F9F6EF; --surface: #FFFFFF; --text: #0B2F34; --muted: #4d6a6e;
+    --line: rgba(11,47,52,.12); --bezel: #0B2F34;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0B2F34; --surface: #123f45; --text: #F9F6EF; --muted: #A7D8D3; --primary: #3FA7A3; }
+    :root { --bg: #0B2F34; --surface: #123f45; --text: #F9F6EF; --muted: #A7D8D3; --primary: #3FA7A3; --line: rgba(249,246,239,.14); --bezel: #06191c; }
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text); font-family: Montserrat, system-ui, sans-serif; font-weight: 400; line-height: 1.6; }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
-  header.hero { background: #045F6A; color: #F9F6EF; padding: 56px 0 64px; }
-  .hero .wrap { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
-  .brand { font-weight: 600; letter-spacing: 0.28em; font-size: 14px; color: #A7D8D3; }
-  h1 { font-weight: 600; font-size: clamp(30px, 5vw, 46px); line-height: 1.15; margin: 14px 0 16px; text-wrap: balance; }
-  h2 { font-weight: 600; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.2; margin: 0 0 12px; text-wrap: balance; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Montserrat, system-ui, sans-serif; font-weight: 400; line-height: 1.6; overflow-x: hidden; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  h1 { font-weight: 600; font-size: clamp(32px, 5.2vw, 54px); line-height: 1.1; margin: 16px 0 18px; text-wrap: balance; letter-spacing: -0.01em; }
+  h2 { font-weight: 600; font-size: clamp(26px, 3.6vw, 38px); line-height: 1.15; margin: 0 0 14px; text-wrap: balance; letter-spacing: -0.01em; }
   h3 { font-weight: 600; font-size: 18px; margin: 0 0 6px; }
   p { margin: 0 0 14px; }
-  .lead { font-size: 18px; font-weight: 300; color: #dcefed; max-width: 34em; }
-  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-  .btn { display: inline-block; padding: 14px 24px; border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 16px; }
+  a { color: var(--primary); }
+
+  /* Barra in alto */
+  .nav { position: fixed; inset: 0 0 auto 0; z-index: 20; transition: background .3s, box-shadow .3s, backdrop-filter .3s; }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .nav .logo { font-weight: 600; letter-spacing: .28em; font-size: 14px; color: #F9F6EF; text-decoration: none; transition: color .3s; }
+  .nav .get { font-weight: 600; font-size: 14px; text-decoration: none; padding: 9px 18px; border-radius: 999px; background: #F9F6EF; color: #045F6A; opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity .3s, transform .3s; }
+  .nav.solid { background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line); }
+  .nav.solid .logo { color: var(--text); }
+  .nav.solid .get { opacity: 1; transform: none; pointer-events: auto; background: var(--primary); color: #fff; }
+  .bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--secondary); transform-origin: left; transform: scaleX(var(--read, 0)); }
+
+  /* Apertura */
+  .hero { position: relative; background: radial-gradient(120% 90% at 80% 10%, #0a7480 0%, #045F6A 45%, #034952 100%); color: #F9F6EF; padding: 120px 0 0; overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
+  .kicker { font-weight: 500; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: #A7D8D3; }
+  .lead { font-size: 19px; font-weight: 300; color: #dcefed; max-width: 32em; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn { display: inline-block; padding: 15px 26px; border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 16px; transition: transform .2s, box-shadow .2s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
   .btn.main { background: #F9F6EF; color: #045F6A; }
   .btn.ghost { border: 1.5px solid #A7D8D3; color: #F9F6EF; }
   .btn.solid { background: var(--primary); color: #fff; }
-  .small { font-size: 13px; color: #A7D8D3; margin-top: 14px; }
-  .phone { width: 100%; max-width: 260px; justify-self: center; border-radius: 28px; border: 8px solid #0B2F34; box-shadow: 0 24px 60px rgba(0,0,0,.35); display: block; }
-  section { padding: 64px 0; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 28px; }
-  .card { background: var(--surface); border-radius: 22px; padding: 24px; }
+  .small { font-size: 13px; color: #A7D8D3; margin-top: 16px; }
+  .hero-copy { padding-bottom: 90px; }
+  .hero-phone { justify-self: center; align-self: end; width: min(300px, 78vw); transform: translateY(calc(var(--hero, 0) * -70px)) rotate(calc(3deg - var(--hero, 0) * 3deg)); will-change: transform; margin-bottom: -90px; }
+  .hero-phone .phone { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  .glow { position: absolute; width: 520px; height: 520px; right: -80px; bottom: -220px; background: radial-gradient(circle, rgba(167,216,211,.35), transparent 65%); pointer-events: none; }
+
+  /* Telefono */
+  .phone { position: relative; aspect-ratio: 9 / 20; border-radius: 38px; background: var(--bezel); padding: 9px; box-shadow: 0 30px 70px rgba(0,0,0,.35), inset 0 0 0 1.5px rgba(255,255,255,.08); }
+  .phone .screen { position: relative; width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: #F9F6EF; }
+  .phone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Nastro delle fonti */
+  .tape { overflow: hidden; border-block: 1px solid var(--line); padding: 16px 0; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .tape-track { display: flex; gap: 44px; width: max-content; animation: tape 32s linear infinite; }
+  .tape span { font-weight: 500; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .tape span::before { content: "●"; color: var(--secondary); font-size: 8px; vertical-align: middle; margin-right: 44px; }
+  @keyframes tape { to { transform: translateX(-50%); } }
+
+  /* Racconto a scorrimento */
+  .intro { padding: 150px 0 20px; text-align: center; }
+  .intro p { max-width: 36em; margin-inline: auto; color: var(--muted); font-size: 18px; }
+  .story .wrap { display: grid; grid-template-columns: 1fr 340px; gap: 72px; align-items: start; }
+  .step { min-height: 88vh; display: flex; flex-direction: column; justify-content: center; opacity: .28; transform: translateY(14px); transition: opacity .5s, transform .5s; }
+  .step.on { opacity: 1; transform: none; }
+  .step .num { font-weight: 600; font-size: 13px; letter-spacing: .16em; color: var(--secondary); margin-bottom: 12px; }
+  .step p { font-size: 18px; color: var(--muted); max-width: 26em; }
+  .step ul { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .step li { font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--text); }
+  .step .inline { display: none; }
+  .stage { position: sticky; top: calc(50vh - 340px); height: 680px; display: flex; align-items: center; gap: 18px; }
+  .stage .phone { height: 100%; flex: none; }
+  .stage img { opacity: 0; transform: translateY(26px) scale(.985); transition: opacity .55s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .stage img.on { opacity: 1; transform: none; }
+  .dots { display: flex; flex-direction: column; gap: 10px; }
+  .dots i { width: 6px; height: 6px; border-radius: 999px; background: var(--line); transition: height .4s, background .4s; }
+  .dots i.on { height: 26px; background: var(--secondary); }
+
+  /* Card e sezioni */
+  section.block { padding: 90px 0; scroll-margin-top: 84px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin-top: 30px; }
+  .card { background: var(--surface); border-radius: 24px; padding: 26px; transition: transform .25s, box-shadow .25s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(4,95,106,.12); }
   .card p { color: var(--muted); margin: 0; font-size: 15px; }
-  .shots { display: flex; gap: 16px; overflow-x: auto; padding: 8px 2px 18px; margin-top: 24px; scroll-snap-type: x mandatory; }
-  .shots img { height: 440px; border-radius: 20px; scroll-snap-align: center; flex: none; }
-  .tester { background: var(--surface); border-radius: 28px; padding: 36px; }
+  .big { font-weight: 600; font-size: 34px; color: var(--primary); line-height: 1; margin-bottom: 12px; }
+  .tester { position: relative; overflow: hidden; background: #045F6A; color: #F9F6EF; border-radius: 32px; padding: 48px; }
+  .tester a.btn { background: #F9F6EF; color: #045F6A; }
+  .tester .note { margin-top: 18px; font-size: 14px; color: #A7D8D3; }
+  .count { display: flex; gap: 8px; flex-wrap: wrap; margin: 22px 0 6px; }
+  .count i { width: 30px; height: 30px; border-radius: 999px; border: 1.5px dashed #A7D8D3; opacity: .7; }
+  .tag { display: inline-block; background: #A7D8D3; color: #0B2F34; font-weight: 600; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
   ol.steps { padding-left: 22px; margin: 16px 0 0; }
   ol.steps li { margin-bottom: 10px; }
-  .tag { display: inline-block; background: var(--accent); color: #0B2F34; font-weight: 600; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
-  a { color: var(--primary); }
-  footer { padding: 36px 0 56px; font-size: 14px; color: var(--muted); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  footer { padding: 36px 0 56px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); }
   footer a { color: inherit; }
-  @media (max-width: 760px) {
-    .hero .wrap { grid-template-columns: 1fr; }
-    .phone { max-width: 220px; }
-    .shots img { height: 360px; }
-    .tester { padding: 26px 20px; }
-    section { padding: 48px 0; }
+
+  /* Comparsa allo scorrimento */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 860px) {
+    .hero { padding-top: 104px; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 12px; }
+    .hero-copy { padding-bottom: 28px; }
+    .hero-phone { width: min(250px, 66vw); margin-bottom: -70px; }
+    .intro { padding-top: 120px; }
+    .story .wrap { grid-template-columns: 1fr; }
+    .stage { display: none; }
+    .step { min-height: 0; padding: 44px 0; opacity: 1; transform: none; }
+    .step .inline { display: block; width: min(250px, 68vw); margin: 26px auto 0; }
+    section.block { padding: 64px 0; }
+    .tester { padding: 32px 22px; border-radius: 26px; }
+    .two { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (max-height: 760px) and (min-width: 861px) {
+    .stage { top: calc(50vh - 280px); height: 560px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .hero-phone, .hero-phone .phone, .tape-track { animation: none; transform: none; }
+    .reveal, .step { opacity: 1; transform: none; transition: none; }
+    .stage img { transition: none; transform: none; }
   }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<nav class="nav" id="nav">
   <div class="wrap">
-    <div>
-      <div class="brand">UNICUM</div>
+    <a class="logo" href="#top">UNICUM</a>
+    <a class="get" href="https://github.com/peol-13/unicum/releases/latest">Scarica</a>
+  </div>
+  <div class="bar"></div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="kicker">Your health. Unified.</div>
       <h1>Anello, orologio, pasti e programma di corsa. In un'app sola.</h1>
       <p class="lead">Apri una schermata e sai come stai oggi e che corsa ti aspetta. Gratis, open source, senza account: i dati restano sul tuo telefono.</p>
       <div class="btns">
@@ -75,63 +161,126 @@
       </div>
       <p class="small">Android 8 o successivo · File APK, circa 30 MB · Nessuna pubblicità</p>
     </div>
-    <img class="phone" src="screenshots/05-home.png" alt="La schermata principale di UNICUM: calorie, deficit e macro della giornata">
+    <div class="hero-phone">
+      <div class="phone"><div class="screen"><img src="screenshots/app-home.jpg" alt="La schermata principale di UNICUM: calorie, deficit e macro della giornata"></div></div>
+    </div>
   </div>
 </header>
 
-<section>
-  <div class="wrap">
+<div class="tape" aria-hidden="true">
+  <div class="tape-track">
+    <span>Samsung Health</span><span>Garmin</span><span>Fitbit</span><span>Oura</span><span>Ultrahuman</span><span>Health Connect</span><span>Notion</span><span>PDF del coach</span><span>Open Food Facts</span>
+    <span>Samsung Health</span><span>Garmin</span><span>Fitbit</span><span>Oura</span><span>Ultrahuman</span><span>Health Connect</span><span>Notion</span><span>PDF del coach</span><span>Open Food Facts</span>
+  </div>
+</div>
+
+<section class="intro">
+  <div class="wrap reveal">
     <h2>Cinque app per sapere se oggi puoi correre?</h2>
-    <p>Il sonno sta nell'app dell'anello, le corse in quella dell'orologio, i pasti in un'altra, il programma in un PDF. UNICUM legge tutto da Health Connect e lo mette insieme.</p>
-    <div class="grid">
-      <div class="card"><h3>Il PDF del coach diventa un programma</h3><p>Importi il PDF (o il database Notion) e le sedute compaiono già divise per giorno, tipo, km e ritmo.</p></div>
-      <div class="card"><h3>La seduta si segna da sola</h3><p>Corri con il tuo orologio: quando apri l'app la seduta di oggi è già fatta, con parziali, zone cardiache e mappa.</p></div>
-      <div class="card"><h3>Recupero stimato</h3><p>Dall'HRV notturna, dal sonno e dal carico degli allenamenti: capisci se oggi puoi spingere o è meglio andare piano.</p></div>
-      <div class="card"><h3>Deficit vero, a ogni ora</h3><p>Il consumo a riposo matura durante la giornata: alle 8 di mattina non hai già "bruciato" 1800 kcal.</p></div>
-      <div class="card"><h3>Funziona con quello che hai</h3><p>Samsung Health, Garmin, Fitbit, Oura, Ultrahuman e tutte le app che scrivono in Health Connect.</p></div>
-      <div class="card"><h3>I dati sono tuoi</h3><p>Niente account, niente server, niente abbonamento. Il codice è pubblico e chiunque può controllarlo.</p></div>
+    <p>Il sonno sta nell'app dell'anello, le corse in quella dell'orologio, i pasti in un'altra, il programma in un PDF. UNICUM legge tutto e lo mette insieme. Scorri per vedere come.</p>
+  </div>
+</section>
+
+<section class="story" id="come-funziona">
+  <div class="wrap">
+    <div class="steps-col">
+      <article class="step on" data-i="0">
+        <div class="num">01 · La giornata</div>
+        <h2>Tutto quello che conta, in una schermata</h2>
+        <p>Quanto hai mangiato, quanto hai consumato e quanto ti manca. Il deficit è quello vero: il consumo a riposo matura durante il giorno, non tutto all'alba.</p>
+        <ul><li>Calorie e macro</li><li>Deficit a ogni ora</li><li>Codice a barre</li></ul>
+        <div class="phone inline"><div class="screen"><img src="screenshots/app-home.jpg" alt="" loading="lazy"></div></div>
+      </article>
+      <article class="step" data-i="1">
+        <div class="num">02 · Il programma</div>
+        <h2>Il PDF del coach diventa un programma</h2>
+        <p>Scegli il file e in dieci secondi le sedute sono già divise per giorno, tipo, chilometri e ritmo. Controlli l'anteprima, correggi se serve, salvi.</p>
+        <ul><li>Da PDF</li><li>Da Notion</li><li>Scritto a mano</li></ul>
+        <div class="phone inline"><div class="screen"><img src="screenshots/app-pdf.jpg" alt="" loading="lazy"></div></div>
+      </article>
+      <article class="step" data-i="2">
+        <div class="num">03 · La corsa</div>
+        <h2>Corri. La seduta si segna da sola</h2>
+        <p>Registri la corsa con il tuo orologio, come sempre. Quando apri l'app la seduta di oggi è già fatta, con i tuoi numeri accanto all'obiettivo.</p>
+        <ul><li>Nessun inserimento a mano</li><li>Obiettivo e risultato</li></ul>
+        <div class="phone inline"><div class="screen"><img src="screenshots/app-programma.jpg" alt="" loading="lazy"></div></div>
+      </article>
+      <article class="step" data-i="3">
+        <div class="num">04 · L'analisi</div>
+        <h2>Mappa, ritmo e battito di ogni uscita</h2>
+        <p>Percorso, parziali al chilometro, zone cardiache, cadenza e dislivello. Se due app registrano la stessa corsa, UNICUM le unisce in una.</p>
+        <ul><li>Parziali e ripetute</li><li>Zone cardiache</li><li>Scarpe e chilometri</li></ul>
+        <div class="phone inline"><div class="screen"><img src="screenshots/app-corsa.jpg" alt="" loading="lazy"></div></div>
+      </article>
+      <article class="step" data-i="4">
+        <div class="num">05 · Il recupero</div>
+        <h2>Sai se oggi puoi spingere</h2>
+        <p>Una stima del recupero dall'HRV notturna, dal sonno e dal carico degli allenamenti: ti dice tra quante ore sarai pronto per la prossima seduta intensa.</p>
+        <ul><li>HRV notturna</li><li>Sonno</li><li>Carico misurato</li></ul>
+        <div class="phone inline"><div class="screen"><img src="screenshots/app-recupero.jpg" alt="" loading="lazy"></div></div>
+      </article>
     </div>
-    <div class="shots">
-      <img src="screenshots/05-home.png" alt="Home" loading="lazy">
-      <img src="screenshots/06-training-plan.png" alt="Programma di allenamento" loading="lazy">
-      <img src="screenshots/04-pdf-import.png" alt="Import del programma da PDF" loading="lazy">
-      <img src="screenshots/03-plan-source.png" alt="Scelta della fonte del programma" loading="lazy">
-      <img src="screenshots/07-profile.png" alt="Profilo" loading="lazy">
+    <div class="stage" aria-hidden="true">
+      <div class="phone"><div class="screen">
+        <img class="on" src="screenshots/app-home.jpg" alt="">
+        <img src="screenshots/app-pdf.jpg" alt="">
+        <img src="screenshots/app-programma.jpg" alt="">
+        <img src="screenshots/app-corsa.jpg" alt="">
+        <img src="screenshots/app-recupero.jpg" alt="">
+      </div></div>
+      <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
     </div>
   </div>
 </section>
 
-<section id="tester" style="padding-top:0">
+<section class="block">
   <div class="wrap">
-    <div class="tester">
+    <h2 class="reveal">I dati sono tuoi. Davvero.</h2>
+    <div class="grid">
+      <div class="card reveal"><div class="big">0</div><h3>Account da creare</h3><p>Niente email, niente password. Installi e la usi.</p></div>
+      <div class="card reveal" style="--d:.08s"><div class="big">0</div><h3>Server</h3><p>Tutto resta sul telefono, in un database locale e in Health Connect.</p></div>
+      <div class="card reveal" style="--d:.16s"><div class="big">0 €</div><h3>Per sempre</h3><p>Nessun abbonamento e nessuna pubblicità.</p></div>
+      <div class="card reveal" style="--d:.24s"><div class="big">100%</div><h3>Codice pubblico</h3><p>Software libero: chiunque può controllare cosa fa. <a href="privacy.html">Privacy</a></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="tester" style="padding-top:0">
+  <div class="wrap">
+    <div class="tester reveal">
       <span class="tag">Cerco 12 tester</span>
       <h2>Aiutami a portarla sul Play Store</h2>
       <p>Per pubblicare un'app, Google chiede a chi sviluppa da solo una prova con <strong>almeno 12 persone per 14 giorni</strong>. Ti serve un telefono Android e un account Google: non devi essere un esperto, e nemmeno un runner.</p>
+      <div class="count" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <ol class="steps">
         <li><strong>Iscriviti al gruppo dei tester</strong> con il tuo account Google (un clic, puoi uscire quando vuoi).</li>
         <li>Ricevi il link per <strong>installare UNICUM dal Play Store</strong>.</li>
         <li>Tienila installata per 14 giorni e aprila ogni tanto. Se qualcosa non va, dimmelo: è il regalo più utile.</li>
       </ol>
       <div class="btns">
-        <a class="btn solid" href="https://groups.google.com/g/unicum-tester">Iscriviti al gruppo dei tester</a>
+        <a class="btn" href="https://groups.google.com/g/unicum-tester">Iscriviti al gruppo dei tester</a>
       </div>
-      <p style="margin-top:18px;font-size:14px;color:var(--muted)">Il tuo indirizzo serve solo a Google per darti accesso alla prova. Non ricevi pubblicità.</p>
+      <p class="note">Il tuo indirizzo serve solo a Google per darti accesso alla prova. Non ricevi pubblicità.</p>
     </div>
   </div>
 </section>
 
-<section style="padding-top:0">
-  <div class="wrap">
-    <h2>Installarla adesso, senza Play Store</h2>
-    <ol class="steps">
-      <li>Apri la <a href="https://github.com/peol-13/unicum/releases/latest">pagina di download</a> dal telefono e tocca il file <strong>.apk</strong>.</li>
-      <li>Android chiede il permesso di installare app da questa fonte: accetta, solo per questa volta.</li>
-      <li>Apri UNICUM, rispondi alle domande del primo avvio e collega Health Connect dal Profilo.</li>
-    </ol>
-    <h2 style="margin-top:44px">Hai trovato un problema o hai un'idea?</h2>
-    <p>Un PDF che l'app non legge, un orologio che non manda i dati, una cosa che cambieresti: ogni segnalazione finisce in una versione migliore.</p>
-    <div class="btns">
-      <a class="btn solid" href="https://github.com/peol-13/unicum/issues/new/choose">Scrivi una segnalazione</a>
+<section class="block" style="padding-top:0">
+  <div class="wrap two">
+    <div class="reveal">
+      <h2>Installarla adesso</h2>
+      <ol class="steps">
+        <li>Apri la <a href="https://github.com/peol-13/unicum/releases/latest">pagina di download</a> dal telefono e tocca il file <strong>.apk</strong>.</li>
+        <li>Android chiede il permesso di installare app da questa fonte: accetta, solo per questa volta.</li>
+        <li>Apri UNICUM, rispondi alle domande del primo avvio e collega Health Connect dal Profilo.</li>
+      </ol>
+    </div>
+    <div class="reveal" style="--d:.1s">
+      <h2>Un problema o un'idea?</h2>
+      <p>Un PDF che l'app non legge, un orologio che non manda i dati, una cosa che cambieresti: ogni segnalazione finisce in una versione migliore.</p>
+      <div class="btns">
+        <a class="btn solid" href="https://github.com/peol-13/unicum/issues/new/choose">Scrivi una segnalazione</a>
+      </div>
     </div>
   </div>
 </section>
@@ -144,5 +293,57 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var root = document.documentElement;
+  var nav = document.getElementById('nav');
+  var hero = document.getElementById('top');
+  var steps = [].slice.call(document.querySelectorAll('.step'));
+  var screens = [].slice.call(document.querySelectorAll('.stage img'));
+  var dots = [].slice.call(document.querySelectorAll('.dots i'));
+
+  function show(i) {
+    steps.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    screens.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
+  }
+
+  // Barra in alto, avanzamento di lettura, telefono dell'apertura e schermata attiva
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var y = window.scrollY, vh = window.innerHeight;
+    nav.classList.toggle('solid', y > hero.offsetHeight - 80);
+    var max = root.scrollHeight - vh;
+    root.style.setProperty('--read', max > 0 ? (y / max).toFixed(4) : 0);
+    root.style.setProperty('--hero', Math.min(1, y / hero.offsetHeight).toFixed(4));
+    var mid = vh / 2, best = 0, dist = Infinity;
+    steps.forEach(function (s, k) {
+      var r = s.getBoundingClientRect();
+      var d = Math.abs((r.top + r.bottom) / 2 - mid);
+      if (d < dist) { dist = d; best = k; }
+    });
+    show(best);
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+
+  // Comparsa degli elementi
+  var items = [].slice.call(document.querySelectorAll('.reveal'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('in'); });
+  }
+})();
+</script>
 </body>
 </html>
