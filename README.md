@@ -4,9 +4,9 @@
 
 *🇮🇹 [Versione italiana più sotto](#italiano)*
 
-> **🧪 Looking for testers.** Testing currently works like this: download the APK from [Releases](../../releases/latest), use it, and [tell me how it went](../../issues/new/choose) here on GitHub. Every report ends up in a better version.
+> **🧪 Looking for testers.** Testing currently works like this: download the APK from [Releases](../../releases/latest), use it, and tell me how it went, either [here on GitHub](../../issues/new/choose) or [privately with a short form](https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform). Every report ends up in a better version.
 >
-> **Poll:** would you join a future Google Play test (12 people, 14 days)? [Vote with a 👍](../../issues/1).
+> **Poll:** would you join a future Google Play test (12 people, 14 days)? [Answer the 1-minute poll](https://docs.google.com/forms/d/e/1FAIpQLSehDoj3_mSq1G3RxsAol6V6Mn-tKXvs1gXZgaoW2BQJJIW6Fg/viewform).
 
 <p>
   <img src="docs/screenshots/05-home.png" width="200" alt="Home: calories, deficit and macros">
@@ -128,9 +128,9 @@ L'anello registra il sonno, l'orologio le corse, un'app i pasti, e il programma 
 - **Recupero stimato**: da HRV notturna, sonno e carico misurato degli allenamenti.
 - **Stime 5/7/10 km, obiettivi di corsa, scarpe, widget, tema scuro, backup.**
 
-**🧪 Cerco tester.** Per ora la prova funziona così: scarichi l'APK dalle [Releases](../../releases/latest), usi l'app e [mi scrivi com'è andata](../../issues/new/choose) qui su GitHub. Se trovi un problema o un PDF che l'app non legge, è il commento più utile.
+**🧪 Cerco tester.** Per ora la prova funziona così: scarichi l'APK dalle [Releases](../../releases/latest), usi l'app e mi scrivi com'è andata, [qui su GitHub](../../issues/new/choose) oppure [in privato con un modulo](https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform). Se trovi un problema o un PDF che l'app non legge, è il messaggio più utile.
 
-**Sondaggio:** parteciperesti alla futura prova sul Play Store (12 persone, 14 giorni)? [Vota con un 👍](../../issues/1).
+**Sondaggio:** parteciperesti alla futura prova sul Play Store (12 persone, 14 giorni)? [Rispondi in un minuto](https://docs.google.com/forms/d/e/1FAIpQLSehDoj3_mSq1G3RxsAol6V6Mn-tKXvs1gXZgaoW2BQJJIW6Fg/viewform).
 
 **Privacy**: nessun account e nessun server, i dati restano sul telefono. [Informativa completa](https://peol-13.github.io/unicum/privacy.html).
 

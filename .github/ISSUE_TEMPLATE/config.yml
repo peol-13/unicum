@@ -1,5 +1,8 @@
 blank_issues_enabled: true
 contact_links:
+  - name: "Scrivimi in privato / Write to me privately"
+    url: https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform
+    about: Un modulo di un minuto, senza account GitHub. Arriva direttamente all'autore.
   - name: "Sondaggio: futura prova sul Play Store / Poll: future Google Play test"
-    url: https://github.com/peol-13/unicum/issues/1
-    about: Parteciperesti a una prova di 14 giorni dal Play Store? Vota con un 👍. Per ora si prova con l'APK e i commenti qui su GitHub.
+    url: https://docs.google.com/forms/d/e/1FAIpQLSehDoj3_mSq1G3RxsAol6V6Mn-tKXvs1gXZgaoW2BQJJIW6Fg/viewform
+    about: Parteciperesti a una prova di 14 giorni dal Play Store? Per ora si prova con l'APK.
