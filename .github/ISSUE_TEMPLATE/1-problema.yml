@@ -1,0 +1,28 @@
+name: "Qualcosa non funziona / Bug"
+description: "L'app si chiude, mostra dati sbagliati o non fa quello che ti aspetti. Italian or English, both fine."
+labels: ["bug"]
+body:
+  - type: textarea
+    id: cosa
+    attributes:
+      label: "Cosa è successo? / What happened?"
+      description: "Cosa stavi facendo e cosa ti aspettavi. Uno screenshot aiuta molto (copri i dati che non vuoi mostrare)."
+    validations:
+      required: true
+  - type: input
+    id: telefono
+    attributes:
+      label: "Telefono e versione di Android / Phone and Android version"
+      placeholder: "Samsung Galaxy A54, Android 14"
+    validations:
+      required: true
+  - type: input
+    id: fonti
+    attributes:
+      label: "Orologio, anello e app collegate a Health Connect / Watch, ring, connected apps"
+      placeholder: "Garmin Forerunner 255 con Health Sync"
+  - type: input
+    id: versione
+    attributes:
+      label: "Versione di UNICUM (in fondo al Profilo) / App version"
+      placeholder: "1.0.0"

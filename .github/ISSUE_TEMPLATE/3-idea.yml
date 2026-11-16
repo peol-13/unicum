@@ -1,0 +1,25 @@
+name: "Un'idea o un parere / Idea or feedback"
+description: "Una cosa che manca, una che cambieresti, o semplicemente come ti sei trovato."
+labels: ["feedback"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: "Cosa vorresti dire? / What's on your mind?"
+      description: "Anche due righe vanno benissimo. Se è una funzione nuova, racconta in che situazione ti servirebbe."
+    validations:
+      required: true
+  - type: dropdown
+    id: uso
+    attributes:
+      label: "Da quanto usi UNICUM? / How long have you used it?"
+      options:
+        - "L'ho appena provata / Just tried it"
+        - "Qualche giorno / A few days"
+        - "Più di una settimana / More than a week"
+        - "Non l'ho ancora installata / Not installed yet"
+  - type: input
+    id: fonti
+    attributes:
+      label: "Orologio o anello che usi / Your watch or ring"
+      placeholder: "Garmin, Samsung, Fitbit, Oura, nessuno…"

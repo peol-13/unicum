@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNICUM · Anello, orologio, pasti e programma di corsa in un'app sola</title>
+<meta name="description" content="App Android gratuita e open source per runner: sonno, recupero, pasti, corse e programma dell'allenatore in una schermata. Senza account, i dati restano sul telefono.">
+<meta property="og:title" content="UNICUM · Your health. Unified.">
+<meta property="og:description" content="Anello, orologio, pasti e programma di corsa in un'app sola. Gratis, open source, senza account.">
+<meta property="og:image" content="https://peol-13.github.io/unicum/screenshots/05-home.png">
+<meta name="theme-color" content="#045F6A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #045F6A; --secondary: #3FA7A3; --accent: #A7D8D3;
+    --bg: #F9F6EF; --surface: #FFFFFF; --text: #0B2F34; --muted: #4d6a6e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0B2F34; --surface: #123f45; --text: #F9F6EF; --muted: #A7D8D3; --primary: #3FA7A3; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Montserrat, system-ui, sans-serif; font-weight: 400; line-height: 1.6; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+  header.hero { background: #045F6A; color: #F9F6EF; padding: 56px 0 64px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+  .brand { font-weight: 600; letter-spacing: 0.28em; font-size: 14px; color: #A7D8D3; }
+  h1 { font-weight: 600; font-size: clamp(30px, 5vw, 46px); line-height: 1.15; margin: 14px 0 16px; text-wrap: balance; }
+  h2 { font-weight: 600; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.2; margin: 0 0 12px; text-wrap: balance; }
+  h3 { font-weight: 600; font-size: 18px; margin: 0 0 6px; }
+  p { margin: 0 0 14px; }
+  .lead { font-size: 18px; font-weight: 300; color: #dcefed; max-width: 34em; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .btn { display: inline-block; padding: 14px 24px; border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 16px; }
+  .btn.main { background: #F9F6EF; color: #045F6A; }
+  .btn.ghost { border: 1.5px solid #A7D8D3; color: #F9F6EF; }
+  .btn.solid { background: var(--primary); color: #fff; }
+  .small { font-size: 13px; color: #A7D8D3; margin-top: 14px; }
+  .phone { width: 100%; max-width: 260px; justify-self: center; border-radius: 28px; border: 8px solid #0B2F34; box-shadow: 0 24px 60px rgba(0,0,0,.35); display: block; }
+  section { padding: 64px 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 28px; }
+  .card { background: var(--surface); border-radius: 22px; padding: 24px; }
+  .card p { color: var(--muted); margin: 0; font-size: 15px; }
+  .shots { display: flex; gap: 16px; overflow-x: auto; padding: 8px 2px 18px; margin-top: 24px; scroll-snap-type: x mandatory; }
+  .shots img { height: 440px; border-radius: 20px; scroll-snap-align: center; flex: none; }
+  .tester { background: var(--surface); border-radius: 28px; padding: 36px; }
+  ol.steps { padding-left: 22px; margin: 16px 0 0; }
+  ol.steps li { margin-bottom: 10px; }
+  .tag { display: inline-block; background: var(--accent); color: #0B2F34; font-weight: 600; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
+  a { color: var(--primary); }
+  footer { padding: 36px 0 56px; font-size: 14px; color: var(--muted); }
+  footer a { color: inherit; }
+  @media (max-width: 760px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .phone { max-width: 220px; }
+    .shots img { height: 360px; }
+    .tester { padding: 26px 20px; }
+    section { padding: 48px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="brand">UNICUM</div>
+      <h1>Anello, orologio, pasti e programma di corsa. In un'app sola.</h1>
+      <p class="lead">Apri una schermata e sai come stai oggi e che corsa ti aspetta. Gratis, open source, senza account: i dati restano sul tuo telefono.</p>
+      <div class="btns">
+        <a class="btn main" href="https://github.com/peol-13/unicum/releases/latest">Scarica per Android</a>
+        <a class="btn ghost" href="#tester">Diventa tester</a>
+      </div>
+      <p class="small">Android 8 o successivo · File APK, circa 30 MB · Nessuna pubblicità</p>
+    </div>
+    <img class="phone" src="screenshots/05-home.png" alt="La schermata principale di UNICUM: calorie, deficit e macro della giornata">
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Cinque app per sapere se oggi puoi correre?</h2>
+    <p>Il sonno sta nell'app dell'anello, le corse in quella dell'orologio, i pasti in un'altra, il programma in un PDF. UNICUM legge tutto da Health Connect e lo mette insieme.</p>
+    <div class="grid">
+      <div class="card"><h3>Il PDF del coach diventa un programma</h3><p>Importi il PDF (o il database Notion) e le sedute compaiono già divise per giorno, tipo, km e ritmo.</p></div>
+      <div class="card"><h3>La seduta si segna da sola</h3><p>Corri con il tuo orologio: quando apri l'app la seduta di oggi è già fatta, con parziali, zone cardiache e mappa.</p></div>
+      <div class="card"><h3>Recupero stimato</h3><p>Dall'HRV notturna, dal sonno e dal carico degli allenamenti: capisci se oggi puoi spingere o è meglio andare piano.</p></div>
+      <div class="card"><h3>Deficit vero, a ogni ora</h3><p>Il consumo a riposo matura durante la giornata: alle 8 di mattina non hai già "bruciato" 1800 kcal.</p></div>
+      <div class="card"><h3>Funziona con quello che hai</h3><p>Samsung Health, Garmin, Fitbit, Oura, Ultrahuman e tutte le app che scrivono in Health Connect.</p></div>
+      <div class="card"><h3>I dati sono tuoi</h3><p>Niente account, niente server, niente abbonamento. Il codice è pubblico e chiunque può controllarlo.</p></div>
+    </div>
+    <div class="shots">
+      <img src="screenshots/05-home.png" alt="Home" loading="lazy">
+      <img src="screenshots/06-training-plan.png" alt="Programma di allenamento" loading="lazy">
+      <img src="screenshots/04-pdf-import.png" alt="Import del programma da PDF" loading="lazy">
+      <img src="screenshots/03-plan-source.png" alt="Scelta della fonte del programma" loading="lazy">
+      <img src="screenshots/07-profile.png" alt="Profilo" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="tester" style="padding-top:0">
+  <div class="wrap">
+    <div class="tester">
+      <span class="tag">Cerco 12 tester</span>
+      <h2>Aiutami a portarla sul Play Store</h2>
+      <p>Per pubblicare un'app, Google chiede a chi sviluppa da solo una prova con <strong>almeno 12 persone per 14 giorni</strong>. Ti serve un telefono Android e un account Google: non devi essere un esperto, e nemmeno un runner.</p>
+      <ol class="steps">
+        <li><strong>Iscriviti al gruppo dei tester</strong> con il tuo account Google (un clic, puoi uscire quando vuoi).</li>
+        <li>Ricevi il link per <strong>installare UNICUM dal Play Store</strong>.</li>
+        <li>Tienila installata per 14 giorni e aprila ogni tanto. Se qualcosa non va, dimmelo: è il regalo più utile.</li>
+      </ol>
+      <div class="btns">
+        <a class="btn solid" href="https://groups.google.com/g/unicum-tester">Iscriviti al gruppo dei tester</a>
+      </div>
+      <p style="margin-top:18px;font-size:14px;color:var(--muted)">Il tuo indirizzo serve solo a Google per darti accesso alla prova. Non ricevi pubblicità.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Installarla adesso, senza Play Store</h2>
+    <ol class="steps">
+      <li>Apri la <a href="https://github.com/peol-13/unicum/releases/latest">pagina di download</a> dal telefono e tocca il file <strong>.apk</strong>.</li>
+      <li>Android chiede il permesso di installare app da questa fonte: accetta, solo per questa volta.</li>
+      <li>Apri UNICUM, rispondi alle domande del primo avvio e collega Health Connect dal Profilo.</li>
+    </ol>
+    <h2 style="margin-top:44px">Hai trovato un problema o hai un'idea?</h2>
+    <p>Un PDF che l'app non legge, un orologio che non manda i dati, una cosa che cambieresti: ogni segnalazione finisce in una versione migliore.</p>
+    <div class="btns">
+      <a class="btn solid" href="https://github.com/peol-13/unicum/issues/new/choose">Scrivi una segnalazione</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    UNICUM è un progetto personale di Paolo Gobbetti (peol-13), software libero con licenza GPL-3.0.
+    <a href="https://github.com/peol-13/unicum">Codice su GitHub</a> · <a href="privacy.html">Privacy</a><br>
+    Le stime dell'app (recupero, calorie, tempi) sono indicazioni: UNICUM non è un dispositivo medico.
+  </div>
+</footer>
+
+</body>
+</html>

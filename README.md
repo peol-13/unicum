@@ -4,6 +4,8 @@
 
 *🇮🇹 [Versione italiana più sotto](#italiano)*
 
+> **🧪 Looking for 12 testers.** To publish UNICUM on Google Play I need 12 people with an Android phone for 14 days. One click to join: **[become a tester](https://peol-13.github.io/unicum/#tester)**. Found a bug or a PDF plan the app can't read? [Tell me](../../issues/new/choose), every report ends up in a better version.
+
 <p>
   <img src="docs/screenshots/05-home.png" width="200" alt="Home: calories, deficit and macros">
   <img src="docs/screenshots/06-training-plan.png" width="200" alt="Training plan">
@@ -124,7 +126,9 @@ L'anello registra il sonno, l'orologio le corse, un'app i pasti, e il programma 
 - **Recupero stimato**: da HRV notturna, sonno e carico misurato degli allenamenti.
 - **Stime 5/7/10 km, obiettivi di corsa, scarpe, widget, tema scuro, backup.**
 
-**Privacy**: nessun account e nessun server, i dati restano sul telefono.
+**🧪 Cerco 12 tester.** Per pubblicare UNICUM sul Play Store servono 12 persone con un telefono Android per 14 giorni. Basta un clic: **[diventa tester](https://peol-13.github.io/unicum/#tester)**. Se trovi un problema o un PDF che l'app non legge, [scrivimelo](../../issues/new/choose).
+
+**Privacy**: nessun account e nessun server, i dati restano sul telefono. [Informativa completa](https://peol-13.github.io/unicum/privacy.html).
 
 **Installazione**
 1. Scarica l'APK da [Releases](../../releases).

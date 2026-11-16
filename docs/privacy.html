@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNICUM · Privacy</title>
+<meta name="theme-color" content="#045F6A">
+<style>
+  :root { --bg: #F9F6EF; --text: #0B2F34; --muted: #4d6a6e; --primary: #045F6A; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0B2F34; --text: #F9F6EF; --muted: #A7D8D3; --primary: #3FA7A3; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.65; }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 20px 72px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 6px; }
+  h2 { font-size: 20px; margin: 34px 0 8px; }
+  .muted { color: var(--muted); font-size: 14px; }
+  a { color: var(--primary); }
+  li { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <p><a href="./">← UNICUM</a></p>
+  <h1>Informativa sulla privacy di UNICUM</h1>
+  <p class="muted">Ultimo aggiornamento: 16 novembre 2026 · <a href="#english">English summary</a></p>
+
+  <p>UNICUM è un'app Android sviluppata da Paolo Gobbetti (peol-13). In breve: <strong>non c'è un account, non c'è un server e lo sviluppatore non riceve nessun dato</strong>. Tutto quello che l'app legge o che scrivi resta sul tuo telefono.</p>
+
+  <h2>Quali dati usa l'app</h2>
+  <ul>
+    <li><strong>Dati di salute e attività da Health Connect</strong>, solo con i permessi che concedi: sonno, frequenza cardiaca e HRV, passi, calorie, allenamenti con percorso, peso e misure simili. Servono a mostrarti la giornata, analizzare le corse e stimare il recupero.</li>
+    <li><strong>Dati che inserisci tu</strong>: profilo (sesso, età, peso, altezza), pasti, obiettivi, programma di allenamento, note sulle corse, scarpe.</li>
+    <li><strong>Fotocamera</strong>, solo quando scansioni un codice a barre. Le immagini non vengono salvate né inviate.</li>
+  </ul>
+
+  <h2>Dove stanno i dati</h2>
+  <p>In un database locale sul telefono e in Health Connect. L'app scrive in Health Connect soltanto i pasti che registri. Le copie di backup sono file sul tuo dispositivo, che decidi tu se e dove conservare. Disinstallando l'app i suoi dati locali vengono cancellati.</p>
+
+  <h2>Con chi comunica l'app</h2>
+  <p>UNICUM non contiene pubblicità, strumenti di analisi o tracciamento. Si collega a internet solo in questi casi:</p>
+  <ul>
+    <li><strong>Open Food Facts</strong>: quando cerchi un alimento online o scansioni un codice a barre, l'app invia il testo cercato o il codice.</li>
+    <li><strong>OpenStreetMap</strong>: per disegnare la mappa di una corsa, l'app scarica i riquadri della zona. Il servizio vede quindi quale zona viene richiesta, non il tuo percorso né la tua identità.</li>
+    <li><strong>Notion</strong>, solo se lo colleghi tu: l'app legge il tuo programma con un token in sola lettura che crei tu e che resta sul telefono.</li>
+  </ul>
+  <p>I dati di salute letti da Health Connect non vengono mai inviati a questi servizi né a terzi, non vengono venduti e non sono usati per pubblicità.</p>
+
+  <h2>I tuoi controlli</h2>
+  <ul>
+    <li>Puoi revocare i permessi in qualsiasi momento da Health Connect o dalle impostazioni di Android.</li>
+    <li>Puoi esportare i tuoi dati con il backup dell'app e cancellarli disinstallandola o azzerandone i dati.</li>
+  </ul>
+
+  <h2>Avvertenza</h2>
+  <p>Le stime dell'app (recupero, calorie, tempi di gara) sono indicazioni generali. UNICUM non è un dispositivo medico e non sostituisce il parere di un professionista.</p>
+
+  <h2>Contatti</h2>
+  <p>Per domande su questa informativa apri una segnalazione su <a href="https://github.com/peol-13/unicum/issues">github.com/peol-13/unicum</a>. Il codice dell'app è pubblico: quello che è scritto qui si può verificare.</p>
+
+  <h2 id="english">English summary</h2>
+  <p>UNICUM has no account, no server and no analytics. Health data read from Health Connect (with the permissions you grant) and everything you enter stay on your device; the app only writes your logged meals back to Health Connect. Network requests are limited to Open Food Facts (food search and barcodes), OpenStreetMap tiles (run maps) and, only if you connect it, the Notion API with your own read-only token. Health data is never shared, sold or used for advertising. You can revoke permissions at any time and delete all data by uninstalling the app. UNICUM is not a medical device.</p>
+</main>
+</body>
+</html>

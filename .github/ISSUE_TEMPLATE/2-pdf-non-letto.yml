@@ -1,0 +1,29 @@
+name: "Il mio PDF non viene letto bene / PDF plan not imported correctly"
+description: "Il programma di corsa importato ha sedute mancanti, sbagliate o non si importa."
+labels: ["pdf"]
+body:
+  - type: markdown
+    attributes:
+      value: "Ogni formato nuovo che arriva qui migliora l'import per tutti. **Prima di allegare il PDF togli nomi e dati personali** (basta anche copiare qui sotto 5-10 righe del testo)."
+  - type: textarea
+    id: righe
+    attributes:
+      label: "Alcune righe del programma, come sono scritte nel PDF / A few lines from the PDF"
+      placeholder: |
+        Lun 23/11 - Fondo lento 8 km a 6:10
+        Mer 25/11 - 10' risc. + 6x(2' forte + 90'' piano) + 10' defaticamento
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: risultato
+    attributes:
+      label: "Cosa ha capito l'app, e cosa doveva capire? / What did the app get wrong?"
+      description: "Uno screenshot dell'anteprima dell'import è perfetto."
+    validations:
+      required: true
+  - type: input
+    id: origine
+    attributes:
+      label: "Da dove arriva il PDF? / Where does the PDF come from?"
+      placeholder: "Allenatore, app (quale?), sito, scritto da me…"
