@@ -129,17 +129,26 @@ object PlanPdfParser {
         data class Open(val head: Head, val text: StringBuilder)
         val sessions = mutableListOf<Open>()
         var week: Int? = null
+        // Dopo il titolo di una settimana le righe senza data né giorno non continuano più la seduta di sopra
+        var canContinue = true
         for (raw in lines) {
             var line = raw.replace(' ', ' ').replace(Regex("""\s+"""), " ").trim()
             if (line.isEmpty() || isPageNoise(line)) continue
+            var weekTitle = false
             weekHeader.find(line)?.let { m ->
                 week = m.groupValues[1].toInt()
                 line = line.substring(m.range.last + 1).trim()
+                weekTitle = true
+                canContinue = false
             }
             if (line.isEmpty()) continue
             val h = head(line, week, today)
-            if (h != null) sessions += Open(h, StringBuilder(h.rest))
-            else sessions.lastOrNull()?.text?.let { if (it.isNotEmpty()) it.append(' '); it.append(line) }
+            when {
+                h != null -> { sessions += Open(h, StringBuilder(h.rest)); canContinue = true }
+                // "Settimana 4 - scarico e gara": il resto è il nome della settimana, non una seduta
+                weekTitle || !canContinue -> Unit
+                else -> sessions.lastOrNull()?.text?.let { if (it.isNotEmpty()) it.append(' '); it.append(line) }
+            }
         }
         var rest = 0
         var other = 0

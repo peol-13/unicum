@@ -122,4 +122,46 @@ class PlanPdfParserTest {
         assertEquals("Intervalli", d.kind)
         assertEquals(9.0, d.km!!, 1e-9)
     }
+
+    @Test
+    fun weekTitleDoesNotJoinThePreviousSession() {
+        // "GARA" nel titolo della settimana trasformava il lungo di sopra in un Test
+        val r = PlanPdfParser.parse(
+            listOf(
+                "SETTIMANA 3",
+                "Sab 28/11 Lungo 11 km a 6:45/km, RPE 5",
+                "SETTIMANA 4 - SCARICO E GARA",
+                "Lun 30/11 Corsa facile 5 km a 6:40/km, RPE 3",
+                "Dom 06/12 Gara 10 km a 5:30/km"
+            ),
+            today
+        )
+        assertEquals(listOf("Lungo facile", "Facile", "Test"), r.drafts.map { it.kind })
+        assertEquals("Lungo 11 km a 6:45/km, RPE 5", r.drafts[0].text)
+    }
+
+    @Test
+    fun notesUnderAWeekTitleDoNotJoinThePreviousSession() {
+        val r = PlanPdfParser.parse(
+            listOf(
+                "Settimana 1",
+                "Lunedì: 30 minuti lento",
+                "Settimana 2 - carico",
+                "Obiettivo della settimana: test sui 3 km a fine settimana",
+                "Martedì - fartlek 8x1' veloce / 1' piano"
+            ),
+            today
+        )
+        assertEquals(2, r.drafts.size)
+        assertEquals("Facile", r.drafts[0].kind)
+        assertEquals("30 minuti lento", r.drafts[0].text)
+        assertEquals(8, r.drafts[1].offset)
+    }
+
+    @Test
+    fun sessionOnTheSameLineAsTheWeekTitle() {
+        val d = PlanPdfParser.parse(listOf("Settimana 2: Giovedì progressivo 40'"), today).drafts.single()
+        assertEquals(10, d.offset)
+        assertEquals("Progressivo", d.kind)
+    }
 }
