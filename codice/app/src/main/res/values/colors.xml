@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Brand: icona e splash (chiaro) -->
+    <color name="unicum_background">#F9F6EF</color>
+    <color name="unicum_logo_c1">#A7D8D3</color>
+    <color name="unicum_logo_c2">#7EC6C3</color>
+    <color name="unicum_logo_c3">#3FA7A3</color>
+    <color name="unicum_logo_ecg">#045F6A</color>
+
+    <!-- Widget della schermata del telefono (chiaro) -->
+    <color name="widget_bg">#FFFFFF</color>
+    <color name="widget_border">#59A7D8D3</color>
+    <color name="widget_text">#0B2F34</color>
+    <color name="widget_text_muted">#990B2F34</color>
+    <color name="widget_primary">#045F6A</color>
+    <color name="widget_on_primary">#FFFFFF</color>
+    <color name="widget_track">#DCE8E8</color>
+</resources>

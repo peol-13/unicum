@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand: icona e splash (scuro) -->
+    <color name="unicum_background">#101617</color>
+    <color name="unicum_logo_c1">#3FA7A3</color>
+    <color name="unicum_logo_c2">#1F7A80</color>
+    <color name="unicum_logo_c3">#2A9694</color>
+    <color name="unicum_logo_ecg">#F9F6EF</color>
+
+    <!-- Widget della schermata del telefono (scuro) -->
+    <color name="widget_bg">#1A2325</color>
+    <color name="widget_border">#384DB8B3</color>
+    <color name="widget_text">#ECE8DF</color>
+    <color name="widget_text_muted">#99F1EEE6</color>
+    <color name="widget_primary">#5BBDB7</color>
+    <color name="widget_on_primary">#101617</color>
+    <color name="widget_track">#273234</color>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UNICUM</string>
+    <string name="widget_description">Calorie rimaste, deficit e registrazione rapida di un pasto</string>
+    <string name="widget_deficit_description">Deficit calorico di oggi con la linea verde, gialla e rossa</string>
+    <string name="widget_recovery_description">Percentuale di recupero e tempo che manca a essere pronto</string>
+    <string name="widget_label_calories">Calorie</string>
+    <string name="widget_label_deficit">Deficit</string>
+    <string name="widget_label_recovery">Recupero</string>
+</resources>

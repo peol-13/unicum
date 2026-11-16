@@ -1,0 +1,11 @@
+# Valori personali di chi compila l'app. Copia questo file in "personal.properties" (che NON va su git)
+# e compila solo quello che ti serve: al primo avvio l'app li salva come scelti a mano.
+# Senza questo file tutto si calcola in automatico o si sceglie dall'app.
+
+# Da quando l'HRV è confrontabile (aaaa-mm-gg), se l'anello/orologio ha cambiato algoritmo.
+hrv_from=
+# Database Notion del programma corse e del registro (link o id).
+notion_plan_database=
+notion_log_database=
+# Obiettivo di corsa a breve termine: km|ritmo|scadenza, per esempio 10|5:45|2027-06-30
+run_goal_short=

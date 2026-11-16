@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Backup automatico di Google (Android 11 e precedenti): database Room (con i file -wal/-shm, perché Room usa il WAL)
+   e le preferenze dell'app: profilo, scarpe, promemoria, corse in attesa di un backup importato.
+   Non c'è notion.xml: contiene il token di Notion, da reinserire (la lista del programma si rilegge da sola).
+   Non c'è autobackup.xml: il permesso sul file scelto non passa a un altro telefono.
+-->
+<full-backup-content>
+    <include domain="database" path="." />
+    <include domain="sharedpref" path="unicum_settings.xml" />
+    <include domain="sharedpref" path="unicum_persistence_prefs.xml" />
+    <include domain="sharedpref" path="shoes.xml" />
+    <include domain="sharedpref" path="run_goals.xml" />
+    <include domain="sharedpref" path="unicum_reminders.xml" />
+    <include domain="sharedpref" path="backup_pending.xml" />
+</full-backup-content>

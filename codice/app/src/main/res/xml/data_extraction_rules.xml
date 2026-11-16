@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Android 12+: cosa entra nel backup cloud di Google e nel trasferimento da telefono a telefono.
+   Database Room e preferenze dell'app (profilo, obiettivi, scarpe, promemoria, alimenti personali).
+   Il token di Notion (notion.xml) passa solo nel trasferimento diretto tra telefoni, non nel cloud.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="database" path="." />
+        <include domain="sharedpref" path="unicum_settings.xml" />
+        <include domain="sharedpref" path="unicum_persistence_prefs.xml" />
+        <include domain="sharedpref" path="shoes.xml" />
+        <include domain="sharedpref" path="run_goals.xml" />
+        <include domain="sharedpref" path="unicum_reminders.xml" />
+        <include domain="sharedpref" path="backup_pending.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="database" path="." />
+        <include domain="sharedpref" path="unicum_settings.xml" />
+        <include domain="sharedpref" path="unicum_persistence_prefs.xml" />
+        <include domain="sharedpref" path="shoes.xml" />
+        <include domain="sharedpref" path="run_goals.xml" />
+        <include domain="sharedpref" path="unicum_reminders.xml" />
+        <include domain="sharedpref" path="backup_pending.xml" />
+        <include domain="sharedpref" path="notion.xml" />
+    </device-transfer>
+</data-extraction-rules>

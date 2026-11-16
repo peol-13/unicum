@@ -1,0 +1,331 @@
+# UNICUM
+### Your health. Unified.
+
+## 1. Identità del brand
+
+**UNICUM** è un'applicazione di health aggregation: raccoglie informazioni provenienti da diverse dimensioni della salute e le riunisce in un'unica visione personale.
+
+Il linguaggio visivo deve comunicare:
+
+- integrazione
+- salute
+- equilibrio
+- semplicità
+- personalizzazione
+- continuità
+- affidabilità
+
+Lo stile deve essere **minimal, elegante e moderno**, evitando un'estetica eccessivamente medicale o tecnologica.
+
+---
+
+## 2. Logo
+
+### Wordmark
+
+Il logo principale è:
+
+**UNICUM**
+
+La **N** è caratterizzata da una linea ispirata a un'onda elettrocardiografica.
+
+L'onda deve:
+
+- essere perfettamente integrata nella lettera;
+- mantenere la leggibilità della N;
+- avere estremità orizzontali che si raccordano visivamente con il resto del nome;
+- avere picchi morbidi ma riconoscibili;
+- evitare un aspetto eccessivamente "tech".
+
+Il resto del wordmark utilizza un carattere **corsivo moderno / handwritten controllato**, non eccessivamente legato e con una struttura abbastanza geometrica da mantenere un aspetto digitale e professionale.
+
+### Motto
+
+**Your health. Unified.**
+
+Il motto deve essere utilizzato come elemento secondario rispetto al nome.
+
+Caratteristiche:
+
+- dimensione ridotta;
+- ampio tracking;
+- peso leggero;
+- allineamento coerente con il wordmark;
+- nessun effetto grafico.
+
+---
+
+## 3. Concetto dell'icona
+
+L'icona ufficiale nasce dall'unione di due elementi:
+
+### Tre cerchi sovrapposti
+
+Rappresentano le diverse dimensioni della salute e la loro integrazione.
+
+I tre elementi devono comunicare:
+
+**molte dimensioni → un unico sistema**
+
+La sovrapposizione è fondamentale perché rappresenta il punto in cui le diverse informazioni diventano una visione comune.
+
+### ECG centrale
+
+Al centro dei tre cerchi è presente la linea ECG.
+
+L'ECG deriva direttamente dalla **N del logo** e costituisce il collegamento visivo tra wordmark e icona.
+
+Non deve essere rappresentato un cuore.
+
+L'ECG deve rimanere semplice, pulito e facilmente riconoscibile anche a piccole dimensioni.
+
+---
+
+## 4. Icona — Light Mode
+
+Base:
+
+**fondo chiaro / panna**
+
+I tre cerchi utilizzano tonalità della palette teal con trasparenze e leggere variazioni cromatiche.
+
+L'ECG è:
+
+**teal scuro**
+
+L'effetto generale deve essere:
+
+- leggero;
+- luminoso;
+- morbido;
+- premium;
+- non tridimensionale in modo evidente.
+
+L'icona deve mantenere una buona leggibilità anche senza ombre o effetti.
+
+---
+
+## 5. Icona — Dark Mode
+
+Base:
+
+**fondo teal molto scuro**, non nero.
+
+I tre cerchi utilizzano tonalità teal più luminose rispetto allo sfondo.
+
+L'ECG diventa:
+
+**bianco / quasi bianco**
+
+La struttura deve essere identica alla versione Light.
+
+Le due icone sono quindi **la stessa identità grafica adattata al tema**, non due loghi differenti.
+
+---
+
+## 6. Palette principale
+
+### Primary
+**#045F6A**
+
+Colore principale del brand.
+
+Utilizzo:
+- elementi principali;
+- logo;
+- ECG;
+- CTA;
+- elementi di navigazione;
+- stati attivi.
+
+### Secondary
+**#3FA7A3**
+
+Utilizzo:
+- elementi secondari;
+- grafici;
+- gradienti;
+- elementi di supporto.
+
+### Accent
+**#A7D8D3**
+
+Utilizzo:
+- highlight;
+- superfici leggere;
+- elementi trasparenti;
+- sfondi secondari.
+
+### Background
+**#F9F6EF**
+
+Panna molto chiaro.
+
+Utilizzo:
+- background principale;
+- superfici Light Mode;
+- presentazioni e materiali del brand.
+
+### Dark
+**#0B2F34**
+
+Utilizzo:
+- Dark Mode;
+- testo principale;
+- superfici scure;
+- contrasti elevati.
+
+---
+
+## 7. Gradienti
+
+I gradienti devono essere **morbidi e discreti**.
+
+Devono nascere principalmente dalla famiglia cromatica teal:
+
+**#045F6A → #3FA7A3 → #A7D8D3**
+
+Evitare:
+
+- gradienti troppo saturi;
+- colori estranei alla palette;
+- effetti neon;
+- glow eccessivi;
+- contrasti aggressivi.
+
+Il gradiente deve sembrare parte naturale dell'interfaccia, non un effetto decorativo.
+
+---
+
+## 8. Tipografia
+
+La tipografia dell'interfaccia deve essere:
+
+- moderna;
+- pulita;
+- altamente leggibile;
+- geometrica;
+- non eccessivamente tecnica.
+
+### Font di riferimento
+
+**Montserrat**
+
+Gerarchia indicativa:
+
+- **Bold / Semibold** → titoli e valori principali
+- **Medium** → elementi UI e label
+- **Regular** → testo descrittivo
+- **Light** → informazioni secondarie e payoff
+
+Il wordmark mantiene invece la propria tipografia distintiva e non deve necessariamente coincidere con il font dell'interfaccia.
+
+---
+
+## 9. Linguaggio delle icone
+
+Le icone dell'app devono seguire lo stesso principio dell'icona UNICUM:
+
+- lineari;
+- semplici;
+- arrotondate;
+- poco dettagliate;
+- facilmente riconoscibili;
+- coerenti nello spessore della linea.
+
+Evitare icone troppo realistiche, 3D o eccessivamente tecniche.
+
+---
+
+## 10. Forme grafiche
+
+Le forme ricorrenti dell'identità sono:
+
+- cerchi;
+- sovrapposizioni;
+- linee continue;
+- superfici morbide;
+- forme arrotondate;
+- trasparenze leggere.
+
+La sovrapposizione rappresenta il concetto fondamentale del brand:
+
+**diverse informazioni → una visione unificata.**
+
+---
+
+## 11. UI e componenti
+
+L'interfaccia deve mantenere un aspetto:
+
+**clean · minimal · soft · premium**
+
+I componenti principali possono utilizzare:
+
+- card arrotondate;
+- bordi molto discreti;
+- superfici panna o teal scuro;
+- gradienti leggeri;
+- grafici semplici;
+- grandi valori numerici;
+- molto spazio vuoto.
+
+L'interfaccia non deve sembrare un pannello tecnico di monitoraggio.
+
+Deve sembrare uno **strumento personale per comprendere la propria salute**.
+
+---
+
+## 12. Elementi da evitare
+
+Non utilizzare come elementi principali:
+
+- cuore classico;
+- croce medica;
+- ECG isolato come unico simbolo;
+- pillole o simboli farmaceutici;
+- icone fitness troppo evidenti;
+- neon;
+- effetti cyber/tech;
+- 3D pesante;
+- gradienti molto saturi;
+- troppe icone contemporaneamente;
+- interfacce eccessivamente dense.
+
+L'ECG deve essere associato al concetto di **integrazione**, non essere semplicemente il simbolo generico della salute.
+
+---
+
+## 13. Principio visivo fondamentale
+
+Ogni elemento grafico di UNICUM dovrebbe comunicare, direttamente o indirettamente:
+
+> **Many dimensions. One view.**
+
+Le diverse informazioni sulla persona non devono apparire come elementi separati.
+
+Devono essere percepite come **parti di un unico sistema**.
+
+Questo principio guida:
+
+**logo → icona → palette → UI → dashboard → grafici → illustrazioni.**
+
+---
+
+## 14. Direzione definitiva v0.1
+
+Per la prima versione dell'app vengono considerate definitive:
+
+**Brand:** UNICUM  
+**Motto:** Your health. Unified.  
+**Simbolo:** tre cerchi sovrapposti + ECG centrale  
+**Light icon:** fondo panna + cerchi teal/mint + ECG teal scuro  
+**Dark icon:** fondo teal scuro + cerchi teal luminosi + ECG chiaro  
+**Primary:** #045F6A  
+**Secondary:** #3FA7A3  
+**Accent:** #A7D8D3  
+**Background:** #F9F6EF  
+**Dark:** #0B2F34  
+**UI font:** Montserrat  
+**Stile:** minimal, elegante, morbido, moderno, premium  
+**Concetto:** diverse dimensioni della salute riunite in un'unica visione.

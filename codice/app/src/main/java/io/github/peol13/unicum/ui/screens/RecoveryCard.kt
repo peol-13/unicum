@@ -1,0 +1,163 @@
+package io.github.peol13.unicum.ui.screens
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import io.github.peol13.unicum.UnicumAppState
+import io.github.peol13.unicum.data.DateUtils
+import io.github.peol13.unicum.data.HrvData
+import io.github.peol13.unicum.data.RecoveryData
+import io.github.peol13.unicum.data.RecoveryEstimate
+import io.github.peol13.unicum.data.TrainingLoad
+import io.github.peol13.unicum.data.signedPercent
+import io.github.peol13.unicum.ui.components.ExpandRow
+import io.github.peol13.unicum.ui.components.RingGauge
+import io.github.peol13.unicum.ui.components.UnicumCard
+import io.github.peol13.unicum.ui.theme.UnicumDark
+import io.github.peol13.unicum.ui.theme.UnicumType
+import java.time.Instant
+import java.time.ZoneId
+import kotlin.math.ceil
+import kotlin.math.roundToInt
+
+/** Stima del recupero, ricalcolata a ogni sincronizzazione (vedi [RecoveryData]). */
+@Composable
+fun rememberRecovery(): RecoveryData.Loaded? {
+    val context = LocalContext.current
+    val data by produceState<RecoveryData.Loaded?>(null, UnicumAppState.health) {
+        value = runCatching { RecoveryData.load(context) }.getOrNull()
+    }
+    return data
+}
+
+/** "14 h", "2 g 3 h". */
+internal fun hoursText(hours: Double): String {
+    val h = ceil(hours).toInt().coerceAtLeast(1)
+    return if (h < 48) "$h h" else "${h / 24} g${if (h % 24 > 0) " ${h % 24} h" else ""}"
+}
+
+/** "oggi alle 21:30", "domani alle 9:00", "Gio 12 Nov alle 8:00". */
+internal fun readyText(millis: Long): String {
+    val t = Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault())
+    val today = DateUtils.today()
+    val day = when (t.toLocalDate()) {
+        today -> "oggi"
+        today.plusDays(1) -> "domani"
+        else -> DateUtils.shortLabel(t.toLocalDate())
+    }
+    return "$day alle ${t.hour}:${"%02d".format(t.minute)}"
+}
+
+/** "Corsa di ieri", "Allenamento di oggi", "Corsa del Ven 6 Nov". */
+private fun sessionText(s: RecoveryEstimate.Session): String {
+    val day = DateUtils.relativeLabel(s.date)
+    return "${s.type} " + if (s.date >= DateUtils.today().minusDays(1)) "di ${day.lowercase()}" else "del $day"
+}
+
+/**
+ * In cima alla sezione Allenamenti: quanto manca al recupero dopo gli ultimi allenamenti, con anello di
+ * avanzamento. Sotto, aperta a richiesta, la spiegazione: carico e fatica misurata, come hai recuperato in passato
+ * (HRV notturna dal 28/10), HRV, sonno e temperatura di stanotte.
+ */
+@Composable
+fun RecoveryCard(data: RecoveryData.Loaded) {
+    val r = data.result
+    var open by rememberSaveable { mutableStateOf(false) }
+    UnicumCard(padding = 14.dp) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            RingGauge(r.progress, size = 58.dp, stroke = 6.dp) {
+                Text("${(r.progress * 100).roundToInt()}%", color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.SemiBold)
+            }
+            Spacer(Modifier.width(14.dp))
+            Column(Modifier.weight(1f)) {
+                Text("Recupero", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+                Text(
+                    if (r.recovered) "Recuperato" else "Pronto tra ${hoursText(r.remainingHours)}",
+                    color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold
+                )
+                val sub = when {
+                    !r.recovered && r.readyAtMillis != null ->
+                        readyText(r.readyAtMillis) + (r.main?.let { " · dopo ${sessionText(it)}" } ?: "")
+                    r.lastSession != null -> "Ultimo allenamento: ${sessionText(r.lastSession)}"
+                    else -> "Nessun allenamento recente"
+                }
+                Text(sub, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp)
+            }
+        }
+        ExpandRow(open, "Come è calcolato", { open = !open })
+        if (open) RecoveryDetails(data)
+    }
+}
+
+@Composable
+private fun RecoveryDetails(data: RecoveryData.Loaded) {
+    val r = data.result
+    Spacer(Modifier.height(10.dp))
+    val main = r.main
+    if (main != null && r.mainHours != null) {
+        DetailLine(
+            "Allenamento",
+            "${sessionText(main)}: carico ${main.effort.load.roundToInt()}, fatica misurata ${main.effort.score}/10 " +
+                "(${TrainingLoad.label(main.effort.score).lowercase()}) → circa ${hoursText(r.mainHours)} di recupero."
+        )
+    }
+    val n = r.history.size
+    DetailLine(
+        "Come recuperi tu",
+        when {
+            n == 0 -> "Non ci sono ancora allenamenti con HRV affidabile da confrontare: stima standard."
+            n == 1 -> "Un solo allenamento con HRV affidabile finora: ne servono almeno 2 per adattare la stima a te."
+            else -> {
+                val pct = ((r.personalFactor - 1) * 100).roundToInt()
+                val firstNight = r.history.count { it.night == 1 }
+                "Su $n allenamenti l'HRV è tornata nella tua norma " +
+                    (if (firstNight == n) "sempre la prima notte"
+                    else "la prima notte $firstNight ${if (firstNight == 1) "volta" else "volte"} su $n") + ": " +
+                    when {
+                        pct <= -5 -> "recuperi più in fretta della stima standard (${pct}% di tempo)."
+                        pct >= 5 -> "ti serve più tempo della stima standard (+$pct%)."
+                        else -> "recuperi come la stima standard."
+                    }
+            }
+        }
+    )
+    val t = r.today
+    val tonight = listOfNotNull(
+        t.hrv?.let { "HRV ${it.roundToInt()} ms" + (t.hrvDeltaPct?.let { p -> " (${signedPercent(p)} vs media)" } ?: "") },
+        t.sleepMinutes?.let { "sonno ${it / 60} h ${"%02d".format(it % 60)}" },
+        t.tempDelta?.let { "temperatura ${if (it >= 0) "+" else ""}${"%.1f".format(it).replace('.', ',')} °C" }
+    )
+    DetailLine("Stanotte", if (tonight.isEmpty()) "Dati della notte non ancora arrivati." else tonight.joinToString(" · ").replaceFirstChar { it.uppercase() })
+    r.reasons.forEach { DetailLine(null, it) }
+    Spacer(Modifier.height(6.dp))
+    Text(
+        "Carico = minuti in ogni zona × numero della zona (FC max ${data.maxHr} bpm). " +
+            "HRV ${if (data.nightHrv) "media della notte" else "media del giorno"}" +
+            (HrvData.reliableFrom?.let { ", considerata solo dal ${it.dayOfMonth}/${it.monthValue}: prima i valori erano su un'altra scala (Profilo → Recupero)." } ?: "."),
+        color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
+    )
+}
+
+@Composable
+private fun DetailLine(title: String?, text: String) {
+    Column(Modifier.padding(bottom = 8.dp)) {
+        if (title != null) Text(title, color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, fontWeight = FontWeight.Medium)
+        Text(text, color = UnicumDark, style = UnicumType.Detail, lineHeight = 18.sp)
+    }
+}

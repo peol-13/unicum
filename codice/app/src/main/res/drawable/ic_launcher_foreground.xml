@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simbolo UNICUM: tre cerchi sovrapposti (alimentazione, attività, recupero) e la linea ECG.
+     Disegnato in un riquadro 60x60 e portato al centro dei 108 dp dell'icona adattiva.
+     La stessa geometria è in ui/components/UnicumBrand.kt (schermata di avvio): se cambia una, cambia anche l'altra. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:pivotX="30"
+        android:pivotY="30"
+        android:scaleX="1.18"
+        android:scaleY="1.18"
+        android:translateX="24"
+        android:translateY="24">
+        <path
+            android:fillColor="@color/unicum_logo_c1"
+            android:fillAlpha="0.9"
+            android:pathData="M14,22 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 z" />
+        <path
+            android:fillColor="@color/unicum_logo_c2"
+            android:fillAlpha="0.9"
+            android:pathData="M4.5,38.5 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 z" />
+        <path
+            android:fillColor="@color/unicum_logo_c3"
+            android:fillAlpha="0.9"
+            android:pathData="M23.5,38.5 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 z" />
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="@color/unicum_logo_ecg"
+            android:strokeWidth="2.6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:pathData="M11,37 L22,37 L26,31 L30.5,45 L35.5,25 L39.5,37 L49,37" />
+    </group>
+</vector>

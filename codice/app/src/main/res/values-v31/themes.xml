@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Android 12+: splash di sistema = simbolo UNICUM al centro su fondo tinta unita.
+         Subito dopo l'app mostra la schermata di brand (ui/components/UnicumBrand.kt) con il nome. -->
+    <style name="Theme.Unicum" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/unicum_background</item>
+        <item name="android:windowSplashScreenBackground">@color/unicum_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
+</resources>

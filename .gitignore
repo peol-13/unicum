@@ -1,0 +1,36 @@
+# Build e cache di Gradle/Android
+build/
+.gradle/
+.cxx/
+.externalNativeBuild/
+captures/
+local.properties
+*.apk
+*.aab
+
+# IDE (si tengono solo le impostazioni condivise)
+*.iml
+.idea/workspace.xml
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Impostazioni locali di Claude Code
+.claude/
+
+# Valori personali di chi compila (vedi codice/personal.properties.example)
+personal.properties
+
+# Firma della release: chiavi e password mai nel repository
+keystore.properties
+*.jks
+*.keystore
+
+# Materiale di lancio, solo locale
+marketing/
