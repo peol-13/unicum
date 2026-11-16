@@ -23,7 +23,7 @@
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text); font-family: Montserrat, system-ui, sans-serif; font-weight: 400; line-height: 1.6; overflow-x: hidden; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Montserrat, system-ui, sans-serif; font-weight: 400; line-height: 1.6; overflow-x: clip; }
   .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
   h1 { font-weight: 600; font-size: clamp(32px, 5.2vw, 54px); line-height: 1.1; margin: 16px 0 18px; text-wrap: balance; letter-spacing: -0.01em; }
   h2 { font-weight: 600; font-size: clamp(26px, 3.6vw, 38px); line-height: 1.15; margin: 0 0 14px; text-wrap: balance; letter-spacing: -0.01em; }
@@ -81,13 +81,12 @@
   .step p { font-size: 18px; color: var(--muted); max-width: 26em; }
   .step ul { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
   .step li { font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--text); }
-  .step .inline { display: none; }
   .stage { position: sticky; top: calc(50vh - 340px); height: 680px; display: flex; align-items: center; gap: 18px; }
   .stage .phone { height: 100%; flex: none; }
   .stage img { opacity: 0; transform: translateY(26px) scale(.985); transition: opacity .55s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
   .stage img.on { opacity: 1; transform: none; }
   .dots { display: flex; flex-direction: column; gap: 10px; }
-  .dots i { width: 6px; height: 6px; border-radius: 999px; background: var(--line); transition: height .4s, background .4s; }
+  .dots i { width: 6px; height: 6px; border-radius: 999px; background: var(--line); transition: height .4s, width .4s, background .4s; }
   .dots i.on { height: 26px; background: var(--secondary); }
 
   /* Card e sezioni */
@@ -118,14 +117,52 @@
     .hero .wrap { grid-template-columns: 1fr; gap: 12px; }
     .hero-copy { padding-bottom: 28px; }
     .hero-phone { width: min(250px, 66vw); margin-bottom: -70px; }
-    .intro { padding-top: 120px; }
-    .story .wrap { grid-template-columns: 1fr; }
-    .stage { display: none; }
-    .step { min-height: 0; padding: 44px 0; opacity: 1; transform: none; }
-    .step .inline { display: block; width: min(250px, 68vw); margin: 26px auto 0; }
+    .hero .btns .btn { flex: 1 1 100%; text-align: center; }
+    .lead { font-size: 17px; }
+    .small { text-align: center; }
+    .intro { padding: 110px 0 36px; }
+    .intro p { font-size: 16px; }
+
+    /* Racconto fissato: il telefono resta fermo, testo e schermata cambiano scorrendo */
+    .story { height: 480vh; height: 480svh; }
+    .story .wrap { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; align-items: center; gap: 14px; padding-top: 76px; padding-bottom: 12px; }
+    .stage { position: static; order: -1; flex: none; height: 49vh; height: 49svh; flex-direction: column; gap: 12px; }
+    .stage .phone { height: calc(100% - 18px); border-radius: 28px; padding: 6px; box-shadow: 0 18px 40px rgba(0,0,0,.25), inset 0 0 0 1.5px rgba(255,255,255,.08); }
+    .stage .phone .screen { border-radius: 22px; }
+    .dots { flex-direction: row; }
+    .dots i.on { height: 6px; width: 26px; }
+    .steps-col { position: relative; flex: 1; width: 100%; }
+    .step { position: absolute; inset: 0; min-height: 0; justify-content: flex-start; align-items: center; text-align: center; opacity: 0; transform: translateY(16px); pointer-events: none; }
+    .step.on { opacity: 1; transform: none; pointer-events: auto; }
+    .step .num { margin-bottom: 8px; font-size: 12px; }
+    .step h2 { font-size: 23px; margin-bottom: 8px; }
+    .step p { font-size: 15.5px; line-height: 1.5; margin-bottom: 10px; }
+    .step ul { justify-content: center; gap: 6px; }
+    .step li { font-size: 12px; padding: 5px 10px; }
+
     section.block { padding: 64px 0; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card { padding: 18px; border-radius: 20px; }
+    .card h3 { font-size: 16px; }
+    .card p { font-size: 14px; }
+    .big { font-size: 28px; }
     .tester { padding: 32px 22px; border-radius: 26px; }
+    .tester .btn { display: block; text-align: center; }
+    .count { gap: 6px; }
+    .count i { width: 20px; height: 20px; }
     .two { grid-template-columns: 1fr; gap: 40px; }
+    .two .btn { display: block; text-align: center; }
+  }
+  @media (max-width: 860px) and (max-height: 700px) {
+    .step ul { display: none; }
+    .stage { height: 44vh; height: 44svh; }
+  }
+  @media (max-width: 860px) and (max-height: 520px) {
+    /* Telefono in orizzontale: niente fissaggio, testi in colonna */
+    .story { height: auto; }
+    .story .wrap { position: static; height: auto; display: block; padding-top: 0; }
+    .stage { display: none; }
+    .step { position: static; opacity: 1; transform: none; pointer-events: auto; padding: 28px 0; }
   }
   @media (max-height: 760px) and (min-width: 861px) {
     .stage { top: calc(50vh - 280px); height: 560px; }
@@ -133,8 +170,11 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .hero-phone, .hero-phone .phone, .tape-track { animation: none; transform: none; }
-    .reveal, .step { opacity: 1; transform: none; transition: none; }
-    .stage img { transition: none; transform: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .step, .stage img { transition: none; }
+  }
+  @media (prefers-reduced-motion: reduce) and (min-width: 861px) {
+    .step { opacity: 1; transform: none; }
   }
 </style>
 </head>
@@ -189,35 +229,30 @@
         <h2>Tutto quello che conta, in una schermata</h2>
         <p>Quanto hai mangiato, quanto hai consumato e quanto ti manca. Il deficit è quello vero: il consumo a riposo matura durante il giorno, non tutto all'alba.</p>
         <ul><li>Calorie e macro</li><li>Deficit a ogni ora</li><li>Codice a barre</li></ul>
-        <div class="phone inline"><div class="screen"><img src="screenshots/app-home.jpg" alt="" loading="lazy"></div></div>
       </article>
       <article class="step" data-i="1">
         <div class="num">02 · Il programma</div>
         <h2>Il PDF del coach diventa un programma</h2>
         <p>Scegli il file e in dieci secondi le sedute sono già divise per giorno, tipo, chilometri e ritmo. Controlli l'anteprima, correggi se serve, salvi.</p>
         <ul><li>Da PDF</li><li>Da Notion</li><li>Scritto a mano</li></ul>
-        <div class="phone inline"><div class="screen"><img src="screenshots/app-pdf.jpg" alt="" loading="lazy"></div></div>
       </article>
       <article class="step" data-i="2">
         <div class="num">03 · La corsa</div>
         <h2>Corri. La seduta si segna da sola</h2>
         <p>Registri la corsa con il tuo orologio, come sempre. Quando apri l'app la seduta di oggi è già fatta, con i tuoi numeri accanto all'obiettivo.</p>
         <ul><li>Nessun inserimento a mano</li><li>Obiettivo e risultato</li></ul>
-        <div class="phone inline"><div class="screen"><img src="screenshots/app-programma.jpg" alt="" loading="lazy"></div></div>
       </article>
       <article class="step" data-i="3">
         <div class="num">04 · L'analisi</div>
         <h2>Mappa, ritmo e battito di ogni uscita</h2>
         <p>Percorso, parziali al chilometro, zone cardiache, cadenza e dislivello. Se due app registrano la stessa corsa, UNICUM le unisce in una.</p>
         <ul><li>Parziali e ripetute</li><li>Zone cardiache</li><li>Scarpe e chilometri</li></ul>
-        <div class="phone inline"><div class="screen"><img src="screenshots/app-corsa.jpg" alt="" loading="lazy"></div></div>
       </article>
       <article class="step" data-i="4">
         <div class="num">05 · Il recupero</div>
         <h2>Sai se oggi puoi spingere</h2>
         <p>Una stima del recupero dall'HRV notturna, dal sonno e dal carico degli allenamenti: ti dice tra quante ore sarai pronto per la prossima seduta intensa.</p>
         <ul><li>HRV notturna</li><li>Sonno</li><li>Carico misurato</li></ul>
-        <div class="phone inline"><div class="screen"><img src="screenshots/app-recupero.jpg" alt="" loading="lazy"></div></div>
       </article>
     </div>
     <div class="stage" aria-hidden="true">
@@ -298,6 +333,8 @@
   var root = document.documentElement;
   var nav = document.getElementById('nav');
   var hero = document.getElementById('top');
+  var story = document.getElementById('come-funziona');
+  var pinned = window.matchMedia('(max-width: 860px) and (min-height: 521px)');
   var steps = [].slice.call(document.querySelectorAll('.step'));
   var screens = [].slice.call(document.querySelectorAll('.stage img'));
   var dots = [].slice.call(document.querySelectorAll('.dots i'));
@@ -318,6 +355,13 @@
     root.style.setProperty('--read', max > 0 ? (y / max).toFixed(4) : 0);
     root.style.setProperty('--hero', Math.min(1, y / hero.offsetHeight).toFixed(4));
     var mid = vh / 2, best = 0, dist = Infinity;
+    if (pinned.matches) {
+      // Su telefono il racconto è fissato: la schermata dipende da quanto si è scorso dentro la sezione
+      var sr = story.getBoundingClientRect();
+      var p = Math.max(0, Math.min(0.999, -sr.top / Math.max(1, sr.height - vh)));
+      show(Math.floor(p * steps.length));
+      return;
+    }
     steps.forEach(function (s, k) {
       var r = s.getBoundingClientRect();
       var d = Math.abs((r.top + r.bottom) / 2 - mid);
