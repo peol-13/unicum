@@ -99,6 +99,13 @@
   .tester { position: relative; overflow: hidden; background: #045F6A; color: #F9F6EF; border-radius: 32px; padding: 48px; }
   .tester a.btn { background: #F9F6EF; color: #045F6A; }
   .tester .note { margin-top: 18px; font-size: 14px; color: #A7D8D3; }
+  .tester a.btn.line { background: transparent; color: #F9F6EF; border: 1.5px solid #A7D8D3; }
+  .poll { margin-top: 36px; padding: 28px; border-radius: 24px; background: rgba(249,246,239,.08); border: 1px solid rgba(167,216,211,.35); }
+  .poll h3 { font-size: 22px; line-height: 1.25; margin-bottom: 10px; }
+  .poll .btns { margin-top: 18px; }
+  .tally { font-weight: 500; font-size: 15px; color: #A7D8D3; margin: 0; }
+  .count i { transition: background .5s, border-color .5s, opacity .5s, transform .5s; }
+  .count i.yes { background: #A7D8D3; border: 1.5px solid #A7D8D3; opacity: 1; transform: scale(1.06); }
   .count { display: flex; gap: 8px; flex-wrap: wrap; margin: 22px 0 6px; }
   .count i { width: 30px; height: 30px; border-radius: 999px; border: 1.5px dashed #A7D8D3; opacity: .7; }
   .tag { display: inline-block; background: #A7D8D3; color: #0B2F34; font-weight: 600; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
@@ -147,7 +154,9 @@
     .card p { font-size: 14px; }
     .big { font-size: 28px; }
     .tester { padding: 32px 22px; border-radius: 26px; }
-    .tester .btn { display: block; text-align: center; }
+    .tester .btn { flex: 1 1 100%; text-align: center; }
+    .poll { padding: 22px 18px; margin-top: 28px; }
+    .poll h3 { font-size: 20px; }
     .count { gap: 6px; }
     .count i { width: 20px; height: 20px; }
     .two { grid-template-columns: 1fr; gap: 40px; }
@@ -283,19 +292,30 @@
 <section class="block" id="tester" style="padding-top:0">
   <div class="wrap">
     <div class="tester reveal">
-      <span class="tag">Cerco 12 tester</span>
-      <h2>Aiutami a portarla sul Play Store</h2>
-      <p>Per pubblicare un'app, Google chiede a chi sviluppa da solo una prova con <strong>almeno 12 persone per 14 giorni</strong>. Ti serve un telefono Android e un account Google: non devi essere un esperto, e nemmeno un runner.</p>
-      <div class="count" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="tag">Cerco tester</span>
+      <h2>Provala e dimmi com'è</h2>
+      <p>Oggi la prova funziona così: <strong>scarichi l'APK da GitHub</strong>, usi l'app e mi lasci un <strong>commento su GitHub</strong>. Ti serve un telefono Android: non devi essere un esperto, e nemmeno un runner.</p>
       <ol class="steps">
-        <li><strong>Iscriviti al gruppo dei tester</strong> con il tuo account Google (un clic, puoi uscire quando vuoi).</li>
-        <li>Ricevi il link per <strong>installare UNICUM dal Play Store</strong>.</li>
-        <li>Tienila installata per 14 giorni e aprila ogni tanto. Se qualcosa non va, dimmelo: è il regalo più utile.</li>
+        <li><strong>Scarica l'APK</strong> dalla pagina di download e installalo.</li>
+        <li><strong>Usala qualche giorno</strong>: il primo avvio, i pasti, una corsa, il tuo programma in PDF.</li>
+        <li><strong>Scrivimi su GitHub</strong> cosa non va o cosa manca. Ogni commento finisce in una versione migliore.</li>
       </ol>
       <div class="btns">
-        <a class="btn" href="https://groups.google.com/g/unicum-tester">Iscriviti al gruppo dei tester</a>
+        <a class="btn" href="https://github.com/peol-13/unicum/releases/latest">Scarica l'APK</a>
+        <a class="btn line" href="https://github.com/peol-13/unicum/issues/new/choose">Lascia un commento</a>
       </div>
-      <p class="note">Il tuo indirizzo serve solo a Google per darti accesso alla prova. Non ricevi pubblicità.</p>
+
+      <div class="poll">
+        <span class="tag">Sondaggio</span>
+        <h3>Parteciperesti alla futura prova sul Play Store?</h3>
+        <p>Più avanti vorrei pubblicarla sul Play Store. Google chiede prima una prova con <strong>almeno 12 persone per 14 giorni</strong>: installeresti l'app dal Play Store e la terresti due settimane. Dimmi se ci staresti, così capisco quando partire.</p>
+        <div class="count" id="count" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="tally" id="tally">Servono 12 sì per cominciare.</p>
+        <div class="btns">
+          <a class="btn" href="https://github.com/peol-13/unicum/issues/1">Vota il sondaggio</a>
+        </div>
+        <p class="note">Si vota su GitHub con una reazione: 👍 sì, 👀 forse, 👎 no. Serve un account GitHub, gratuito.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -374,6 +394,25 @@
   }, { passive: true });
   window.addEventListener('resize', update);
   update();
+
+  // Sondaggio: i sì arrivati finora (le reazioni 👍 alla segnalazione su GitHub) riempiono i cerchi
+  var tally = document.getElementById('tally');
+  var circles = [].slice.call(document.querySelectorAll('#count i'));
+  if (window.fetch && tally) {
+    fetch('https://api.github.com/repos/peol-13/unicum/issues/1', { headers: { Accept: 'application/vnd.github+json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        var yes = d && d.reactions ? d.reactions['+1'] : null;
+        if (typeof yes !== 'number') return;
+        circles.forEach(function (c, k) {
+          if (k < yes) setTimeout(function () { c.classList.add('yes'); }, 120 * k);
+        });
+        if (yes === 0) tally.textContent = 'Ancora nessun sì: il primo puoi essere tu. Ne servono 12.';
+        else if (yes < 12) tally.textContent = yes + ' sì su 12 per cominciare.';
+        else tally.textContent = yes + ' sì: ci siamo, la prova può partire.';
+      })
+      .catch(function () {});
+  }
 
   // Comparsa degli elementi
   var items = [].slice.call(document.querySelectorAll('.reveal'));

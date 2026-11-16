@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Diventa tester per il Play Store / Become a tester
-    url: https://peol-13.github.io/unicum/#tester
-    about: Servono 12 persone con un telefono Android per 14 giorni. Basta un clic.
+  - name: "Sondaggio: futura prova sul Play Store / Poll: future Google Play test"
+    url: https://github.com/peol-13/unicum/issues/1
+    about: Parteciperesti a una prova di 14 giorni dal Play Store? Vota con un 👍. Per ora si prova con l'APK e i commenti qui su GitHub.

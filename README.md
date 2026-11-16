@@ -4,7 +4,9 @@
 
 *🇮🇹 [Versione italiana più sotto](#italiano)*
 
-> **🧪 Looking for 12 testers.** To publish UNICUM on Google Play I need 12 people with an Android phone for 14 days. One click to join: **[become a tester](https://peol-13.github.io/unicum/#tester)**. Found a bug or a PDF plan the app can't read? [Tell me](../../issues/new/choose), every report ends up in a better version.
+> **🧪 Looking for testers.** Testing currently works like this: download the APK from [Releases](../../releases/latest), use it, and [tell me how it went](../../issues/new/choose) here on GitHub. Every report ends up in a better version.
+>
+> **Poll:** would you join a future Google Play test (12 people, 14 days)? [Vote with a 👍](../../issues/1).
 
 <p>
   <img src="docs/screenshots/05-home.png" width="200" alt="Home: calories, deficit and macros">
@@ -126,7 +128,9 @@ L'anello registra il sonno, l'orologio le corse, un'app i pasti, e il programma 
 - **Recupero stimato**: da HRV notturna, sonno e carico misurato degli allenamenti.
 - **Stime 5/7/10 km, obiettivi di corsa, scarpe, widget, tema scuro, backup.**
 
-**🧪 Cerco 12 tester.** Per pubblicare UNICUM sul Play Store servono 12 persone con un telefono Android per 14 giorni. Basta un clic: **[diventa tester](https://peol-13.github.io/unicum/#tester)**. Se trovi un problema o un PDF che l'app non legge, [scrivimelo](../../issues/new/choose).
+**🧪 Cerco tester.** Per ora la prova funziona così: scarichi l'APK dalle [Releases](../../releases/latest), usi l'app e [mi scrivi com'è andata](../../issues/new/choose) qui su GitHub. Se trovi un problema o un PDF che l'app non legge, è il commento più utile.
+
+**Sondaggio:** parteciperesti alla futura prova sul Play Store (12 persone, 14 giorni)? [Vota con un 👍](../../issues/1).
 
 **Privacy**: nessun account e nessun server, i dati restano sul telefono. [Informativa completa](https://peol-13.github.io/unicum/privacy.html).
 
