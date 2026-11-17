@@ -132,7 +132,7 @@ L'anello registra il sonno, l'orologio le corse, un'app i pasti, e il programma 
 
 **Sondaggio:** parteciperesti alla futura prova sul Play Store (12 persone, 14 giorni)? [Rispondi in un minuto](https://docs.google.com/forms/d/e/1FAIpQLSehDoj3_mSq1G3RxsAol6V6Mn-tKXvs1gXZgaoW2BQJJIW6Fg/viewform).
 
-**Privacy**: nessun account e nessun server, i dati restano sul telefono. [Informativa completa](https://peol-13.github.io/unicum/privacy.html).
+**Privacy**: nessun account e nessun server, i dati restano sul telefono. Statistiche d'uso anonime solo se le accetti (quali schermate apri, mai i dati). [Informativa completa](https://peol-13.github.io/unicum/privacy.html).
 
 **Installazione**
 1. Scarica l'APK da [Releases](../../releases).

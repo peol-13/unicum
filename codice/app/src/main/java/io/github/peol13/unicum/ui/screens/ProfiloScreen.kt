@@ -43,6 +43,7 @@ import androidx.compose.material.icons.rounded.Restaurant
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.Save
 import androidx.compose.material.icons.rounded.CalendarMonth
+import androidx.compose.material.icons.rounded.BarChart
 import io.github.peol13.unicum.data.NotionPlan
 import io.github.peol13.unicum.data.LocalPlan
 import io.github.peol13.unicum.data.TrainingPlan
@@ -93,6 +94,7 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
     // null = menu principale, altrimenti la sotto-pagina aperta
     var page by rememberSaveable { mutableStateOf<String?>(null) }
     BackHandler(enabled = page != null) { page = null }
+    LaunchedEffect(page) { page?.let { io.github.peol13.unicum.data.UsageStats.screen("Profilo/$it") } }
 
     UnicumScreen(selectedItem = Route.Profilo, onNavigate = onNavigate) {
         when (page) {
@@ -125,6 +127,11 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
                 PageHeader("Backup dei dati", "Automatico, esporta e importa", onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 BackupPage()
+            }
+            "statistiche" -> {
+                PageHeader("Statistiche anonime", "Facoltative: cosa viene inviato", onBack = { page = null })
+                Spacer(Modifier.height(14.dp))
+                UsageStatsPage()
             }
             else -> {
                 ScreenTitle("Profilo", "Fonti dati, obiettivi e preferenze")
@@ -170,6 +177,12 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
                 ProfileMenuRow(
                     Icons.Rounded.Save, "Backup dei dati", backupSummary()
                 ) { page = "backup" }
+                if (io.github.peol13.unicum.data.UsageStats.available) {
+                    Spacer(Modifier.height(10.dp))
+                    ProfileMenuRow(
+                        Icons.Rounded.BarChart, "Statistiche anonime", usageStatsSummary
+                    ) { page = "statistiche" }
+                }
                 Spacer(Modifier.height(18.dp))
                 Text(
                     "UNICUM ${io.github.peol13.unicum.BuildConfig.VERSION_NAME} · Your health. Unified.",

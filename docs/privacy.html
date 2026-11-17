@@ -21,9 +21,9 @@
 <main>
   <p><a href="./">← UNICUM</a></p>
   <h1>Informativa sulla privacy di UNICUM</h1>
-  <p class="muted">Ultimo aggiornamento: 16 novembre 2026 · <a href="#english">English summary</a></p>
+  <p class="muted">Ultimo aggiornamento: 17 novembre 2026 · <a href="#english">English summary</a></p>
 
-  <p>UNICUM è un'app Android sviluppata da Paolo Gobbetti (peol-13). In breve: <strong>non c'è un account, non c'è un server e lo sviluppatore non riceve nessun dato</strong>. Tutto quello che l'app legge o che scrivi resta sul tuo telefono.</p>
+  <p>UNICUM è un'app Android sviluppata da Paolo Gobbetti (peol-13). In breve: <strong>non c'è un account, non c'è un server e i tuoi dati di salute restano sul telefono</strong>. Lo sviluppatore riceve qualcosa solo se accetti le statistiche anonime d'uso (vedi sotto): quali schermate apri, mai i tuoi dati.</p>
 
   <h2>Quali dati usa l'app</h2>
   <ul>
@@ -36,12 +36,23 @@
   <p>In un database locale sul telefono e in Health Connect. L'app scrive in Health Connect soltanto i pasti che registri. Le copie di backup sono file sul tuo dispositivo, che decidi tu se e dove conservare. Disinstallando l'app i suoi dati locali vengono cancellati.</p>
 
   <h2>Con chi comunica l'app</h2>
-  <p>UNICUM non contiene pubblicità, strumenti di analisi o tracciamento. Si collega a internet solo in questi casi:</p>
+  <p>UNICUM non contiene pubblicità né librerie di analisi o tracciamento di terze parti. Si collega a internet solo in questi casi:</p>
   <ul>
     <li><strong>Open Food Facts</strong>: quando cerchi un alimento online o scansioni un codice a barre, l'app invia il testo cercato o il codice.</li>
     <li><strong>OpenStreetMap</strong>: per disegnare la mappa di una corsa, l'app scarica i riquadri della zona. Il servizio vede quindi quale zona viene richiesta, non il tuo percorso né la tua identità.</li>
     <li><strong>Notion</strong>, solo se lo colleghi tu: l'app legge il tuo programma con un token in sola lettura che crei tu e che resta sul telefono.</li>
+    <li><strong>Statistiche anonime d'uso</strong>, solo se rispondi sì alla domanda che compare dopo il primo avvio. Sono spente finché non accetti.</li>
   </ul>
+
+  <h2>Statistiche anonime d'uso (facoltative)</h2>
+  <p>Servono a capire quante persone usano UNICUM e quali parti migliorare. Se le accetti, al massimo una volta al giorno l'app invia a un modulo Google dello sviluppatore:</p>
+  <ul>
+    <li>un codice casuale creato dall'app, che distingue un'installazione dall'altra ma non dice chi sei;</li>
+    <li>i giorni in cui hai aperto l'app e quante volte hai aperto ogni schermata (per esempio "Home=12; Allenamenti=3");</li>
+    <li>la versione dell'app e di Android;</li>
+    <li>quali funzioni usi, senza valori: Health Connect collegato o no, programma da Notion o nell'app, scarpe registrate, schermata principale e tema scelti.</li>
+  </ul>
+  <p>Non vengono mai inviati dati di salute, pasti, allenamenti, profilo, posizione, nome o email. Google, che ospita il modulo, riceve la richiesta come per qualsiasi sito, con l'indirizzo IP della connessione; lo sviluppatore non lo vede. Puoi spegnere le statistiche quando vuoi dal Profilo → Statistiche anonime: i conteggi non ancora inviati e il codice casuale si cancellano dal telefono. Per far cancellare quelli già inviati, scrivi allo sviluppatore indicando il codice, che trovi nella stessa pagina.</p>
   <p>I dati di salute letti da Health Connect non vengono mai inviati a questi servizi né a terzi, non vengono venduti e non sono usati per pubblicità.</p>
 
   <h2>I tuoi controlli</h2>
@@ -57,7 +68,7 @@
   <p>Per domande su questa informativa apri una segnalazione su <a href="https://github.com/peol-13/unicum/issues">github.com/peol-13/unicum</a>. Il codice dell'app è pubblico: quello che è scritto qui si può verificare.</p>
 
   <h2 id="english">English summary</h2>
-  <p>UNICUM has no account, no server and no analytics. Health data read from Health Connect (with the permissions you grant) and everything you enter stay on your device; the app only writes your logged meals back to Health Connect. Network requests are limited to Open Food Facts (food search and barcodes), OpenStreetMap tiles (run maps) and, only if you connect it, the Notion API with your own read-only token. Health data is never shared, sold or used for advertising. You can revoke permissions at any time and delete all data by uninstalling the app. UNICUM is not a medical device.</p>
+  <p>UNICUM has no account, no server and no third-party analytics. Optional anonymous usage statistics (off until you say yes) send at most once a day, to the developer's Google Form, a random install code, the days of use, how many times each screen was opened, app and Android version and which features are on (no values); never health data, meals, workouts or profile. They can be turned off in Profile, which deletes the unsent counts and the code. Health data read from Health Connect (with the permissions you grant) and everything you enter stay on your device; the app only writes your logged meals back to Health Connect. Network requests are limited to Open Food Facts (food search and barcodes), OpenStreetMap tiles (run maps) and, only if you connect it, the Notion API with your own read-only token. Health data is never shared, sold or used for advertising. You can revoke permissions at any time and delete all data by uninstalling the app. UNICUM is not a medical device.</p>
 </main>
 </body>
 </html>

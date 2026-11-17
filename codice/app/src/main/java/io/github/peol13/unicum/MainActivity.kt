@@ -30,6 +30,8 @@ import io.github.peol13.unicum.data.MealReminders
 import io.github.peol13.unicum.widget.UnicumWidget
 import android.content.Intent
 import io.github.peol13.unicum.data.UserSettings
+import io.github.peol13.unicum.data.UsageStats
+import io.github.peol13.unicum.ui.screens.UsageStatsConsentDialog
 import io.github.peol13.unicum.ui.screens.DashboardScreen
 import io.github.peol13.unicum.ui.screens.DiarioScreen
 import io.github.peol13.unicum.ui.screens.ProfiloScreen
@@ -60,6 +62,7 @@ class MainActivity : ComponentActivity() {
         io.github.peol13.unicum.data.RunGoalStore.init(applicationContext)
         MealReminders.scheduleAll(applicationContext)
         AutoBackup.init(applicationContext)
+        UsageStats.init(applicationContext)
         BackgroundSync.schedule(applicationContext)
         handleIntent(intent)
 
@@ -70,6 +73,8 @@ class MainActivity : ComponentActivity() {
             // Ogni volta che l'app torna in primo piano: passa al nuovo giorno se è cambiata la data
             // e aggiorna i dati da Health Connect
             repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Statistiche anonime (solo se l'utente ha detto sì): riepilogo dei giorni passati, max una volta al giorno
+                launch { UsageStats.sendIfDue(usageFeatures()) }
                 UnicumAppState.followToday(applicationContext)
                 UnicumAppState.reloadFromDatabase(applicationContext)
                 UnicumAppState.autoSync(applicationContext)
@@ -100,6 +105,19 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    /** Funzioni in uso, senza valori: solo per le statistiche anonime. */
+    private fun usageFeatures(): List<String> = buildList {
+        if (UserSettings.lastSyncMillis > 0) add("health_connect")
+        when (io.github.peol13.unicum.data.TrainingPlan.source) {
+            io.github.peol13.unicum.data.TrainingPlan.Source.NOTION -> add("programma_notion")
+            io.github.peol13.unicum.data.TrainingPlan.Source.LOCAL -> add("programma_app")
+            io.github.peol13.unicum.data.TrainingPlan.Source.NONE -> {}
+        }
+        if (Shoes.data.shoes.isNotEmpty()) add("scarpe")
+        add("home_" + UserSettings.dashboardMode.name.lowercase())
+        add("tema_" + UserSettings.themeMode.name.lowercase())
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -167,6 +185,19 @@ private fun AppContent() {
             UnicumAppState.consumeOpenTraining()
         }
     }
+
+    // Statistiche anonime: si conta il nome della schermata aperta (senza id) e si chiede il consenso una volta
+    LaunchedEffect(screen) {
+        UsageStats.screen(
+            when (val s = screen) {
+                is Route.Workout -> "Allenamento"
+                is Route.Shoe -> "Scarpa"
+                is Route.WeekStory -> "Settimana"
+                else -> s.key
+            }
+        )
+    }
+    UsageStatsConsentDialog()
 
     // Il tasto Indietro riporta alla Home da qualsiasi schermata; dalla Home chiude l'app
     BackHandler(enabled = screen != Route.Home) {
