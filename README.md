@@ -4,6 +4,11 @@
 
 *🇮🇹 [Versione italiana più sotto](#italiano)*
 
+<p>
+  <a href="../../releases/latest"><img src="https://img.shields.io/github/v/release/peol-13/unicum?label=Download%20APK&style=for-the-badge" height="48" alt="Download the APK"></a>
+  <a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22io.github.peol13.unicum%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Fpeol-13%2Funicum%22%2C%22author%22%3A%22peol-13%22%2C%22name%22%3A%22UNICUM%22%7D"><img src="docs/badges/obtainium.png" height="48" alt="Get it on Obtainium"></a>
+</p>
+
 > **🧪 Looking for testers.** Testing currently works like this: download the APK from [Releases](../../releases/latest), use it, and tell me how it went, either [here on GitHub](../../issues/new/choose) or [privately with a short form](https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform). Every report ends up in a better version.
 >
 > **Poll:** would you join a future Google Play test (12 people, 14 days)? [Answer the 1-minute poll](https://docs.google.com/forms/d/e/1FAIpQLSehDoj3_mSq1G3RxsAol6V6Mn-tKXvs1gXZgaoW2BQJJIW6Fg/viewform).
