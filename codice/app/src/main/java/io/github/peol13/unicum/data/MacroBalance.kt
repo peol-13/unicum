@@ -1,12 +1,20 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.tk
+
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-enum class Macro(val label: String, val kcalPerGram: Int) {
-    PROTEINE("Proteine", 4),
-    CARBOIDRATI("Carboidrati", 4),
-    GRASSI("Grassi", 9)
+enum class Macro(private val labelIt: String, val kcalPerGram: Int) {
+    PROTEINE(tk("Proteine"), 4),
+    CARBOIDRATI(tk("Carboidrati"), 4),
+    GRASSI(tk("Grassi"), 9);
+
+    val label: String get() = tr(labelIt)
 }
 
 /** Un macronutriente: quanto pesa davvero sulle calorie mangiate e quanto dovrebbe pesare. */
@@ -70,34 +78,34 @@ object MacroBalance {
      */
     fun nextMealHint(shares: List<MacroShare>, remainingKcal: Int): String {
         if (shares.all { it.effectivePct == null }) {
-            return "Registra il primo pasto: ti dirò come bilanciare i macro."
+            return tr("Registra il primo pasto: ti dirò come bilanciare i macro.")
         }
         if (remainingKcal <= 0) {
-            return "Obiettivo calorico raggiunto: per il resto della giornata scegli cibi leggeri e poche calorie."
+            return tr("Obiettivo calorico raggiunto: per il resto della giornata scegli cibi leggeri e poche calorie.")
         }
         val more = shares.filter { (it.deltaPct ?: 0) <= -TOLERANCE_PCT }.sortedBy { it.deltaPct }
         val less = shares.filter { (it.deltaPct ?: 0) >= TOLERANCE_PCT }.sortedByDescending { it.deltaPct }
         if (more.isEmpty() && less.isEmpty()) {
-            return "La ripartizione è in linea con quella consigliata: nel prossimo pasto mantieni lo stesso equilibrio."
+            return tr("La ripartizione è in linea con quella consigliata: nel prossimo pasto mantieni lo stesso equilibrio.")
         }
         val parts = mutableListOf<String>()
         if (more.isNotEmpty()) {
-            parts += "più " + join(more.map { name(it) + gramsLeft(it) })
+            parts += tr("più %s", join(more.map { name(it) + gramsLeft(it) }))
         }
         if (less.isNotEmpty()) {
-            parts += "meno " + join(less.map { name(it) })
+            parts += tr("meno %s", join(less.map { name(it) }))
         }
-        return "Nel prossimo pasto: " + parts.joinToString(", ") + "."
+        return tr("Nel prossimo pasto: %s.", parts.joinToString(", "))
     }
 
-    private fun name(s: MacroShare) = s.macro.label.lowercase()
+    private fun name(s: MacroShare) = s.macro.label.lowercase(I18n.locale)
 
     private fun gramsLeft(s: MacroShare): String =
-        if (s.missingGrams > 0) " (ne mancano ${s.missingGrams} g)" else ""
+        if (s.missingGrams > 0) " " + tr("(ne mancano %d g)", s.missingGrams) else ""
 
     private fun join(items: List<String>): String = when (items.size) {
         1 -> items[0]
-        2 -> items[0] + " e " + items[1]
+        2 -> items[0] + " " + tr("e") + " " + items[1]
         else -> items.dropLast(1).joinToString(", ") + " e " + items.last()
     }
 

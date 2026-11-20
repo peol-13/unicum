@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.trp
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -68,7 +74,7 @@ import java.util.Locale
 fun TrainingPlanScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
     UnicumScreen(selectedItem = Route.Allenamenti, onNavigate = onNavigate) {
-        PageHeader("Programma di allenamento", "Da Notion, da un PDF o scritto a mano", onBack)
+        PageHeader(tr("Programma di allenamento"), tr("Da Notion, da un PDF o scritto a mano"), onBack)
         Spacer(Modifier.height(14.dp))
         TrainingPlanPage()
     }
@@ -86,15 +92,15 @@ fun TrainingPlanPage() {
     var mode by rememberSaveable { mutableStateOf(if (NotionPlan.connected) "notion" else "app") }
 
     UnicumCard {
-        CardHeader(Icons.Rounded.CalendarMonth, "Da dove arriva il programma")
+        CardHeader(Icons.Rounded.CalendarMonth, tr("Da dove arriva il programma"))
         Spacer(Modifier.height(4.dp))
         Text(
-            "Le sedute compaiono in Allenamenti → Programma e le corse fatte si riconoscono dal giorno.",
+            tr("Le sedute compaiono in Allenamenti → Programma e le corse fatte si riconoscono dal giorno."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
         Spacer(Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            UnicumChip("PDF o a mano", mode == "app", { mode = "app" })
+            UnicumChip(tr("PDF o a mano"), mode == "app", { mode = "app" })
             UnicumChip("Notion", mode == "notion", { mode = "notion" })
         }
     }
@@ -105,12 +111,12 @@ fun TrainingPlanPage() {
         if (NotionPlan.connected) {
             UnicumCard {
                 Text(
-                    "Ora il programma arriva da Notion. Per usare quello dell'app scollega Notion " +
-                        "(il programma dell'app resta salvato).",
+                    tr("Ora il programma arriva da Notion. Per usare quello dell'app scollega Notion (il programma dell'app resta salvato)."),
+                        
                     color = UnicumDark.copy(alpha = .75f), style = UnicumType.Detail, lineHeight = 18.sp
                 )
                 TextButton(onClick = { NotionPlan.disconnect() }, modifier = Modifier.fillMaxWidth()) {
-                    Text("Scollega Notion", color = DeleteRed, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+                    Text(tr("Scollega Notion"), color = DeleteRed, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
                 }
             }
             Spacer(Modifier.height(14.dp))
@@ -150,7 +156,7 @@ internal fun LocalPlanPage() {
                     val r = PlanPdfParser.parse(o.lines, today)
                     val runs = if (r.needsStart) null else PlanPdfParser.toRuns(r.drafts, null).map { it.copy(id = LocalPlan.newId()) }
                     preview = ImportPreview(o.name, r, runs)
-                }.onFailure { error = "Il testo del PDF non si riesce a leggere come programma: aggiungi le sedute a mano." }
+                }.onFailure { error = tr("Il testo del PDF non si riesce a leggere come programma: aggiungi le sedute a mano.") }
             }
             reading = false
         }
@@ -162,20 +168,20 @@ internal fun LocalPlanPage() {
     }
 
     UnicumCard {
-        CardHeader(Icons.Rounded.EventNote, if (LocalPlan.isEmpty) "Nessun programma" else "Programma nell'app")
+        CardHeader(Icons.Rounded.EventNote, if (LocalPlan.isEmpty) tr("Nessun programma") else tr("Programma nell'app"))
         Spacer(Modifier.height(6.dp))
         Text(
-            if (LocalPlan.isEmpty) "Importa il programma da un PDF (con il testo, non una foto) oppure scrivi le sedute a mano."
+            if (LocalPlan.isEmpty) tr("Importa il programma da un PDF (con il testo, non una foto) oppure scrivi le sedute a mano.")
             else listOfNotNull(
-                "${LocalPlan.runs.size} sedute",
-                LocalPlan.data.sourceName?.let { "da «$it»" },
-                LocalPlan.data.importedAt.takeIf { it > 0 }?.let { "importato il ${SimpleDateFormat("d MMM", Locale.ITALY).format(Date(it))}" }
+                trp(LocalPlan.runs.size, "%d seduta", "%d sedute"),
+                LocalPlan.data.sourceName?.let { tr("da «%s»", it) },
+                LocalPlan.data.importedAt.takeIf { it > 0 }?.let { tr("importato il %s", SimpleDateFormat(tr("d MMM"), I18n.locale).format(Date(it))) }
             ).joinToString(" · "),
             color = UnicumDark.copy(alpha = .7f), style = UnicumType.Detail, lineHeight = 18.sp
         )
         Spacer(Modifier.height(6.dp))
         Text(
-            "Tipo, RPE e nota di ogni corsa fatta si scrivono nella sua pagina; se mancano, il tipo è quello della seduta.",
+            tr("Tipo, RPE e nota di ogni corsa fatta si scrivono nella sua pagina; se mancano, il tipo è quello della seduta."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
         Spacer(Modifier.height(14.dp))
@@ -183,10 +189,10 @@ internal fun LocalPlanPage() {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 CircularProgressIndicator(color = UnicumPrimary, strokeWidth = 2.dp, modifier = Modifier.size(18.dp))
                 Spacer(Modifier.width(10.dp))
-                Text("Lettura del PDF…", color = UnicumDark.copy(alpha = .7f), style = UnicumType.Detail)
+                Text(tr("Lettura del PDF…"), color = UnicumDark.copy(alpha = .7f), style = UnicumType.Detail)
             }
         } else {
-            UnicumButton("Importa da PDF", onClick = { picker.launch(arrayOf("application/pdf")) })
+            UnicumButton(tr("Importa da PDF"), onClick = { picker.launch(arrayOf("application/pdf")) })
         }
         error?.let {
             Spacer(Modifier.height(8.dp))
@@ -195,7 +201,7 @@ internal fun LocalPlanPage() {
         TextButton(onClick = { adding = true }, modifier = Modifier.fillMaxWidth()) {
             Icon(Icons.Rounded.Add, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
             Spacer(Modifier.width(6.dp))
-            Text("Aggiungi una seduta a mano", color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+            Text(tr("Aggiungi una seduta a mano"), color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
         }
     }
 
@@ -204,20 +210,20 @@ internal fun LocalPlanPage() {
         val past = LocalPlan.runs.filter { r -> r.localDate?.isBefore(today) == true }.reversed()
         Spacer(Modifier.height(14.dp))
         UnicumCard {
-            CardHeader(Icons.Rounded.CalendarMonth, "Prossime sedute")
+            CardHeader(Icons.Rounded.CalendarMonth, tr("Prossime sedute"))
             if (upcoming.isEmpty()) {
                 Spacer(Modifier.height(6.dp))
-                Text("Nessuna seduta da oggi in poi.", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+                Text(tr("Nessuna seduta da oggi in poi."), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
             }
             upcoming.forEach { r -> PlanRunRow(r, today) { editing = r } }
             if (past.isNotEmpty()) {
                 var open by rememberSaveable { mutableStateOf(false) }
-                ExpandRow(open, "Sedute passate (${past.size})", { open = !open })
+                ExpandRow(open, tr("Sedute passate (%d)", past.size), { open = !open })
                 if (open) past.forEach { r -> PlanRunRow(r, today) { editing = r } }
             }
         }
         TextButton(onClick = { confirmClear = true }, modifier = Modifier.fillMaxWidth()) {
-            Text("Cancella il programma", color = DeleteRed, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+            Text(tr("Cancella il programma"), color = DeleteRed, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
         }
     }
 
@@ -231,13 +237,13 @@ internal fun LocalPlanPage() {
     }
     if (confirmClear) {
         UnicumDialog({ confirmClear = false }) {
-            Text("Cancellare il programma?", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+            Text(tr("Cancellare il programma?"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
             Text(
-                "Le ${LocalPlan.runs.size} sedute dell'app vengono tolte. Le corse fatte e le loro sensazioni restano.",
+                tr("Le %d sedute dell'app vengono tolte. Le corse fatte e le loro sensazioni restano.", LocalPlan.runs.size),
                 color = UnicumDark.copy(alpha = .7f), style = UnicumType.Detail, lineHeight = 18.sp
             )
-            UnicumButton("Cancella", onClick = { LocalPlan.clear(); confirmClear = false })
-            TextButton(onClick = { confirmClear = false }, modifier = Modifier.fillMaxWidth()) { Text("Annulla", color = UnicumPrimary) }
+            UnicumButton(tr("Cancella"), onClick = { LocalPlan.clear(); confirmClear = false })
+            TextButton(onClick = { confirmClear = false }, modifier = Modifier.fillMaxWidth()) { Text(tr("Annulla"), color = UnicumPrimary) }
         }
     }
 }
@@ -255,12 +261,12 @@ private fun PlanRunRow(r: PlannedRun, today: LocalDate, onClick: () -> Unit) {
             Text(r.name, color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium, maxLines = 1)
             Text(
                 listOfNotNull(
-                    dayLabel(r, today) ?: "Senza data",
+                    dayLabel(r, today) ?: tr("Senza data"),
                     planSummary(r).takeIf { it != r.kind && it != "–" },
                     r.pace,
                     when (r.status) {
-                        LocalPlan.STATUS_SKIPPED -> "Saltata"
-                        LocalPlan.STATUS_DONE -> "Fatta"
+                        LocalPlan.STATUS_SKIPPED -> tr("Saltata")
+                        LocalPlan.STATUS_DONE -> tr("Fatta")
                         else -> null
                     }
                 ).joinToString(" · "),
@@ -283,26 +289,26 @@ private fun ImportPreviewSection(p: ImportPreview, onChange: (ImportPreview) -> 
         CardHeader(Icons.Rounded.Description, p.sourceName?.let { "«$it»" } ?: "PDF")
         Spacer(Modifier.height(6.dp))
         Text(
-            if (r.drafts.isEmpty()) "Nessuna seduta trovata."
-            else "Trovate ${r.drafts.size} sedute" + listOfNotNull(
-                r.restDays.takeIf { it > 0 }?.let { if (it == 1) "1 giorno di riposo" else "$it giorni di riposo" },
-                r.otherActivities.takeIf { it > 0 }?.let { if (it == 1) "1 allenamento non di corsa" else "$it allenamenti non di corsa" }
-            ).joinToString(" e ").let { if (it.isEmpty()) "." else " (saltati $it)." },
+            if (r.drafts.isEmpty()) tr("Nessuna seduta trovata.")
+            else trp(r.drafts.size, "Trovata %d seduta", "Trovate %d sedute") + listOfNotNull(
+                r.restDays.takeIf { it > 0 }?.let { trp(it, "%d giorno di riposo", "%d giorni di riposo") },
+                r.otherActivities.takeIf { it > 0 }?.let { trp(it, "%d allenamento non di corsa", "%d allenamenti non di corsa") }
+            ).joinToString(" " + tr("e") + " ").let { if (it.isEmpty()) "." else " " + tr("(saltati %s).", it) },
             color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium
         )
         if (r.drafts.isEmpty()) {
             Spacer(Modifier.height(6.dp))
             Text(
-                "L'app cerca le sedute dalla data (es. 17/11, lun 17 nov) o dal giorno della settimana sotto \"Settimana 1\", " +
-                    "all'inizio di ogni riga. Puoi aggiungere le sedute a mano.",
+                tr("L'app cerca le sedute dalla data (es. 17/11, lun 17 nov) o dal giorno della settimana sotto \"Settimana 1\", all'inizio di ogni riga. Puoi aggiungere le sedute a mano."),
+                    
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 16.sp
             )
-            TextButton(onClick = onDone, modifier = Modifier.fillMaxWidth()) { Text("Chiudi", color = UnicumPrimary) }
+            TextButton(onClick = onDone, modifier = Modifier.fillMaxWidth()) { Text(tr("Chiudi"), color = UnicumPrimary) }
             return@UnicumCard
         }
         Spacer(Modifier.height(4.dp))
         Text(
-            "Controlla le sedute: tocca una riga per correggere giorno, tipo, km o struttura.",
+            tr("Controlla le sedute: tocca una riga per correggere giorno, tipo, km o struttura."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
     }
@@ -311,10 +317,10 @@ private fun ImportPreviewSection(p: ImportPreview, onChange: (ImportPreview) -> 
     if (p.runs == null) {
         Spacer(Modifier.height(14.dp))
         UnicumCard {
-            CardHeader(Icons.Rounded.CalendarMonth, "Quando inizia?")
+            CardHeader(Icons.Rounded.CalendarMonth, tr("Quando inizia?"))
             Spacer(Modifier.height(6.dp))
             Text(
-                "Il programma è scritto per settimane e giorni, senza date: scegli il primo giorno della settimana 1.",
+                tr("Il programma è scritto per settimane e giorni, senza date: scegli il primo giorno della settimana 1."),
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 16.sp
             )
             Spacer(Modifier.height(10.dp))
@@ -330,10 +336,10 @@ private fun ImportPreviewSection(p: ImportPreview, onChange: (ImportPreview) -> 
                 Text(DateUtils.fullLabel(d), color = UnicumDark, style = UnicumType.Body)
             }
             Spacer(Modifier.height(12.dp))
-            UnicumButton("Continua", onClick = {
+            UnicumButton(tr("Continua"), onClick = {
                 onChange(p.copy(runs = PlanPdfParser.toRuns(r.drafts, d).map { it.copy(id = LocalPlan.newId()) }))
             })
-            TextButton(onClick = onDone, modifier = Modifier.fillMaxWidth()) { Text("Annulla", color = UnicumPrimary) }
+            TextButton(onClick = onDone, modifier = Modifier.fillMaxWidth()) { Text(tr("Annulla"), color = UnicumPrimary) }
         }
         if (picking) UnicumDatePickerDialog(LocalDate.parse(start), { picking = false }, { start = it.toString() })
         return
@@ -347,21 +353,21 @@ private fun ImportPreviewSection(p: ImportPreview, onChange: (ImportPreview) -> 
         if (undated > 0) {
             Spacer(Modifier.height(6.dp))
             Text(
-                "$undated sedute senza data: non compaiono finché non scegli il giorno.",
+                tr("%d sedute senza data: non compaiono finché non scegli il giorno.", undated),
                 color = DeleteRed, style = UnicumType.Caption, lineHeight = 16.sp
             )
         }
     }
     Spacer(Modifier.height(14.dp))
     if (LocalPlan.isEmpty) {
-        UnicumButton("Salva il programma", enabled = runs.isNotEmpty(), onClick = { LocalPlan.import(runs, p.sourceName, replace = true); onDone() })
+        UnicumButton(tr("Salva il programma"), enabled = runs.isNotEmpty(), onClick = { LocalPlan.import(runs, p.sourceName, replace = true); onDone() })
     } else {
-        UnicumButton("Sostituisci il programma attuale", enabled = runs.isNotEmpty(), onClick = { LocalPlan.import(runs, p.sourceName, replace = true); onDone() })
+        UnicumButton(tr("Sostituisci il programma attuale"), enabled = runs.isNotEmpty(), onClick = { LocalPlan.import(runs, p.sourceName, replace = true); onDone() })
         TextButton(onClick = { LocalPlan.import(runs, p.sourceName, replace = false); onDone() }, modifier = Modifier.fillMaxWidth()) {
-            Text("Aggiungi a quello attuale", color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+            Text(tr("Aggiungi a quello attuale"), color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
         }
     }
-    TextButton(onClick = onDone, modifier = Modifier.fillMaxWidth()) { Text("Annulla", color = UnicumDark.copy(alpha = .7f)) }
+    TextButton(onClick = onDone, modifier = Modifier.fillMaxWidth()) { Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f)) }
 
     editing?.let { e ->
         PlannedRunDialog(

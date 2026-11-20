@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import androidx.compose.foundation.layout.Arrangement
@@ -99,12 +103,12 @@ fun StatisticheScreen(onNavigate: (Route) -> Unit) {
             }
         }
     ) {
-        ScreenTitle("Statistiche", "Settimana per settimana")
+        ScreenTitle(tr("Statistiche"), tr("Settimana per settimana"))
         Spacer(Modifier.height(8.dp))
 
         DateStepper(
             label = DateUtils.weekLabel(monday),
-            subtitle = if (isCurrentWeek) "Settimana in corso" else monday.year.toString(),
+            subtitle = if (isCurrentWeek) tr("Settimana in corso") else monday.year.toString(),
             onPrevious = { monday = monday.minusWeeks(1) },
             onNext = { if (!isCurrentWeek) monday = monday.plusWeeks(1) },
             canGoNext = !isCurrentWeek
@@ -112,7 +116,7 @@ fun StatisticheScreen(onNavigate: (Route) -> Unit) {
         if (!isCurrentWeek) {
             Spacer(Modifier.height(4.dp))
             UnicumChip(
-                "Racconto della settimana", selected = false,
+                tr("Racconto della settimana"), selected = false,
                 onClick = { onNavigate(Route.WeekStory(monday)) },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
@@ -161,17 +165,17 @@ private fun DeficitSection(days: List<WeekDay>) {
     }
     StatSection(
         icon = Icons.Rounded.LocalFireDepartment,
-        title = "Deficit calorico",
+        title = tr("Deficit calorico"),
         tiles = listOf(
-            "Medio al giorno" to if (values.isEmpty()) "–" else deficitText(values.average().roundToInt()),
-            "Totale settimana" to if (values.isEmpty()) "–" else deficitText(values.sum()),
-            "Peso stimato" to if (values.isEmpty()) "–" else DayEnergy.weightChangeText(DayEnergy.weightChangeKg(values.sum()))
+            tr("Medio al giorno") to if (values.isEmpty()) "–" else deficitText(values.average().roundToInt()),
+            tr("Totale settimana") to if (values.isEmpty()) "–" else deficitText(values.sum()),
+            tr("Peso stimato") to if (values.isEmpty()) "–" else DayEnergy.weightChangeText(DayEnergy.weightChangeKg(values.sum()))
         ),
         footnote = buildString {
-            append("Obiettivo: ${goal} kcal al giorno. ")
-            append("Peso stimato: 7.700 kcal di deficit ≈ 1 kg di grasso; la bilancia varia anche per acqua e digestione.")
+            append(tr("Obiettivo: %d kcal al giorno.", goal) + " ")
+            append(tr("Peso stimato: 7.700 kcal di deficit ≈ 1 kg di grasso; la bilancia varia anche per acqua e digestione."))
             if (days.any { it.isToday && it.deficitKcal != null }) {
-                append(" Il valore di oggi è parziale: il basale matura nell'arco della giornata.")
+                append(" " + tr("Il valore di oggi è parziale: il basale matura nell'arco della giornata."))
             }
         },
         chart = { WeekChart(bars) }
@@ -194,13 +198,13 @@ private fun ActivitySection(days: List<WeekDay>) {
     val total = counted.sumOf { it.activityMinutes }
     StatSection(
         icon = Icons.AutoMirrored.Rounded.DirectionsRun,
-        title = "Attività",
+        title = tr("Attività"),
         tiles = listOf(
-            "Totale" to "$total min",
-            "Media al giorno" to if (counted.isEmpty()) "–" else "${(total / counted.size.toFloat()).roundToInt()} min",
-            "Allenamenti" to counted.sumOf { it.workouts }.toString()
+            tr("Totale") to "$total min",
+            tr("Media al giorno") to if (counted.isEmpty()) "–" else "${(total / counted.size.toFloat()).roundToInt()} min",
+            tr("Allenamenti") to counted.sumOf { it.workouts }.toString()
         ),
-        footnote = if (days.any { it.isToday }) "Il valore di oggi è parziale: la giornata non è ancora finita." else null,
+        footnote = if (days.any { it.isToday }) tr("Il valore di oggi è parziale: la giornata non è ancora finita.") else null,
         chart = { WeekChart(bars) }
     )
 }
@@ -220,13 +224,13 @@ private fun SleepSection(days: List<WeekDay>) {
     }
     StatSection(
         icon = Icons.Rounded.Bedtime,
-        title = "Sonno",
+        title = tr("Sonno"),
         tiles = listOf(
-            "Media" to if (nights.isEmpty()) "–" else formatDuration(nights.average().roundToInt()),
-            "Notte migliore" to (nights.maxOrNull()?.let { formatDuration(it) } ?: "–"),
-            "Notte più breve" to (nights.minOrNull()?.let { formatDuration(it) } ?: "–")
+            tr("Media") to if (nights.isEmpty()) "–" else formatDuration(nights.average().roundToInt()),
+            tr("Notte migliore") to (nights.maxOrNull()?.let { formatDuration(it) } ?: "–"),
+            tr("Notte più breve") to (nights.minOrNull()?.let { formatDuration(it) } ?: "–")
         ),
-        footnote = if (nights.isEmpty()) "Nessuna notte registrata: collega Health Connect dal Profilo." else null,
+        footnote = if (nights.isEmpty()) tr("Nessuna notte registrata: collega Health Connect dal Profilo.") else null,
         chart = { WeekChart(bars) }
     )
 }
@@ -241,16 +245,16 @@ private fun SleepTimesSection(days: List<WeekDay>) {
     val summary = SleepRegularity.summarize(nights)
     StatSection(
         icon = Icons.Rounded.Schedule,
-        title = "Orari del sonno",
+        title = tr("Orari del sonno"),
         tiles = listOf(
-            "A letto in media" to (summary?.let { SleepRegularity.clock(it.avgBed) } ?: "–"),
-            "Sveglia in media" to (summary?.let { SleepRegularity.clock(it.avgWake) } ?: "–"),
-            "Variazione" to (summary?.let { "± ${it.bedSpread} min" } ?: "–")
+            tr("A letto in media") to (summary?.let { SleepRegularity.clock(it.avgBed) } ?: "–"),
+            tr("Sveglia in media") to (summary?.let { SleepRegularity.clock(it.avgWake) } ?: "–"),
+            tr("Variazione") to (summary?.let { "± ${it.bedSpread} min" } ?: "–")
         ),
         footnote = when {
-            summary == null -> "Nessuna notte registrata: collega Health Connect dal Profilo."
-            summary.bedSpread > 60 -> "Orari molto variabili: andare a letto alla stessa ora, anche nel weekend, aiuta il recupero."
-            else -> "In chiaro la fascia consigliata: 8 ore prima della tua sveglia media, più 15 minuti per addormentarti."
+            summary == null -> tr("Nessuna notte registrata: collega Health Connect dal Profilo.")
+            summary.bedSpread > 60 -> tr("Orari molto variabili: andare a letto alla stessa ora, anche nel weekend, aiuta il recupero.")
+            else -> tr("In chiaro la fascia consigliata: 8 ore prima della tua sveglia media, più 15 minuti per addormentarti.")
         },
         chart = { if (summary != null) SleepTimesChart(days, summary) }
     )
@@ -329,33 +333,33 @@ private fun RecoverySection(days: List<WeekDay>) {
         WeekBar(
             label = DateUtils.weekdayInitial(d.date),
             value = t?.let { (it - avgTemp).toFloat() },
-            valueText = t?.let { String.format(java.util.Locale.ITALY, if (d.tempIsDelta) "%+.1f" else "%.1f", it) } ?: "–",
+            valueText = t?.let { String.format(I18n.locale, if (d.tempIsDelta) "%+.1f" else "%.1f", it) } ?: "–",
             color = UnicumSecondary,
             highlighted = d.isToday
         )
     }
     StatSection(
         icon = Icons.Rounded.Bolt,
-        title = "Recupero",
+        title = tr("Recupero"),
         tiles = listOf(
-            "HRV media" to if (hrvs.isEmpty()) "–" else "${hrvs.average().roundToInt()} ms",
-            "HRV migliore" to (hrvs.maxOrNull()?.let { "${it.roundToInt()} ms" } ?: "–"),
-            "Temp. media" to if (temps.isEmpty()) "–" else tempText(avgTemp, deltaOnly)
+            tr("HRV media") to if (hrvs.isEmpty()) "–" else "${hrvs.average().roundToInt()} ms",
+            tr("HRV migliore") to (hrvs.maxOrNull()?.let { "${it.roundToInt()} ms" } ?: "–"),
+            tr("Temp. media") to if (temps.isEmpty()) "–" else tempText(avgTemp, deltaOnly)
         ),
-        footnote = if (hrvs.isEmpty() && temps.isEmpty()) "Nessun dato di recupero: collega Health Connect dal Profilo."
-        else "HRV notturna (ms) sopra, temperatura notturna sotto: le colonne mostrano lo scarto dalla media della settimana.",
+        footnote = if (hrvs.isEmpty() && temps.isEmpty()) tr("Nessun dato di recupero: collega Health Connect dal Profilo.")
+        else tr("HRV notturna (ms) sopra, temperatura notturna sotto: le colonne mostrano lo scarto dalla media della settimana."),
         chart = {
             Text("HRV", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
             Spacer(Modifier.height(6.dp))
             WeekChart(hrvBars)
             if (temps.isNotEmpty()) {
                 Spacer(Modifier.height(16.dp))
-                Text("Temperatura notturna (°C)", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+                Text(tr("Temperatura notturna (°C)"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
                 Spacer(Modifier.height(6.dp))
                 WeekChart(tempBars)
             } else {
                 Spacer(Modifier.height(10.dp))
-                Text("Temperatura notturna: nessun dato dalle tue fonti.", color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption)
+                Text(tr("Temperatura notturna: nessun dato dalle tue fonti."), color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption)
             }
         }
     )
@@ -372,16 +376,16 @@ private fun InsightsSection() {
         value = InsightEngine.compute(UnicumRepository.loadInsightSamples(context))
     }
     UnicumCard {
-        CardHeader(Icons.Rounded.Insights, "Cosa emerge dai tuoi dati")
+        CardHeader(Icons.Rounded.Insights, tr("Cosa emerge dai tuoi dati"))
         Spacer(Modifier.height(2.dp))
-        Text("Ultimi 60 giorni", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+        Text(tr("Ultimi 60 giorni"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
         Spacer(Modifier.height(6.dp))
         val list = insights
         when {
-            list == null -> Text("Calcolo…", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail)
+            list == null -> Text(tr("Calcolo…"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail)
             list.isEmpty() -> Text(
-                "Ancora nessuna relazione chiara. Servono almeno ${InsightEngine.MIN_GROUP} giorni per ogni gruppo " +
-                    "(es. con e senza allenamento) con sonno e HRV registrati.",
+                tr("Ancora nessuna relazione chiara. Servono almeno %d giorni per ogni gruppo (es. con e senza allenamento) con sonno e HRV registrati.", InsightEngine.MIN_GROUP),
+                    
                 color = UnicumDark.copy(alpha = .65f), style = UnicumType.Detail, lineHeight = 18.sp
             )
             else -> list.forEachIndexed { i, insight ->
@@ -390,7 +394,7 @@ private fun InsightsSection() {
                     Text(insight.title, color = UnicumPrimary, style = UnicumType.Caption, fontWeight = FontWeight.SemiBold)
                     Text(insight.text, color = UnicumDark, style = UnicumType.Body, lineHeight = 20.sp)
                     Text(
-                        "Su ${insight.daysWith} giorni contro ${insight.daysWithout}",
+                        tr("Su %d giorni contro %d", insight.daysWith, insight.daysWithout),
                         color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
                     )
                 }
@@ -398,7 +402,7 @@ private fun InsightsSection() {
         }
         Spacer(Modifier.height(6.dp))
         Text(
-            "Sono correlazioni, non cause: due cose che capitano insieme possono dipendere da altro (stress, orari, malattia).",
+            tr("Sono correlazioni, non cause: due cose che capitano insieme possono dipendere da altro (stress, orari, malattia)."),
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
         )
     }
@@ -436,4 +440,4 @@ private fun StatSection(
 
 /** "650 kcal" per un deficit, "surplus 120 kcal" se si è mangiato più di quanto si è bruciato. */
 private fun deficitText(kcal: Int): String =
-    if (kcal >= 0) "$kcal kcal" else "surplus ${abs(kcal)} kcal"
+    if (kcal >= 0) "$kcal kcal" else tr("surplus %d kcal", abs(kcal))

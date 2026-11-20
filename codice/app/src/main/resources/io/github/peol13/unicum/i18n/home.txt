@@ -1,0 +1,642 @@
+# Traduzioni di UNICUM (vedi common.txt per il formato).
+
+# Home e banner
+
+it: Consigli
+en: Tips
+es: Consejos
+fr: Conseils
+de: Tipps
+pt: Dicas
+
+it: Personalizza la Home
+en: Customize Home
+es: Personalizar inicio
+fr: Personnaliser l'accueil
+de: Start anpassen
+pt: Personalizar início
+
+it: Torna a oggi
+en: Back to today
+es: Volver a hoy
+fr: Revenir à aujourd'hui
+de: Zurück zu heute
+pt: Voltar para hoje
+
+it: Calendario
+en: Calendar
+es: Calendario
+fr: Calendrier
+de: Kalender
+pt: Calendário
+
+it: Nessun pasto registrato
+en: No meals logged
+es: Ninguna comida registrada
+fr: Aucun repas noté
+de: Keine Mahlzeiten eingetragen
+pt: Nenhuma refeição registrada
+
+it: Puoi aggiungere i pasti di questo giorno con il pulsante +.
+en: You can add this day's meals with the + button.
+es: Puedes añadir las comidas de este día con el botón +.
+fr: Tu peux ajouter les repas de ce jour avec le bouton +.
+de: Du kannst die Mahlzeiten dieses Tages mit der +-Taste hinzufügen.
+pt: Você pode adicionar as refeições deste dia com o botão +.
+
+it: Inizia a registrare i pasti
+en: Start logging your meals
+es: Empieza a registrar las comidas
+fr: Commence à noter tes repas
+de: Fang an, deine Mahlzeiten einzutragen
+pt: Comece a registrar as refeições
+
+it: Oggi hai %s kcal per restare sul tuo obiettivo.
+en: Today you have %s kcal to stay on target.
+es: Hoy tienes %s kcal para seguir en tu objetivo.
+fr: Aujourd'hui tu as %s kcal pour rester dans ton objectif.
+de: Heute hast du %s kcal, um im Ziel zu bleiben.
+pt: Hoje você tem %s kcal para ficar na meta.
+
+it: Hai superato l'obiettivo
+en: You're over your goal
+es: Has superado el objetivo
+fr: Tu as dépassé l'objectif
+de: Du hast dein Ziel überschritten
+pt: Você passou da meta
+
+it: Sei oltre di %s kcal rispetto al tuo obiettivo calorico.
+en: You're %s kcal over your calorie goal.
+es: Estás %s kcal por encima de tu objetivo calórico.
+fr: Tu es %s kcal au-dessus de ton objectif calorique.
+de: Du liegst %s kcal über deinem Kalorienziel.
+pt: Você está %s kcal acima da sua meta calórica.
+
+it: Sei in linea con il tuo obiettivo!
+en: You're on track with your goal!
+es: ¡Vas en línea con tu objetivo!
+fr: Tu es dans les clous !
+de: Du liegst im Plan!
+pt: Você está dentro da meta!
+
+it: Hai ancora %s kcal disponibili per concludere la giornata.
+en: You still have %s kcal left to finish the day.
+es: Aún tienes %s kcal disponibles para terminar el día.
+fr: Il te reste %s kcal pour finir la journée.
+de: Du hast noch %s kcal für den Rest des Tages.
+pt: Você ainda tem %s kcal disponíveis para fechar o dia.
+
+it: Obiettivo del giorno raggiunto!
+en: Daily goal reached!
+es: ¡Objetivo del día alcanzado!
+fr: Objectif du jour atteint !
+de: Tagesziel erreicht!
+pt: Meta do dia atingida!
+
+it: Hai assunto esattamente le calorie previste per oggi.
+en: You've eaten exactly the calories planned for today.
+es: Has tomado exactamente las calorías previstas para hoy.
+fr: Tu as mangé exactement les calories prévues aujourd'hui.
+de: Du hast genau die geplanten Kalorien für heute gegessen.
+pt: Você consumiu exatamente as calorias previstas para hoje.
+
+it: Buon movimento oggi!
+en: Nice moving today!
+es: ¡Buen movimiento hoy!
+fr: Belle activité aujourd'hui !
+de: Gut bewegt heute!
+pt: Bom movimento hoje!
+
+it: %d min di attività e %s kcal bruciate.
+en: %d min of activity and %s kcal burned.
+es: %d min de actividad y %s kcal quemadas.
+fr: %d min d'activité et %s kcal brûlées.
+de: %d Min Aktivität und %s kcal verbrannt.
+pt: %d min de atividade e %s kcal queimadas.
+
+it: Nessun allenamento oggi
+en: No workout today
+es: Ningún entrenamiento hoy
+fr: Aucune séance aujourd'hui
+de: Heute kein Training
+pt: Nenhum treino hoje
+
+it: Registra un'attività con il pulsante + oppure collega i tuoi dispositivi.
+en: Log an activity with the + button or connect your devices.
+es: Registra una actividad con el botón + o conecta tus dispositivos.
+fr: Note une activité avec le bouton + ou connecte tes appareils.
+de: Trag eine Aktivität mit der +-Taste ein oder verbinde deine Geräte.
+pt: Registre uma atividade com o botão + ou conecte seus dispositivos.
+
+it: Sonno e recupero
+en: Sleep and recovery
+es: Sueño y recuperación
+fr: Sommeil et récupération
+de: Schlaf und Erholung
+pt: Sono e recuperação
+
+it: Collega Health Connect dal Profilo per vedere sonno, HRV e temperatura notturna.
+en: Connect Health Connect from Profile to see sleep, HRV and night temperature.
+es: Conecta Health Connect desde el perfil para ver sueño, HRV y temperatura nocturna.
+fr: Connecte Health Connect depuis le profil pour voir sommeil, HRV et température nocturne.
+de: Verbinde Health Connect im Profil, um Schlaf, HRV und Nachttemperatur zu sehen.
+pt: Conecte o Health Connect no perfil para ver sono, HRV e temperatura noturna.
+
+it: Hai dormito bene!
+en: You slept well!
+es: ¡Has dormido bien!
+fr: Tu as bien dormi !
+de: Du hast gut geschlafen!
+pt: Você dormiu bem!
+
+it: %s di sonno e HRV nella tua norma.
+en: %s of sleep and HRV in your usual range.
+es: %s de sueño y HRV en tu rango habitual.
+fr: %s de sommeil et HRV dans ta norme.
+de: %s Schlaf und HRV im üblichen Bereich.
+pt: %s de sono e HRV dentro do seu normal.
+
+it: %s di sonno.
+en: %s of sleep.
+es: %s de sueño.
+fr: %s de sommeil.
+de: %s Schlaf.
+pt: %s de sono.
+
+it: Notte un po' corta
+en: A bit of a short night
+es: Noche algo corta
+fr: Nuit un peu courte
+de: Etwas kurze Nacht
+pt: Noite um pouco curta
+
+it: %s di sonno: oggi vai con calma se puoi.
+en: %s of sleep: take it easy today if you can.
+es: %s de sueño: hoy ve con calma si puedes.
+fr: %s de sommeil : vas-y doucement aujourd'hui si tu peux.
+de: %s Schlaf: Lass es heute ruhig angehen, wenn du kannst.
+pt: %s de sono: hoje vá com calma se puder.
+
+it: Dati di recupero
+en: Recovery data
+es: Datos de recuperación
+fr: Données de récupération
+de: Erholungsdaten
+pt: Dados de recuperação
+
+it: Recupero di oggi
+en: Today's recovery
+es: Recuperación de hoy
+fr: Récupération du jour
+de: Erholung heute
+pt: Recuperação de hoje
+
+it: Recupero del giorno
+en: Recovery for the day
+es: Recuperación del día
+fr: Récupération de la journée
+de: Erholung des Tages
+pt: Recuperação do dia
+
+it: Andamento nel tempo, da Health Connect
+en: Trend over time, from Health Connect
+es: Evolución en el tiempo, desde Health Connect
+fr: Évolution dans le temps, depuis Health Connect
+de: Verlauf über die Zeit, aus Health Connect
+pt: Evolução no tempo, do Health Connect
+
+it: Indietro
+en: Back
+es: Atrás
+fr: Retour
+de: Zurück
+pt: Voltar
+
+it: Il recap della giornata
+en: Your day at a glance
+es: El resumen del día
+fr: Le récap de la journée
+de: Der Tag im Überblick
+pt: O resumo do dia
+
+it: nessuno
+en: none
+es: ninguna
+fr: aucun
+de: keine
+pt: nenhuma
+
+it: nessun dato
+en: no data
+es: sin datos
+fr: aucune donnée
+de: keine Daten
+pt: sem dados
+
+it: Trascina dalla maniglia per cambiare l'ordine
+en: Drag the handle to change the order
+es: Arrastra desde el asa para cambiar el orden
+fr: Fais glisser la poignée pour changer l'ordre
+de: Am Griff ziehen, um die Reihenfolge zu ändern
+pt: Arraste pela alça para mudar a ordem
+
+it: Nella Home
+en: On Home
+es: En el inicio
+fr: Sur l'accueil
+de: Auf dem Startbildschirm
+pt: No início
+
+it: Trascina per spostare
+en: Drag to move
+es: Arrastra para mover
+fr: Glisse pour déplacer
+de: Zum Verschieben ziehen
+pt: Arraste para mover
+
+it: Da aggiungere
+en: Available to add
+es: Para añadir
+fr: À ajouter
+de: Hinzufügbar
+pt: Para adicionar
+
+it: Ripristina l'ordine della modalità %s
+en: Restore the %s layout
+es: Restablecer el orden del modo %s
+fr: Rétablir l'ordre du mode %s
+de: Reihenfolge des Modus %s wiederherstellen
+pt: Restaurar a ordem do modo %s
+
+it: Aggiungi alla Home
+en: Add to Home
+es: Añadir al inicio
+fr: Ajouter à l'accueil
+de: Zum Start hinzufügen
+pt: Adicionar ao início
+
+it: Togli dalla Home
+en: Remove from Home
+es: Quitar del inicio
+fr: Retirer de l'accueil
+de: Vom Start entfernen
+pt: Remover do início
+
+# Sezioni del giorno
+
+it: Dettagli
+en: Details
+es: Detalles
+fr: Détails
+de: Details
+pt: Detalhes
+
+it: Deficit obiettivo: %d kcal
+en: Target deficit: %d kcal
+es: Déficit objetivo: %d kcal
+fr: Déficit visé : %d kcal
+de: Zieldefizit: %d kcal
+pt: Déficit da meta: %d kcal
+
+it: rispetto alla media
+en: vs your average
+es: respecto a la media
+fr: par rapport à la moyenne
+de: im Vergleich zum Schnitt
+pt: em relação à média
+
+it: Obiettivo %d min
+en: Goal %d min
+es: Objetivo %d min
+fr: Objectif %d min
+de: Ziel %d Min
+pt: Meta %d min
+
+it: %s passi
+en: %s steps
+es: %s pasos
+fr: %s pas
+de: %s Schritte
+pt: %s passos
+
+it: Vedi tutti
+en: See all
+es: Ver todos
+fr: Tout voir
+de: Alle ansehen
+pt: Ver todos
+
+it: Nessun allenamento registrato.
+en: No workouts logged.
+es: Ningún entrenamiento registrado.
+fr: Aucune séance notée.
+de: Kein Training eingetragen.
+pt: Nenhum treino registrado.
+
+it: Nessuna notte registrata
+en: No night recorded
+es: Ninguna noche registrada
+fr: Aucune nuit enregistrée
+de: Keine Nacht aufgezeichnet
+pt: Nenhuma noite registrada
+
+it: Collega Health Connect e consenti la lettura del sonno: qui vedrai durata, fasi e orari.
+en: Connect Health Connect and allow sleep access: you'll see duration, stages and times here.
+es: Conecta Health Connect y permite leer el sueño: aquí verás duración, fases y horarios.
+fr: Connecte Health Connect et autorise la lecture du sommeil : tu verras ici durée, phases et horaires.
+de: Verbinde Health Connect und erlaube das Lesen des Schlafs: Hier siehst du Dauer, Phasen und Uhrzeiten.
+pt: Conecte o Health Connect e permita a leitura do sono: aqui você verá duração, fases e horários.
+
+it: di sonno
+en: of sleep
+es: de sueño
+fr: de sommeil
+de: Schlaf
+pt: de sono
+
+it: efficienza del sonno
+en: sleep efficiency
+es: eficiencia del sueño
+fr: efficacité du sommeil
+de: Schlafeffizienz
+pt: eficiência do sono
+
+it: Questa fonte non fornisce le fasi del sonno.
+en: This source doesn't provide sleep stages.
+es: Esta fuente no da las fases del sueño.
+fr: Cette source ne fournit pas les phases du sommeil.
+de: Diese Quelle liefert keine Schlafphasen.
+pt: Esta fonte não fornece as fases do sono.
+
+it: Fonte: %s
+en: Source: %s
+es: Fuente: %s
+fr: Source : %s
+de: Quelle: %s
+pt: Fonte: %s
+
+it: (%+.1f vs media)
+en: (%+.1f vs average)
+es: (%+.1f vs media)
+fr: (%+.1f vs moyenne)
+de: (%+.1f vs Schnitt)
+pt: (%+.1f vs média)
+
+it: Temp. notte %s
+en: Night temp. %s
+es: Temp. noche %s
+fr: Temp. nuit %s
+de: Nachttemp. %s
+pt: Temp. noite %s
+
+it: HRV %s vs media
+en: HRV %s vs average
+es: HRV %s vs media
+fr: HRV %s vs moyenne
+de: HRV %s vs Schnitt
+pt: HRV %s vs média
+
+it: Aggiungi
+en: Add
+es: Añadir
+fr: Ajouter
+de: Hinzufügen
+pt: Adicionar
+
+it: Nessun alimento registrato.
+en: No food logged.
+es: Ningún alimento registrado.
+fr: Aucun aliment noté.
+de: Keine Lebensmittel eingetragen.
+pt: Nenhum alimento registrado.
+
+it: Modifica
+en: Edit
+es: Editar
+fr: Modifier
+de: Bearbeiten
+pt: Editar
+
+it: Bilancio del giorno
+en: Daily balance
+es: Balance del día
+fr: Bilan du jour
+de: Tagesbilanz
+pt: Balanço do dia
+
+it: Movimento e allenamenti
+en: Movement and workouts
+es: Movimiento y entrenamientos
+fr: Mouvement et séances
+de: Bewegung und Training
+pt: Movimento e treinos
+
+it: Totale consumato
+en: Total burned
+es: Total gastado
+fr: Total dépensé
+de: Gesamt verbraucht
+pt: Total gasto
+
+it: Calorie assunte
+en: Calories eaten
+es: Calorías tomadas
+fr: Calories consommées
+de: Aufgenommene Kalorien
+pt: Calorias consumidas
+
+it: Surplus
+en: Surplus
+es: Superávit
+fr: Surplus
+de: Überschuss
+pt: Superávit
+
+it: Deficit
+en: Deficit
+es: Déficit
+fr: Déficit
+de: Defizit
+pt: Déficit
+
+it: Obiettivo calorico (fisso)
+en: Calorie goal (fixed)
+es: Objetivo calórico (fijo)
+fr: Objectif calorique (fixe)
+de: Kalorienziel (fest)
+pt: Meta calórica (fixa)
+
+it: Il basale matura nell'arco della giornata: a fine giornata arriverà a %s kcal.
+en: Resting burn builds up through the day: by the end of the day it will reach %s kcal.
+es: El basal se acumula a lo largo del día: al final llegará a %s kcal.
+fr: La dépense de base s'accumule au fil de la journée : en fin de journée elle atteindra %s kcal.
+de: Der Grundumsatz baut sich über den Tag auf: Am Abend erreicht er %s kcal.
+pt: O basal se acumula ao longo do dia: no fim do dia chegará a %s kcal.
+
+it: Fibre, zuccheri e sale
+en: Fiber, sugars and salt
+es: Fibra, azúcares y sal
+fr: Fibres, sucres et sel
+de: Ballaststoffe, Zucker und Salz
+pt: Fibras, açúcares e sal
+
+it: obiettivo almeno 25 g
+en: goal at least 25 g
+es: objetivo al menos 25 g
+fr: objectif au moins 25 g
+de: Ziel mindestens 25 g
+pt: meta pelo menos 25 g
+
+it: compresi quelli di frutta e latte
+en: including those from fruit and milk
+es: incluidos los de fruta y leche
+fr: y compris ceux des fruits et du lait
+de: inklusive Obst und Milch
+pt: incluindo os de frutas e leite
+
+it: massimo consigliato 5 g
+en: recommended max 5 g
+es: máximo recomendado 5 g
+fr: maximum conseillé 5 g
+de: empfohlen höchstens 5 g
+pt: máximo recomendado 5 g
+
+it: Nessun pasto registrato.
+en: No meals logged.
+es: Ninguna comida registrada.
+fr: Aucun repas noté.
+de: Keine Mahlzeiten eingetragen.
+pt: Nenhuma refeição registrada.
+
+it: Dato presente per tutti gli alimenti del giorno.
+en: Data available for all of today's foods.
+es: Dato disponible para todos los alimentos del día.
+fr: Donnée présente pour tous les aliments du jour.
+de: Wert für alle Lebensmittel des Tages vorhanden.
+pt: Dado presente para todos os alimentos do dia.
+
+it: Dato presente per %d alimenti su %d: il database di base non ha questi valori, li hanno i prodotti con marca e gli alimenti personali in cui li inserisci.
+en: Data available for %d of %d foods: the basic database lacks these values; branded products and custom foods where you enter them have them.
+es: Dato disponible para %d de %d alimentos: la base de datos básica no tiene estos valores; los tienen los productos de marca y los alimentos personales donde los escribas.
+fr: Donnée présente pour %d aliments sur %d : la base de données de base n'a pas ces valeurs, les produits de marque et les aliments perso où tu les saisis les ont.
+de: Wert für %d von %d Lebensmitteln vorhanden: Die Basisdatenbank hat diese Werte nicht, Markenprodukte und eigene Lebensmittel, in die du sie einträgst, schon.
+pt: Dado presente para %d de %d alimentos: o banco de dados básico não tem esses valores; os produtos de marca e os alimentos personalizados em que você os insere têm.
+
+it: Movimento del giorno
+en: Today's movement
+es: Movimiento del día
+fr: Mouvement du jour
+de: Bewegung des Tages
+pt: Movimento do dia
+
+it: Passi
+en: Steps
+es: Pasos
+fr: Pas
+de: Schritte
+pt: Passos
+
+it: Distanza
+en: Distance
+es: Distancia
+fr: Distance
+de: Distanz
+pt: Distância
+
+it: Calorie attive
+en: Active calories
+es: Calorías activas
+fr: Calories actives
+de: Aktive Kalorien
+pt: Calorias ativas
+
+it: Minuti di allenamento
+en: Workout minutes
+es: Minutos de entrenamiento
+fr: Minutes de séance
+de: Trainingsminuten
+pt: Minutos de treino
+
+it: Nessun dato di recupero
+en: No recovery data
+es: Sin datos de recuperación
+fr: Aucune donnée de récupération
+de: Keine Erholungsdaten
+pt: Nenhum dado de recuperação
+
+it: HRV e temperatura notturna arrivano dall'anello o dall'orologio tramite Health Connect.
+en: HRV and night temperature come from your ring or watch via Health Connect.
+es: La HRV y la temperatura nocturna llegan del anillo o del reloj a través de Health Connect.
+fr: La HRV et la température nocturne viennent de la bague ou de la montre via Health Connect.
+de: HRV und Nachttemperatur kommen vom Ring oder der Uhr über Health Connect.
+pt: HRV e temperatura noturna vêm do anel ou do relógio pelo Health Connect.
+
+it: (%s vs media)
+en: (%s vs average)
+es: (%s vs media)
+fr: (%s vs moyenne)
+de: (%s vs Schnitt)
+pt: (%s vs média)
+
+it: HRV notturna
+en: Night HRV
+es: HRV nocturna
+fr: HRV nocturne
+de: Nächtliche HRV
+pt: HRV noturna
+
+it: Temperatura notturna
+en: Night temperature
+es: Temperatura nocturna
+fr: Température nocturne
+de: Nachttemperatur
+pt: Temperatura noturna
+
+it: HRV degli ultimi 7 giorni
+en: HRV over the last 7 days
+es: HRV de los últimos 7 días
+fr: HRV des 7 derniers jours
+de: HRV der letzten 7 Tage
+pt: HRV dos últimos 7 dias
+
+it: Servono almeno 4 giorni di dati per confrontare con la tua media.
+en: At least 4 days of data are needed to compare with your average.
+es: Hacen falta al menos 4 días de datos para comparar con tu media.
+fr: Il faut au moins 4 jours de données pour comparer avec ta moyenne.
+de: Für den Vergleich mit deinem Schnitt braucht es mindestens 4 Tage Daten.
+pt: São necessários pelo menos 4 dias de dados para comparar com sua média.
+
+it: Macronutrienti
+en: Macronutrients
+es: Macronutrientes
+fr: Macronutriments
+de: Makronährstoffe
+pt: Macronutrientes
+
+it: Effettivo
+en: Actual
+es: Real
+fr: Réel
+de: Tatsächlich
+pt: Real
+
+it: Consigliate
+en: Recommended
+es: Recomendadas
+fr: Conseillées
+de: Empfohlen
+pt: Recomendadas
+
+it: Fasi del sonno
+en: Sleep stages
+es: Fases del sueño
+fr: Phases du sommeil
+de: Schlafphasen
+pt: Fases do sono
+
+it: tocca il grafico per i dettagli
+en: tap the chart for details
+es: toca el gráfico para ver detalles
+fr: touche le graphique pour les détails
+de: für Details auf das Diagramm tippen
+pt: toque no gráfico para ver detalhes

@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import androidx.compose.foundation.background
@@ -99,11 +101,11 @@ fun HomeEditorScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
     }
 
     UnicumScreen(selectedItem = Route.Home, onNavigate = onNavigate) {
-        PageHeader("Personalizza la Home", "Trascina dalla maniglia per cambiare l'ordine", onBack = onBack)
+        PageHeader(tr("Personalizza la Home"), tr("Trascina dalla maniglia per cambiare l'ordine"), onBack = onBack)
         Spacer(Modifier.height(16.dp))
 
         UnicumCard {
-            CardHeader(Icons.Rounded.Tune, "Nella Home")
+            CardHeader(Icons.Rounded.Tune, tr("Nella Home"))
             Spacer(Modifier.height(10.dp))
             Column(verticalArrangement = Arrangement.spacedBy(RowGap)) {
                 items.forEach { card ->
@@ -117,7 +119,7 @@ fun HomeEditorScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
                                 .shadow(if (isDragging) 8.dp else 0.dp, RoundedCornerShape(16.dp)),
                             handle = {
                                 Icon(
-                                    Icons.Rounded.DragIndicator, "Trascina per spostare",
+                                    Icons.Rounded.DragIndicator, tr("Trascina per spostare"),
                                     tint = UnicumDark.copy(alpha = .45f),
                                     modifier = Modifier
                                         .size(40.dp)
@@ -153,7 +155,7 @@ fun HomeEditorScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
         if (hidden.isNotEmpty()) {
             Spacer(Modifier.height(14.dp))
             UnicumCard {
-                CardHeader(Icons.Rounded.Add, "Da aggiungere")
+                CardHeader(Icons.Rounded.Add, tr("Da aggiungere"))
                 Spacer(Modifier.height(10.dp))
                 Column(verticalArrangement = Arrangement.spacedBy(RowGap)) {
                     hidden.forEach { card ->
@@ -169,7 +171,7 @@ fun HomeEditorScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text(
-                "Ripristina l'ordine della modalità ${UserSettings.dashboardMode.label}",
+                tr("Ripristina l'ordine della modalità %s", UserSettings.dashboardMode.label),
                 color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold
             )
         }
@@ -220,7 +222,7 @@ private fun RoundAction(add: Boolean, onClick: () -> Unit) {
     ) {
         Icon(
             if (add) Icons.Rounded.Add else Icons.Rounded.Remove,
-            if (add) "Aggiungi alla Home" else "Togli dalla Home",
+            if (add) tr("Aggiungi alla Home") else tr("Togli dalla Home"),
             tint = UnicumPrimary, modifier = Modifier.size(18.dp)
         )
     }

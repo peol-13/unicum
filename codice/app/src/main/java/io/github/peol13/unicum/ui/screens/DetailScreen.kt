@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import io.github.peol13.unicum.ui.components.LocalHideCardTitle
@@ -45,13 +49,15 @@ import io.github.peol13.unicum.ui.theme.UnicumDark
 import io.github.peol13.unicum.ui.theme.UnicumType
 
 /** Argomenti che hanno una pagina di dettaglio (le card della Home). */
-enum class DetailTopic(val route: String, val title: String) {
-    CALORIE("calorie", "Calorie"),
-    ATTIVITA("attivita", "Attività"),
-    SONNO("sonno", "Sonno"),
-    RECUPERO("recupero", "Recupero"),
-    PASTI("pasti", "Pasti"),
-    PESO("peso", "Peso e composizione")
+enum class DetailTopic(val route: String, private val titleIt: String) {
+    CALORIE("calorie", tk("Calorie")),
+    ATTIVITA("attivita", tk("Attività")),
+    SONNO("sonno", tk("Sonno")),
+    RECUPERO("recupero", tk("Recupero")),
+    PASTI("pasti", tk("Pasti")),
+    PESO("peso", tk("Peso e composizione"));
+
+    val title: String get() = tr(titleIt)
 }
 
 /** Pagina con il dettaglio di un argomento per il giorno selezionato. */
@@ -103,7 +109,7 @@ fun DetailScreen(topic: DetailTopic, onNavigate: (Route) -> Unit, onBack: () -> 
             DetailTopic.SONNO -> {
                 SleepBigCard(UnicumAppState.lastNight)
                 // Il recupero di oggi: lo storico delle notti è nelle Statistiche
-                SectionHeader(if (UnicumAppState.isToday) "Recupero di oggi" else "Recupero del giorno")
+                SectionHeader(if (UnicumAppState.isToday) tr("Recupero di oggi") else tr("Recupero del giorno"))
                 CompositionLocalProvider(LocalHideCardTitle provides true) { RecoveryDetailCard() }
             }
 
@@ -136,7 +142,7 @@ private fun DetailHeader(topic: DetailTopic, onBack: () -> Unit) {
     val day = DateUtils.parse(UnicumAppState.selectedDate)
     PageHeader(
         title = topic.title,
-        subtitle = if (topic == DetailTopic.PESO) "Andamento nel tempo, da Health Connect"
+        subtitle = if (topic == DetailTopic.PESO) tr("Andamento nel tempo, da Health Connect")
         else DateUtils.relativeLabel(day) + " · " + DateUtils.fullLabel(day),
         onBack = onBack
     )
@@ -146,7 +152,7 @@ private fun DetailHeader(topic: DetailTopic, onBack: () -> Unit) {
 @Composable
 internal fun PageHeader(title: String, subtitle: String, onBack: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        RoundIconButton(Icons.AutoMirrored.Rounded.ArrowBack, "Indietro", onBack)
+        RoundIconButton(Icons.AutoMirrored.Rounded.ArrowBack, tr("Indietro"), onBack)
         Spacer(Modifier.width(14.dp))
         Column {
             Text(title, color = UnicumDark, style = UnicumType.Page, fontWeight = FontWeight.SemiBold)

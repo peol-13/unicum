@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.lfmt
+
+import io.github.peol13.unicum.i18n.tr
+
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
@@ -246,7 +250,7 @@ object RecoveryEstimate {
                 if (w > now || w > r) break
                 if (w > s.endMillis) {
                     val info = night(d, reliableHrv, sleepMinutes, nightTemp)
-                    val prefix = if (d == today) "Stanotte: " else "${DateUtils.relativeLabel(d, today)} al risveglio: "
+                    val prefix = (if (d == today) tr("Stanotte:") else tr("%s al risveglio:", DateUtils.relativeLabel(d, today))) + " "
                     fun scale(k: Double) { r = w + ((r - w) * k).toLong() }
                     val z = info.hrvZ
                     if (z != null) {
@@ -261,12 +265,12 @@ object RecoveryEstimate {
                             r = maxOf(r, until)
                         }
                         val effect = ((f - 1) * 100).roundToInt()
-                        val vs = "HRV ${info.hrv?.roundToInt()} ms (${signedPercent(info.hrvDeltaPct ?: 0)} vs media)"
+                        val vs = "HRV ${info.hrv?.roundToInt()} ms " + tr("(%s vs media)", signedPercent(info.hrvDeltaPct ?: 0))
                         why += d to prefix + when {
-                            effect <= -3 -> "$vs, nella tua norma: il recupero che resta si accorcia del ${-effect}%."
-                            effect >= 3 -> "$vs, sotto la tua norma: il recupero che resta si allunga del $effect%" +
-                                (if (share >= 0.5) ", almeno fino al risveglio dopo." else ".")
-                            else -> "$vs, vicina alla tua norma: il recupero cambia di poco."
+                            effect <= -3 -> tr("%s, nella tua norma: il recupero che resta si accorcia del %d%%.", vs, -effect)
+                            effect >= 3 -> tr("%s, sotto la tua norma: il recupero che resta si allunga del %d%%", vs, effect) +
+                                (if (share >= 0.5) ", " + tr("almeno fino al risveglio dopo.") else ".")
+                            else -> tr("%s, vicina alla tua norma: il recupero cambia di poco.", vs)
                         }
                     }
                     val sleep = info.sleep
@@ -275,7 +279,7 @@ object RecoveryEstimate {
                         val effect = ((f - 1) * 100).roundToInt()
                         if (effect > 0) {
                             scale(f)
-                            why += d to prefix + "dormito ${sleep / 60} h ${"%02d".format(sleep % 60)}: il recupero si allunga del $effect%."
+                            why += d to prefix + tr("dormito %s: il recupero si allunga del %d%%.", "${sleep / 60} h ${"%02d".format(sleep % 60)}", effect)
                         }
                     }
                     val temp = info.tempDelta
@@ -284,7 +288,7 @@ object RecoveryEstimate {
                         val effect = ((f - 1) * 100).roundToInt()
                         if (effect > 0) {
                             scale(f)
-                            why += d to prefix + "temperatura notturna +${"%.1f".format(temp).replace('.', ',')} °C sopra la media: il recupero si allunga del $effect%."
+                            why += d to prefix + tr("temperatura notturna %s sopra la media: il recupero si allunga del %d%%.", lfmt("%+.1f °C", temp), effect)
                         }
                     }
                 }

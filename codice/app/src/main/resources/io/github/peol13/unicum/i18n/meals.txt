@@ -1,0 +1,1046 @@
+# Traduzioni di UNICUM (vedi common.txt per il formato).
+
+# Tipi di pasto
+
+it: Colazione
+en: Breakfast
+es: Desayuno
+fr: Petit-déjeuner
+de: Frühstück
+pt: Café da manhã
+
+it: Pranzo
+en: Lunch
+es: Comida
+fr: Déjeuner
+de: Mittagessen
+pt: Almoço
+
+it: Cena
+en: Dinner
+es: Cena
+fr: Dîner
+de: Abendessen
+pt: Jantar
+
+it: Altro
+en: Other
+es: Otro
+fr: Autre
+de: Sonstiges
+pt: Outro
+
+# Sport
+
+it: Corsa
+en: Running
+es: Carrera
+fr: Course
+de: Laufen
+pt: Corrida
+
+it: Camminata
+en: Walking
+es: Caminata
+fr: Marche
+de: Gehen
+pt: Caminhada
+
+it: Palestra
+en: Gym
+es: Gimnasio
+fr: Salle de sport
+de: Fitnessstudio
+pt: Academia
+
+it: Ciclismo
+en: Cycling
+es: Ciclismo
+fr: Vélo
+de: Radfahren
+pt: Ciclismo
+
+it: Nuoto
+en: Swimming
+es: Natación
+fr: Natation
+de: Schwimmen
+pt: Natação
+
+it: Yoga
+en: Yoga
+es: Yoga
+fr: Yoga
+de: Yoga
+pt: Ioga
+
+it: Calcio
+en: Football
+es: Fútbol
+fr: Football
+de: Fußball
+pt: Futebol
+
+# Allenamento manuale
+
+it: Registra allenamento
+en: Log workout
+es: Registrar entrenamiento
+fr: Enregistrer une séance
+de: Training eintragen
+pt: Registrar treino
+
+it: Orario di inizio
+en: Start time
+es: Hora de inicio
+fr: Heure de début
+de: Startzeit
+pt: Horário de início
+
+it: Durata
+en: Duration
+es: Duración
+fr: Durée
+de: Dauer
+pt: Duração
+
+it: Calorie bruciate
+en: Calories burned
+es: Calorías quemadas
+fr: Calories brûlées
+de: Verbrannte Kalorien
+pt: Calorias queimadas
+
+it: Stimate: %d
+en: Estimated: %d
+es: Estimadas: %d
+fr: Estimées : %d
+de: Geschätzt: %d
+pt: Estimadas: %d
+
+it: Lascia vuoto per usare la stima in base al tuo peso.
+en: Leave empty to use the estimate based on your weight.
+es: Déjalo vacío para usar la estimación según tu peso.
+fr: Laisse vide pour utiliser l'estimation selon ton poids.
+de: Leer lassen, um die Schätzung nach deinem Gewicht zu nutzen.
+pt: Deixe vazio para usar a estimativa com base no seu peso.
+
+it: Salva allenamento
+en: Save workout
+es: Guardar entrenamiento
+fr: Enregistrer la séance
+de: Training speichern
+pt: Salvar treino
+
+# Comuni
+
+it: Annulla
+en: Cancel
+es: Cancelar
+fr: Annuler
+de: Abbrechen
+pt: Cancelar
+
+it: Elimina
+en: Delete
+es: Eliminar
+fr: Supprimer
+de: Löschen
+pt: Excluir
+
+it: Chiudi
+en: Close
+es: Cerrar
+fr: Fermer
+de: Schließen
+pt: Fechar
+
+it: Cancella
+en: Clear
+es: Borrar
+fr: Effacer
+de: Leeren
+pt: Limpar
+
+it: Tutti
+en: All
+es: Todos
+fr: Tous
+de: Alle
+pt: Todos
+
+it: Rimuovi
+en: Remove
+es: Quitar
+fr: Retirer
+de: Entfernen
+pt: Remover
+
+it: Aggiorna
+en: Update
+es: Actualizar
+fr: Mettre à jour
+de: Aktualisieren
+pt: Atualizar
+
+it: Salva
+en: Save
+es: Guardar
+fr: Enregistrer
+de: Speichern
+pt: Salvar
+
+it: Riprova
+en: Try again
+es: Reintentar
+fr: Réessayer
+de: Erneut versuchen
+pt: Tentar novamente
+
+it: Nome
+en: Name
+es: Nombre
+fr: Nom
+de: Name
+pt: Nome
+
+it: Conferma
+en: Confirm
+es: Confirmar
+fr: Confirmer
+de: Bestätigen
+pt: Confirmar
+
+it: Ok
+en: OK
+es: Aceptar
+fr: OK
+de: OK
+pt: OK
+
+it: Nascondi
+en: Hide
+es: Ocultar
+fr: Masquer
+de: Ausblenden
+pt: Ocultar
+
+it: Precedente
+en: Previous
+es: Anterior
+fr: Précédent
+de: Zurück
+pt: Anterior
+
+it: Successivo
+en: Next
+es: Siguiente
+fr: Suivant
+de: Weiter
+pt: Próximo
+
+it: Apri il Profilo
+en: Open Profile
+es: Abrir el perfil
+fr: Ouvrir le profil
+de: Profil öffnen
+pt: Abrir o perfil
+
+it: Orario
+en: Time
+es: Hora
+fr: Heure
+de: Uhrzeit
+pt: Horário
+
+it: Salva modifiche
+en: Save changes
+es: Guardar cambios
+fr: Enregistrer les modifications
+de: Änderungen speichern
+pt: Salvar alterações
+
+# Registrazione pasto
+
+it: Aggiungi pasto
+en: Add meal
+es: Añadir comida
+fr: Ajouter un repas
+de: Mahlzeit hinzufügen
+pt: Adicionar refeição
+
+it: Aggiungi allenamento
+en: Add workout
+es: Añadir entrenamiento
+fr: Ajouter une séance
+de: Training hinzufügen
+pt: Adicionar treino
+
+it: Usati di recente
+en: Recently used
+es: Usados recientemente
+fr: Utilisés récemment
+de: Zuletzt verwendet
+pt: Usados recentemente
+
+it: Già mangiati negli spuntini
+en: Already eaten as snacks
+es: Ya comidos como tentempié
+fr: Déjà mangés en en-cas
+de: Schon als Snack gegessen
+pt: Já comidos nos lanches
+
+it: Già mangiati a %s
+en: Already eaten at %s
+es: Ya comidos en: %s
+fr: Déjà mangés au %s
+de: Schon gegessen: %s
+pt: Já comidos no %s
+
+it: Cerco il prodotto %s…
+en: Looking up product %s…
+es: Buscando el producto %s…
+fr: Recherche du produit %s…
+de: Suche Produkt %s…
+pt: Procurando o produto %s…
+
+it: Prodotto %s non trovato o senza valori nutrizionali. Puoi crearlo a mano.
+en: Product %s not found or has no nutrition facts. You can create it manually.
+es: Producto %s no encontrado o sin valores nutricionales. Puedes crearlo a mano.
+fr: Produit %s introuvable ou sans valeurs nutritionnelles. Tu peux le créer à la main.
+de: Produkt %s nicht gefunden oder ohne Nährwerte. Du kannst es selbst anlegen.
+pt: Produto %s não encontrado ou sem valores nutricionais. Você pode criá-lo manualmente.
+
+it: Pasto non salvato
+en: Meal not saved
+es: Comida no guardada
+fr: Repas non enregistré
+de: Mahlzeit nicht gespeichert
+pt: Refeição não salva
+
+it: %s (%d kcal) nel pasto. Cosa ne facciamo?
+en: %s (%d kcal) in this meal. What should we do?
+es: %s (%d kcal) en la comida. ¿Qué hacemos?
+fr: %s (%d kcal) dans le repas. Qu'en faisons-nous ?
+de: %s (%d kcal) in der Mahlzeit. Was tun wir damit?
+pt: %s (%d kcal) na refeição. O que fazemos?
+
+it: Hai %d alimento
+en: You have %d food
+es: Tienes %d alimento
+fr: Tu as %d aliment
+de: Du hast %d Lebensmittel
+pt: Você tem %d alimento
+
+it: Hai %d alimenti
+en: You have %d foods
+es: Tienes %d alimentos
+fr: Tu as %d aliments
+de: Du hast %d Lebensmittel
+pt: Você tem %d alimentos
+
+it: Salva pasto
+en: Save meal
+es: Guardar comida
+fr: Enregistrer le repas
+de: Mahlzeit speichern
+pt: Salvar refeição
+
+it: Scarta pasto
+en: Discard meal
+es: Descartar comida
+fr: Abandonner le repas
+de: Mahlzeit verwerfen
+pt: Descartar refeição
+
+it: Continua a modificare
+en: Keep editing
+es: Seguir editando
+fr: Continuer à modifier
+de: Weiter bearbeiten
+pt: Continuar editando
+
+it: Eliminare “%s”?
+en: Delete “%s”?
+es: ¿Eliminar «%s»?
+fr: Supprimer « %s » ?
+de: „%s“ löschen?
+pt: Excluir “%s”?
+
+it: Il pasto fisso non sarà più proposto. I pasti già registrati restano.
+en: The saved meal will no longer be suggested. Meals already logged stay.
+es: La comida guardada ya no se propondrá. Las comidas ya registradas se quedan.
+fr: Le repas enregistré ne sera plus proposé. Les repas déjà notés restent.
+de: Die gespeicherte Mahlzeit wird nicht mehr vorgeschlagen. Bereits erfasste Mahlzeiten bleiben.
+pt: A refeição salva não será mais sugerida. As refeições já registradas permanecem.
+
+it: Registra pasto
+en: Log meal
+es: Registrar comida
+fr: Noter un repas
+de: Mahlzeit eintragen
+pt: Registrar refeição
+
+it: Cerca un alimento
+en: Search for a food
+es: Busca un alimento
+fr: Cherche un aliment
+de: Lebensmittel suchen
+pt: Busque um alimento
+
+it: Scansiona codice a barre
+en: Scan barcode
+es: Escanear código de barras
+fr: Scanner le code-barres
+de: Barcode scannen
+pt: Escanear código de barras
+
+it: Personalizzati
+en: Custom
+es: Personalizados
+fr: Personnalisés
+de: Eigene
+pt: Personalizados
+
+it: Prodotto scansionato
+en: Scanned product
+es: Producto escaneado
+fr: Produit scanné
+de: Gescanntes Produkt
+pt: Produto escaneado
+
+it: Pasti salvati
+en: Saved meals
+es: Comidas guardadas
+fr: Repas enregistrés
+de: Gespeicherte Mahlzeiten
+pt: Refeições salvas
+
+it: Tutti gli alimenti
+en: All foods
+es: Todos los alimentos
+fr: Tous les aliments
+de: Alle Lebensmittel
+pt: Todos os alimentos
+
+it: Alimenti
+en: Foods
+es: Alimentos
+fr: Aliments
+de: Lebensmittel
+pt: Alimentos
+
+it: Nessun alimento trovato per “%s”.
+en: No food found for “%s”.
+es: Ningún alimento encontrado para «%s».
+fr: Aucun aliment trouvé pour « %s ».
+de: Kein Lebensmittel für „%s“ gefunden.
+pt: Nenhum alimento encontrado para “%s”.
+
+it: Crea un nuovo alimento
+en: Create a new food
+es: Crear un alimento nuevo
+fr: Créer un nouvel aliment
+de: Neues Lebensmittel anlegen
+pt: Criar um novo alimento
+
+it: Crea “%s”
+en: Create “%s”
+es: Crear «%s»
+fr: Créer « %s »
+de: „%s“ anlegen
+pt: Criar “%s”
+
+it: Pasto fisso “%s”
+en: Saved meal “%s”
+es: Comida guardada «%s»
+fr: Repas enregistré « %s »
+de: Gespeicherte Mahlzeit „%s“
+pt: Refeição salva “%s”
+
+it: Aggiorna il pasto fisso “%s”
+en: Update saved meal “%s”
+es: Actualizar la comida guardada «%s»
+fr: Mettre à jour le repas « %s »
+de: Gespeicherte Mahlzeit „%s“ aktualisieren
+pt: Atualizar a refeição salva “%s”
+
+it: Salva come pasto fisso
+en: Save as saved meal
+es: Guardar como comida fija
+fr: Enregistrer comme repas type
+de: Als feste Mahlzeit speichern
+pt: Salvar como refeição fixa
+
+it: Aggiungi almeno un alimento
+en: Add at least one food
+es: Añade al menos un alimento
+fr: Ajoute au moins un aliment
+de: Füge mindestens ein Lebensmittel hinzu
+pt: Adicione pelo menos um alimento
+
+it: Salva %d alimento
+en: Save %d food
+es: Guardar %d alimento
+fr: Enregistrer %d aliment
+de: %d Lebensmittel speichern
+pt: Salvar %d alimento
+
+it: Salva %d alimenti
+en: Save %d foods
+es: Guardar %d alimentos
+fr: Enregistrer %d aliments
+de: %d Lebensmittel speichern
+pt: Salvar %d alimentos
+
+it: NEL PASTO
+en: IN THIS MEAL
+es: EN LA COMIDA
+fr: DANS LE REPAS
+de: IN DER MAHLZEIT
+pt: NA REFEIÇÃO
+
+it: P
+en: P
+es: P
+fr: P
+de: E
+pt: P
+
+it: C
+en: C
+es: C
+fr: G
+de: K
+pt: C
+
+it: G
+en: F
+es: G
+fr: L
+de: F
+pt: G
+
+it: F
+en: Fib
+es: Fib
+fr: Fib
+de: Bal
+pt: Fib
+
+it: Elimina pasto fisso
+en: Delete saved meal
+es: Eliminar comida guardada
+fr: Supprimer le repas enregistré
+de: Gespeicherte Mahlzeit löschen
+pt: Excluir refeição salva
+
+it: Pasto fisso
+en: Saved meal
+es: Comida fija
+fr: Repas type
+de: Feste Mahlzeit
+pt: Refeição fixa
+
+it: Lo ritrovi in cima alla ricerca quando registri un pasto: un tocco e gli alimenti entrano nel pasto, poi puoi cambiare grammi o aggiungere altro.
+en: You'll find it at the top of the search when you log a meal: one tap adds its foods, then you can change grams or add more.
+es: Lo encontrarás arriba en la búsqueda al registrar una comida: un toque y los alimentos entran en la comida; luego puedes cambiar gramos o añadir más.
+fr: Tu le retrouves en haut de la recherche quand tu notes un repas : un appui et les aliments entrent dans le repas, puis tu peux changer les grammes ou ajouter autre chose.
+de: Du findest sie oben in der Suche, wenn du eine Mahlzeit einträgst: ein Tippen und die Lebensmittel sind drin, dann kannst du Gramm ändern oder mehr hinzufügen.
+pt: Você a encontra no topo da busca ao registrar uma refeição: um toque e os alimentos entram na refeição, depois você pode mudar os gramas ou adicionar mais.
+
+it: Nome (es. Colazione)
+en: Name (e.g. Breakfast)
+es: Nombre (p. ej. Desayuno)
+fr: Nom (ex. Petit-déjeuner)
+de: Name (z. B. Frühstück)
+pt: Nome (ex. Café da manhã)
+
+it: Esiste già un pasto fisso con questo nome: verrà aggiornato.
+en: A saved meal with this name already exists: it will be updated.
+es: Ya existe una comida fija con este nombre: se actualizará.
+fr: Un repas type porte déjà ce nom : il sera mis à jour.
+de: Es gibt schon eine feste Mahlzeit mit diesem Namen: Sie wird aktualisiert.
+pt: Já existe uma refeição fixa com este nome: ela será atualizada.
+
+it: per 100 g
+en: per 100 g
+es: por 100 g
+fr: pour 100 g
+de: pro 100 g
+pt: por 100 g
+
+it: Aggiungi al pasto
+en: Add to meal
+es: Añadir a la comida
+fr: Ajouter au repas
+de: Zur Mahlzeit hinzufügen
+pt: Adicionar à refeição
+
+it: Nuovo alimento
+en: New food
+es: Nuevo alimento
+fr: Nouvel aliment
+de: Neues Lebensmittel
+pt: Novo alimento
+
+it: Valori per 100 g, come sull'etichetta.
+en: Values per 100 g, as on the label.
+es: Valores por 100 g, como en la etiqueta.
+fr: Valeurs pour 100 g, comme sur l'étiquette.
+de: Werte pro 100 g, wie auf dem Etikett.
+pt: Valores por 100 g, como no rótulo.
+
+it: Calorie (kcal / 100 g)
+en: Calories (kcal / 100 g)
+es: Calorías (kcal / 100 g)
+fr: Calories (kcal / 100 g)
+de: Kalorien (kcal / 100 g)
+pt: Calorias (kcal / 100 g)
+
+it: Proteine
+en: Protein
+es: Proteínas
+fr: Protéines
+de: Eiweiß
+pt: Proteínas
+
+it: Carbo
+en: Carbs
+es: Carbos
+fr: Glucides
+de: Kohlenh.
+pt: Carbos
+
+it: Grassi
+en: Fat
+es: Grasas
+fr: Lipides
+de: Fett
+pt: Gorduras
+
+it: Le calorie si calcolano dai macro se lasci vuoto il campo kcal.
+en: Calories are calculated from the macros if you leave the kcal field empty.
+es: Las calorías se calculan con los macros si dejas vacío el campo kcal.
+fr: Les calories sont calculées à partir des macros si tu laisses le champ kcal vide.
+de: Die Kalorien werden aus den Makros berechnet, wenn du das kcal-Feld leer lässt.
+pt: As calorias são calculadas a partir dos macros se você deixar o campo kcal vazio.
+
+it: Fibre
+en: Fiber
+es: Fibra
+fr: Fibres
+de: Ballaststoffe
+pt: Fibras
+
+it: Zuccheri
+en: Sugars
+es: Azúcares
+fr: Sucres
+de: Zucker
+pt: Açúcares
+
+it: Sale
+en: Salt
+es: Sal
+fr: Sel
+de: Salz
+pt: Sal
+
+it: Fibre, zuccheri e sale sono facoltativi: se li scrivi, entrano nei totali del giorno.
+en: Fiber, sugars and salt are optional: if you enter them, they count in the daily totals.
+es: Fibra, azúcares y sal son opcionales: si los escribes, entran en los totales del día.
+fr: Fibres, sucres et sel sont facultatifs : si tu les indiques, ils entrent dans les totaux du jour.
+de: Ballaststoffe, Zucker und Salz sind optional: Wenn du sie einträgst, zählen sie zu den Tageswerten.
+pt: Fibras, açúcares e sal são opcionais: se você os informar, entram nos totais do dia.
+
+it: Salva alimento
+en: Save food
+es: Guardar alimento
+fr: Enregistrer l'aliment
+de: Lebensmittel speichern
+pt: Salvar alimento
+
+it: Cerca “%s” online (marche e prodotti)
+en: Search “%s” online (brands and products)
+es: Buscar «%s» en línea (marcas y productos)
+fr: Chercher « %s » en ligne (marques et produits)
+de: „%s“ online suchen (Marken und Produkte)
+pt: Buscar “%s” online (marcas e produtos)
+
+it: Cerco su Open Food Facts…
+en: Searching Open Food Facts…
+es: Buscando en Open Food Facts…
+fr: Recherche sur Open Food Facts…
+de: Suche bei Open Food Facts…
+pt: Buscando no Open Food Facts…
+
+it: Da Open Food Facts
+en: From Open Food Facts
+es: De Open Food Facts
+fr: D'Open Food Facts
+de: Von Open Food Facts
+pt: Do Open Food Facts
+
+it: Nessun prodotto trovato online per “%s”.
+en: No product found online for “%s”.
+es: Ningún producto encontrado en línea para «%s».
+fr: Aucun produit trouvé en ligne pour « %s ».
+de: Kein Produkt online für „%s“ gefunden.
+pt: Nenhum produto encontrado online para “%s”.
+
+it: Valori per 100 g, inseriti dagli utenti: controlla l'etichetta se sono importanti. Fonte: Open Food Facts (ODbL).
+en: Values per 100 g, entered by users: check the label if they matter. Source: Open Food Facts (ODbL).
+es: Valores por 100 g, introducidos por usuarios: revisa la etiqueta si son importantes. Fuente: Open Food Facts (ODbL).
+fr: Valeurs pour 100 g, saisies par des utilisateurs : vérifie l'étiquette si elles comptent. Source : Open Food Facts (ODbL).
+de: Werte pro 100 g, von Nutzern eingetragen: Prüfe das Etikett, wenn es darauf ankommt. Quelle: Open Food Facts (ODbL).
+pt: Valores por 100 g, inseridos por usuários: confira o rótulo se forem importantes. Fonte: Open Food Facts (ODbL).
+
+it: Scansiona il codice a barre
+en: Scan the barcode
+es: Escanea el código de barras
+fr: Scanne le code-barres
+de: Barcode scannen
+pt: Escaneie o código de barras
+
+it: Inquadra il codice del prodotto: si legge da solo.
+en: Point at the product's barcode: it reads automatically.
+es: Enfoca el código del producto: se lee solo.
+fr: Cadre le code du produit : il se lit tout seul.
+de: Richte die Kamera auf den Code: Er wird automatisch gelesen.
+pt: Enquadre o código do produto: ele é lido sozinho.
+
+it: Serve il permesso della fotocamera per scansionare. Puoi concederlo dalle impostazioni dell'app.
+en: Camera permission is needed to scan. You can grant it in the app settings.
+es: Se necesita el permiso de la cámara para escanear. Puedes darlo en los ajustes de la app.
+fr: L'autorisation de l'appareil photo est nécessaire pour scanner. Tu peux l'accorder dans les réglages de l'app.
+de: Zum Scannen wird die Kameraberechtigung benötigt. Du kannst sie in den App-Einstellungen erteilen.
+pt: É preciso a permissão da câmera para escanear. Você pode concedê-la nas configurações do app.
+
+it: Attendo il permesso della fotocamera…
+en: Waiting for camera permission…
+es: Esperando el permiso de la cámara…
+fr: En attente de l'autorisation de l'appareil photo…
+de: Warte auf Kameraberechtigung…
+pt: Aguardando a permissão da câmera…
+
+# Categorie di alimenti
+
+it: Carboidrati
+en: Carbs
+es: Carbohidratos
+fr: Féculents
+de: Kohlenhydrate
+pt: Carboidratos
+
+it: Latticini
+en: Dairy
+es: Lácteos
+fr: Produits laitiers
+de: Milchprodukte
+pt: Laticínios
+
+it: Verdura
+en: Vegetables
+es: Verduras
+fr: Légumes
+de: Gemüse
+pt: Verduras
+
+it: Frutta
+en: Fruit
+es: Fruta
+fr: Fruits
+de: Obst
+pt: Frutas
+
+it: Legumi
+en: Legumes
+es: Legumbres
+fr: Légumineuses
+de: Hülsenfrüchte
+pt: Leguminosas
+
+it: Grassi e frutta secca
+en: Fats and nuts
+es: Grasas y frutos secos
+fr: Graisses et fruits secs
+de: Fette und Nüsse
+pt: Gorduras e oleaginosas
+
+it: Dolci e snack
+en: Sweets and snacks
+es: Dulces y snacks
+fr: Sucreries et snacks
+de: Süßes und Snacks
+pt: Doces e lanches
+
+it: Bevande
+en: Drinks
+es: Bebidas
+fr: Boissons
+de: Getränke
+pt: Bebidas
+
+it: Alcolici
+en: Alcohol
+es: Alcohol
+fr: Alcool
+de: Alkohol
+pt: Bebidas alcoólicas
+
+it: Condimenti
+en: Condiments
+es: Condimentos
+fr: Condiments
+de: Würzmittel
+pt: Condimentos
+
+it: Piatti pronti
+en: Ready meals
+es: Platos preparados
+fr: Plats préparés
+de: Fertiggerichte
+pt: Pratos prontos
+
+# Inserimento e modifica
+
+it: Nome (es. Spuntino mattina)
+en: Name (e.g. Morning snack)
+es: Nombre (p. ej. Tentempié de la mañana)
+fr: Nom (ex. En-cas du matin)
+de: Name (z. B. Vormittagssnack)
+pt: Nome (ex. Lanche da manhã)
+
+it: Orario del pasto
+en: Meal time
+es: Hora de la comida
+fr: Heure du repas
+de: Uhrzeit der Mahlzeit
+pt: Horário da refeição
+
+it: Più 10 grammi
+en: Plus 10 grams
+es: Más 10 gramos
+fr: Plus 10 grammes
+de: Plus 10 Gramm
+pt: Mais 10 gramas
+
+it: Meno 10 grammi
+en: Minus 10 grams
+es: Menos 10 gramos
+fr: Moins 10 grammes
+de: Minus 10 Gramm
+pt: Menos 10 gramas
+
+it: Porzioni
+en: Portions
+es: Porciones
+fr: Portions
+de: Portionen
+pt: Porções
+
+it: Grammi
+en: Grams
+es: Gramos
+fr: Grammes
+de: Gramm
+pt: Gramas
+
+it: Modifica alimento
+en: Edit food
+es: Editar alimento
+fr: Modifier l'aliment
+de: Lebensmittel bearbeiten
+pt: Editar alimento
+
+it: Elimina dal pasto
+en: Remove from meal
+es: Quitar de la comida
+fr: Retirer du repas
+de: Aus der Mahlzeit entfernen
+pt: Remover da refeição
+
+# Dati personali
+
+it: Sesso
+en: Sex
+es: Sexo
+fr: Sexe
+de: Geschlecht
+pt: Sexo
+
+it: Uomo
+en: Male
+es: Hombre
+fr: Homme
+de: Mann
+pt: Homem
+
+it: Donna
+en: Female
+es: Mujer
+fr: Femme
+de: Frau
+pt: Mulher
+
+it: Età
+en: Age
+es: Edad
+fr: Âge
+de: Alter
+pt: Idade
+
+it: anni
+en: yrs
+es: años
+fr: ans
+de: Jahre
+pt: anos
+
+it: Peso
+en: Weight
+es: Peso
+fr: Poids
+de: Gewicht
+pt: Peso
+
+it: Altezza
+en: Height
+es: Altura
+fr: Taille
+de: Größe
+pt: Altura
+
+it: Metabolismo basale
+en: Basal metabolic rate
+es: Metabolismo basal
+fr: Métabolisme de base
+de: Grundumsatz
+pt: Metabolismo basal
+
+it: Le calorie che il corpo consuma a riposo in un giorno, senza allenamenti.
+en: The calories your body burns at rest in a day, without workouts.
+es: Las calorías que el cuerpo gasta en reposo en un día, sin entrenamientos.
+fr: Les calories que le corps dépense au repos en une journée, sans séance.
+de: Die Kalorien, die dein Körper an einem Tag in Ruhe verbraucht, ohne Training.
+pt: As calorias que o corpo gasta em repouso em um dia, sem treinos.
+
+it: Calcolata con la formula di Mifflin-St Jeor da sesso, età, peso e altezza. Se conosci il valore reale (bilancia impedenziometrica, test), scrivilo.
+en: Calculated with the Mifflin-St Jeor formula from sex, age, weight and height. If you know the real value (smart scale, test), enter it.
+es: Calculado con la fórmula de Mifflin-St Jeor a partir de sexo, edad, peso y altura. Si conoces el valor real (báscula de bioimpedancia, prueba), escríbelo.
+fr: Calculé avec la formule de Mifflin-St Jeor à partir du sexe, de l'âge, du poids et de la taille. Si tu connais la valeur réelle (balance impédancemètre, test), indique-la.
+de: Berechnet mit der Mifflin-St-Jeor-Formel aus Geschlecht, Alter, Gewicht und Größe. Wenn du den echten Wert kennst (Körperanalysewaage, Test), trag ihn ein.
+pt: Calculado com a fórmula de Mifflin-St Jeor a partir de sexo, idade, peso e altura. Se você souber o valor real (balança de bioimpedância, teste), informe-o.
+
+it: Livello di attività abituale
+en: Usual activity level
+es: Nivel de actividad habitual
+fr: Niveau d'activité habituel
+de: Übliches Aktivitätsniveau
+pt: Nível de atividade habitual
+
+it: Serve solo a stimare l'obiettivo calorico. Il movimento di ogni giorno non lo cambia.
+en: Only used to estimate the calorie goal. Daily movement doesn't change it.
+es: Solo sirve para estimar el objetivo calórico. El movimiento de cada día no lo cambia.
+fr: Sert uniquement à estimer l'objectif calorique. Le mouvement de chaque jour ne le change pas.
+de: Dient nur zur Schätzung des Kalorienziels. Die tägliche Bewegung ändert es nicht.
+pt: Serve só para estimar a meta calórica. O movimento de cada dia não a muda.
+
+it: Deficit giornaliero
+en: Daily deficit
+es: Déficit diario
+fr: Déficit quotidien
+de: Tägliches Defizit
+pt: Déficit diário
+
+it: Quanto vuoi bruciare in più di quanto mangi ogni giorno (0 = mantenimento).
+en: How much more you want to burn than you eat each day (0 = maintenance).
+es: Cuánto quieres quemar de más respecto a lo que comes cada día (0 = mantenimiento).
+fr: Combien tu veux brûler de plus que ce que tu manges chaque jour (0 = maintien).
+de: Wie viel du täglich mehr verbrennen willst, als du isst (0 = Gewicht halten).
+pt: Quanto você quer queimar a mais do que come por dia (0 = manutenção).
+
+it: Obiettivo calorico
+en: Calorie goal
+es: Objetivo calórico
+fr: Objectif calorique
+de: Kalorienziel
+pt: Meta calórica
+
+it: Le calorie da mangiare ogni giorno. È fisso: l'attività fisica non lo aumenta, aumenta solo il deficit.
+en: The calories to eat each day. It's fixed: exercise doesn't raise it, it only increases the deficit.
+es: Las calorías que comer cada día. Es fijo: la actividad física no lo aumenta, solo aumenta el déficit.
+fr: Les calories à manger chaque jour. Il est fixe : l'activité physique ne l'augmente pas, elle augmente seulement le déficit.
+de: Die Kalorien, die du täglich isst. Es ist fest: Sport erhöht es nicht, nur das Defizit wird größer.
+pt: As calorias para comer a cada dia. É fixa: a atividade física não a aumenta, só aumenta o déficit.
+
+it: Metabolismo basale × livello di attività − deficit.
+en: Basal metabolic rate × activity level − deficit.
+es: Metabolismo basal × nivel de actividad − déficit.
+fr: Métabolisme de base × niveau d'activité − déficit.
+de: Grundumsatz × Aktivitätsniveau − Defizit.
+pt: Metabolismo basal × nível de atividade − déficit.
+
+it: Ripartizione dei macronutrienti
+en: Macronutrient split
+es: Reparto de macronutrientes
+fr: Répartition des macronutriments
+de: Makronährstoff-Verteilung
+pt: Divisão dos macronutrientes
+
+it: Che quota delle calorie obiettivo viene da ciascun macro. Devono sommare 100%.
+en: What share of the calorie goal comes from each macro. They must add up to 100%.
+es: Qué parte de las calorías objetivo viene de cada macro. Deben sumar 100%.
+fr: Quelle part des calories cibles vient de chaque macro. Le total doit faire 100 %.
+de: Welcher Anteil des Kalorienziels aus jedem Makro kommt. Zusammen müssen es 100 % ergeben.
+pt: Que parte das calorias da meta vem de cada macro. Devem somar 100%.
+
+it: Con %d kcal: proteine %d g, carboidrati %d g, grassi %d g.
+en: With %d kcal: protein %d g, carbs %d g, fat %d g.
+es: Con %d kcal: proteínas %d g, carbohidratos %d g, grasas %d g.
+fr: Avec %d kcal : protéines %d g, glucides %d g, lipides %d g.
+de: Bei %d kcal: Eiweiß %d g, Kohlenhydrate %d g, Fett %d g.
+pt: Com %d kcal: proteínas %d g, carboidratos %d g, gorduras %d g.
+
+it: Il totale è %d%%: deve essere 100%%.
+en: The total is %d%%: it must be 100%%.
+es: El total es %d%%: debe ser 100%%.
+fr: Le total est de %d %% : il doit faire 100 %%.
+de: Die Summe ist %d %%: Sie muss 100 %% sein.
+pt: O total é %d%%: deve ser 100%%.
+
+it: Inserito a mano: non viene ricalcolato da solo.
+en: Entered manually: it isn't recalculated automatically.
+es: Introducido a mano: no se recalcula solo.
+fr: Saisi à la main : il n'est pas recalculé automatiquement.
+de: Von Hand eingetragen: wird nicht automatisch neu berechnet.
+pt: Inserido manualmente: não é recalculado sozinho.
+
+it: La stima dai tuoi dati sarebbe %s.
+en: The estimate from your data would be %s.
+es: La estimación con tus datos sería %s.
+fr: L'estimation d'après tes données serait %s.
+de: Die Schätzung aus deinen Daten wäre %s.
+pt: A estimativa pelos seus dados seria %s.
+
+it: Ricalcola stima
+en: Recalculate estimate
+es: Recalcular estimación
+fr: Recalculer l'estimation
+de: Schätzung neu berechnen
+pt: Recalcular estimativa
+
+it: Stima automatica
+en: Automatic estimate
+es: Estimación automática
+fr: Estimation automatique
+de: Automatische Schätzung
+pt: Estimativa automática
+
+it: Completa i dati per la stima
+en: Complete your details for the estimate
+es: Completa los datos para la estimación
+fr: Complète tes données pour l'estimation
+de: Vervollständige deine Daten für die Schätzung
+pt: Complete os dados para a estimativa

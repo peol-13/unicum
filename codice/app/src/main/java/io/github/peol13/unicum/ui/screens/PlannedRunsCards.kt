@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import android.content.Intent
@@ -63,8 +65,8 @@ import java.time.LocalDate
 fun PlannedRunsSection(runsByDate: Map<String, WorkoutDetail>, onNavigate: (Route) -> Unit) {
     if (TrainingPlan.source == TrainingPlan.Source.NONE) {
         LinkCard(
-            Icons.Rounded.CalendarMonth, "Aggiungi il programma di allenamento",
-            "Da un PDF, scritto a mano o da Notion",
+            Icons.Rounded.CalendarMonth, tr("Aggiungi il programma di allenamento"),
+            tr("Da un PDF, scritto a mano o da Notion"),
             onClick = { onNavigate(Route.Notion) }
         )
         return
@@ -76,13 +78,13 @@ fun PlannedRunsSection(runsByDate: Map<String, WorkoutDetail>, onNavigate: (Rout
 
     if (upcoming.isEmpty()) {
         UnicumCard(onClick = { onNavigate(Route.Notion) }) {
-            CardHeader(Icons.Rounded.CalendarMonth, "Nessuna corsa in programma")
+            CardHeader(Icons.Rounded.CalendarMonth, tr("Nessuna corsa in programma"))
             Spacer(Modifier.height(6.dp))
             Text(
                 when {
-                    TrainingPlan.isLocal -> "Aggiungi le prossime sedute o importa un nuovo PDF."
-                    NotionPlan.runs.isEmpty() && NotionPlan.lastSyncMillis == 0L -> "Il programma non è ancora stato letto."
-                    else -> "Aggiungi le prossime sedute nel database del programma su Notion."
+                    TrainingPlan.isLocal -> tr("Aggiungi le prossime sedute o importa un nuovo PDF.")
+                    NotionPlan.runs.isEmpty() && NotionPlan.lastSyncMillis == 0L -> tr("Il programma non è ancora stato letto.")
+                    else -> tr("Aggiungi le prossime sedute nel database del programma su Notion.")
                 },
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption
             )
@@ -109,7 +111,7 @@ private fun NextRunCard(r: PlannedRun, done: WorkoutDetail?, today: LocalDate, o
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(
-                    listOfNotNull(dayLabel(r, today), r.week?.let { "settimana $it" }).joinToString(" · "),
+                    listOfNotNull(dayLabel(r, today), r.week?.let { tr("settimana %d", it) }).joinToString(" · "),
                     color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
                 )
                 Text(r.name, color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
@@ -118,20 +120,20 @@ private fun NextRunCard(r: PlannedRun, done: WorkoutDetail?, today: LocalDate, o
         }
         Spacer(Modifier.height(12.dp))
         Row(Modifier.fillMaxWidth()) {
-            BigStat(r.km?.let { "${PlanPdfParser.shortKm(it)} km" } ?: "–", "Obiettivo", Modifier.weight(1f))
-            BigStat(r.minutes?.let { "$it′" } ?: "–", "Durata", Modifier.weight(1f))
+            BigStat(r.km?.let { "${PlanPdfParser.shortKm(it)} km" } ?: "–", tr("Obiettivo"), Modifier.weight(1f))
+            BigStat(r.minutes?.let { "$it′" } ?: "–", tr("Durata"), Modifier.weight(1f))
             BigStat(r.rpe?.let { "$it/10" } ?: "–", "RPE", Modifier.weight(1f))
         }
         r.pace?.let {
             Spacer(Modifier.height(10.dp))
-            Text("Ritmo: $it", color = UnicumDark.copy(alpha = .75f), style = UnicumType.Detail, lineHeight = 18.sp)
+            Text(tr("Ritmo: %s", it), color = UnicumDark.copy(alpha = .75f), style = UnicumType.Detail, lineHeight = 18.sp)
         }
         if (done != null) {
             Spacer(Modifier.height(12.dp))
             DoneRow(done, onClick = { onNavigate(Route.Workout(done.externalId)) })
         }
         if (r.structure != null || r.focus != null) {
-            ExpandRow(open, "Struttura della seduta", { open = !open })
+            ExpandRow(open, tr("Struttura della seduta"), { open = !open })
             if (open) {
                 r.structure?.let {
                     Spacer(Modifier.height(8.dp))
@@ -139,7 +141,7 @@ private fun NextRunCard(r: PlannedRun, done: WorkoutDetail?, today: LocalDate, o
                 }
                 r.focus?.let {
                     Spacer(Modifier.height(10.dp))
-                    Text("Focus", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, fontWeight = FontWeight.SemiBold)
+                    Text(tr("Focus"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, fontWeight = FontWeight.SemiBold)
                     Text(it, color = UnicumDark.copy(alpha = .8f), style = UnicumType.Detail, lineHeight = 19.sp)
                 }
                 r.url?.let { OpenInNotion(it) }
@@ -163,7 +165,7 @@ private fun DoneRow(w: WorkoutDetail, onClick: () -> Unit) {
         Icon(Icons.Rounded.CheckCircle, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
         Spacer(Modifier.width(8.dp))
         Text(
-            "Fatta: ${doneSummary(w)}",
+            tr("Fatta: %s", doneSummary(w)),
             color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f)
         )
         Icon(Icons.Rounded.ChevronRight, null, tint = UnicumDark.copy(alpha = .45f), modifier = Modifier.size(18.dp))
@@ -198,7 +200,7 @@ private fun PlannedRow(r: PlannedRun, today: LocalDate) {
         if (open) {
             r.pace?.let {
                 Spacer(Modifier.height(10.dp))
-                Text("Ritmo: $it", color = UnicumDark.copy(alpha = .75f), style = UnicumType.Detail, lineHeight = 18.sp)
+                Text(tr("Ritmo: %s", it), color = UnicumDark.copy(alpha = .75f), style = UnicumType.Detail, lineHeight = 18.sp)
             }
             r.structure?.let {
                 Spacer(Modifier.height(8.dp))
@@ -219,11 +221,11 @@ private fun RecentPlanCard(recent: List<PlannedRun>, runsByDate: Map<String, Wor
             Icon(Icons.Rounded.History, null, tint = UnicumPrimary, modifier = Modifier.size(20.dp))
             Spacer(Modifier.width(10.dp))
             Text(
-                "Ultime 2 settimane: $done di ${recent.size} sedute fatte",
+                tr("Ultime 2 settimane: %d di %d sedute fatte", done, recent.size),
                 color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium
             )
         }
-        ExpandRow(open, "Piano e corse fatte", { open = !open })
+        ExpandRow(open, tr("Piano e corse fatte"), { open = !open })
         if (open) {
             recent.forEach { r ->
                 val run = runsByDate[r.date]
@@ -241,11 +243,11 @@ private fun RecentPlanCard(recent: List<PlannedRun>, runsByDate: Map<String, Wor
                         )
                         Text(
                             when {
-                                run != null -> "Piano ${planSummary(r)} → fatta ${doneSummary(run)}"
-                                r.status == "Saltata" -> "Saltata"
-                                r.status == "Completata" -> if (TrainingPlan.isLocal) "Segnata come fatta (corsa non registrata)"
-                                    else "Completata in Notion, corsa non trovata nell'app"
-                                else -> "Nessuna corsa registrata"
+                                run != null -> tr("Piano %s → fatta %s", planSummary(r), doneSummary(run))
+                                r.status == "Saltata" -> tr("Saltata")
+                                r.status == "Completata" -> if (TrainingPlan.isLocal) tr("Segnata come fatta (corsa non registrata)")
+                                    else tr("Completata in Notion, corsa non trovata nell'app")
+                                else -> tr("Nessuna corsa registrata")
                             },
                             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
                         )
@@ -263,11 +265,11 @@ internal fun planSummary(r: PlannedRun): String =
 @Composable
 private fun SyncNote(onNavigate: (Route) -> Unit) {
     val text = when {
-        TrainingPlan.isLocal -> (LocalPlan.data.sourceName?.let { "Dal PDF «$it»" } ?: "Programma scritto nell'app") + " · tocca per modificarlo"
-        NotionPlan.syncing -> "Lettura da Notion…"
+        TrainingPlan.isLocal -> (LocalPlan.data.sourceName?.let { tr("Dal PDF «%s»", it) } ?: tr("Programma scritto nell'app")) + " · " + tr("tocca per modificarlo")
+        NotionPlan.syncing -> tr("Lettura da Notion…")
         NotionPlan.error != null -> NotionPlan.error!!
-        NotionPlan.lastSyncMillis > 0 -> "Da Notion · letto ${syncTime(NotionPlan.lastSyncMillis)}"
-        else -> "Da Notion"
+        NotionPlan.lastSyncMillis > 0 -> tr("Da Notion · letto %s", syncTime(NotionPlan.lastSyncMillis))
+        else -> tr("Da Notion")
     }
     Text(
         text,
@@ -279,7 +281,7 @@ private fun SyncNote(onNavigate: (Route) -> Unit) {
 internal fun syncTime(millis: Long): String {
     val t = java.time.Instant.ofEpochMilli(millis).atZone(java.time.ZoneId.systemDefault())
     val day = DateUtils.relativeLabel(t.toLocalDate()).lowercase()
-    return "$day alle ${"%02d:%02d".format(t.hour, t.minute)}"
+    return tr("%s alle %s", day, "%02d:%02d".format(t.hour, t.minute))
 }
 
 @Composable
@@ -287,7 +289,7 @@ private fun OpenInNotion(url: String) {
     val context = LocalContext.current
     Spacer(Modifier.height(10.dp))
     Text(
-        "Apri in Notion",
+        tr("Apri in Notion"),
         color = UnicumPrimary, style = UnicumType.Caption, fontWeight = FontWeight.SemiBold,
         modifier = Modifier
             .clickable { runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } }
@@ -316,8 +318,8 @@ internal fun KindDot(kind: String?) {
 internal fun dayLabel(r: PlannedRun, today: LocalDate): String? {
     val d = r.localDate ?: return null
     return when (d) {
-        today -> "Oggi"
-        today.plusDays(1) -> "Domani"
+        today -> tr("Oggi")
+        today.plusDays(1) -> tr("Domani")
         else -> DateUtils.shortLabel(d)
     }
 }

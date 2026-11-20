@@ -1,0 +1,388 @@
+# Traduzioni di UNICUM. Una voce per blocco, separati da una riga vuota.
+# it: = testo scritto nel codice (chiave). Segnaposto %d %s %.1f… uguali in tutte le lingue; \n = a capo.
+
+# --- Barra in basso
+it: Home
+en: Home
+es: Inicio
+fr: Accueil
+de: Start
+pt: Início
+
+it: Allenamenti
+en: Workouts
+es: Entrenos
+fr: Séances
+de: Training
+pt: Treinos
+
+it: Statistiche
+en: Stats
+es: Estadísticas
+fr: Stats
+de: Statistik
+pt: Estatísticas
+
+it: Diario
+en: Diary
+es: Diario
+fr: Journal
+de: Tagebuch
+pt: Diário
+
+it: Profilo
+en: Profile
+es: Perfil
+fr: Profil
+de: Profil
+pt: Perfil
+
+# --- Date
+it: EEEE d MMMM
+en: EEEE, MMMM d
+es: EEEE d MMMM
+fr: EEEE d MMMM
+de: EEEE, d. MMMM
+pt: EEEE, d MMMM
+
+it: EEE d MMM
+en: EEE, MMM d
+es: EEE d MMM
+fr: EEE d MMM
+de: EEE, d. MMM
+pt: EEE, d MMM
+
+it: d MMM
+en: MMM d
+es: d MMM
+fr: d MMM
+de: d. MMM
+pt: d MMM
+
+it: Oggi
+en: Today
+es: Hoy
+fr: Aujourd'hui
+de: Heute
+pt: Hoje
+
+it: Ieri
+en: Yesterday
+es: Ayer
+fr: Hier
+de: Gestern
+pt: Ontem
+
+it: Manuale
+en: Manual
+es: Manual
+fr: Manuel
+de: Manuell
+pt: Manual
+
+# --- Schermata principale
+it: Nutrizione
+en: Nutrition
+es: Nutrición
+fr: Nutrition
+de: Ernährung
+pt: Nutrição
+
+it: Calorie e macronutrienti in primo piano
+en: Calories and macros up front
+es: Calorías y macronutrientes en primer plano
+fr: Calories et macronutriments au premier plan
+de: Kalorien und Makros im Vordergrund
+pt: Calorias e macronutrientes em destaque
+
+it: Attività
+en: Activity
+es: Actividad
+fr: Activité
+de: Aktivität
+pt: Atividade
+
+it: Movimento e allenamenti in primo piano
+en: Movement and workouts up front
+es: Movimiento y entrenamientos en primer plano
+fr: Mouvement et séances au premier plan
+de: Bewegung und Training im Vordergrund
+pt: Movimento e treinos em destaque
+
+it: Recupero
+en: Recovery
+es: Recuperación
+fr: Récupération
+de: Erholung
+pt: Recuperação
+
+it: Sonno e recupero in primo piano
+en: Sleep and recovery up front
+es: Sueño y recuperación en primer plano
+fr: Sommeil et récupération au premier plan
+de: Schlaf und Erholung im Vordergrund
+pt: Sono e recuperação em destaque
+
+# --- Livello di attività
+it: Sedentario
+en: Sedentary
+es: Sedentario
+fr: Sédentaire
+de: Sitzend
+pt: Sedentário
+
+it: Poco o nessun movimento, lavoro da seduto
+en: Little or no movement, desk job
+es: Poco o ningún movimiento, trabajo sentado
+fr: Peu ou pas de mouvement, travail assis
+de: Wenig oder keine Bewegung, Bürojob
+pt: Pouco ou nenhum movimento, trabalho sentado
+
+it: Leggero
+en: Light
+es: Ligero
+fr: Léger
+de: Leicht
+pt: Leve
+
+it: Cammini o ti alleni 1–3 volte a settimana
+en: You walk or train 1–3 times a week
+es: Caminas o entrenas 1–3 veces por semana
+fr: Tu marches ou t'entraînes 1 à 3 fois par semaine
+de: Du gehst oder trainierst 1–3 Mal pro Woche
+pt: Você caminha ou treina 1–3 vezes por semana
+
+it: Moderato
+en: Moderate
+es: Moderado
+fr: Modéré
+de: Mäßig
+pt: Moderado
+
+it: Ti alleni 3–5 volte a settimana
+en: You train 3–5 times a week
+es: Entrenas 3–5 veces por semana
+fr: Tu t'entraînes 3 à 5 fois par semaine
+de: Du trainierst 3–5 Mal pro Woche
+pt: Você treina 3–5 vezes por semana
+
+it: Molto attivo
+en: Very active
+es: Muy activo
+fr: Très actif
+de: Sehr aktiv
+pt: Muito ativo
+
+it: Allenamenti intensi quasi ogni giorno
+en: Hard workouts almost every day
+es: Entrenamientos intensos casi todos los días
+fr: Séances intenses presque tous les jours
+de: Hartes Training fast jeden Tag
+pt: Treinos intensos quase todos os dias
+
+# --- Tema
+it: Come il sistema
+en: System default
+es: Como el sistema
+fr: Comme le système
+de: Wie das System
+pt: Como o sistema
+
+it: Chiaro
+en: Light
+es: Claro
+fr: Clair
+de: Hell
+pt: Claro
+
+it: Scuro
+en: Dark
+es: Oscuro
+fr: Sombre
+de: Dunkel
+pt: Escuro
+
+# --- Card della Home
+it: Messaggio del giorno
+en: Message of the day
+es: Mensaje del día
+fr: Message du jour
+de: Nachricht des Tages
+pt: Mensagem do dia
+
+it: Stato del giorno e consigli
+en: Today's status and tips
+es: Estado del día y consejos
+fr: État du jour et conseils
+de: Tagesstatus und Tipps
+pt: Estado do dia e conselhos
+
+it: Calorie
+en: Calories
+es: Calorías
+fr: Calories
+de: Kalorien
+pt: Calorias
+
+it: Anello, deficit e macronutrienti
+en: Ring, deficit and macros
+es: Anillo, déficit y macronutrientes
+fr: Anneau, déficit et macronutriments
+de: Ring, Defizit und Makros
+pt: Anel, déficit e macronutrientes
+
+it: Calorie in breve
+en: Calories at a glance
+es: Calorías en breve
+fr: Calories en bref
+de: Kalorien kompakt
+pt: Calorias em resumo
+
+it: Calorie e linea del deficit in una riga
+en: Calories and deficit line in one row
+es: Calorías y línea del déficit en una fila
+fr: Calories et ligne du déficit sur une ligne
+de: Kalorien und Defizitlinie in einer Zeile
+pt: Calorias e linha do déficit em uma linha
+
+it: Minuti, passi e ultimi 7 giorni
+en: Minutes, steps and last 7 days
+es: Minutos, pasos y últimos 7 días
+fr: Minutes, pas et 7 derniers jours
+de: Minuten, Schritte und letzte 7 Tage
+pt: Minutos, passos e últimos 7 dias
+
+it: Sonno
+en: Sleep
+es: Sueño
+fr: Sommeil
+de: Schlaf
+pt: Sono
+
+it: Durata, efficienza e fasi della notte
+en: Duration, efficiency and sleep stages
+es: Duración, eficiencia y fases de la noche
+fr: Durée, efficacité et phases de la nuit
+de: Dauer, Effizienz und Schlafphasen
+pt: Duração, eficiência e fases da noite
+
+it: Attività e sonno
+en: Activity and sleep
+es: Actividad y sueño
+fr: Activité et sommeil
+de: Aktivität und Schlaf
+pt: Atividade e sono
+
+it: Due card piccole affiancate
+en: Two small cards side by side
+es: Dos tarjetas pequeñas juntas
+fr: Deux petites cartes côte à côte
+de: Zwei kleine Karten nebeneinander
+pt: Dois cards pequenos lado a lado
+
+it: Recupero e sonno
+en: Recovery and sleep
+es: Recuperación y sueño
+fr: Récupération et sommeil
+de: Erholung und Schlaf
+pt: Recuperação e sono
+
+it: HRV e anello del sonno affiancati
+en: HRV and sleep ring side by side
+es: HRV y anillo del sueño juntos
+fr: HRV et anneau du sommeil côte à côte
+de: HRV und Schlafring nebeneinander
+pt: HRV e anel do sono lado a lado
+
+it: Recupero e attività
+en: Recovery and activity
+es: Recuperación y actividad
+fr: Récupération et activité
+de: Erholung und Aktivität
+pt: Recuperação e atividade
+
+it: HRV e attività affiancati
+en: HRV and activity side by side
+es: HRV y actividad juntos
+fr: HRV et activité côte à côte
+de: HRV und Aktivität nebeneinander
+pt: HRV e atividade lado a lado
+
+it: Pasti
+en: Meals
+es: Comidas
+fr: Repas
+de: Mahlzeiten
+pt: Refeições
+
+it: Calorie di colazione, pranzo e cena
+en: Calories for breakfast, lunch and dinner
+es: Calorías de desayuno, comida y cena
+fr: Calories du petit-déjeuner, déjeuner et dîner
+de: Kalorien von Frühstück, Mittag- und Abendessen
+pt: Calorias do café da manhã, almoço e jantar
+
+it: Gli allenamenti del giorno
+en: Today's workouts
+es: Los entrenamientos del día
+fr: Les séances du jour
+de: Das Training des Tages
+pt: Os treinos do dia
+
+it: Peso e composizione
+en: Weight and composition
+es: Peso y composición
+fr: Poids et composition
+de: Gewicht und Zusammensetzung
+pt: Peso e composição
+
+it: Ultima misura e tendenza
+en: Latest reading and trend
+es: Última medida y tendencia
+fr: Dernière mesure et tendance
+de: Letzte Messung und Trend
+pt: Última medição e tendência
+
+# Parole singole
+
+it: surplus
+en: surplus
+es: superávit
+fr: surplus
+de: Überschuss
+pt: superávit
+
+it: deficit
+en: deficit
+es: déficit
+fr: déficit
+de: Defizit
+pt: déficit
+
+it: misure
+en: readings
+es: medidas
+fr: mesures
+de: Messungen
+pt: medições
+
+it: scaduto
+en: expired
+es: vencido
+fr: expiré
+de: abgelaufen
+pt: expirado
+
+it: con
+en: vs
+es: con
+fr: avec
+de: mit
+pt: com
+
+it: tempo
+en: time
+es: tiempo
+fr: temps
+de: Zeit
+pt: tempo

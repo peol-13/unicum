@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,7 +42,7 @@ fun DateStepper(
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = onPrevious) {
-            Icon(Icons.Rounded.ChevronLeft, "Precedente", tint = UnicumPrimary, modifier = Modifier.size(30.dp))
+            Icon(Icons.Rounded.ChevronLeft, tr("Precedente"), tint = UnicumPrimary, modifier = Modifier.size(30.dp))
         }
         Column(
             modifier = Modifier.weight(1f),
@@ -56,7 +58,7 @@ fun DateStepper(
         }
         IconButton(onClick = onNext, enabled = canGoNext) {
             Icon(
-                Icons.Rounded.ChevronRight, "Successivo",
+                Icons.Rounded.ChevronRight, tr("Successivo"),
                 tint = if (canGoNext) UnicumPrimary else UnicumDark.copy(alpha = .25f),
                 modifier = Modifier.size(30.dp)
             )

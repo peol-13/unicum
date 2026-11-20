@@ -1,19 +1,25 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.AppLanguage
+
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.I18n
+
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
 import java.util.Locale
 
-/** Funzioni sulle date (formato di archiviazione: ISO "2026-10-16"). Tutto in italiano. */
+/** Funzioni sulle date (formato di archiviazione: ISO "2026-10-16"). Nella lingua dell'app. */
 object DateUtils {
 
-    private val ITA = Locale.ITALIAN
-    private val fullDay = DateTimeFormatter.ofPattern("EEEE d MMMM", ITA)
-    private val shortDay = DateTimeFormatter.ofPattern("EEE d MMM", ITA)
-    private val dayAndMonth = DateTimeFormatter.ofPattern("d MMM", ITA)
-    private val dayOnly = DateTimeFormatter.ofPattern("d", ITA)
+    // I formati seguono la lingua dell'app (anche l'ordine: "Fri, Oct 16" in inglese)
+    private val fullDay get() = DateTimeFormatter.ofPattern(tr("EEEE d MMMM"), I18n.locale)
+    private val shortDay get() = DateTimeFormatter.ofPattern(tr("EEE d MMM"), I18n.locale)
+    private val dayAndMonth get() = DateTimeFormatter.ofPattern(tr("d MMM"), I18n.locale)
+    private val dayOnly get() = DateTimeFormatter.ofPattern("d", I18n.locale)
 
     fun today(): LocalDate = LocalDate.now()
 
@@ -38,8 +44,8 @@ object DateUtils {
 
     /** "Oggi", "Ieri" oppure "Ven 16 Ott". */
     fun relativeLabel(date: LocalDate, today: LocalDate = today()): String = when (date) {
-        today -> "Oggi"
-        today.minusDays(1) -> "Ieri"
+        today -> tr("Oggi")
+        today.minusDays(1) -> tr("Ieri")
         else -> shortLabel(date)
     }
 
@@ -53,7 +59,9 @@ object DateUtils {
     }
 
     /** Iniziale del giorno per i grafici: L M M G V S D. */
-    fun weekdayInitial(date: LocalDate): String = when (date.dayOfWeek) {
+    fun weekdayInitial(date: LocalDate): String = if (I18n.language != AppLanguage.IT)
+        date.dayOfWeek.getDisplayName(java.time.format.TextStyle.NARROW_STANDALONE, I18n.locale).uppercase(I18n.locale)
+    else when (date.dayOfWeek) {
         DayOfWeek.MONDAY -> "L"
         DayOfWeek.TUESDAY -> "M"
         DayOfWeek.WEDNESDAY -> "M"

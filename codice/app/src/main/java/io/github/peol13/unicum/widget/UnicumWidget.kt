@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.widget
 
+import io.github.peol13.unicum.i18n.tr
+
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
@@ -114,13 +116,13 @@ object UnicumWidget {
         val (eaten, goal, deficit, remaining) = today(context)
 
         val views = RemoteViews(context.packageName, R.layout.widget_unicum).apply {
-            setTextViewText(R.id.widget_label, if (remaining >= 0) "Rimangono" else "Oltre l'obiettivo di")
+            setTextViewText(R.id.widget_label, if (remaining >= 0) tr("Rimangono") else tr("Oltre l'obiettivo di"))
             setTextViewText(R.id.widget_remaining, "${fmt(abs(remaining))} kcal")
-            setTextViewText(R.id.widget_eaten, "${fmt(eaten)} di ${fmt(goal)} kcal mangiate")
+            setTextViewText(R.id.widget_eaten, tr("%s di %s kcal mangiate", fmt(eaten), fmt(goal)))
             setTextViewText(
                 R.id.widget_deficit,
-                (if (deficit >= 0) "Deficit ${fmt(deficit)} kcal" else "Surplus ${fmt(-deficit)} kcal") +
-                    " · obiettivo ${fmt(UserSettings.targetDeficitKcal)}"
+                (if (deficit >= 0) tr("Deficit %s kcal", fmt(deficit)) else tr("Surplus %s kcal", fmt(-deficit))) +
+                    " · " + tr("obiettivo %s", fmt(UserSettings.targetDeficitKcal))
             )
             setRing(context, R.id.widget_ring_track, R.id.widget_ring, eaten / goal.coerceAtLeast(1).toFloat())
             setDeficitLine(context, R.id.widget_deficit_line, R.id.widget_deficit_marker, deficit, UserSettings.targetDeficitKcal)
@@ -130,7 +132,7 @@ object UnicumWidget {
         manager.updateAppWidget(ids, views)
     }
 
-    internal fun fmt(v: Int): String = NumberFormat.getIntegerInstance(Locale.ITALY).format(v)
+    internal fun fmt(v: Int): String = NumberFormat.getIntegerInstance(io.github.peol13.unicum.i18n.I18n.locale).format(v)
 
     /**
      * Colora un'immagine disegnata in bianco con un colore delle risorse. Da Android 12 il colore si risolve quando

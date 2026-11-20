@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.lfmt
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -88,7 +94,7 @@ import kotlin.math.roundToInt
 internal fun mmss(seconds: Int): String = WorkoutAnalysis.formatDuration(abs(seconds))
 internal fun pace(seconds: Int?): String = WorkoutAnalysis.formatPace(seconds)
 internal fun dayLabel(d: LocalDate): String = DateUtils.shortLabel(d).substringAfter(' ')
-private fun thousands(v: Int): String = "%,d".format(v).replace(',', '.')
+private fun thousands(v: Int): String = lfmt("%,d", v)
 
 /** Secondi con segno: "−12 s", "+1:05". */
 internal fun signedSeconds(d: Int): String = when {
@@ -102,7 +108,7 @@ internal fun signedSeconds(d: Int): String = when {
 // ------------------------------------------------------------------
 
 internal fun kmLabel(km: Double): String =
-    if (abs(km - km.roundToInt()) < 1e-6) "${km.roundToInt()}" else "%.1f".format(java.util.Locale.ITALIAN, km)
+    if (abs(km - km.roundToInt()) < 1e-6) "${km.roundToInt()}" else lfmt("%.1f", km)
 
 /** Secondi senza segno: "41 s", "1:05". */
 internal fun gapText(d: Int): String = if (abs(d) < 60) "${abs(d)} s" else mmss(d)
@@ -120,19 +126,19 @@ internal fun EstimateCard(runs: List<RunProgress.Run>) {
     val real = remember(runs, km) { RunProgress.realAt(runs, km) }
     val goal = RunGoalStore.goals.forKm(km, today)
     UnicumCard {
-        CardHeader(Icons.Rounded.Flag, "Stima")
+        CardHeader(Icons.Rounded.Flag, tr("Stima"))
         Spacer(Modifier.height(12.dp))
         UnicumSegmented(RunProgress.DISTANCES.map { "${kmLabel(it)} km" }, idx, { idx = it }, height = 36.dp)
         Spacer(Modifier.height(14.dp))
         if (e == null) {
             Text(
-                "Per la stima servono almeno 3 uscite Facili (o Lungo facile) da 2 km in su con RPE fino a 6, " +
-                    "e uno sforzo con RPE 7 o più: segnali nelle Sensazioni di ogni corsa.",
+                tr("Per la stima servono almeno 3 uscite Facili (o Lungo facile) da 2 km in su con RPE fino a 6, e uno sforzo con RPE 7 o più: segnali nelle Sensazioni di ogni corsa."),
+                    
                 color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, lineHeight = 17.sp
             )
             return@UnicumCard
         }
-        Text("Con l'allenamento attuale correresti i ${kmLabel(km)} km in", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+        Text(tr("Con l'allenamento attuale correresti i %s km in", kmLabel(km)), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
         Row(verticalAlignment = Alignment.Bottom) {
             Text(mmss(e.seconds), color = UnicumDark, style = UnicumType.Hero, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.width(8.dp))
@@ -141,13 +147,13 @@ internal fun EstimateCard(runs: List<RunProgress.Run>) {
         val vsGoal = goal?.let { e.seconds - it.targetSeconds }
         val parts = listOfNotNull(
             goal?.let { g ->
-                "Obiettivo ${mmss(g.targetSeconds)} entro il ${dayLabel(g.deadlineDate)}: " + when {
-                    vsGoal == 0 -> "ci sei"
-                    vsGoal!! < 0 -> "${gapText(vsGoal)} meglio"
-                    else -> "mancano ${gapText(vsGoal)}"
+                tr("Obiettivo %s entro il %s:", mmss(g.targetSeconds), dayLabel(g.deadlineDate)) + " " + when {
+                    vsGoal == 0 -> tr("ci sei")
+                    vsGoal!! < 0 -> tr("%s meglio", gapText(vsGoal))
+                    else -> tr("mancano %s", gapText(vsGoal))
                 }
             },
-            e.vsPrevious?.let { "${signedSeconds(it)} sulla stima precedente" }
+            e.vsPrevious?.let { tr("%s sulla stima precedente", signedSeconds(it)) }
         )
         if (parts.isNotEmpty()) {
             Text(
@@ -159,7 +165,7 @@ internal fun EstimateCard(runs: List<RunProgress.Run>) {
         if (km > 5.0 && e.longestKm < km * 0.98) {
             Spacer(Modifier.height(4.dp))
             Text(
-                "È il tuo potenziale: finora hai corso al massimo ${WorkoutAnalysis.formatKm(e.longestKm * 1000)} km di fila.",
+                tr("È il tuo potenziale: finora hai corso al massimo %s km di fila.", WorkoutAnalysis.formatKm(e.longestKm * 1000)),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -168,22 +174,22 @@ internal fun EstimateCard(runs: List<RunProgress.Run>) {
 
         // In secondo piano: forchetta, FC necessaria, scenari e formula
         var open by rememberSaveable { mutableStateOf(false) }
-        ExpandRow(open, "Scenari e come è calcolata", { open = !open })
+        ExpandRow(open, tr("Scenari e come è calcolata"), { open = !open })
         if (open) {
             Spacer(Modifier.height(12.dp))
             val hrNeeded = goal?.let { RunProgress.hrForPace(e.beatsPerKm, it.paceSec) }
             if (km > 5.0 || hrNeeded != null) {
                 Row(Modifier.fillMaxWidth()) {
-                    if (km > 5.0) BigStat("${mmss(e.low)}–${mmss(e.high)}", "Forchetta ${kmLabel(km)} km", Modifier.weight(1f))
-                    if (hrNeeded != null) BigStat("$hrNeeded bpm", "FC per ${pace(goal.paceSec)}/km", Modifier.weight(1f))
+                    if (km > 5.0) BigStat("${mmss(e.low)}–${mmss(e.high)}", tr("Forchetta %s km", kmLabel(km)), Modifier.weight(1f))
+                    if (hrNeeded != null) BigStat("$hrNeeded bpm", tr("FC per %s/km", pace(goal.paceSec)), Modifier.weight(1f))
                 }
                 Spacer(Modifier.height(4.dp))
             }
             if (hrNeeded != null) {
                 val margin = e.hardHr - hrNeeded
                 Text(
-                    if (margin >= 0) "Negli sforzi duri tieni ${e.hardHr} bpm: $margin bpm di margine sul ritmo dell'obiettivo."
-                    else "Negli sforzi duri tieni ${e.hardHr} bpm: mancano ${-margin} bpm per il ritmo dell'obiettivo.",
+                    if (margin >= 0) tr("Negli sforzi duri tieni %d bpm: %d bpm di margine sul ritmo dell'obiettivo.", e.hardHr, margin)
+                    else tr("Negli sforzi duri tieni %d bpm: mancano %d bpm per il ritmo dell'obiettivo.", e.hardHr, -margin),
                     color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note, lineHeight = 15.sp
                 )
                 Spacer(Modifier.height(12.dp))
@@ -192,17 +198,18 @@ internal fun EstimateCard(runs: List<RunProgress.Run>) {
             Spacer(Modifier.height(10.dp))
             val last = history.last()
             Text(
-                "Come è calcolata: la stima dei 5 km è la media di due stime. Dal battito: battiti per km (FC media × ritmo) delle uscite facili, " +
-                    "mediana delle ultime ${last.easyCount} (oggi ${thousands(e.beatsPerKm)}), diviso la FC degli sforzi con RPE ≥ 7 " +
-                    "degli ultimi 90 giorni (${e.hardHr} bpm su ${e.hardCount}; nelle ripetute conta la FC dei tratti veloci) = " +
-                    "${mmss(last.hrSeconds5k)}. " +
+                tr("Come è calcolata: la stima dei 5 km è la media di due stime. Dal battito: battiti per km (FC media × ritmo) delle uscite facili, mediana delle ultime %d (oggi %s), diviso la FC degli sforzi con RPE ≥ 7 degli ultimi 90 giorni (%d bpm su %d; nelle ripetute conta la FC dei tratti veloci) = %s.",
+                        last.easyCount, thousands(e.beatsPerKm), e.hardHr, e.hardCount, mmss(last.hrSeconds5k)) + " " +
+                    
+                    
+                    
                     (last.perfRun?.let { r ->
-                        "Dalla prova reale: il miglior sforzo continuo degli ultimi 90 giorni (${dayLabel(r.date)}, " +
-                            "${WorkoutAnalysis.formatKm((r.km ?: 0.0) * 1000)} km in ${mmss(r.seconds)}) portato a 5 km = ${mmss(last.perfSeconds5k!!)}. "
-                    } ?: "Nessuno sforzo continuo duro negli ultimi 90 giorni: conta solo il battito. ") +
-                    "Si scartano le uscite facili con RPE oltre 6, sotto i 2 km o con battiti per km fuori scala (±15%). " +
-                    "I 7 e i 10 km vengono dai 5 con la formula di Riegel (esponente 1,08; forchetta 1,06–1,10): " +
-                    "valgono se riesci a tenere il ritmo per tutta la distanza.",
+                        tr("Dalla prova reale: il miglior sforzo continuo degli ultimi 90 giorni (%s, %s km in %s) portato a 5 km = %s.",
+                                                        dayLabel(r.date), WorkoutAnalysis.formatKm((r.km ?: 0.0) * 1000), mmss(r.seconds), mmss(last.perfSeconds5k!!))
+                    } ?: tr("Nessuno sforzo continuo duro negli ultimi 90 giorni: conta solo il battito.")) + " " +
+                    tr("Si scartano le uscite facili con RPE oltre 6, sotto i 2 km o con battiti per km fuori scala (±15%). I 7 e i 10 km vengono dai 5 con la formula di Riegel (esponente 1,08; forchetta 1,06–1,10): valgono se riesci a tenere il ritmo per tutta la distanza."),
+                    
+                    
                 color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -264,19 +271,19 @@ internal fun EstimateChart(
         when {
             selReal != null -> selReal.let { (r, t) ->
                 val rk = r.km ?: 0.0
-                if (abs(rk - km) / km < 0.02) "${dayLabel(r.date)}: hai corso $kmL km in ${mmss(r.seconds)} (${pace(r.paceSec)}/km)"
-                else "${dayLabel(r.date)}: hai corso ${WorkoutAnalysis.formatKm(rk * 1000)} km di fila in ${mmss(r.seconds)}, " +
-                    "cioè $kmL km in ${mmss(t)} (${pace((t / km).roundToInt())}/km)"
+                if (abs(rk - km) / km < 0.02) tr("%s: hai corso %s km in %s (%s/km)", dayLabel(r.date), kmL, mmss(r.seconds), pace(r.paceSec))
+                else tr("%s: hai corso %s km di fila in %s, cioè %s km in %s (%s/km)", dayLabel(r.date), WorkoutAnalysis.formatKm(rk * 1000), mmss(r.seconds),
+                                        kmL, mmss(t), pace((t / km).roundToInt()))
             }
             sel != null -> {
                 val t = points[selected!!]
-                "Dopo il ${dayLabel(sel.date)}: ${mmss(t)} (${pace((t / km).roundToInt())}/km) · " +
-                    if (km > 5.0) "dai 5 km in ${mmss(sel.seconds5k)}"
-                    else sel.perfSeconds5k?.let { "battito ${mmss(sel.hrSeconds5k)}, prova reale ${mmss(it)}" }
-                        ?: "${thousands(sel.beatsPerKm)} battiti/km ÷ ${sel.hardHr} bpm"
+                tr("Dopo il %s: %s (%s/km)", dayLabel(sel.date), mmss(t), pace((t / km).roundToInt())) + " · " +
+                    if (km > 5.0) tr("dai 5 km in %s", mmss(sel.seconds5k))
+                    else sel.perfSeconds5k?.let { tr("battito %s, prova reale %s", mmss(sel.hrSeconds5k), mmss(it)) }
+                        ?: tr("%s battiti/km ÷ %d bpm", thousands(sel.beatsPerKm), sel.hardHr)
             }
-            real.isNotEmpty() -> "Tocca un punto per i dettagli. Gli anelli sono i $kmL km corsi davvero, per confrontarli con la stima."
-            else -> "Tocca un punto per i dettagli"
+            real.isNotEmpty() -> tr("Tocca un punto per i dettagli. Gli anelli sono i %s km corsi davvero, per confrontarli con la stima.", kmL)
+            else -> tr("Tocca un punto per i dettagli")
         },
         color = if (sel != null || selReal != null) (if (selReal != null) ring else line) else UnicumDark.copy(alpha = .55f),
         style = UnicumType.Caption, lineHeight = 17.sp,
@@ -331,7 +338,7 @@ internal fun EstimateChart(
                 val x = px(m)
                 drawLine(grid, Offset(x, top), Offset(x, top + plotH), 1.dp.toPx())
                 if ((todayX == null || abs(x - todayX) > 30.dp.toPx()) && x - 14.dp.toPx() > firstEnd) {
-                    val t = measurer.measure(m.month.getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.ITALIAN), labelStyle)
+                    val t = measurer.measure(m.month.getDisplayName(java.time.format.TextStyle.SHORT, I18n.locale), labelStyle)
                     drawText(t, topLeft = Offset(x - t.size.width / 2f, bottomY))
                 }
             }
@@ -340,7 +347,7 @@ internal fun EstimateChart(
         }
         if (todayX != null) {
             drawLine(muted, Offset(todayX, top), Offset(todayX, top + plotH), 1.dp.toPx(), pathEffect = dash)
-            val t = measurer.measure("oggi", labelStyle)
+            val t = measurer.measure(tr("oggi"), labelStyle)
             drawText(t, topLeft = Offset(todayX - t.size.width / 2f, bottomY))
         }
         // Obiettivo: tratteggio fino alla scadenza, con il valore accanto all'anello
@@ -393,10 +400,10 @@ internal fun EstimateChart(
     }
     Spacer(Modifier.height(8.dp))
     FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        LegendDot(line, "Stima $kmL km")
-        if (real.isNotEmpty()) LegendDot(ring, "Corsi davvero", ring = true)
-        if (goal != null) LegendDot(muted, "Obiettivo", ring = true)
-        if (proj != null) LegendDash(line.copy(alpha = .7f), "Se continui così")
+        LegendDot(line, tr("Stima %s km", kmL))
+        if (real.isNotEmpty()) LegendDot(ring, tr("Corsi davvero"), ring = true)
+        if (goal != null) LegendDot(muted, tr("Obiettivo"), ring = true)
+        if (proj != null) LegendDash(line.copy(alpha = .7f), tr("Se continui così"))
     }
 }
 
@@ -429,19 +436,19 @@ private fun LegendDash(color: Color, label: String) {
 @Composable
 private fun ScenarioTable(scenarios: List<RunProgress.Scenario>, km: Double) {
     if (scenarios.isEmpty()) return
-    Text("SE IN GARA LA FC FOSSE…", color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note, fontWeight = FontWeight.SemiBold)
+    Text(tr("SE IN GARA LA FC FOSSE…"), color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note, fontWeight = FontWeight.SemiBold)
     Spacer(Modifier.height(6.dp))
     Row(Modifier.fillMaxWidth()) {
-        listOf("Scenario" to 1.4f, "FC" to 1f, "Ritmo" to 1f, "${kmLabel(km)} km" to 1.2f).forEach { (h, w) ->
+        listOf(tr("Scenario") to 1.4f, tr("FC") to 1f, tr("Ritmo") to 1f, "${kmLabel(km)} km" to 1.2f).forEachIndexed { i, (h, w) ->
             Text(h.uppercase(), color = UnicumDark.copy(alpha = .45f), style = UnicumType.Micro, fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.weight(w), textAlign = if (h == "Scenario") TextAlign.Start else TextAlign.End)
+                modifier = Modifier.weight(w), textAlign = if (i == 0) TextAlign.Start else TextAlign.End)
         }
     }
     scenarios.forEach { s ->
         val strong = s.name == "Centrale"
         val weight = if (strong) FontWeight.SemiBold else FontWeight.Normal
         Row(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-            Text(s.name, color = UnicumDark, style = UnicumType.Caption, fontWeight = weight, modifier = Modifier.weight(1.4f))
+            Text(tr(s.name), color = UnicumDark, style = UnicumType.Caption, fontWeight = weight, modifier = Modifier.weight(1.4f))
             listOf("${s.hr}" to 1f, pace(s.pace) to 1f, mmss(s.seconds) to 1.2f).forEach { (v, w) ->
                 Text(v, color = UnicumDark, style = UnicumType.Caption, fontWeight = weight, modifier = Modifier.weight(w), textAlign = TextAlign.End)
             }
@@ -454,13 +461,13 @@ private fun ScenarioTable(scenarios: List<RunProgress.Scenario>, km: Double) {
 // ------------------------------------------------------------------
 
 private fun Metric.short(): String = when (this) {
-    Metric.PACE -> "Ritmo"
-    Metric.KM -> "Distanza"
-    Metric.DURATION -> "Durata"
-    Metric.HR -> "FC media"
-    Metric.HR_MAX -> "FC max"
-    Metric.BPK -> "Battiti/km"
-    Metric.CADENCE -> "Cadenza"
+    Metric.PACE -> tr("Ritmo")
+    Metric.KM -> tr("Distanza")
+    Metric.DURATION -> tr("Durata")
+    Metric.HR -> tr("FC media")
+    Metric.HR_MAX -> tr("FC max")
+    Metric.BPK -> tr("Battiti/km")
+    Metric.CADENCE -> tr("Cadenza")
     Metric.RPE -> "RPE"
     Metric.VO2 -> "VO₂ max"
 }
@@ -476,11 +483,11 @@ private fun Metric.unit(): String = when (this) {
 
 private fun Metric.fmt(v: Double): String = when (this) {
     Metric.PACE -> pace(v.roundToInt())
-    Metric.KM -> "%.2f".format(v).replace('.', ',')
+    Metric.KM -> lfmt("%.2f", v)
     Metric.DURATION -> mmss(v.roundToInt())
     Metric.BPK -> thousands(v.roundToInt())
-    Metric.VO2 -> "%.1f".format(v).replace('.', ',')
-    Metric.RPE -> if (v % 1.0 == 0.0) v.toInt().toString() else "%.1f".format(v).replace('.', ',')
+    Metric.VO2 -> lfmt("%.1f", v)
+    Metric.RPE -> if (v % 1.0 == 0.0) v.toInt().toString() else lfmt("%.1f", v)
     else -> v.roundToInt().toString()
 }
 
@@ -524,7 +531,7 @@ internal fun CompareCard(runs: List<RunProgress.Run>) {
     val rows = remember(same, a, b) { RunProgress.compare(same, current, a, b) }
 
     UnicumCard {
-        CardHeader(Icons.AutoMirrored.Rounded.CompareArrows, "Corse a confronto")
+        CardHeader(Icons.AutoMirrored.Rounded.CompareArrows, tr("Corse a confronto"))
         Spacer(Modifier.height(12.dp))
         LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             items(kinds.size) { i ->
@@ -535,7 +542,7 @@ internal fun CompareCard(runs: List<RunProgress.Run>) {
         if (current == RunProgress.NO_KIND) {
             Spacer(Modifier.height(8.dp))
             Text(
-                "Queste corse non hanno ancora il tipo: aprile e scegli il tipo di seduta nelle Sensazioni.",
+                tr("Queste corse non hanno ancora il tipo: aprile e scegli il tipo di seduta nelle Sensazioni."),
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -558,21 +565,21 @@ internal fun CompareCard(runs: List<RunProgress.Run>) {
                 color = runKindColor(current).takeIf { current != RunProgress.NO_KIND && current != ALL_KINDS } ?: UnicumPrimary,
                 xLabel = { x -> dayLabel(points[x.roundToInt().coerceIn(points.indices)].first.date) },
                 yLabel = { metric.fmt(it.toDouble()) + metric.unit() },
-                summary = "${points.size} corse · media ${metric.fmt(mean)}${metric.unit()} (tratteggio)",
+                summary = tr("%d corse · media %s (tratteggio)", points.size, metric.fmt(mean) + metric.unit()),
                 invert = metric == Metric.PACE,
                 selectedX = selected, onSelect = { selected = it },
                 dots = true, reference = mean.toFloat(), height = 120.dp
             )
         } else {
             Text(
-                if (points.isEmpty()) "Nessun dato di questa misura per il tipo scelto." else "Una sola corsa con questo dato: il grafico compare dalla seconda.",
+                if (points.isEmpty()) tr("Nessun dato di questa misura per il tipo scelto.") else tr("Una sola corsa con questo dato: il grafico compare dalla seconda."),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
             )
         }
         // In secondo piano: due corse dello stesso tipo, scelte a mano, misura per misura
         if (current == ALL_KINDS || same.size < 2) return@UnicumCard
         var open by rememberSaveable { mutableStateOf(false) }
-        ExpandRow(open, "Confronta due corse · $current", { open = !open })
+        ExpandRow(open, tr("Confronta due corse") + " · " + kindText(current), { open = !open })
         if (!open) return@UnicumCard
         Spacer(Modifier.height(12.dp))
         val defaultA = rows.first().a
@@ -580,7 +587,7 @@ internal fun CompareCard(runs: List<RunProgress.Run>) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             RunPicker(a ?: defaultA, same) { aId = it.id }
             Spacer(Modifier.width(6.dp))
-            Text("con", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+            Text(tr("con"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
             Spacer(Modifier.width(6.dp))
             RunPicker(b ?: defaultB, same) { bId = it.id }
         }
@@ -588,8 +595,8 @@ internal fun CompareCard(runs: List<RunProgress.Run>) {
         CompareTable(rows, a ?: defaultA, b ?: defaultB)
         Spacer(Modifier.height(8.dp))
         Text(
-            "Differenza = prima corsa − seconda; verde se è un miglioramento. Nelle uscite facili il ritmo non ha un \"meglio\"; " +
-                "nelle ripetute nemmeno distanza, durata e battiti per km.",
+            tr("Differenza = prima corsa − seconda; verde se è un miglioramento. Nelle uscite facili il ritmo non ha un \"meglio\"; nelle ripetute nemmeno distanza, durata e battiti per km."),
+                
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
         )
     }
@@ -597,6 +604,13 @@ internal fun CompareCard(runs: List<RunProgress.Run>) {
 
 /** Voce dei tipi di seduta che mostra tutte le corse insieme. */
 private const val ALL_KINDS = "Tutte"
+
+/** Nome di un tipo da mostrare: "Tutte" e "Senza tipo" tradotti, i tipi di seduta come li dà il programma. */
+private fun kindText(kind: String): String = when (kind) {
+    ALL_KINDS -> tr("Tutte")
+    RunProgress.NO_KIND -> tr("Senza tipo")
+    else -> io.github.peol13.unicum.data.runKindLabel(kind)
+}
 
 @Composable
 private fun KindChip(kind: String, count: Int, selected: Boolean, onClick: () -> Unit) {
@@ -616,7 +630,7 @@ private fun KindChip(kind: String, count: Int, selected: Boolean, onClick: () ->
     ) {
         Box(Modifier.size(9.dp).clip(CircleShape).background(dot))
         Spacer(Modifier.width(6.dp))
-        Text(kind, color = if (selected) io.github.peol13.unicum.ui.theme.UnicumOnPrimary else UnicumDark, style = UnicumType.Caption,
+        Text(kindText(kind), color = if (selected) io.github.peol13.unicum.ui.theme.UnicumOnPrimary else UnicumDark, style = UnicumType.Caption,
             fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal)
         Spacer(Modifier.width(6.dp))
         Text("$count", color = (if (selected) io.github.peol13.unicum.ui.theme.UnicumOnPrimary else UnicumDark).copy(alpha = .6f), style = UnicumType.Micro)
@@ -637,7 +651,7 @@ private fun RunPicker(current: RunProgress.Run?, options: List<RunProgress.Run>,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(current?.let { dayLabel(it.date) } ?: "–", color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.SemiBold)
-            Icon(Icons.Rounded.ExpandMore, "Scegli la corsa", tint = UnicumDark.copy(alpha = .6f), modifier = Modifier.size(18.dp))
+            Icon(Icons.Rounded.ExpandMore, tr("Scegli la corsa"), tint = UnicumDark.copy(alpha = .6f), modifier = Modifier.size(18.dp))
         }
         DropdownMenu(expanded = open, onDismissRequest = { open = false }, containerColor = UnicumSurface) {
             options.reversed().forEach { r ->
@@ -663,8 +677,8 @@ private fun CompareTable(rows: List<RunProgress.Comparison>, a: RunProgress.Run?
     val headColor = UnicumDark.copy(alpha = .45f)
     Row(Modifier.fillMaxWidth()) {
         listOf(
-            "Misura" to 1.5f, (a?.let { dayLabel(it.date) } ?: "Prima") to 1f, (b?.let { dayLabel(it.date) } ?: "Seconda") to 1f,
-            "Diff." to 1f, "Media" to 1f, "Migliore" to 1.1f
+            tr("Misura") to 1.5f, (a?.let { dayLabel(it.date) } ?: tr("Prima")) to 1f, (b?.let { dayLabel(it.date) } ?: tr("Seconda")) to 1f,
+            tr("Diff.") to 1f, tr("Media") to 1f, tr("Migliore") to 1.1f
         ).forEachIndexed { i, (t, w) ->
             Text(t.uppercase(), color = headColor, style = UnicumType.Micro, fontWeight = FontWeight.SemiBold, maxLines = 1,
                 modifier = Modifier.weight(w), textAlign = if (i == 0) TextAlign.Start else TextAlign.End)
@@ -714,23 +728,23 @@ internal fun KindVolumeCard(runs: List<RunProgress.Run>) {
     val highlight = UnicumDark.copy(alpha = .06f)
     val grow = animatedFraction(1f, durationMillis = 700)
     UnicumCard {
-        CardHeader(Icons.AutoMirrored.Rounded.TrendingUp, "Km per settimana")
+        CardHeader(Icons.AutoMirrored.Rounded.TrendingUp, tr("Km per settimana"))
         Spacer(Modifier.height(12.dp))
         Row(Modifier.fillMaxWidth()) {
-            BigStat("${weeks.sumOf { it.total }.roundToInt()} km", "12 settimane", Modifier.weight(1f))
-            BigStat(weeks.sumOf { it.count }.toString(), "Uscite", Modifier.weight(1f))
+            BigStat("${weeks.sumOf { it.total }.roundToInt()} km", tr("12 settimane"), Modifier.weight(1f))
+            BigStat(weeks.sumOf { it.count }.toString(), tr("Uscite"), Modifier.weight(1f))
             BigStat(
-                if (active.isEmpty()) "–" else "%.1f km".format(weeks.sumOf { it.total } / weeks.size).replace('.', ','),
-                "Media a settimana", Modifier.weight(1f)
+                if (active.isEmpty()) "–" else lfmt("%.1f km", weeks.sumOf { it.total } / weeks.size),
+                tr("Media a settimana"), Modifier.weight(1f)
             )
         }
         Spacer(Modifier.height(12.dp))
         val sel = selected?.let { weeks.getOrNull(it) }
         Text(
             sel?.let { w ->
-                "Dal ${dayLabel(w.monday)}: ${"%.2f".format(w.total).replace('.', ',')} km · ${w.seconds / 60} min · ${w.count} uscite" +
-                    w.km.entries.sortedBy { order.indexOf(it.key) }.joinToString("") { " · ${it.key} ${"%.1f".format(it.value).replace('.', ',')}" }
-            } ?: "Tocca una colonna per il dettaglio",
+                tr("Dal %s: %s km · %d min · %d uscite", dayLabel(w.monday), lfmt("%.2f", w.total), w.seconds / 60, w.count) +
+                    w.km.entries.sortedBy { order.indexOf(it.key) }.joinToString("") { " · ${kindText(it.key)} ${lfmt("%.1f", it.value)}" }
+            } ?: tr("Tocca una colonna per il dettaglio"),
             color = if (sel != null) UnicumDark else UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 17.sp, maxLines = 3
         )
         Spacer(Modifier.height(8.dp))

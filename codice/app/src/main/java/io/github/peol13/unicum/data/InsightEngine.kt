@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
 import java.time.LocalDate
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -45,40 +47,40 @@ object InsightEngine {
         hrvInsight(
             days.filter { (it.sleepMinutes ?: 0) >= 7 * 60 }.mapNotNull { it.hrv },
             days.filter { it.sleepMinutes != null && it.sleepMinutes < 7 * 60 }.mapNotNull { it.hrv },
-            "Sonno e HRV"
-        ) { pct, more -> "Dopo le notti di almeno 7 ore la tua HRV è in media ${more(pct)} rispetto alle notti più corte." }
+            tr("Sonno e HRV")
+        ) { pct, more -> tr("Dopo le notti di almeno 7 ore la tua HRV è in media %s rispetto alle notti più corte.", more(pct)) }
             ?.let { out += it }
 
         // 2. allenamento -> HRV della notte dopo
         hrvInsight(
             days.filter { it.workouts > 0 }.mapNotNull { next(it)?.hrv },
             days.filter { it.workouts == 0 }.mapNotNull { next(it)?.hrv },
-            "Allenamento e HRV"
-        ) { pct, more -> "Nella notte dopo un allenamento la tua HRV è in media ${more(pct)} rispetto alle altre notti." }
+            tr("Allenamento e HRV")
+        ) { pct, more -> tr("Nella notte dopo un allenamento la tua HRV è in media %s rispetto alle altre notti.", more(pct)) }
             ?.let { out += it }
 
         // 3. deficit forte -> HRV della notte dopo
         hrvInsight(
             days.filter { (it.deficitKcal ?: Int.MIN_VALUE) > 700 }.mapNotNull { next(it)?.hrv },
             days.filter { it.deficitKcal != null && it.deficitKcal <= 700 }.mapNotNull { next(it)?.hrv },
-            "Deficit e HRV"
-        ) { pct, more -> "Dopo i giorni con un deficit oltre 700 kcal la tua HRV è in media ${more(pct)}." }
+            tr("Deficit e HRV")
+        ) { pct, more -> tr("Dopo i giorni con un deficit oltre 700 kcal la tua HRV è in media %s.", more(pct)) }
             ?.let { out += it }
 
         // 4. passi -> sonno della notte dopo
         sleepInsight(
             days.filter { (it.steps ?: -1) >= 8000 }.mapNotNull { next(it)?.sleepMinutes },
             days.filter { it.steps != null && it.steps < 8000 }.mapNotNull { next(it)?.sleepMinutes },
-            "Passi e sonno"
-        ) { diff -> "Dopo i giorni con almeno 8.000 passi dormi in media $diff rispetto ai giorni più sedentari." }
+            tr("Passi e sonno")
+        ) { diff -> tr("Dopo i giorni con almeno 8.000 passi dormi in media %s rispetto ai giorni più sedentari.", diff) }
             ?.let { out += it }
 
         // 5. allenamento -> sonno della notte dopo
         sleepInsight(
             days.filter { it.workouts > 0 }.mapNotNull { next(it)?.sleepMinutes },
             days.filter { it.workouts == 0 }.mapNotNull { next(it)?.sleepMinutes },
-            "Allenamento e sonno"
-        ) { diff -> "Nella notte dopo un allenamento dormi in media $diff." }
+            tr("Allenamento e sonno")
+        ) { diff -> tr("Nella notte dopo un allenamento dormi in media %s.", diff) }
             ?.let { out += it }
 
         return out
@@ -94,7 +96,7 @@ object InsightEngine {
         val pct = (with.average() - without.average()) / without.average() * 100
         if (abs(pct) < MIN_HRV_PCT) return null
         val rounded = pct.roundToInt()
-        val more: (Int) -> String = { p -> if (p >= 0) "più alta del $p%" else "più bassa del ${-p}%" }
+        val more: (Int) -> String = { p -> if (p >= 0) tr("più alta del %d%%", p) else tr("più bassa del %d%%", -p) }
         return Insight(title, text(rounded, more), with.size, without.size)
     }
 
@@ -103,6 +105,6 @@ object InsightEngine {
         val diff = with.average() - without.average()
         if (abs(diff) < MIN_SLEEP_MIN) return null
         val minutes = abs(diff).roundToInt()
-        return Insight(title, text(if (diff > 0) "$minutes minuti in più" else "$minutes minuti in meno"), with.size, without.size)
+        return Insight(title, text(if (diff > 0) tr("%d minuti in più", minutes) else tr("%d minuti in meno", minutes)), with.size, without.size)
     }
 }

@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.trp
+
+import io.github.peol13.unicum.i18n.tr
+
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.util.Locale
@@ -30,7 +36,9 @@ object WeekStory {
         DayOfWeek.SUNDAY to "domenica"
     )
 
-    fun dayName(date: LocalDate): String = dayNames.getValue(date.dayOfWeek)
+    fun dayName(date: LocalDate): String =
+        if (I18n.language == io.github.peol13.unicum.i18n.AppLanguage.IT) dayNames.getValue(date.dayOfWeek)
+        else date.dayOfWeek.getDisplayName(java.time.format.TextStyle.FULL_STANDALONE, I18n.locale)
 
     /**
      * [days]: i sette giorni della settimana; [weights]: peso per giorno nella settimana (anche vuoto);
@@ -44,11 +52,11 @@ object WeekStory {
         val nights = days.filter { it.sleepMinutes != null }
 
         pages += StoryPage(
-            StoryPage.Kind.INTRO, "La tua settimana", DateUtils.weekLabel(days.first().date), "",
+            StoryPage.Kind.INTRO, tr("La tua settimana"), DateUtils.weekLabel(days.first().date), "",
             listOf(
-                count(mealDays.size, "giorno con i pasti", "giorni con i pasti"),
-                count(workouts, "allenamento", "allenamenti"),
-                count(nights.size, "notte registrata", "notti registrate")
+                trp(mealDays.size, "%d giorno con i pasti", "%d giorni con i pasti"),
+                trp(workouts, "%d allenamento", "%d allenamenti"),
+                trp(nights.size, "%d notte registrata", "%d notti registrate")
             ).joinToString(", ") + "."
         )
 
@@ -57,21 +65,21 @@ object WeekStory {
             val avg = values.average().roundToInt()
             val reached = values.count { it >= deficitGoal }
             pages += StoryPage(
-                StoryPage.Kind.DEFICIT, if (avg >= 0) "Deficit medio" else "Surplus medio", fmt(abs(avg)), "kcal al giorno",
-                if (avg >= 0) (if (reached == 0) "Obiettivo di $deficitGoal kcal non ancora raggiunto in nessun giorno. "
-                    else "Obiettivo di $deficitGoal kcal raggiunto in $reached ${if (reached == 1) "giorno" else "giorni"} su ${values.size}. ") +
-                    "In tutta la settimana: ${fmt(values.sum())} kcal, circa ${kg(values.sum() / BodyTrend.KCAL_PER_KG)} di grasso."
-                else "Hai mangiato più di quanto hai consumato: ${fmt(-values.sum())} kcal di surplus in tutta la settimana."
+                StoryPage.Kind.DEFICIT, if (avg >= 0) tr("Deficit medio") else tr("Surplus medio"), fmt(abs(avg)), tr("kcal al giorno"),
+                if (avg >= 0) (if (reached == 0) tr("Obiettivo di %d kcal non ancora raggiunto in nessun giorno.", deficitGoal) + " "
+                    else tr("Obiettivo di %d kcal raggiunto in %s su %d.", deficitGoal, trp(reached, "%d giorno", "%d giorni"), values.size) + " ") +
+                    tr("In tutta la settimana: %s kcal, circa %s di grasso.", fmt(values.sum()), kg(values.sum() / BodyTrend.KCAL_PER_KG))
+                else tr("Hai mangiato più di quanto hai consumato: %s kcal di surplus in tutta la settimana.", fmt(-values.sum()))
             )
         }
 
         if (minutes > 0 || workouts > 0) {
             val best = days.maxByOrNull { it.activityMinutes }!!
             pages += StoryPage(
-                StoryPage.Kind.ATTIVITA, "Attività", minutes.toString(), "minuti",
-                (if (minutes >= WEEKLY_ACTIVITY_GOAL) "Obiettivo dei $WEEKLY_ACTIVITY_GOAL minuti settimanali raggiunto"
-                else "Mancano ${WEEKLY_ACTIVITY_GOAL - minutes} minuti ai $WEEKLY_ACTIVITY_GOAL settimanali consigliati") +
-                    ", con ${count(workouts, "allenamento", "allenamenti")}. Il giorno più attivo: ${dayName(best.date)} (${best.activityMinutes} min)."
+                StoryPage.Kind.ATTIVITA, tr("Attività"), minutes.toString(), tr("minuti"),
+                (if (minutes >= WEEKLY_ACTIVITY_GOAL) tr("Obiettivo dei %d minuti settimanali raggiunto", WEEKLY_ACTIVITY_GOAL)
+                else tr("Mancano %d minuti ai %d settimanali consigliati", WEEKLY_ACTIVITY_GOAL - minutes, WEEKLY_ACTIVITY_GOAL)) +
+                    ", " + tr("con %s.", trp(workouts, "%d allenamento", "%d allenamenti")) + " " + tr("Il giorno più attivo: %s (%d min).", dayName(best.date), best.activityMinutes)
             )
         }
 
@@ -79,9 +87,9 @@ object WeekStory {
             val avg = nights.map { it.sleepMinutes!! }.average().roundToInt()
             val best = nights.maxByOrNull { it.sleepMinutes!! }!!
             pages += StoryPage(
-                StoryPage.Kind.SONNO, "Sonno medio", duration(avg), "a notte",
-                "La notte migliore: ${dayName(best.date)} (${duration(best.sleepMinutes!!)}). " +
-                    if (avg >= 7 * 60) "Sei nella fascia delle 7-9 ore consigliate." else "Sotto le 7 ore consigliate: c'è margine."
+                StoryPage.Kind.SONNO, tr("Sonno medio"), duration(avg), tr("a notte"),
+                tr("La notte migliore: %s (%s).", dayName(best.date), duration(best.sleepMinutes!!)) + " " +
+                    if (avg >= 7 * 60) tr("Sei nella fascia delle 7-9 ore consigliate.") else tr("Sotto le 7 ore consigliate: c'è margine.")
             )
         }
 
@@ -91,9 +99,9 @@ object WeekStory {
             val high = hrvDays.maxByOrNull { it.hrv!! }!!
             val low = hrvDays.minByOrNull { it.hrv!! }!!
             pages += StoryPage(
-                StoryPage.Kind.RECUPERO, "HRV media", avg.toString(), "ms",
-                "Recupero migliore ${dayName(high.date)} (${high.hrv!!.roundToInt()} ms), il più basso " +
-                    "${dayName(low.date)} (${low.hrv!!.roundToInt()} ms)."
+                StoryPage.Kind.RECUPERO, tr("HRV media"), avg.toString(), "ms",
+                tr("Recupero migliore %s (%d ms), il più basso %s (%d ms).", dayName(high.date), high.hrv!!.roundToInt(), dayName(low.date), low.hrv!!.roundToInt())
+                    
             )
         }
 
@@ -101,9 +109,9 @@ object WeekStory {
             val sorted = weights.toSortedMap()
             val change = sorted.values.last() - sorted.values.first()
             pages += StoryPage(
-                StoryPage.Kind.PESO, "Peso", kgSigned(change), "kg",
-                "Da ${dayName(sorted.firstKey())} (${kg1(sorted.values.first())} kg) a ${dayName(sorted.lastKey())} " +
-                    "(${kg1(sorted.values.last())} kg). Conta la tendenza di più settimane, non il singolo giorno."
+                StoryPage.Kind.PESO, tr("Peso"), kgSigned(change), "kg",
+                tr("Da %s (%s kg) a %s (%s kg). Conta la tendenza di più settimane, non il singolo giorno.", dayName(sorted.firstKey()), kg1(sorted.values.first()), dayName(sorted.lastKey()), kg1(sorted.values.last()))
+                    
             )
         }
 
@@ -117,22 +125,22 @@ object WeekStory {
         val deficitAvg = deficits.takeIf { it.isNotEmpty() }?.average()
         val sentence = when {
             sleepAvg != null && sleepAvg < 6.5 * 60 ->
-                "Il sonno è il punto da curare: prova ad andare a letto 30 minuti prima per qualche sera."
+                tr("Il sonno è il punto da curare: prova ad andare a letto 30 minuti prima per qualche sera.")
             minutes < WEEKLY_ACTIVITY_GOAL ->
-                "Aggiungi una o due sessioni da 30 minuti: bastano per arrivare ai $WEEKLY_ACTIVITY_GOAL minuti."
+                tr("Aggiungi una o due sessioni da 30 minuti: bastano per arrivare ai %d minuti.", WEEKLY_ACTIVITY_GOAL)
             deficitAvg != null && deficitAvg < goal * 0.6 ->
-                "Il deficit è sotto l'obiettivo: registra tutti i pasti e tieni d'occhio gli spuntini."
+                tr("Il deficit è sotto l'obiettivo: registra tutti i pasti e tieni d'occhio gli spuntini.")
             deficits.isEmpty() ->
-                "Registra i pasti ogni giorno: la prossima settimana potrai vedere anche il bilancio calorico."
-            else -> "Settimana equilibrata: mantieni lo stesso ritmo."
+                tr("Registra i pasti ogni giorno: la prossima settimana potrai vedere anche il bilancio calorico.")
+            else -> tr("Settimana equilibrata: mantieni lo stesso ritmo.")
         }
-        return StoryPage(StoryPage.Kind.PROSSIMA, "Per la prossima settimana", "", "", sentence)
+        return StoryPage(StoryPage.Kind.PROSSIMA, tr("Per la prossima settimana"), "", "", sentence)
     }
 
-    private fun count(n: Int, one: String, many: String) = "$n ${if (n == 1) one else many}"
-    private fun fmt(v: Int) = String.format(Locale.ITALY, "%,d", v)
+
+    private fun fmt(v: Int) = String.format(I18n.locale, "%,d", v)
     private fun duration(m: Int) = "${m / 60} h ${"%02d".format(m % 60)}"
-    private fun kg(v: Double) = String.format(Locale.ITALY, "%.1f kg", v)
-    private fun kg1(v: Double) = String.format(Locale.ITALY, "%.1f", v)
+    private fun kg(v: Double) = String.format(I18n.locale, "%.1f kg", v)
+    private fun kg1(v: Double) = String.format(I18n.locale, "%.1f", v)
     private fun kgSigned(v: Double) = (if (v >= 0) "+" else "−") + kg1(abs(v))
 }

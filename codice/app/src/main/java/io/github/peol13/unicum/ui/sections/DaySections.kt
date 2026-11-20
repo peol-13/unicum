@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.ui.sections
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.data.SleepStageType
 import io.github.peol13.unicum.ui.theme.UnicumTrack
 import io.github.peol13.unicum.ui.theme.MacroFatsColor
@@ -128,8 +132,8 @@ internal fun CardPair(content: @Composable androidx.compose.foundation.layout.Ro
 internal fun CalorieCard(s: DayStats, onClick: (() -> Unit)? = null) {
     UnicumCard(onClick = onClick) {
         CardHeader(
-            Icons.Rounded.LocalFireDepartment, "Calorie",
-            action = if (onClick != null) "Dettagli" else null, onAction = { onClick?.invoke() }
+            Icons.Rounded.LocalFireDepartment, tr("Calorie"),
+            action = if (onClick != null) tr("Dettagli") else null, onAction = { onClick?.invoke() }
         )
         Spacer(Modifier.height(10.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -156,14 +160,14 @@ internal fun DeficitSummary(s: DayStats, modifier: Modifier = Modifier) {
             color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold
         )
         Text(
-            if (s.deficit < 0) "surplus" else "deficit",
+            if (s.deficit < 0) tr("surplus") else tr("deficit"),
             color = UnicumPrimary, style = UnicumType.Detail
         )
         Spacer(Modifier.height(10.dp))
         DeficitLine(s.deficit, UserSettings.targetDeficitKcal)
         Spacer(Modifier.height(4.dp))
         Text(
-            "Deficit obiettivo: ${UserSettings.targetDeficitKcal} kcal",
+            tr("Deficit obiettivo: %d kcal", UserSettings.targetDeficitKcal),
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
         )
     }
@@ -176,7 +180,7 @@ internal fun CalorieCompactCard(s: DayStats, onClick: () -> Unit) {
             IconBadge(Icons.Rounded.LocalFireDepartment, size = 40.dp)
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
-                Text("Calorie", color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+                Text(tr("Calorie"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(fmt(animatedCount(s.eaten)), color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold)
                     Text(
@@ -188,7 +192,7 @@ internal fun CalorieCompactCard(s: DayStats, onClick: () -> Unit) {
             }
             Column(horizontalAlignment = Alignment.End) {
                 Text("${fmt(abs(s.deficit))} kcal", color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold)
-                Text(if (s.deficit < 0) "surplus" else "deficit", color = UnicumPrimary, style = UnicumType.Note)
+                Text(if (s.deficit < 0) tr("surplus") else tr("deficit"), color = UnicumPrimary, style = UnicumType.Note)
             }
         }
         Spacer(Modifier.height(10.dp))
@@ -205,8 +209,8 @@ internal fun ActivityBigCard(s: DayStats, week: List<Int>, onClick: (() -> Unit)
 
     UnicumCard(onClick = onClick) {
         CardHeader(
-            Icons.AutoMirrored.Rounded.DirectionsRun, "Attività",
-            action = if (onClick != null) "Dettagli" else null, onAction = { onClick?.invoke() }
+            Icons.AutoMirrored.Rounded.DirectionsRun, tr("Attività"),
+            action = if (onClick != null) tr("Dettagli") else null, onAction = { onClick?.invoke() }
         )
         Spacer(Modifier.height(10.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -223,14 +227,14 @@ internal fun ActivityBigCard(s: DayStats, week: List<Int>, onClick: (() -> Unit)
                         if (delta != null) "${if (delta >= 0) "+" else ""}$delta min" else "—",
                         color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold
                     )
-                    Text("rispetto alla media", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+                    Text(tr("rispetto alla media"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
                 }
                 Spacer(Modifier.height(10.dp))
                 ThinProgress(s.activityMinutes / ACTIVITY_GOAL_MINUTES.toFloat())
                 Spacer(Modifier.height(4.dp))
-                Text("Obiettivo $ACTIVITY_GOAL_MINUTES min", color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note)
+                Text(tr("Obiettivo %d min", ACTIVITY_GOAL_MINUTES), color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note)
                 UnicumAppState.steps?.let {
-                    Text("${fmt(it)} passi", color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, fontWeight = FontWeight.Medium)
+                    Text(tr("%s passi", fmt(it)), color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, fontWeight = FontWeight.Medium)
                 }
             }
         }
@@ -242,7 +246,7 @@ internal fun ActivityBigCard(s: DayStats, week: List<Int>, onClick: (() -> Unit)
 @Composable
 internal fun ActivitySmallCard(minutes: Int, week: List<Int>, modifier: Modifier, onClick: () -> Unit) {
     UnicumCard(modifier = modifier, onClick = onClick) {
-        CardHeader(Icons.AutoMirrored.Rounded.DirectionsRun, "Attività")
+        CardHeader(Icons.AutoMirrored.Rounded.DirectionsRun, tr("Attività"))
         Spacer(Modifier.height(10.dp))
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Row(verticalAlignment = Alignment.Bottom) {
@@ -251,7 +255,7 @@ internal fun ActivitySmallCard(minutes: Int, week: List<Int>, modifier: Modifier
                 Text("min", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Body, modifier = Modifier.padding(bottom = 4.dp))
             }
             UnicumAppState.steps?.let {
-                Text("${fmt(it)} passi", color = UnicumDark.copy(alpha = .75f), style = UnicumType.Emphasis, fontWeight = FontWeight.Medium)
+                Text(tr("%s passi", fmt(it)), color = UnicumDark.copy(alpha = .75f), style = UnicumType.Emphasis, fontWeight = FontWeight.Medium)
             }
         }
         Spacer(Modifier.height(10.dp))
@@ -262,7 +266,7 @@ internal fun ActivitySmallCard(minutes: Int, week: List<Int>, modifier: Modifier
 internal fun workoutDetail(a: Activity): String = buildList {
     a.startMinute?.let { add(MealTime.format(it)) }
     add("${a.durationMinutes} min")
-    a.distanceMeters?.takeIf { it > 0 }?.let { add("%.1f km".format(Locale.ITALY, it / 1000.0)) }
+    a.distanceMeters?.takeIf { it > 0 }?.let { add("%.1f km".format(I18n.locale, it / 1000.0)) }
     a.avgHeartRate?.let { add("$it bpm") }
     if (!a.isManual) add(SourceInfo.label(a.source))
 }.joinToString(" · ")
@@ -276,13 +280,13 @@ internal fun WorkoutsCard(
 ) {
     UnicumCard {
         CardHeader(
-            Icons.Rounded.FitnessCenter, "Allenamenti",
-            action = if (onAll != null) "Vedi tutti" else null, onAction = { onAll?.invoke() }
+            Icons.Rounded.FitnessCenter, tr("Allenamenti"),
+            action = if (onAll != null) tr("Vedi tutti") else null, onAction = { onAll?.invoke() }
         )
         Spacer(Modifier.height(8.dp))
         if (activities.isEmpty()) {
             Text(
-                "Nessun allenamento registrato.",
+                tr("Nessun allenamento registrato."),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
@@ -296,13 +300,13 @@ internal fun WorkoutsCard(
                     )
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) {
-                        Text(a.type, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+                        Text(tr(a.type), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
                         Text(workoutDetail(a), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
                     }
                     Text("${a.calories} kcal", color = UnicumPrimary, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
                     if (onDelete != null) {
                         Box(Modifier.clickable { onDelete(a) }.padding(start = 8.dp, top = 8.dp, bottom = 8.dp)) {
-                            Icon(Icons.Rounded.Close, "Elimina", tint = DeleteRed, modifier = Modifier.size(18.dp))
+                            Icon(Icons.Rounded.Close, tr("Elimina"), tint = DeleteRed, modifier = Modifier.size(18.dp))
                         }
                     }
                 }
@@ -315,19 +319,19 @@ internal fun formatDuration(minutes: Int): String =
     if (minutes < 60) "$minutes min" else "${minutes / 60} h ${"%02d".format(minutes % 60)}"
 
 internal fun formatClock(millis: Long): String =
-    SimpleDateFormat("HH:mm", Locale.ITALY).format(Date(millis))
+    SimpleDateFormat("HH:mm", I18n.locale).format(Date(millis))
 
 internal const val SLEEP_GOAL_MINUTES = 8 * 60
 
 @Composable
 internal fun SleepBigCard(night: SleepNight?, onClick: (() -> Unit)? = null) {
     UnicumCard(onClick = onClick) {
-        CardHeader(Icons.Rounded.Bedtime, "Sonno")
+        CardHeader(Icons.Rounded.Bedtime, tr("Sonno"))
         Spacer(Modifier.height(10.dp))
         if (night == null) {
             HealthEmptyState(
-                "Nessuna notte registrata",
-                "Collega Health Connect e consenti la lettura del sonno: qui vedrai durata, fasi e orari."
+                tr("Nessuna notte registrata"),
+                tr("Collega Health Connect e consenti la lettura del sonno: qui vedrai durata, fasi e orari.")
             )
         } else {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -337,7 +341,7 @@ internal fun SleepBigCard(night: SleepNight?, onClick: (() -> Unit)? = null) {
                             formatDuration(night.durationMinutes),
                             color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold
                         )
-                        Text("di sonno", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+                        Text(tr("di sonno"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
                     }
                 }
                 Spacer(Modifier.width(16.dp))
@@ -346,7 +350,7 @@ internal fun SleepBigCard(night: SleepNight?, onClick: (() -> Unit)? = null) {
                         "${night.efficiencyPercent}%",
                         color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold
                     )
-                    Text("efficienza del sonno", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+                    Text(tr("efficienza del sonno"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
                     Spacer(Modifier.height(4.dp))
                     Text(
                         "${formatClock(night.startMillis)} → ${formatClock(night.endMillis)}",
@@ -361,13 +365,13 @@ internal fun SleepBigCard(night: SleepNight?, onClick: (() -> Unit)? = null) {
                 StageBar(night)
             } else {
                 Text(
-                    "Questa fonte non fornisce le fasi del sonno.",
+                    tr("Questa fonte non fornisce le fasi del sonno."),
                     color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
                 )
             }
             Spacer(Modifier.height(6.dp))
             Text(
-                "Fonte: ${SourceInfo.label(night.source)}",
+                tr("Fonte: %s", SourceInfo.label(night.source)),
                 color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note
             )
         }
@@ -390,14 +394,14 @@ internal fun StageBar(night: SleepNight) {
 @Composable
 internal fun SleepSmallCard(night: SleepNight?, weekMinutes: List<Int>, modifier: Modifier, onClick: (() -> Unit)? = null) {
     UnicumCard(modifier = modifier, onClick = onClick) {
-        CardHeader(Icons.Rounded.Bedtime, "Sonno")
+        CardHeader(Icons.Rounded.Bedtime, tr("Sonno"))
         Spacer(Modifier.height(10.dp))
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 if (night != null) formatDuration(night.durationMinutes) else NO_DATA,
                 color = UnicumDark, style = if (night != null) UnicumType.Section else UnicumType.Screen, fontWeight = FontWeight.SemiBold
             )
-            Text("di sonno", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail)
+            Text(tr("di sonno"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail)
         }
         Spacer(Modifier.height(10.dp))
         MiniBars(weekMinutes.ifEmpty { List(7) { 0 } }, height = 36.dp)
@@ -407,7 +411,7 @@ internal fun SleepSmallCard(night: SleepNight?, weekMinutes: List<Int>, modifier
 @Composable
 internal fun SleepRingSmallCard(night: SleepNight?, modifier: Modifier, onClick: (() -> Unit)? = null) {
     UnicumCard(modifier = modifier, onClick = onClick) {
-        CardHeader(Icons.Rounded.Bedtime, "Sonno")
+        CardHeader(Icons.Rounded.Bedtime, tr("Sonno"))
         Spacer(Modifier.height(10.dp))
         Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             RingGauge(
@@ -419,7 +423,7 @@ internal fun SleepRingSmallCard(night: SleepNight?, modifier: Modifier, onClick:
                         if (night != null) formatDuration(night.durationMinutes) else NO_DATA,
                         color = UnicumDark, style = if (night != null) UnicumType.Heading else UnicumType.Page, fontWeight = FontWeight.SemiBold
                     )
-                    Text("di sonno", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note)
+                    Text(tr("di sonno"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note)
                 }
             }
         }
@@ -428,13 +432,13 @@ internal fun SleepRingSmallCard(night: SleepNight?, modifier: Modifier, onClick:
 
 /** "36,4 °C" oppure, se la fonte dà solo lo scarto dalla base personale, "+0,3 °C". */
 internal fun tempText(value: Double, isDelta: Boolean): String =
-    String.format(java.util.Locale.ITALY, if (isDelta) "%+.1f °C" else "%.1f °C", value)
+    String.format(I18n.locale, if (isDelta) "%+.1f °C" else "%.1f °C", value)
 
 /** " (+0,2 vs media)" rispetto alla media recente; vuoto se mancano i dati per il confronto. */
 internal fun tempVsAverage(temp: Pair<Double, Boolean>): String {
     val type = if (temp.second) MetricType.NIGHT_TEMP_DELTA else MetricType.NIGHT_TEMP
     val base = UnicumAppState.metricBaseline(type) ?: return ""
-    return String.format(java.util.Locale.ITALY, " (%+.1f vs media)", temp.first - base)
+    return " " + tr("(%+.1f vs media)", temp.first - base)
 }
 
 /** Recupero: HRV notturna rispetto alla propria media, con temperatura notturna. */
@@ -446,7 +450,7 @@ internal fun RecoveryCard(modifier: Modifier, onClick: (() -> Unit)? = null) {
     val progress = if (hrv != null && baseline != null && baseline > 0) (hrv / baseline / 1.5).toFloat() else 0f
 
     UnicumCard(modifier = modifier, onClick = onClick) {
-        CardHeader(Icons.Rounded.Bolt, "Recupero")
+        CardHeader(Icons.Rounded.Bolt, tr("Recupero"))
         Spacer(Modifier.height(10.dp))
         Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             RingGauge(progress = progress, size = 104.dp, stroke = 10.dp) {
@@ -462,8 +466,8 @@ internal fun RecoveryCard(modifier: Modifier, onClick: (() -> Unit)? = null) {
         Spacer(Modifier.height(6.dp))
         Text(
             buildString {
-                append(if (temp != null) "Temp. notte ${tempText(temp.first, temp.second)}${tempVsAverage(temp)}" else "Temp. notte –")
-                percentVs(hrv, baseline)?.let { append(" · HRV ${signedPercent(it)} vs media") }
+                append(tr("Temp. notte %s", if (temp != null) tempText(temp.first, temp.second) + tempVsAverage(temp) else "–"))
+                percentVs(hrv, baseline)?.let { append(" · " + tr("HRV %s vs media", signedPercent(it))) }
             },
             color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note, lineHeight = 15.sp,
             modifier = Modifier.fillMaxWidth()
@@ -481,7 +485,7 @@ internal fun MealsCard(meals: List<Meal>, onDetails: (() -> Unit)? = null) {
 
     UnicumCard(onClick = onDetails) {
         CardHeader(
-            Icons.Rounded.Restaurant, "Pasti",
+            Icons.Rounded.Restaurant, tr("Pasti"),
             action = if (onDetails != null) "Dettagli" else null, onAction = { onDetails?.invoke() }
         )
         Spacer(Modifier.height(6.dp))
@@ -517,7 +521,7 @@ internal fun SoftPill(modifier: Modifier = Modifier, content: @Composable () -> 
     ) { content() }
 }
 
-internal fun fmt(v: Int): String = NumberFormat.getIntegerInstance(Locale.ITALY).format(v)
+internal fun fmt(v: Int): String = NumberFormat.getIntegerInstance(I18n.locale).format(v)
 
 @Composable
 internal fun MealSection(
@@ -531,7 +535,7 @@ internal fun MealSection(
             Box(Modifier.weight(1f)) {
                 CardHeader(
                     icon = Icons.Rounded.Restaurant,
-                    title = if (meals.isEmpty()) title else "$title · ${meals.sumOf { it.calories }} kcal"
+                    title = io.github.peol13.unicum.data.MealTime.label(title).let { t -> if (meals.isEmpty()) t else "$t · ${meals.sumOf { it.calories }} kcal" }
                 )
             }
             Row(
@@ -539,13 +543,13 @@ internal fun MealSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(Icons.Rounded.Add, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
-                Text("Aggiungi", color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+                Text(tr("Aggiungi"), color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
             }
         }
 
         if (meals.isEmpty()) {
             Spacer(Modifier.height(8.dp))
-            Text("Nessun alimento registrato.", color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption)
+            Text(tr("Nessun alimento registrato."), color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption)
         } else {
             // Toccando un alimento si modificano quantità, tipo di pasto e orario
             val context = LocalContext.current.applicationContext
@@ -575,16 +579,16 @@ internal fun MealSection(
                         Text(meal.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
                         val grams = if (meal.quantityGrams > 0) "${meal.quantityGrams} g · " else ""
                         Text(
-                            "$grams${meal.calories} kcal · P ${meal.protein.toInt()}  C ${meal.carbohydrates.toInt()}  G ${meal.fats.toInt()}",
+                            "$grams${meal.calories} kcal · ${tr("P")} ${meal.protein.toInt()}  ${tr("C")} ${meal.carbohydrates.toInt()}  ${tr("G")} ${meal.fats.toInt()}",
                             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
                         )
                     }
                     Icon(
-                        Icons.Rounded.Edit, "Modifica", tint = UnicumDark.copy(alpha = .35f),
+                        Icons.Rounded.Edit, tr("Modifica"), tint = UnicumDark.copy(alpha = .35f),
                         modifier = Modifier.size(16.dp)
                     )
                     Box(Modifier.clickable { onDelete(meal) }.padding(8.dp)) {
-                        Icon(Icons.Rounded.Close, "Elimina", tint = DeleteRed, modifier = Modifier.size(18.dp))
+                        Icon(Icons.Rounded.Close, tr("Elimina"), tint = DeleteRed, modifier = Modifier.size(18.dp))
                     }
                 }
             }
@@ -647,23 +651,23 @@ internal fun StatDivider() =
 internal fun CalorieBreakdownCard(s: DayStats) {
     val resting = s.burnedSoFar - UnicumAppState.extraBurnKcal
     UnicumCard {
-        CardHeader(Icons.Rounded.LocalFireDepartment, "Bilancio del giorno")
+        CardHeader(Icons.Rounded.LocalFireDepartment, tr("Bilancio del giorno"))
         Spacer(Modifier.height(6.dp))
-        StatRow("Metabolismo basale", "${fmt(resting)} kcal")
+        StatRow(tr("Metabolismo basale"), "${fmt(resting)} kcal")
         StatDivider()
-        StatRow("Movimento e allenamenti", "${fmt(UnicumAppState.extraBurnKcal)} kcal")
+        StatRow(tr("Movimento e allenamenti"), "${fmt(UnicumAppState.extraBurnKcal)} kcal")
         StatDivider()
-        StatRow("Totale consumato", "${fmt(s.burnedSoFar)} kcal", emphasized = true)
+        StatRow(tr("Totale consumato"), "${fmt(s.burnedSoFar)} kcal", emphasized = true)
         StatDivider()
-        StatRow("Calorie assunte", "${fmt(s.eaten)} kcal")
+        StatRow(tr("Calorie assunte"), "${fmt(s.eaten)} kcal")
         StatDivider()
-        StatRow(if (s.deficit < 0) "Surplus" else "Deficit", "${fmt(abs(s.deficit))} kcal", emphasized = true)
+        StatRow(if (s.deficit < 0) tr("Surplus") else tr("Deficit"), "${fmt(abs(s.deficit))} kcal", emphasized = true)
         StatDivider()
-        StatRow("Obiettivo calorico (fisso)", "${fmt(s.goal)} kcal")
+        StatRow(tr("Obiettivo calorico (fisso)"), "${fmt(s.goal)} kcal")
         if (UnicumAppState.isToday) {
             Spacer(Modifier.height(6.dp))
             Text(
-                "Il basale matura nell'arco della giornata: a fine giornata arriverà a ${fmt(UserSettings.dailyBurnKcal)} kcal.",
+                tr("Il basale matura nell'arco della giornata: a fine giornata arriverà a %s kcal.", fmt(UserSettings.dailyBurnKcal)),
                 color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption, lineHeight = 17.sp
             )
         }
@@ -689,20 +693,20 @@ internal fun OtherNutrientsCard() {
     val sugars = total { it.sugars }
     val salt = total { it.salt }
     UnicumCard {
-        CardHeader(Icons.Rounded.Grain, "Fibre, zuccheri e sale")
+        CardHeader(Icons.Rounded.Grain, tr("Fibre, zuccheri e sale"))
         Spacer(Modifier.height(6.dp))
-        NutrientRow("Fibre", fiber, if (fiber != null) fiber / FIBER_GOAL_G else null, "obiettivo almeno 25 g", warn = false)
+        NutrientRow(tr("Fibre"), fiber, if (fiber != null) fiber / FIBER_GOAL_G else null, tr("obiettivo almeno 25 g"), warn = false)
         StatDivider()
-        NutrientRow("Zuccheri", sugars, null, "compresi quelli di frutta e latte", warn = false)
+        NutrientRow(tr("Zuccheri"), sugars, null, tr("compresi quelli di frutta e latte"), warn = false)
         StatDivider()
-        NutrientRow("Sale", salt, if (salt != null) salt / SALT_LIMIT_G else null, "massimo consigliato 5 g", warn = (salt ?: 0f) > SALT_LIMIT_G)
+        NutrientRow(tr("Sale"), salt, if (salt != null) salt / SALT_LIMIT_G else null, tr("massimo consigliato 5 g"), warn = (salt ?: 0f) > SALT_LIMIT_G)
         Spacer(Modifier.height(8.dp))
         Text(
             when {
-                meals.isEmpty() -> "Nessun pasto registrato."
-                withData == meals.size -> "Dato presente per tutti gli alimenti del giorno."
-                else -> "Dato presente per $withData alimenti su ${meals.size}: il database di base non ha questi valori, " +
-                    "li hanno i prodotti con marca e gli alimenti personali in cui li inserisci."
+                meals.isEmpty() -> tr("Nessun pasto registrato.")
+                withData == meals.size -> tr("Dato presente per tutti gli alimenti del giorno.")
+                else -> tr("Dato presente per %d alimenti su %d: il database di base non ha questi valori, li hanno i prodotti con marca e gli alimenti personali in cui li inserisci.", withData, meals.size)
+                    
             },
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption, lineHeight = 17.sp
         )
@@ -736,15 +740,15 @@ internal fun ActivityNumbersCard() {
     val distance = UnicumAppState.health.metric(MetricType.DISTANCE_M, day)
     val activeKcal = UnicumAppState.health.metric(MetricType.ACTIVE_KCAL, day)
     UnicumCard {
-        CardHeader(Icons.AutoMirrored.Rounded.DirectionsRun, "Movimento del giorno")
+        CardHeader(Icons.AutoMirrored.Rounded.DirectionsRun, tr("Movimento del giorno"))
         Spacer(Modifier.height(6.dp))
-        StatRow("Passi", UnicumAppState.steps?.let { fmt(it) } ?: NO_DATA)
+        StatRow(tr("Passi"), UnicumAppState.steps?.let { fmt(it) } ?: NO_DATA)
         StatDivider()
-        StatRow("Distanza", distance?.let { "%.1f km".format(Locale.ITALY, it / 1000.0) } ?: NO_DATA)
+        StatRow(tr("Distanza"), distance?.let { "%.1f km".format(I18n.locale, it / 1000.0) } ?: NO_DATA)
         StatDivider()
-        StatRow("Calorie attive", activeKcal?.let { "${fmt(it.toInt())} kcal" } ?: NO_DATA)
+        StatRow(tr("Calorie attive"), activeKcal?.let { "${fmt(it.toInt())} kcal" } ?: NO_DATA)
         StatDivider()
-        StatRow("Minuti di allenamento", "${UnicumAppState.dayData.activityMinutes} min")
+        StatRow(tr("Minuti di allenamento"), "${UnicumAppState.dayData.activityMinutes} min")
     }
 }
 
@@ -777,12 +781,12 @@ internal fun RecoveryDetailCard() {
     val hrvWeek = days.map { UnicumAppState.health.metric(MetricType.HRV, it)?.toInt() ?: 0 }
 
     UnicumCard {
-        CardHeader(Icons.Rounded.Bolt, "Recupero")
+        CardHeader(Icons.Rounded.Bolt, tr("Recupero"))
         Spacer(Modifier.height(6.dp))
         if (hrv == null && temp == null && hrvWeek.all { it == 0 }) {
             HealthEmptyState(
-                "Nessun dato di recupero",
-                "HRV e temperatura notturna arrivano dall'anello o dall'orologio tramite Health Connect."
+                tr("Nessun dato di recupero"),
+                tr("HRV e temperatura notturna arrivano dall'anello o dall'orologio tramite Health Connect.")
             )
             return@UnicumCard
         }
@@ -790,21 +794,21 @@ internal fun RecoveryDetailCard() {
             RecoveryAlertBox(it)
             Spacer(Modifier.height(6.dp))
         }
-        val hrvVs = percentVs(hrv, hrvBase)?.let { " (${signedPercent(it)} vs media)" }.orEmpty()
-        StatRow("HRV notturna", if (hrv != null) "${hrv.toInt()} ms$hrvVs" else NO_DATA, emphasized = true)
+        val hrvVs = percentVs(hrv, hrvBase)?.let { " " + tr("(%s vs media)", signedPercent(it)) }.orEmpty()
+        StatRow(tr("HRV notturna"), if (hrv != null) "${hrv.toInt()} ms$hrvVs" else NO_DATA, emphasized = true)
         StatDivider()
         StatRow(
-            "Temperatura notturna",
+            tr("Temperatura notturna"),
             if (temp != null) tempText(temp.first, temp.second) + tempVsAverage(temp) else NO_DATA
         )
         Spacer(Modifier.height(10.dp))
-        Text("HRV degli ultimi 7 giorni", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+        Text(tr("HRV degli ultimi 7 giorni"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
         Spacer(Modifier.height(6.dp))
         MiniBars(hrvWeek, height = 50.dp)
         if (hrvBase == null) {
             Spacer(Modifier.height(8.dp))
             Text(
-                "Servono almeno 4 giorni di dati per confrontare con la tua media.",
+                tr("Servono almeno 4 giorni di dati per confrontare con la tua media."),
                 color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption
             )
         }
@@ -826,10 +830,10 @@ internal fun MacroBalanceBlock(s: DayStats) {
     val track = UnicumTrack
     val hasEaten = shares.any { it.effectivePct != null }
 
-    Text("Macronutrienti", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+    Text(tr("Macronutrienti"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
     Spacer(Modifier.height(10.dp))
 
-    MacroBarLabel("Effettivo")
+    MacroBarLabel(tr("Effettivo"))
     Spacer(Modifier.height(4.dp))
     if (hasEaten) {
         MacroPercentRow(shares.map { it.effectivePct ?: 0 }, colors)
@@ -838,7 +842,7 @@ internal fun MacroBalanceBlock(s: DayStats) {
     } else {
         Box(Modifier.fillMaxWidth().height(14.dp).clip(RoundedCornerShape(6.dp)).background(track))
         Spacer(Modifier.height(3.dp))
-        Text("Nessun pasto registrato", color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note)
+        Text(tr("Nessun pasto registrato"), color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note)
     }
 
     Spacer(Modifier.height(8.dp))
@@ -846,7 +850,7 @@ internal fun MacroBalanceBlock(s: DayStats) {
     Spacer(Modifier.height(3.dp))
     MacroPercentRow(shares.map { it.goalPct }, colors, alpha = .6f)
     Spacer(Modifier.height(2.dp))
-    MacroBarLabel("Consigliate")
+    MacroBarLabel(tr("Consigliate"))
 
     Spacer(Modifier.height(10.dp))
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {

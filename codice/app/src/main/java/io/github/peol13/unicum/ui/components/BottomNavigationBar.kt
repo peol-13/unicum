@@ -80,9 +80,9 @@ fun BottomNavigationBar(
                         .padding(vertical = 2.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Icon(item.icon, item.route.key, tint = tint, modifier = Modifier.size(26.dp))
+                    Icon(item.icon, item.route.label, tint = tint, modifier = Modifier.size(26.dp))
                     Text(
-                        item.route.key,
+                        item.route.label, maxLines = 1,
                         modifier = Modifier.padding(top = 3.dp),
                         color = tint,
                         style = UnicumType.Note,

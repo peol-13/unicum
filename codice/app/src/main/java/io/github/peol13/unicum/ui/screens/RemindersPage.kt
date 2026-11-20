@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import android.Manifest
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -56,12 +58,12 @@ fun RemindersPage() {
 
     var alertsOn by remember { mutableStateOf(RecoveryAlertNotifier.isEnabled(context)) }
     UnicumCard {
-        CardHeader(Icons.Rounded.Bolt, "Avvisi sul recupero")
+        CardHeader(Icons.Rounded.Bolt, tr("Avvisi sul recupero"))
         Spacer(Modifier.height(4.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                "Una notifica quando l'HRV resta sotto la tua media del 20% per due notti o la temperatura notturna " +
-                    "sale di mezzo grado: possibili segni di stress o di un inizio di malattia. Al massimo una al giorno.",
+                tr("Una notifica quando l'HRV resta sotto la tua media del 20% per due notti o la temperatura notturna sale di mezzo grado: possibili segni di stress o di un inizio di malattia. Al massimo una al giorno."),
+                    
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp,
                 modifier = Modifier.weight(1f)
             )
@@ -82,10 +84,10 @@ fun RemindersPage() {
     }
     Spacer(Modifier.height(14.dp))
     UnicumCard {
-        CardHeader(Icons.Rounded.Notifications, "Promemoria")
+        CardHeader(Icons.Rounded.Notifications, tr("Promemoria"))
         Spacer(Modifier.height(4.dp))
         Text(
-            "Ricevi una notifica all'orario del pasto. Se l'hai già registrato, non compare.",
+            tr("Ricevi una notifica all'orario del pasto. Se l'hai già registrato, non compare."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
         Spacer(Modifier.height(10.dp))

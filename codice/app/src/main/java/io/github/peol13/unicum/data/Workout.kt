@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.tk
+
 import kotlinx.serialization.Serializable
 
 /** Un valore di una serie (battito, velocità, cadenza) a [t] secondi dall'inizio dell'allenamento. */
@@ -147,7 +151,7 @@ data class WorkoutFeedback(
 
     companion object {
         /** Tipi di seduta della corsa: gli stessi del "Registro corse" su Notion. */
-        val RUN_KINDS = listOf("Facile", "Lungo facile", "Progressivo", "Intervalli", "Test", "Libera")
+        val RUN_KINDS = listOf(tk("Facile"), tk("Lungo facile"), tk("Progressivo"), tk("Intervalli"), tk("Test"), tk("Libera"))
 
         /** Le etichette della prima versione, portate su quelle del registro. */
         fun normalizeKind(kind: String?): String? = when (kind) {
@@ -160,3 +164,6 @@ data class WorkoutFeedback(
         }
     }
 }
+
+/** Nome di un tipo di seduta da mostrare: i tipi predefiniti dell'app tradotti, i tag di Notion così come sono. */
+fun runKindLabel(kind: String): String = if (kind in WorkoutFeedback.RUN_KINDS) tr(kind) else kind

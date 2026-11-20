@@ -1,5 +1,13 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.lfmt
+
+import io.github.peol13.unicum.i18n.trp
+
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import androidx.activity.compose.BackHandler
@@ -80,8 +88,8 @@ import kotlin.math.roundToInt
 /** Tono "da cambiare" della barra dei km (sabbia, come i peggioramenti nei confronti). */
 private val WornColor = Color(0xFFC9A66B)
 
-private fun km1(km: Double): String = "%.1f".format(java.util.Locale.ITALIAN, km)
-private fun kmInt(km: Double): String = "%,d".format(km.roundToInt()).replace(',', '.')
+private fun km1(km: Double): String = lfmt("%.1f", km)
+private fun kmInt(km: Double): String = lfmt("%,d", km.roundToInt())
 
 /** Statistiche di tutte le scarpe sulle corse [data] (null = ancora in caricamento). */
 @Composable
@@ -105,15 +113,15 @@ internal fun ShoePickerCard(run: WorkoutDetail, onManage: () -> Unit, onOpenShoe
     val current = data.shoeOf(run.externalId)
     val haptics = rememberHaptics()
     UnicumCard {
-        CardHeader(Icons.AutoMirrored.Rounded.DirectionsRun, "Scarpe", action = "Gestisci", onAction = onManage)
+        CardHeader(Icons.AutoMirrored.Rounded.DirectionsRun, tr("Scarpe"), action = tr("Gestisci"), onAction = onManage)
         Spacer(Modifier.height(12.dp))
         if (data.shoes.isEmpty()) {
             Text(
-                "Registra le tue scarpe per sapere quanti km hanno fatto e quando cambiarle.",
+                tr("Registra le tue scarpe per sapere quanti km hanno fatto e quando cambiarle."),
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail, lineHeight = 18.sp
             )
             Spacer(Modifier.height(10.dp))
-            UnicumChip("Aggiungi scarpa", false, onManage, compact = true)
+            UnicumChip(tr("Aggiungi scarpa"), false, onManage, compact = true)
             return@UnicumCard
         }
         // Le scarpe in uso; una ritirata resta visibile se è quella di questa corsa
@@ -126,7 +134,7 @@ internal fun ShoePickerCard(run: WorkoutDetail, onManage: () -> Unit, onOpenShoe
                     Shoes.assign(run.externalId, if (current?.id == s.id) null else s.id)
                 }, compact = true)
             }
-            item { UnicumChip("Nessuna", current == null, { Shoes.assign(run.externalId, null) }, compact = true) }
+            item { UnicumChip(tr("Nessuna"), current == null, { Shoes.assign(run.externalId, null) }, compact = true) }
         }
         if (current != null) {
             val km = rememberShoeStats(rememberRunList()).firstOrNull { it.shoe.id == current.id }?.km
@@ -136,7 +144,7 @@ internal fun ShoePickerCard(run: WorkoutDetail, onManage: () -> Unit, onOpenShoe
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    current.name + (km?.let { ": ${km1(it)} km su ${current.limitKm}" } ?: ""),
+                    current.name + (km?.let { ": " + tr("%s km su %d", km1(it), current.limitKm) } ?: ""),
                     color = UnicumPrimary, style = UnicumType.Caption, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f)
                 )
                 Icon(Icons.Rounded.ChevronRight, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
@@ -144,7 +152,7 @@ internal fun ShoePickerCard(run: WorkoutDetail, onManage: () -> Unit, onOpenShoe
         } else if (data.default == null) {
             Spacer(Modifier.height(8.dp))
             Text(
-                "Imposta una scarpa predefinita: le prossime corse le verranno assegnate da sole.",
+                tr("Imposta una scarpa predefinita: le prossime corse le verranno assegnate da sole."),
                 color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -161,8 +169,8 @@ internal fun ShoesSummaryCard(data: RunList?, onNavigate: (Route) -> Unit) {
     val stats = rememberShoeStats(data).filter { !it.shoe.retired }
     if (stats.isEmpty()) {
         LinkCard(
-            Icons.AutoMirrored.Rounded.DirectionsRun, "Le tue scarpe",
-            if (Shoes.data.shoes.isEmpty()) "Aggiungi le scarpe e scegli quale usi in ogni corsa" else "Nessuna scarpa in uso",
+            Icons.AutoMirrored.Rounded.DirectionsRun, tr("Le tue scarpe"),
+            if (Shoes.data.shoes.isEmpty()) tr("Aggiungi le scarpe e scegli quale usi in ogni corsa") else tr("Nessuna scarpa in uso"),
             onClick = { onNavigate(Route.Shoes) }
         )
         return
@@ -177,7 +185,7 @@ internal fun ShoesSummaryCard(data: RunList?, onNavigate: (Route) -> Unit) {
             Modifier.fillMaxWidth().clickable { onNavigate(Route.Shoes) }.padding(vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Gestisci scarpe", color = UnicumPrimary, style = UnicumType.Caption, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
+            Text(tr("Gestisci scarpe"), color = UnicumPrimary, style = UnicumType.Caption, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
             Icon(Icons.Rounded.ChevronRight, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
         }
     }
@@ -200,10 +208,10 @@ private fun ShoeLine(s: ShoeStats.Stats, isDefault: Boolean, onClick: () -> Unit
         Spacer(Modifier.height(5.dp))
         Text(
             listOfNotNull(
-                "predefinita".takeIf { isDefault },
-                if (s.count == 1) "1 corsa" else "${s.count} corse",
-                s.last?.let { "ultima ${DateUtils.relativeLabel(it).lowercase()}" },
-                s.shoe.retired.takeIf { it }?.let { "ritirata" }
+                tr("predefinita").takeIf { isDefault },
+                trp(s.count, "%d corsa", "%d corse"),
+                s.last?.let { tr("ultima %s", DateUtils.relativeLabel(it).lowercase(I18n.locale)) },
+                s.shoe.retired.takeIf { it }?.let { tr("ritirata") }
             ).joinToString(" · "),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
         )
@@ -226,14 +234,14 @@ fun ShoesScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
         data?.runs?.let { Shoes.autoAssign(it) }
     }
     UnicumScreen(selectedItem = Route.Allenamenti, onNavigate = onNavigate) {
-        PageHeader("Scarpe", if (stats.isEmpty()) "Km e usura delle tue scarpe" else "${stats.size} paia", onBack)
+        PageHeader(tr("Scarpe"), if (stats.isEmpty()) tr("Km e usura delle tue scarpe") else trp(stats.size, "%d paio", "%d paia"), onBack)
         Spacer(Modifier.height(18.dp))
         val active = stats.filter { !it.shoe.retired }
         val retired = stats.filter { it.shoe.retired }
         if (stats.isEmpty()) {
             Text(
-                "Aggiungi le scarpe che usi per correre. Nella pagina di ogni corsa scegli quale hai usato; " +
-                    "la scarpa predefinita viene assegnata da sola alle nuove corse.",
+                tr("Aggiungi le scarpe che usi per correre. Nella pagina di ogni corsa scegli quale hai usato; la scarpa predefinita viene assegnata da sola alle nuove corse."),
+                    
                 color = UnicumDark.copy(alpha = .65f), style = UnicumType.Body, lineHeight = 20.sp
             )
             Spacer(Modifier.height(16.dp))
@@ -247,10 +255,10 @@ fun ShoesScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
             }
             Spacer(Modifier.height(14.dp))
         }
-        UnicumButton("Aggiungi scarpa", onClick = { adding = true })
+        UnicumButton(tr("Aggiungi scarpa"), onClick = { adding = true })
         if (retired.isNotEmpty()) {
             Spacer(Modifier.height(24.dp))
-            Text("Ritirate", color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold)
+            Text(tr("Ritirate"), color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(10.dp))
             UnicumCard {
                 retired.forEachIndexed { i, s ->
@@ -281,9 +289,9 @@ fun ShoeScreen(id: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
         data?.runs?.let { Shoes.autoAssign(it) }
     }
     if (s != null && deleting) UnicumDialog(onDismiss = { deleting = false }) {
-        Text("Eliminare “${s.shoe.name}”?", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(tr("Eliminare “%s”?", s.shoe.name), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
         Text(
-            "Le ${s.count} corse fatte con questa scarpa resteranno senza scarpa. Se vuoi solo smettere di usarla, ritirala.",
+            tr("Le %d corse fatte con questa scarpa resteranno senza scarpa. Se vuoi solo smettere di usarla, ritirala.", s.count),
             color = UnicumDark.copy(alpha = .7f), style = UnicumType.Body, lineHeight = 20.sp
         )
         Box(
@@ -292,23 +300,23 @@ fun ShoeScreen(id: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
                 .clickable { deleting = false; Shoes.remove(id); onBack() }
                 .padding(vertical = 14.dp),
             contentAlignment = Alignment.Center
-        ) { Text("Elimina", color = DeleteRed, style = UnicumType.Body, fontWeight = FontWeight.Medium) }
+        ) { Text(tr("Elimina"), color = DeleteRed, style = UnicumType.Body, fontWeight = FontWeight.Medium) }
         TextButton(onClick = { deleting = false }, modifier = Modifier.fillMaxWidth()) {
-            Text("Annulla", color = UnicumDark.copy(alpha = .7f))
+            Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
         }
     }
 
     UnicumScreen(selectedItem = Route.Allenamenti, onNavigate = onNavigate) {
         if (s == null) {
-            PageHeader("Scarpa", "", onBack)
+            PageHeader(tr("Scarpa"), "", onBack)
             return@UnicumScreen
         }
         val since = runCatching { LocalDate.parse(s.shoe.since) }.getOrNull()
         PageHeader(
             s.shoe.name,
             listOfNotNull(
-                since?.let { "In uso dal ${DateUtils.shortLabel(it).substringAfter(' ')}" },
-                "predefinita".takeIf { isDefault }, "ritirata".takeIf { s.shoe.retired }
+                since?.let { tr("In uso dal %s", DateUtils.shortLabel(it).substringAfter(' ')) },
+                tr("predefinita").takeIf { isDefault }, tr("ritirata").takeIf { s.shoe.retired }
             ).joinToString(" · "),
             onBack
         )
@@ -320,7 +328,7 @@ fun ShoeScreen(id: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
                 Text(km1(s.km), color = UnicumDark, style = UnicumType.Page, fontWeight = FontWeight.SemiBold)
                 Text(" km", color = UnicumDark, style = UnicumType.Body, modifier = Modifier.padding(bottom = 3.dp))
                 Spacer(Modifier.weight(1f))
-                Text("su ${s.shoe.limitKm} km", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, modifier = Modifier.padding(bottom = 3.dp))
+                Text(tr("su %d km", s.shoe.limitKm), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, modifier = Modifier.padding(bottom = 3.dp))
             }
             Spacer(Modifier.height(10.dp))
             ThinProgress(s.fraction, height = 8.dp, color = if (s.fraction >= .9f) WornColor else UnicumPrimary)
@@ -328,13 +336,13 @@ fun ShoeScreen(id: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
             val weeks = s.weeksLeft
             Text(
                 when {
-                    s.km >= s.shoe.limitKm -> "Hai superato i ${s.shoe.limitKm} km: l'ammortizzazione è probabilmente calata, valuta di cambiarla."
-                    s.shoe.retired -> "Ritirata con ${kmInt(s.km)} km."
+                    s.km >= s.shoe.limitKm -> tr("Hai superato i %d km: l'ammortizzazione è probabilmente calata, valuta di cambiarla.", s.shoe.limitKm)
+                    s.shoe.retired -> tr("Ritirata con %s km.", kmInt(s.km))
                     weeks != null && s.weeklyKm != null ->
-                        "Ne restano ${kmInt(s.remainingKm)} km: a ${km1(s.weeklyKm)} km a settimana, circa " +
-                            (if (weeks >= 78) "${(weeks / 52.0).roundToInt()} anni." else if (weeks >= 9) "${(weeks / 4.3).roundToInt()} mesi." else if (weeks <= 1) "1 settimana." else "$weeks settimane.")
-                    else -> "Ne restano ${kmInt(s.remainingKm)} km."
-                } + if (s.shoe.startKm > 0) " Compresi ${kmInt(s.shoe.startKm)} km fatti prima dell'app." else "",
+                        tr("Ne restano %s km: a %s km a settimana, circa %s", kmInt(s.remainingKm), km1(s.weeklyKm),
+                                                        if (weeks >= 78) tr("%d anni.", (weeks / 52.0).roundToInt()) else if (weeks >= 9) tr("%d mesi.", (weeks / 4.3).roundToInt()) else if (weeks <= 1) tr("1 settimana.") else tr("%d settimane.", weeks))
+                    else -> tr("Ne restano %s km.", kmInt(s.remainingKm))
+                } + if (s.shoe.startKm > 0) " " + tr("Compresi %s km fatti prima dell'app.", kmInt(s.shoe.startKm)) else "",
                 color = UnicumDark.copy(alpha = .65f), style = UnicumType.Detail, lineHeight = 18.sp
             )
         }
@@ -343,21 +351,21 @@ fun ShoeScreen(id: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
         // ---------- i numeri
         UnicumCard {
             Row(Modifier.fillMaxWidth()) {
-                BigStat("${s.count}", if (s.count == 1) "corsa" else "corse", Modifier.weight(1f))
-                BigStat(WorkoutAnalysis.formatDuration(s.seconds).let { if (s.seconds >= 3600) it.substringBeforeLast(':') + " h" else it }, "tempo", Modifier.weight(1f))
-                BigStat(WorkoutAnalysis.formatPace(s.paceSec), "ritmo medio", Modifier.weight(1f))
+                BigStat("${s.count}", if (s.count == 1) tr("corsa") else tr("corse"), Modifier.weight(1f))
+                BigStat(WorkoutAnalysis.formatDuration(s.seconds).let { if (s.seconds >= 3600) it.substringBeforeLast(':') + " h" else it }, tr("tempo"), Modifier.weight(1f))
+                BigStat(WorkoutAnalysis.formatPace(s.paceSec), tr("ritmo medio"), Modifier.weight(1f))
             }
             Spacer(Modifier.height(14.dp))
             Row(Modifier.fillMaxWidth()) {
-                BigStat(s.avgHr?.toString() ?: "–", "FC media", Modifier.weight(1f))
-                BigStat(s.beatsPerKm?.let { "%,d".format(it).replace(',', '.') } ?: "–", "battiti/km", Modifier.weight(1f))
-                BigStat(s.longestKm?.let { km1(it) } ?: "–", "km più lunga", Modifier.weight(1f))
+                BigStat(s.avgHr?.toString() ?: "–", tr("FC media"), Modifier.weight(1f))
+                BigStat(s.beatsPerKm?.let { lfmt("%,d", it) } ?: "–", tr("battiti/km"), Modifier.weight(1f))
+                BigStat(s.longestKm?.let { km1(it) } ?: "–", tr("km più lunga"), Modifier.weight(1f))
             }
             Spacer(Modifier.height(14.dp))
             Row(Modifier.fillMaxWidth()) {
-                BigStat(km1(s.last30Km), "km in 30 giorni", Modifier.weight(1f))
-                BigStat(s.weeklyKm?.let { km1(it) } ?: "–", "km a settimana", Modifier.weight(1f))
-                BigStat(s.last?.let { DateUtils.relativeLabel(it) } ?: "–", "ultima corsa", Modifier.weight(1f))
+                BigStat(km1(s.last30Km), tr("km in 30 giorni"), Modifier.weight(1f))
+                BigStat(s.weeklyKm?.let { km1(it) } ?: "–", tr("km a settimana"), Modifier.weight(1f))
+                BigStat(s.last?.let { DateUtils.relativeLabel(it) } ?: "–", tr("ultima corsa"), Modifier.weight(1f))
             }
         }
         Spacer(Modifier.height(14.dp))
@@ -365,7 +373,7 @@ fun ShoeScreen(id: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
         // ---------- km per tipo di seduta
         if (s.byKind.isNotEmpty()) {
             UnicumCard {
-                Text("Per tipo di seduta", color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold)
+                Text(tr("Per tipo di seduta"), color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.height(10.dp))
                 val max = s.byKind.maxOf { it.second }.coerceAtLeast(0.1)
                 s.byKind.forEach { (kind, km) ->
@@ -374,7 +382,7 @@ fun ShoeScreen(id: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
                             if (kind == RunProgress.NO_KIND) UnicumDark.copy(alpha = .2f) else runKindColor(kind)
                         ))
                         Spacer(Modifier.width(8.dp))
-                        Text(kind, color = UnicumDark, style = UnicumType.Caption, modifier = Modifier.width(96.dp), maxLines = 1)
+                        Text(if (kind == RunProgress.NO_KIND) tr("Senza tipo") else io.github.peol13.unicum.data.runKindLabel(kind), color = UnicumDark, style = UnicumType.Caption, modifier = Modifier.width(96.dp), maxLines = 1)
                         ThinProgress((km / max).toFloat(), Modifier.weight(1f),
                             color = if (kind == RunProgress.NO_KIND) UnicumDark.copy(alpha = .35f) else runKindColor(kind))
                         Spacer(Modifier.width(8.dp))
@@ -387,25 +395,25 @@ fun ShoeScreen(id: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
 
         // ---------- azioni
         LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            item { UnicumChip("Modifica", false, { editing = true }, compact = true) }
+            item { UnicumChip(tr("Modifica"), false, { editing = true }, compact = true) }
             if (!s.shoe.retired) item {
-                UnicumChip(if (isDefault) "Predefinita" else "Rendi predefinita", isDefault, {
+                UnicumChip(if (isDefault) tr("Predefinita") else tr("Rendi predefinita"), isDefault, {
                     Shoes.upsert(s.shoe, !isDefault)
                     if (!isDefault) data?.runs?.let { Shoes.autoAssign(it) }
                 }, compact = true)
             }
             item {
-                UnicumChip(if (s.shoe.retired) "Rimetti in uso" else "Ritira", false, {
+                UnicumChip(if (s.shoe.retired) tr("Rimetti in uso") else tr("Ritira"), false, {
                     Shoes.upsert(s.shoe.copy(retired = !s.shoe.retired), makeDefault = false)
                 }, compact = true)
             }
-            item { UnicumChip("Elimina", false, { deleting = true }, compact = true) }
+            item { UnicumChip(tr("Elimina"), false, { deleting = true }, compact = true) }
         }
 
         // ---------- le corse
         if (s.runs.isNotEmpty()) {
             Spacer(Modifier.height(24.dp))
-            Text("Corse con questa scarpa", color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold)
+            Text(tr("Corse con questa scarpa"), color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(10.dp))
             UnicumCard(padding = 6.dp) {
                 s.runs.forEach { w -> ShoeRunRow(w, data?.feedback?.get(w.externalId)?.kind) { onNavigate(Route.Workout(w.externalId)) } }
@@ -424,7 +432,7 @@ private fun ShoeRunRow(w: WorkoutDetail, kind: String?, onClick: () -> Unit) {
         Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Text(DateUtils.relativeLabel(LocalDate.parse(w.date)), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.Medium, maxLines = 1)
-            Text(kind ?: "Senza tipo", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, maxLines = 1)
+            Text(kind?.let { io.github.peol13.unicum.data.runKindLabel(it) } ?: tr("Senza tipo"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, maxLines = 1)
         }
         Text(
             "${WorkoutAnalysis.formatKm(w.distanceM)} km · ${WorkoutAnalysis.formatPace(WorkoutAnalysis.averagePace(w))}",
@@ -482,29 +490,29 @@ private fun ShoeDialog(initial: Shoe?, initialDefault: Boolean, onDismiss: () ->
                 TextButton(onClick = {
                     state.selectedDateMillis?.let { since = Instant.ofEpochMilli(it).atZone(utc).toLocalDate().toString() }
                     picking = false
-                }) { Text("Ok", color = UnicumPrimary) }
+                }) { Text(tr("Ok"), color = UnicumPrimary) }
             },
-            dismissButton = { TextButton(onClick = { picking = false }) { Text("Annulla", color = UnicumDark.copy(alpha = .7f)) } }
+            dismissButton = { TextButton(onClick = { picking = false }) { Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f)) } }
         ) { DatePicker(state = state, showModeToggle = false, colors = pickerColors, title = null) }
     }
 
     UnicumDialog(onDismiss, spacing = 12.dp) {
-        Text(if (initial == null) "Nuova scarpa" else "Modifica scarpa", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(if (initial == null) tr("Nuova scarpa") else tr("Modifica scarpa"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
         OutlinedTextField(
             value = name, onValueChange = { name = it.take(40) },
-            label = { Text("Nome (es. Pegasus 41)") }, singleLine = true,
+            label = { Text(tr("Nome (es. Pegasus 41)")) }, singleLine = true,
             colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()
         )
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             OutlinedTextField(
                 value = startKm, onValueChange = { startKm = it.filter { c -> c.isDigit() || c == ',' || c == '.' }.take(6) },
-                label = { Text("Km già fatti") }, singleLine = true,
+                label = { Text(tr("Km già fatti")) }, singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f)
             )
             OutlinedTextField(
                 value = limit, onValueChange = { limit = it.filter(Char::isDigit).take(4) },
-                label = { Text("Da cambiare a") }, suffix = { Text("km") }, singleLine = true,
+                label = { Text(tr("Da cambiare a")) }, suffix = { Text("km") }, singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f)
             )
@@ -518,23 +526,23 @@ private fun ShoeDialog(initial: Shoe?, initialDefault: Boolean, onDismiss: () ->
             Icon(Icons.Rounded.CalendarMonth, null, tint = UnicumPrimary, modifier = Modifier.size(20.dp))
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
-                Text("In uso dal", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
+                Text(tr("In uso dal"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
                 Text(DateUtils.fullLabel(LocalDate.parse(since)), color = UnicumDark, style = UnicumType.Body)
             }
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
-                Text("Scarpa predefinita", color = UnicumDark, style = UnicumType.Body)
+                Text(tr("Scarpa predefinita"), color = UnicumDark, style = UnicumType.Body)
                 Text(
-                    "Le corse da quel giorno senza una scarpa scelta vanno a questa.",
+                    tr("Le corse da quel giorno senza una scarpa scelta vanno a questa."),
                     color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
                 )
             }
             Spacer(Modifier.width(8.dp))
-            UnicumChip(if (isDefault) "Sì" else "No", isDefault, { isDefault = !isDefault }, compact = true)
+            UnicumChip(if (isDefault) tr("Sì") else tr("No"), isDefault, { isDefault = !isDefault }, compact = true)
         }
         Spacer(Modifier.height(2.dp))
-        UnicumButton(if (initial == null) "Aggiungi" else "Salva", enabled = name.isNotBlank(), onClick = {
+        UnicumButton(if (initial == null) tr("Aggiungi") else tr("Salva"), enabled = name.isNotBlank(), onClick = {
             val shoe = (initial ?: Shoe(Shoes.newId(), "", since)).copy(
                 name = name.trim(),
                 since = since,
@@ -544,7 +552,7 @@ private fun ShoeDialog(initial: Shoe?, initialDefault: Boolean, onDismiss: () ->
             onSave(shoe, isDefault)
         })
         TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
-            Text("Annulla", color = UnicumDark.copy(alpha = .7f))
+            Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
         }
     }
 }

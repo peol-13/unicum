@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.ui
 
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.runtime.saveable.Saver
 import io.github.peol13.unicum.ui.screens.DetailTopic
 import java.time.LocalDate
@@ -15,13 +19,16 @@ sealed interface Route {
     val key: String
 
     /** Le cinque voci della barra in basso. */
-    sealed class Tab(final override val key: String) : Route
+    sealed class Tab(final override val key: String) : Route {
+        /** Nome nella barra in basso, nella lingua dell'app. */
+        val label: String get() = tr(key)
+    }
 
-    data object Home : Tab("Home")
-    data object Allenamenti : Tab("Allenamenti")
-    data object Statistiche : Tab("Statistiche")
-    data object Diario : Tab("Diario")
-    data object Profilo : Tab("Profilo")
+    data object Home : Tab(tk("Home"))
+    data object Allenamenti : Tab(tk("Allenamenti"))
+    data object Statistiche : Tab(tk("Statistiche"))
+    data object Diario : Tab(tk("Diario"))
+    data object Profilo : Tab(tk("Profilo"))
 
     data object Consigli : Route { override val key = "Consigli" }
     data object HomeEditor : Route { override val key = "PersonalizzaHome" }

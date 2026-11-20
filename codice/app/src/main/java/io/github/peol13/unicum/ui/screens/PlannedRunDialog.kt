@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -86,7 +88,7 @@ fun PlannedRunDialog(
     }
 
     UnicumDialog(onDismiss, spacing = 12.dp) {
-        Text(if (initial == null) "Nuova seduta" else "Seduta", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(if (initial == null) tr("Nuova seduta") else tr("Seduta"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
 
         Row(
             Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp))
@@ -97,15 +99,15 @@ fun PlannedRunDialog(
             Icon(Icons.Rounded.CalendarMonth, null, tint = UnicumPrimary, modifier = Modifier.size(20.dp))
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
-                Text("Giorno", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
+                Text(tr("Giorno"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
                 Text(
-                    if (noDate) "Senza data: tocca per sceglierla" else DateUtils.fullLabel(date) + if (date.year != today.year) " ${date.year}" else "",
+                    if (noDate) tr("Senza data: tocca per sceglierla") else DateUtils.fullLabel(date) + if (date.year != today.year) " ${date.year}" else "",
                     color = UnicumDark, style = UnicumType.Body
                 )
             }
         }
 
-        Text("Tipo", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+        Text(tr("Tipo"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             (TrainingPlan.kindNames + listOfNotNull(kind)).distinct().forEach { k ->
                 UnicumChip(k, kind == k, { kind = if (kind == k) null else k }, compact = true)
@@ -115,55 +117,55 @@ fun PlannedRunDialog(
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             OutlinedTextField(
                 value = kmText, onValueChange = { kmText = it.filter { c -> c.isDigit() || c == ',' || c == '.' }.take(5) },
-                label = { Text("Obiettivo") }, suffix = { Text("km") }, singleLine = true, isError = !kmOk,
+                label = { Text(tr("Obiettivo")) }, suffix = { Text("km") }, singleLine = true, isError = !kmOk,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f)
             )
             OutlinedTextField(
                 value = minText, onValueChange = { minText = it.filter(Char::isDigit).take(3) },
-                label = { Text("Durata") }, suffix = { Text("min") }, singleLine = true, isError = !minOk,
+                label = { Text(tr("Durata")) }, suffix = { Text("min") }, singleLine = true, isError = !minOk,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f)
             )
         }
         OutlinedTextField(
             value = pace, onValueChange = { pace = it.take(40) },
-            label = { Text("Ritmo (es. 6:30/km)") }, singleLine = true,
+            label = { Text(tr("Ritmo (es. 6:30/km)")) }, singleLine = true,
             colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()
         )
 
-        Text("RPE previsto", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+        Text(tr("RPE previsto"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             (1..10).forEach { v -> UnicumChip("$v", rpe == v, { rpe = if (rpe == v) null else v }, compact = true) }
         }
 
         OutlinedTextField(
             value = structure, onValueChange = { structure = it.take(600) },
-            label = { Text("Struttura") },
-            placeholder = { Text("es. 10' facile + 5×(3' a 5:50 + 2' lento) + 5' defaticamento") },
+            label = { Text(tr("Struttura")) },
+            placeholder = { Text(tr("es. 10' facile + 5×(3' a 5:50 + 2' lento) + 5' defaticamento")) },
             minLines = 2, maxLines = 6,
             colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
             value = if (nameTouched) name else autoName, onValueChange = { name = it.take(60); nameTouched = it.isNotBlank() },
-            label = { Text("Nome") }, singleLine = true,
+            label = { Text(tr("Nome")) }, singleLine = true,
             colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()
         )
         if (!noDate && !date.isAfter(today)) {
-            Text("Com'è andata", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+            Text(tr("Com'è andata"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                UnicumChip("Da fare", status == LocalPlan.STATUS_TODO, { status = LocalPlan.STATUS_TODO }, compact = true)
-                UnicumChip("Fatta", status == LocalPlan.STATUS_DONE, { status = LocalPlan.STATUS_DONE }, compact = true)
-                UnicumChip("Saltata", status == LocalPlan.STATUS_SKIPPED, { status = LocalPlan.STATUS_SKIPPED }, compact = true)
+                UnicumChip(tr("Da fare"), status == LocalPlan.STATUS_TODO, { status = LocalPlan.STATUS_TODO }, compact = true)
+                UnicumChip(tr("Fatta"), status == LocalPlan.STATUS_DONE, { status = LocalPlan.STATUS_DONE }, compact = true)
+                UnicumChip(tr("Saltata"), status == LocalPlan.STATUS_SKIPPED, { status = LocalPlan.STATUS_SKIPPED }, compact = true)
             }
             Text(
-                "Se nel giorno c'è una corsa registrata è già fatta da sola: \"Fatta\" serve per le corse senza orologio.",
+                tr("Se nel giorno c'è una corsa registrata è già fatta da sola: \"Fatta\" serve per le corse senza orologio."),
                 color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
             )
         }
 
         UnicumButton(
-            "Salva", enabled = kmOk && minOk,
+            tr("Salva"), enabled = kmOk && minOk,
             onClick = {
                 onSave(
                     PlannedRun(
@@ -184,9 +186,9 @@ fun PlannedRunDialog(
         )
         if (onDelete != null) {
             TextButton(onClick = onDelete, modifier = Modifier.fillMaxWidth()) {
-                Text("Elimina seduta", color = DeleteRed, fontWeight = FontWeight.SemiBold)
+                Text(tr("Elimina seduta"), color = DeleteRed, fontWeight = FontWeight.SemiBold)
             }
         }
-        TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) { Text("Annulla", color = UnicumPrimary) }
+        TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) { Text(tr("Annulla"), color = UnicumPrimary) }
     }
 }

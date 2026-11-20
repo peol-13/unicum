@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.runtime.getValue
@@ -15,18 +19,24 @@ import kotlinx.serialization.json.Json
 import kotlin.math.roundToInt
 
 /** Le tre schermate principali tra cui l'utente può scegliere dalle impostazioni. */
-enum class DashboardMode(val label: String, val description: String) {
-    NUTRIZIONE("Nutrizione", "Calorie e macronutrienti in primo piano"),
-    ATTIVITA("Attività", "Movimento e allenamenti in primo piano"),
-    RECUPERO("Recupero", "Sonno e recupero in primo piano")
+enum class DashboardMode(private val labelIt: String, private val descriptionIt: String) {
+    NUTRIZIONE(tk("Nutrizione"), tk("Calorie e macronutrienti in primo piano")),
+    ATTIVITA(tk("Attività"), tk("Movimento e allenamenti in primo piano")),
+    RECUPERO(tk("Recupero"), tk("Sonno e recupero in primo piano"));
+
+    val label: String get() = tr(labelIt)
+    val description: String get() = tr(descriptionIt)
 }
 
 /** Livello di attività abituale: serve SOLO a stimare l'obiettivo calorico, non cambia con i movimenti del giorno. */
-enum class ActivityLevel(val label: String, val description: String, val factor: Float) {
-    SEDENTARIO("Sedentario", "Poco o nessun movimento, lavoro da seduto", 1.2f),
-    LEGGERO("Leggero", "Cammini o ti alleni 1–3 volte a settimana", 1.375f),
-    MODERATO("Moderato", "Ti alleni 3–5 volte a settimana", 1.55f),
-    MOLTO_ATTIVO("Molto attivo", "Allenamenti intensi quasi ogni giorno", 1.725f)
+enum class ActivityLevel(private val labelIt: String, private val descriptionIt: String, val factor: Float) {
+    SEDENTARIO(tk("Sedentario"), tk("Poco o nessun movimento, lavoro da seduto"), 1.2f),
+    LEGGERO(tk("Leggero"), tk("Cammini o ti alleni 1–3 volte a settimana"), 1.375f),
+    MODERATO(tk("Moderato"), tk("Ti alleni 3–5 volte a settimana"), 1.55f),
+    MOLTO_ATTIVO(tk("Molto attivo"), tk("Allenamenti intensi quasi ogni giorno"), 1.725f);
+
+    val label: String get() = tr(labelIt)
+    val description: String get() = tr(descriptionIt)
 }
 
 /**
@@ -54,10 +64,12 @@ class OverridableValue(defaultManual: Int) {
 }
 
 /** Aspetto dell'app: segue il sistema oppure forzato chiaro/scuro. */
-enum class ThemeMode(val label: String) {
-    SISTEMA("Come il sistema"),
-    CHIARO("Chiaro"),
-    SCURO("Scuro")
+enum class ThemeMode(private val labelIt: String) {
+    SISTEMA(tk("Come il sistema")),
+    CHIARO(tk("Chiaro")),
+    SCURO(tk("Scuro"));
+
+    val label: String get() = tr(labelIt)
 }
 
 /**

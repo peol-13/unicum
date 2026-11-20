@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import androidx.compose.foundation.Canvas
@@ -83,7 +85,7 @@ fun EmptyState(
 @Composable
 fun HealthEmptyState(title: String, text: String, modifier: Modifier = Modifier) {
     val navigate = LocalNavigate.current
-    EmptyState(title, text, modifier, action = "Apri il Profilo", onAction = { navigate(Route.Profilo) })
+    EmptyState(title, text, modifier, action = tr("Apri il Profilo"), onAction = { navigate(Route.Profilo) })
 }
 
 /** Il simbolo UNICUM (stessa geometria di [UnicumLogoMark]) nei colori del tema, molto attenuato. */

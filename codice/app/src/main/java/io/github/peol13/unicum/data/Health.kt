@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
 import java.time.LocalDate
 
 /** Tipi di metrica giornaliera salvati in `daily_metrics`. */
@@ -145,7 +147,7 @@ data class HealthData(
 /** Nome leggibile e priorità delle app che scrivono su Health Connect. */
 object SourceInfo {
     fun label(source: String): String = when {
-        source == "manual" -> "Manuale"
+        source == "manual" -> tr("Manuale")
         source == "health_connect" -> "Health Connect"
         source.contains("ultrahuman", true) -> "Ultrahuman"
         source.contains("shealth", true) || source.startsWith("com.sec.android") -> "Samsung Health"

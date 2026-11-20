@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import io.github.peol13.unicum.ui.components.AddFabMenu
@@ -103,7 +105,7 @@ fun DashboardScreen(onNavigate: (Route) -> Unit) {
         TextButton(onClick = { onNavigate(Route.HomeEditor) }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
             Icon(Icons.Rounded.Edit, null, tint = UnicumPrimary, modifier = Modifier.size(16.dp))
             Spacer(Modifier.width(6.dp))
-            Text("Personalizza la Home", color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+            Text(tr("Personalizza la Home"), color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
         }
     }
 }
@@ -176,10 +178,10 @@ private fun DashboardHeader() {
             Text(DateUtils.fullLabel(day), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Body)
             if (!UnicumAppState.isToday) {
                 Spacer(Modifier.height(8.dp))
-                UnicumChip("Torna a oggi", selected = false, onClick = { UnicumAppState.backToToday(context) })
+                UnicumChip(tr("Torna a oggi"), selected = false, onClick = { UnicumAppState.backToToday(context) })
             }
         }
-        RoundIconButton(Icons.Rounded.CalendarMonth, "Calendario") { showCalendar = true }
+        RoundIconButton(Icons.Rounded.CalendarMonth, tr("Calendario")) { showCalendar = true }
     }
 }
 
@@ -205,7 +207,7 @@ private fun CalendarDialog(selected: String, onPick: (String) -> Unit, onDismiss
     }
     DatePickerDialog(
         onDismissRequest = onDismiss,
-        confirmButton = { TextButton(onClick = onDismiss) { Text("Chiudi", color = UnicumPrimary) } }
+        confirmButton = { TextButton(onClick = onDismiss) { Text(tr("Chiudi"), color = UnicumPrimary) } }
     ) {
         DatePicker(state = state, showModeToggle = false)
     }
@@ -218,16 +220,16 @@ private fun NutritionBanner(s: DayStats, onClick: () -> Unit) {
         AdviceEngine.generate(adviceInput(s)).firstOrNull { it.category == AdviceCategory.GIORNATA } else null
     val (title, text) = when {
         today != null -> today.title to today.text
-        s.eaten == 0 && !UnicumAppState.isToday -> "Nessun pasto registrato" to
-            "Puoi aggiungere i pasti di questo giorno con il pulsante +."
-        s.eaten == 0 -> "Inizia a registrare i pasti" to
-            "Oggi hai ${fmt(s.remaining.coerceAtLeast(0))} kcal per restare sul tuo obiettivo."
-        s.remaining < 0 -> "Hai superato l'obiettivo" to
-            "Sei oltre di ${fmt(-s.remaining)} kcal rispetto al tuo obiettivo calorico."
-        s.remaining > 0 -> "Sei in linea con il tuo obiettivo!" to
-            "Hai ancora ${fmt(s.remaining)} kcal disponibili per concludere la giornata."
-        else -> "Obiettivo del giorno raggiunto!" to
-            "Hai assunto esattamente le calorie previste per oggi."
+        s.eaten == 0 && !UnicumAppState.isToday -> tr("Nessun pasto registrato") to
+            tr("Puoi aggiungere i pasti di questo giorno con il pulsante +.")
+        s.eaten == 0 -> tr("Inizia a registrare i pasti") to
+            tr("Oggi hai %s kcal per restare sul tuo obiettivo.", fmt(s.remaining.coerceAtLeast(0)))
+        s.remaining < 0 -> tr("Hai superato l'obiettivo") to
+            tr("Sei oltre di %s kcal rispetto al tuo obiettivo calorico.", fmt(-s.remaining))
+        s.remaining > 0 -> tr("Sei in linea con il tuo obiettivo!") to
+            tr("Hai ancora %s kcal disponibili per concludere la giornata.", fmt(s.remaining))
+        else -> tr("Obiettivo del giorno raggiunto!") to
+            tr("Hai assunto esattamente le calorie previste per oggi.")
     }
     TealBanner(Icons.Rounded.Restaurant, title, text, onClick = onClick)
 }
@@ -237,15 +239,15 @@ private fun ActivityBanner(s: DayStats, onClick: () -> Unit) {
     if (s.activityMinutes > 0) {
         TealBanner(
             Icons.AutoMirrored.Rounded.DirectionsRun,
-            "Buon movimento oggi!",
-            "${s.activityMinutes} min di attività e ${fmt(s.activityKcal)} kcal bruciate.",
+            tr("Buon movimento oggi!"),
+            tr("%d min di attività e %s kcal bruciate.", s.activityMinutes, fmt(s.activityKcal)),
             onClick = onClick
         )
     } else {
         TealBanner(
             Icons.AutoMirrored.Rounded.DirectionsRun,
-            "Nessun allenamento oggi",
-            "Registra un'attività con il pulsante + oppure collega i tuoi dispositivi.",
+            tr("Nessun allenamento oggi"),
+            tr("Registra un'attività con il pulsante + oppure collega i tuoi dispositivi."),
             onClick = onClick
         )
     }
@@ -259,14 +261,14 @@ private fun RecoveryBanner(onClick: () -> Unit) {
     val alert = UnicumAppState.recoveryAlert()
     val (title, text) = when {
         alert != null -> alert.title to alert.text
-        night == null && hrv == null -> "Sonno e recupero" to
-            "Collega Health Connect dal Profilo per vedere sonno, HRV e temperatura notturna."
-        night != null && night.durationMinutes >= 7 * 60 -> "Hai dormito bene!" to
-            "${formatDuration(night.durationMinutes)} di sonno" +
-                (if (hrv != null && baseline != null && hrv >= baseline) " e HRV nella tua norma." else ".")
-        night != null -> "Notte un po' corta" to
-            "${formatDuration(night.durationMinutes)} di sonno: oggi vai con calma se puoi."
-        else -> "Dati di recupero" to "HRV ${hrv?.toInt()} ms."
+        night == null && hrv == null -> tr("Sonno e recupero") to
+            tr("Collega Health Connect dal Profilo per vedere sonno, HRV e temperatura notturna.")
+        night != null && night.durationMinutes >= 7 * 60 -> tr("Hai dormito bene!") to
+            (if (hrv != null && baseline != null && hrv >= baseline) tr("%s di sonno e HRV nella tua norma.", formatDuration(night.durationMinutes))
+                                else tr("%s di sonno.", formatDuration(night.durationMinutes)))
+        night != null -> tr("Notte un po' corta") to
+            tr("%s di sonno: oggi vai con calma se puoi.", formatDuration(night.durationMinutes))
+        else -> tr("Dati di recupero") to "HRV ${hrv?.toInt()} ms."
     }
     TealBanner(Icons.Rounded.Bedtime, title, text, onClick = onClick)
 }

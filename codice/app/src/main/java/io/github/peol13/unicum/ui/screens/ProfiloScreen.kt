@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.AppLanguage
+
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import io.github.peol13.unicum.ui.components.GoalFields
@@ -76,6 +82,7 @@ import io.github.peol13.unicum.data.ThemeMode
 import io.github.peol13.unicum.data.UserSettings
 import io.github.peol13.unicum.ui.components.UnicumChip
 import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Notifications
 import io.github.peol13.unicum.ui.components.CardHeader
 import io.github.peol13.unicum.ui.components.PersonalDataFields
@@ -99,88 +106,88 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
     UnicumScreen(selectedItem = Route.Profilo, onNavigate = onNavigate) {
         when (page) {
             "dati" -> {
-                PageHeader("Profilo e alimentazione", "Dati personali, obiettivo calorico e macro", onBack = { page = null })
+                PageHeader(tr("Profilo e alimentazione"), tr("Dati personali, obiettivo calorico e macro"), onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 PersonalPage()
             }
             "programma" -> {
-                PageHeader("Programma di allenamento", "Da Notion, da un PDF o scritto a mano", onBack = { page = null })
+                PageHeader(tr("Programma di allenamento"), tr("Da Notion, da un PDF o scritto a mano"), onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 TrainingPlanPage()
             }
             "recupero" -> {
-                PageHeader("Recupero e HRV", "Da quando l'HRV è confrontabile", onBack = { page = null })
+                PageHeader(tr("Recupero e HRV"), tr("Da quando l'HRV è confrontabile"), onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 HrvSettingCard()
             }
             "notifiche" -> {
-                PageHeader("Notifiche", "Promemoria dei pasti e avviso sul recupero", onBack = { page = null })
+                PageHeader(tr("Notifiche"), tr("Promemoria dei pasti e avviso sul recupero"), onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 RemindersPage()
             }
             "aspetto" -> {
-                PageHeader("Aspetto", "Tema e schermata principale", onBack = { page = null })
+                PageHeader(tr("Aspetto"), tr("Tema, lingua e schermata principale"), onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 AppearancePage(onEditHome = { onNavigate(Route.HomeEditor) })
             }
             "backup" -> {
-                PageHeader("Backup dei dati", "Automatico, esporta e importa", onBack = { page = null })
+                PageHeader(tr("Backup dei dati"), tr("Automatico, esporta e importa"), onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 BackupPage()
             }
             "statistiche" -> {
-                PageHeader("Statistiche anonime", "Facoltative: cosa viene inviato", onBack = { page = null })
+                PageHeader(tr("Statistiche anonime"), tr("Facoltative: cosa viene inviato"), onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 UsageStatsPage()
             }
             else -> {
-                ScreenTitle("Profilo", "Fonti dati, obiettivi e preferenze")
+                ScreenTitle(tr("Profilo"), tr("Fonti dati, obiettivi e preferenze"))
                 Spacer(Modifier.height(16.dp))
                 // Fonti dati: Health Connect in evidenza (stato e "Sincronizza ora"), poi il programma
                 SyncCard()
 
-                MenuSection("Tu")
+                MenuSection(tr("Tu"))
                 ProfileMenuRow(
-                    Icons.Rounded.Person, "Profilo e alimentazione",
-                    "Peso, altezza, metabolismo, obiettivo calorico e macro"
+                    Icons.Rounded.Person, tr("Profilo e alimentazione"),
+                    tr("Peso, altezza, metabolismo, obiettivo calorico e macro")
                 ) { page = "dati" }
 
-                MenuSection("Allenamento")
+                MenuSection(tr("Allenamento"))
                 ProfileMenuRow(
-                    Icons.Rounded.CalendarMonth, "Programma di allenamento",
+                    Icons.Rounded.CalendarMonth, tr("Programma di allenamento"),
                     when (TrainingPlan.source) {
-                        TrainingPlan.Source.NOTION -> "Da Notion: programma e registro delle corse"
-                        TrainingPlan.Source.LOCAL -> "Nell'app: ${LocalPlan.runs.size} sedute" + (LocalPlan.data.sourceName?.let { " da «$it»" } ?: "")
-                        TrainingPlan.Source.NONE -> "Importa un PDF, scrivi le sedute a mano o collega Notion"
+                        TrainingPlan.Source.NOTION -> tr("Da Notion: programma e registro delle corse")
+                        TrainingPlan.Source.LOCAL -> tr("Nell'app: %d sedute", LocalPlan.runs.size) + (LocalPlan.data.sourceName?.let { " " + tr("da «%s»", it) } ?: "")
+                        TrainingPlan.Source.NONE -> tr("Importa un PDF, scrivi le sedute a mano o collega Notion")
                     }
                 ) { page = "programma" }
                 Spacer(Modifier.height(10.dp))
                 ProfileMenuRow(
-                    Icons.Rounded.MonitorHeart, "Recupero e HRV",
+                    Icons.Rounded.MonitorHeart, tr("Recupero e HRV"),
                     UserSettings.hrvReliableFrom?.let {
-                        "HRV confrontabile dal ${it.dayOfMonth}/${it.monthValue}/${it.year}" +
-                            if (UserSettings.hrvFromManual != null) " (scelto da te)" else " (trovato dall'app)"
-                    } ?: "HRV: tutta la serie è confrontabile"
+                        tr("HRV confrontabile dal %s", "${it.dayOfMonth}/${it.monthValue}/${it.year}") +
+                            " " + if (UserSettings.hrvFromManual != null) tr("(scelto da te)") else tr("(trovato dall'app)")
+                    } ?: tr("HRV: tutta la serie è confrontabile")
                 ) { page = "recupero" }
 
-                MenuSection("App")
+                MenuSection(tr("App"))
                 ProfileMenuRow(
-                    Icons.Rounded.Notifications, "Notifiche",
-                    "Promemoria agli orari dei pasti e avviso quando il recupero è più basso del solito"
+                    Icons.Rounded.Notifications, tr("Notifiche"),
+                    tr("Promemoria agli orari dei pasti e avviso quando il recupero è più basso del solito")
                 ) { page = "notifiche" }
                 Spacer(Modifier.height(10.dp))
                 ProfileMenuRow(
-                    Icons.Rounded.Tune, "Aspetto",
-                    "Tema e schermata principale: ${UserSettings.themeMode.label} · ${UserSettings.dashboardMode.label}"
+                    Icons.Rounded.Tune, tr("Aspetto"),
+                    tr("Tema, lingua e schermata principale: %s", "${UserSettings.themeMode.label} · ${I18n.language.nativeName} · ${UserSettings.dashboardMode.label}")
                 ) { page = "aspetto" }
                 Spacer(Modifier.height(10.dp))
                 ProfileMenuRow(
-                    Icons.Rounded.Save, "Backup dei dati", backupSummary()
+                    Icons.Rounded.Save, tr("Backup dei dati"), backupSummary()
                 ) { page = "backup" }
                 if (io.github.peol13.unicum.data.UsageStats.available) {
                     Spacer(Modifier.height(10.dp))
                     ProfileMenuRow(
-                        Icons.Rounded.BarChart, "Statistiche anonime", usageStatsSummary
+                        Icons.Rounded.BarChart, tr("Statistiche anonime"), usageStatsSummary
                     ) { page = "statistiche" }
                 }
                 Spacer(Modifier.height(18.dp))
@@ -222,12 +229,47 @@ private fun ProfileMenuRow(icon: ImageVector, title: String, subtitle: String, o
 }
 
 @Composable
-private fun AppearancePage(onEditHome: () -> Unit) {
+private fun LanguageCard() {
+    val context = androidx.compose.ui.platform.LocalContext.current
     UnicumCard {
-        CardHeader(Icons.Rounded.DarkMode, "Tema")
+        CardHeader(Icons.Rounded.Language, tr("Lingua"))
         Spacer(Modifier.height(4.dp))
         Text(
-            "Il tema scuro può seguire quello del telefono.",
+            tr("«Come il telefono» usa la lingua del sistema; se l'app non la conosce, è in inglese."),
+            color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
+        )
+        Spacer(Modifier.height(8.dp))
+        val choice = I18n.choice.value
+        val options = listOf("" to tr("Come il telefono")) + AppLanguage.entries.map { it.code to it.nativeName }
+        options.forEach { (code, name) ->
+            val selected = choice == code
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable { if (!selected) I18n.choose(context, code) }
+                    .padding(horizontal = 8.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    name, color = if (selected) UnicumPrimary else UnicumDark, style = UnicumType.Body,
+                    fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal, modifier = Modifier.weight(1f)
+                )
+                if (selected) Icon(Icons.Rounded.Check, tr("Selezionata"), tint = UnicumPrimary, modifier = Modifier.size(20.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun AppearancePage(onEditHome: () -> Unit) {
+    LanguageCard()
+    Spacer(Modifier.height(14.dp))
+    UnicumCard {
+        CardHeader(Icons.Rounded.DarkMode, tr("Tema"))
+        Spacer(Modifier.height(4.dp))
+        Text(
+            tr("Il tema scuro può seguire quello del telefono."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
         )
         Spacer(Modifier.height(12.dp))
@@ -239,10 +281,10 @@ private fun AppearancePage(onEditHome: () -> Unit) {
     }
     Spacer(Modifier.height(14.dp))
     UnicumCard {
-        CardHeader(Icons.Rounded.Tune, "Schermata principale")
+        CardHeader(Icons.Rounded.Tune, tr("Schermata principale"))
         Spacer(Modifier.height(4.dp))
         Text(
-            "Scegli cosa vedere per prima nella Home.",
+            tr("Scegli cosa vedere per prima nella Home."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
         )
         Spacer(Modifier.height(12.dp))
@@ -255,11 +297,11 @@ private fun AppearancePage(onEditHome: () -> Unit) {
             Spacer(Modifier.height(8.dp))
         }
         Text(
-            "La modalità è un punto di partenza: puoi riordinare, togliere e aggiungere card.",
+            tr("La modalità è un punto di partenza: puoi riordinare, togliere e aggiungere card."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
         TextButton(onClick = onEditHome, modifier = Modifier.fillMaxWidth()) {
-            Text("Personalizza le card della Home", color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+            Text(tr("Personalizza le card della Home"), color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
         }
     }
 }
@@ -271,7 +313,7 @@ private fun PersonalPage() {
 
     // DATI PERSONALI E METABOLISMO BASALE
     UnicumCard {
-        CardHeader(Icons.Rounded.Person, "Dati personali")
+        CardHeader(Icons.Rounded.Person, tr("Dati personali"))
         Spacer(Modifier.height(12.dp))
         PersonalDataFields(form)
     }
@@ -280,7 +322,7 @@ private fun PersonalPage() {
 
     // OBIETTIVO CALORICO
     UnicumCard {
-        CardHeader(Icons.Rounded.LocalFireDepartment, "Obiettivo calorico")
+        CardHeader(Icons.Rounded.LocalFireDepartment, tr("Obiettivo calorico"))
         Spacer(Modifier.height(12.dp))
         GoalFields(form)
 
@@ -288,7 +330,7 @@ private fun PersonalPage() {
         // Qualsiasi modifica riabilita il pulsante di salvataggio
         LaunchedEffect(form.snapshot) { saved = false }
         UnicumButton(
-            text = if (saved) "Salvato" else "Salva",
+            text = if (saved) tr("Salvato") else tr("Salva"),
             enabled = form.isValid && !saved,
             onClick = {
                 form.save()
@@ -298,8 +340,8 @@ private fun PersonalPage() {
         if (!form.isValid) {
             Spacer(Modifier.height(6.dp))
             Text(
-                "Controlla i dati: età 14–100, peso 30–250 kg, altezza 120–230 cm, metabolismo 800–4500 kcal, " +
-                    "obiettivo 800–6000 kcal, macro al 100%.",
+                tr("Controlla i dati: età 14–100, peso 30–250 kg, altezza 120–230 cm, metabolismo 800–4500 kcal, obiettivo 800–6000 kcal, macro al 100%."),
+                    
                 color = DeleteRed, style = UnicumType.Caption
             )
         }
@@ -335,7 +377,7 @@ internal fun ModeOption(mode: DashboardMode, selected: Boolean, onClick: () -> U
             Text(mode.description, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
         }
         if (selected) {
-            Icon(Icons.Rounded.Check, "Selezionata", tint = UnicumPrimary, modifier = Modifier.size(22.dp))
+            Icon(Icons.Rounded.Check, tr("Selezionata"), tint = UnicumPrimary, modifier = Modifier.size(22.dp))
         }
     }
 }
@@ -346,13 +388,13 @@ internal fun ModeOption(mode: DashboardMode, selected: Boolean, onClick: () -> U
 private fun backupSummary(): String {
     val s = AutoBackup.state
     val last = if (s.lastSuccessMillis > 0)
-        SimpleDateFormat("d MMM, HH:mm", Locale.ITALY).format(Date(s.lastSuccessMillis)) else null
+        SimpleDateFormat(tr("d MMM, HH:mm"), I18n.locale).format(Date(s.lastSuccessMillis)) else null
     return when (AutoBackup.health()) {
-        AutoBackupPolicy.Health.OFF -> "Nessun backup automatico: scegli dove salvarlo, o esporta a mano"
-        AutoBackupPolicy.Health.OK -> "Automatico · ultimo backup: ${last ?: "in corso"}"
-        AutoBackupPolicy.Health.STALE -> "Attenzione: nessun backup riuscito da giorni (ultimo: ${last ?: "mai"})"
-        AutoBackupPolicy.Health.HELD -> "Attenzione: un backup è fermo e aspetta la tua conferma"
-        AutoBackupPolicy.Health.ERROR -> "Attenzione: l'ultimo backup non è riuscito"
+        AutoBackupPolicy.Health.OFF -> tr("Nessun backup automatico: scegli dove salvarlo, o esporta a mano")
+        AutoBackupPolicy.Health.OK -> tr("Automatico · ultimo backup: %s", last ?: tr("in corso"))
+        AutoBackupPolicy.Health.STALE -> tr("Attenzione: nessun backup riuscito da giorni (ultimo: %s)", last ?: tr("mai"))
+        AutoBackupPolicy.Health.HELD -> tr("Attenzione: un backup è fermo e aspetta la tua conferma")
+        AutoBackupPolicy.Health.ERROR -> tr("Attenzione: l'ultimo backup non è riuscito")
     }
 }
 
@@ -381,18 +423,18 @@ private fun SyncCard() {
         Spacer(Modifier.height(10.dp))
 
         when (val s = status) {
-            null -> Text("Controllo Health Connect...", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail)
+            null -> Text(tr("Controllo Health Connect..."), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail)
 
             HealthConnectSource.Status.Unavailable,
             HealthConnectSource.Status.UpdateRequired -> {
                 Text(
                     if (s == HealthConnectSource.Status.UpdateRequired)
-                        "Health Connect va aggiornato per poter essere usato."
-                    else "Health Connect non è installato su questo telefono.",
+                        tr("Health Connect va aggiornato per poter essere usato.")
+                    else tr("Health Connect non è installato su questo telefono."),
                     color = UnicumDark, style = UnicumType.Detail
                 )
                 Spacer(Modifier.height(10.dp))
-                UnicumButton("Apri Play Store", onClick = {
+                UnicumButton(tr("Apri Play Store"), onClick = {
                     val uri = Uri.parse("market://details?id=com.google.android.apps.healthdata")
                     runCatching {
                         context.startActivity(Intent(Intent.ACTION_VIEW, uri).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
@@ -402,28 +444,28 @@ private fun SyncCard() {
 
             is HealthConnectSource.Status.Available -> {
                 if (!s.anyGranted) {
-                    Text("Non ancora collegato.", color = UnicumDark, style = UnicumType.Detail)
+                    Text(tr("Non ancora collegato."), color = UnicumDark, style = UnicumType.Detail)
                     Spacer(Modifier.height(10.dp))
-                    UnicumButton("Collega Health Connect", onClick = {
+                    UnicumButton(tr("Collega Health Connect"), onClick = {
                         permissionLauncher.launch(s.wanted)
                     })
                 } else {
                     val busy = UnicumAppState.syncing || NotionPlan.syncing
                     UnicumButton(
-                        text = if (busy) "Sincronizzo..." else "Sincronizza ora",
+                        text = if (busy) tr("Sincronizzo...") else tr("Sincronizza ora"),
                         enabled = !busy,
                         onClick = { UnicumAppState.sync(context, days = 30) }
                     )
                     if (NotionPlan.connected) Text(
-                        "Health Connect e Notion insieme",
+                        tr("Health Connect e Notion insieme"),
                         color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption,
                         modifier = Modifier.padding(top = 8.dp)
                     )
                     val last = UserSettings.lastSyncMillis
                     Text(
-                        if (last > 0) "Ultima sincronizzazione: " +
-                            SimpleDateFormat("d MMM, HH:mm", Locale.ITALY).format(Date(last))
-                        else "Mai sincronizzato",
+                        if (last > 0) tr("Ultima sincronizzazione: %s",
+                                                        SimpleDateFormat(tr("d MMM, HH:mm"), I18n.locale).format(Date(last)))
+                        else tr("Mai sincronizzato"),
                         color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption,
                         modifier = Modifier.padding(top = 8.dp)
                     )
@@ -435,10 +477,10 @@ private fun SyncCard() {
                     }
                     Text(
                         when {
-                            !s.backgroundSupported -> "Su questo telefono Health Connect non legge ad app chiusa: i dati si aggiornano quando apri UNICUM."
-                            !s.backgroundGranted -> "Per aggiornarsi anche ad app chiusa serve il permesso \"in background\" di Health Connect."
-                            else -> "Si aggiorna da sola anche ad app chiusa, circa ogni 3 ore" +
-                                (BackgroundSync.lastRunText(context)?.let { " (ultima volta: $it)" } ?: "") + "."
+                            !s.backgroundSupported -> tr("Su questo telefono Health Connect non legge ad app chiusa: i dati si aggiornano quando apri UNICUM.")
+                            !s.backgroundGranted -> tr("Per aggiornarsi anche ad app chiusa serve il permesso \"in background\" di Health Connect.")
+                            else -> tr("Si aggiorna da sola anche ad app chiusa, circa ogni 3 ore") +
+                                (BackgroundSync.lastRunText(context)?.let { " " + tr("(ultima volta: %s)", it) } ?: "") + "."
                         },
                         color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp,
                         modifier = Modifier.padding(top = 6.dp)
@@ -447,7 +489,7 @@ private fun SyncCard() {
                         TextButton(
                             onClick = { permissionLauncher.launch(s.wanted) },
                             modifier = Modifier.fillMaxWidth()
-                        ) { Text("Concedi i permessi mancanti", color = UnicumPrimary) }
+                        ) { Text(tr("Concedi i permessi mancanti"), color = UnicumPrimary) }
                     }
                 }
             }
@@ -456,9 +498,9 @@ private fun SyncCard() {
 }
 
 private fun syncSummary(r: SyncResult): String? = when {
-    r.error != null -> "Sincronizzazione non riuscita: ${r.error}"
-    r.isEmpty -> "Nessun dato nuovo trovato. Controlla che le app dell'orologio, dell'anello o della bilancia condividano i dati con Health Connect." +
-        (if (r.skipped.isNotEmpty()) " Permessi non concessi: ${r.skipped.joinToString(", ")}." else "")
-    r.skipped.isNotEmpty() -> "Permessi mancanti: ${r.skipped.joinToString(", ")}."
+    r.error != null -> tr("Sincronizzazione non riuscita: %s", r.error)
+    r.isEmpty -> tr("Nessun dato nuovo trovato. Controlla che le app dell'orologio, dell'anello o della bilancia condividano i dati con Health Connect.") +
+        (if (r.skipped.isNotEmpty()) " " + tr("Permessi non concessi: %s.", r.skipped.joinToString(", ")) else "")
+    r.skipped.isNotEmpty() -> tr("Permessi mancanti: %s.", r.skipped.joinToString(", "))
     else -> null
 }

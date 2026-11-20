@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import io.github.peol13.unicum.ui.components.LocalHideCardTitle
@@ -60,7 +62,7 @@ fun DiarioScreen(onNavigate: (Route) -> Unit) {
             AddFabMenu(onAddMeal = { adding.addMeal() }, onAddActivity = adding::addActivity)
         }
     ) {
-        ScreenTitle("Diario", "Il recap della giornata")
+        ScreenTitle(tr("Diario"), tr("Il recap della giornata"))
         Spacer(Modifier.height(8.dp))
 
         DateStepper(
@@ -73,7 +75,7 @@ fun DiarioScreen(onNavigate: (Route) -> Unit) {
         Spacer(Modifier.height(8.dp))
 
         // CALORIE
-        SectionHeader("Calorie", "${fmt(stats.eaten)} / ${fmt(stats.goal)} kcal", first = true)
+        SectionHeader(tr("Calorie"), "${fmt(stats.eaten)} / ${fmt(stats.goal)} kcal", first = true)
         HideTitle { CalorieCard(stats) }
         Gap()
         CalorieBreakdownCard(stats)
@@ -81,7 +83,7 @@ fun DiarioScreen(onNavigate: (Route) -> Unit) {
         OtherNutrientsCard()
 
         // PASTI
-        SectionHeader("Pasti", if (data.meals.isEmpty()) "nessuno" else "${fmt(stats.eaten)} kcal")
+        SectionHeader(tr("Pasti"), if (data.meals.isEmpty()) tr("nessuno") else "${fmt(stats.eaten)} kcal")
         HideTitle { MealsCard(data.meals) }
         Gap()
         // Colazione, pranzo, cena e ogni pasto "Altro" col suo nome (es. due spuntini), in ordine di orario
@@ -96,7 +98,7 @@ fun DiarioScreen(onNavigate: (Route) -> Unit) {
         }
 
         // ATTIVITÀ
-        SectionHeader("Attività", "${stats.activityMinutes} min")
+        SectionHeader(tr("Attività"), "${stats.activityMinutes} min")
         HideTitle { ActivityBigCard(stats, weekMinutes) }
         Gap()
         ActivityNumbersCard()
@@ -108,11 +110,11 @@ fun DiarioScreen(onNavigate: (Route) -> Unit) {
         )
 
         // SONNO
-        SectionHeader("Sonno", UnicumAppState.lastNight?.let { formatDuration(it.durationMinutes) } ?: "nessun dato")
+        SectionHeader(tr("Sonno"), UnicumAppState.lastNight?.let { formatDuration(it.durationMinutes) } ?: tr("nessun dato"))
         HideTitle { SleepBigCard(UnicumAppState.lastNight) }
 
         // RECUPERO
-        SectionHeader("Recupero")
+        SectionHeader(tr("Recupero"))
         HideTitle { RecoveryDetailCard() }
     }
 }

@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import androidx.compose.foundation.layout.Column
@@ -69,7 +71,7 @@ fun ConsigliScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
 
     UnicumScreen(selectedItem = Route.Home, onNavigate = onNavigate) {
         PageHeader(
-            title = "Consigli",
+            title = tr("Consigli"),
             subtitle = DateUtils.relativeLabel(day) + " · " + DateUtils.fullLabel(day),
             onBack = onBack
         )

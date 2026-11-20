@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.tk
+
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -50,7 +54,7 @@ data class Meal(
 /** Orari dei pasti: minuti dalla mezzanotte <-> testo e istanti del giorno. */
 object MealTime {
     /** I tipi di pasto, nell'ordine della giornata ("Altro" = spuntino). */
-    val TYPES = listOf("Colazione", "Pranzo", "Cena", "Altro")
+    val TYPES = listOf(tk("Colazione"), tk("Pranzo"), tk("Cena"), tk("Altro"))
     const val OTHER = "Altro"
     private val MAIN = listOf("Colazione", "Pranzo", "Cena")
 
@@ -59,6 +63,9 @@ object MealTime {
      * in `mealType`: così due spuntini dello stesso giorno restano due pasti separati.
      */
     fun isOther(type: String): Boolean = MAIN.none { it.equals(type.trim(), ignoreCase = true) }
+
+    /** Il nome da mostrare: i quattro tipi tradotti nella lingua dell'app, i nomi propri così come sono. */
+    fun label(type: String): String = TYPES.firstOrNull { it.equals(type.trim(), ignoreCase = true) }?.let { tr(it) } ?: type
 
     /** Il tipo da mostrare nel selettore: i pasti con un nome proprio sono "Altro". */
     fun baseType(type: String): String = MAIN.firstOrNull { it.equals(type.trim(), ignoreCase = true) } ?: OTHER

@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.tr
+
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -80,11 +82,11 @@ fun BarcodeScannerDialog(onCode: (String) -> Unit, onDismiss: () -> Unit) {
             Column(Modifier.fillMaxSize().padding(16.dp)) {
                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
                     Text(
-                        "Scansiona il codice a barre", color = UnicumDark, style = UnicumType.Heading,
+                        tr("Scansiona il codice a barre"), color = UnicumDark, style = UnicumType.Heading,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.fillMaxWidth().padding(end = 40.dp).align(Alignment.CenterStart)
                     )
-                    IconButton(onClick = onDismiss) { Icon(Icons.Rounded.Close, "Chiudi", tint = UnicumDark) }
+                    IconButton(onClick = onDismiss) { Icon(Icons.Rounded.Close, tr("Chiudi"), tint = UnicumDark) }
                 }
                 Spacer(Modifier.height(10.dp))
                 if (granted) {
@@ -97,15 +99,15 @@ fun BarcodeScannerDialog(onCode: (String) -> Unit, onDismiss: () -> Unit) {
                     }
                     Spacer(Modifier.height(10.dp))
                     Text(
-                        "Inquadra il codice del prodotto: si legge da solo.",
+                        tr("Inquadra il codice del prodotto: si legge da solo."),
                         color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail,
                         textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()
                     )
                 } else {
                     Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                         Text(
-                            if (denied) "Serve il permesso della fotocamera per scansionare. Puoi concederlo dalle impostazioni dell'app."
-                            else "Attendo il permesso della fotocamera…",
+                            if (denied) tr("Serve il permesso della fotocamera per scansionare. Puoi concederlo dalle impostazioni dell'app.")
+                            else tr("Attendo il permesso della fotocamera…"),
                             color = UnicumDark.copy(alpha = .7f), style = UnicumType.Body, textAlign = TextAlign.Center
                         )
                     }

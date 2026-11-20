@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -138,43 +140,43 @@ class PersonalFormState {
 
 @Composable
 fun PersonalDataFields(state: PersonalFormState) {
-    Text("Sesso", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+    Text(tr("Sesso"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
     Spacer(Modifier.height(6.dp))
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        UnicumChip("Uomo", state.male, { state.male = true })
-        UnicumChip("Donna", !state.male, { state.male = false })
+        UnicumChip(tr("Uomo"), state.male, { state.male = true })
+        UnicumChip(tr("Donna"), !state.male, { state.male = false })
     }
 
     Spacer(Modifier.height(12.dp))
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        UnicumNumberField("Età", state.age, "anni", Modifier.weight(1f)) { state.age = it }
-        UnicumNumberField("Peso", state.weight, "kg", Modifier.weight(1f)) { state.weight = it }
-        UnicumNumberField("Altezza", state.height, "cm", Modifier.weight(1f)) { state.height = it }
+        UnicumNumberField(tr("Età"), state.age, tr("anni"), Modifier.weight(1f)) { state.age = it }
+        UnicumNumberField(tr("Peso"), state.weight, "kg", Modifier.weight(1f)) { state.weight = it }
+        UnicumNumberField(tr("Altezza"), state.height, "cm", Modifier.weight(1f)) { state.height = it }
     }
 
     Spacer(Modifier.height(18.dp))
-    Text("Metabolismo basale", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+    Text(tr("Metabolismo basale"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
     Text(
-        "Le calorie che il corpo consuma a riposo in un giorno, senza allenamenti.",
+        tr("Le calorie che il corpo consuma a riposo in un giorno, senza allenamenti."),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
     )
     Spacer(Modifier.height(8.dp))
     EstimatedNumberField(
-        label = "Metabolismo basale",
+        label = tr("Metabolismo basale"),
         suffix = "kcal",
         estimate = state.bmrEstimate,
         input = state.bmr,
-        explanation = "Calcolata con la formula di Mifflin-St Jeor da sesso, età, peso e altezza. " +
-            "Se conosci il valore reale (bilancia impedenziometrica, test), scrivilo."
+        explanation = tr("Calcolata con la formula di Mifflin-St Jeor da sesso, età, peso e altezza. Se conosci il valore reale (bilancia impedenziometrica, test), scrivilo.")
+            
     )
 }
 
 /** Livello di attività, deficit, obiettivo calorico giornaliero (stimato o a mano) e ripartizione dei macro. */
 @Composable
 fun GoalFields(state: PersonalFormState) {
-    Text("Livello di attività abituale", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+    Text(tr("Livello di attività abituale"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
     Text(
-        "Serve solo a stimare l'obiettivo calorico. Il movimento di ogni giorno non lo cambia.",
+        tr("Serve solo a stimare l'obiettivo calorico. Il movimento di ogni giorno non lo cambia."),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
     )
     Spacer(Modifier.height(8.dp))
@@ -187,48 +189,49 @@ fun GoalFields(state: PersonalFormState) {
     Text(state.activityLevel.description, color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
 
     Spacer(Modifier.height(14.dp))
-    UnicumNumberField("Deficit giornaliero", state.deficit, "kcal") { state.deficit = it }
+    UnicumNumberField(tr("Deficit giornaliero"), state.deficit, "kcal") { state.deficit = it }
     Text(
-        "Quanto vuoi bruciare in più di quanto mangi ogni giorno (0 = mantenimento).",
+        tr("Quanto vuoi bruciare in più di quanto mangi ogni giorno (0 = mantenimento)."),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption,
         modifier = Modifier.padding(top = 4.dp)
     )
 
     Spacer(Modifier.height(14.dp))
-    Text("Obiettivo calorico", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+    Text(tr("Obiettivo calorico"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
     Text(
-        "Le calorie da mangiare ogni giorno. È fisso: l'attività fisica non lo aumenta, aumenta solo il deficit.",
+        tr("Le calorie da mangiare ogni giorno. È fisso: l'attività fisica non lo aumenta, aumenta solo il deficit."),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
     )
     Spacer(Modifier.height(8.dp))
     EstimatedNumberField(
-        label = "Obiettivo calorico",
+        label = tr("Obiettivo calorico"),
         suffix = "kcal",
         estimate = state.intakeEstimate,
         input = state.intake,
-        explanation = "Metabolismo basale × livello di attività − deficit."
+        explanation = tr("Metabolismo basale × livello di attività − deficit.")
     )
 
     Spacer(Modifier.height(14.dp))
-    Text("Ripartizione dei macronutrienti", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+    Text(tr("Ripartizione dei macronutrienti"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
     Text(
-        "Che quota delle calorie obiettivo viene da ciascun macro. Devono sommare 100%.",
+        tr("Che quota delle calorie obiettivo viene da ciascun macro. Devono sommare 100%."),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
     )
     Spacer(Modifier.height(8.dp))
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        UnicumNumberField("Proteine", state.proteinPct, "%", Modifier.weight(1f)) { state.proteinPct = it.take(3) }
-        UnicumNumberField("Carbo", state.carbsPct, "%", Modifier.weight(1f)) { state.carbsPct = it.take(3) }
-        UnicumNumberField("Grassi", state.fatsPct, "%", Modifier.weight(1f)) { state.fatsPct = it.take(3) }
+        UnicumNumberField(tr("Proteine"), state.proteinPct, "%", Modifier.weight(1f)) { state.proteinPct = it.take(3) }
+        UnicumNumberField(tr("Carbo"), state.carbsPct, "%", Modifier.weight(1f)) { state.carbsPct = it.take(3) }
+        UnicumNumberField(tr("Grassi"), state.fatsPct, "%", Modifier.weight(1f)) { state.fatsPct = it.take(3) }
     }
     Spacer(Modifier.height(6.dp))
     val goal = state.intakeToSave ?: 0
     Text(
         if (state.pctSum == 100)
-            "Con $goal kcal: proteine ${UserSettings.gramsFor(goal, state.proteinPct.toIntOrNull() ?: 0, 4)} g, " +
-                "carboidrati ${UserSettings.gramsFor(goal, state.carbsPct.toIntOrNull() ?: 0, 4)} g, " +
-                "grassi ${UserSettings.gramsFor(goal, state.fatsPct.toIntOrNull() ?: 0, 9)} g."
-        else "Il totale è ${state.pctSum}%: deve essere 100%.",
+            tr("Con %d kcal: proteine %d g, carboidrati %d g, grassi %d g.", goal,
+                UserSettings.gramsFor(goal, state.proteinPct.toIntOrNull() ?: 0, 4),
+                                UserSettings.gramsFor(goal, state.carbsPct.toIntOrNull() ?: 0, 4),
+                                UserSettings.gramsFor(goal, state.fatsPct.toIntOrNull() ?: 0, 9))
+        else tr("Il totale è %d%%: deve essere 100%%.", state.pctSum),
         color = if (state.pctSum == 100) UnicumDark.copy(alpha = .6f) else DeleteRed,
         style = UnicumType.Caption, lineHeight = 17.sp
     )
@@ -255,18 +258,18 @@ fun EstimatedNumberField(
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
                     Text(
-                        "Inserito a mano: non viene ricalcolato da solo.",
+                        tr("Inserito a mano: non viene ricalcolato da solo."),
                         color = UnicumDark.copy(alpha = .7f), style = UnicumType.Caption, fontWeight = FontWeight.Medium
                     )
                     if (estimate != null) {
                         Text(
-                            "La stima dai tuoi dati sarebbe $estimate $suffix.",
+                            tr("La stima dai tuoi dati sarebbe %s.", "$estimate $suffix"),
                             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
                         )
                     }
                 }
                 TextButton(onClick = { input.recalculate() }) {
-                    Text("Ricalcola stima", color = UnicumPrimary, fontWeight = FontWeight.SemiBold)
+                    Text(tr("Ricalcola stima"), color = UnicumPrimary, fontWeight = FontWeight.SemiBold)
                 }
             }
         } else {
@@ -278,7 +281,7 @@ fun EstimatedNumberField(
                     .padding(horizontal = 12.dp, vertical = 8.dp)
             ) {
                 Text(
-                    if (estimate != null) "Stima automatica" else "Completa i dati per la stima",
+                    if (estimate != null) tr("Stima automatica") else tr("Completa i dati per la stima"),
                     color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.SemiBold
                 )
                 Text(explanation, color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 16.sp)

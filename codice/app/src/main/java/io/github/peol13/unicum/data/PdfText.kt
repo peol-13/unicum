@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
 import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
@@ -25,7 +27,7 @@ object PdfText {
         val name = displayName(context, uri)
         try {
             PDFBoxResourceLoader.init(context.applicationContext)
-            val input = context.contentResolver.openInputStream(uri) ?: return@withContext Outcome.Error("Il file non si apre.")
+            val input = context.contentResolver.openInputStream(uri) ?: return@withContext Outcome.Error(tr("Il file non si apre."))
             input.use {
                 PDDocument.load(it).use { doc ->
                     val stripper = PDFTextStripper().apply {
@@ -34,17 +36,17 @@ object PdfText {
                     }
                     val lines = stripper.getText(doc).lines().map { l -> l.trim() }.filter { l -> l.isNotEmpty() }
                     if (lines.isEmpty()) Outcome.Error(
-                        "Nel PDF non c'è testo da leggere: probabilmente è una foto o una scansione. " +
-                            "Aggiungi le sedute a mano, oppure esporta il programma come PDF con il testo."
+                        tr("Nel PDF non c'è testo da leggere: probabilmente è una foto o una scansione. Aggiungi le sedute a mano, oppure esporta il programma come PDF con il testo.")
+                            
                     ) else Outcome.Ok(name, lines)
                 }
             }
         } catch (e: InvalidPasswordException) {
-            Outcome.Error("Il PDF è protetto da password: toglila e riprova.")
+            Outcome.Error(tr("Il PDF è protetto da password: toglila e riprova."))
         } catch (e: OutOfMemoryError) {
-            Outcome.Error("Il PDF è troppo grande da leggere sul telefono.")
+            Outcome.Error(tr("Il PDF è troppo grande da leggere sul telefono."))
         } catch (e: Exception) {
-            Outcome.Error("Il file non sembra un PDF leggibile (${e.javaClass.simpleName}).")
+            Outcome.Error(tr("Il file non sembra un PDF leggibile (%s).", e.javaClass.simpleName))
         }
     }
 

@@ -239,7 +239,7 @@ object PlanPdfParser {
 
     /** "6", "5,5": i km di un obiettivo senza decimali inutili. */
     fun shortKm(km: Double): String =
-        if (kotlin.math.abs(km - Math.round(km)) < 1e-6) "${Math.round(km)}" else "%.1f".format(java.util.Locale.ITALIAN, km)
+        if (kotlin.math.abs(km - Math.round(km)) < 1e-6) "${Math.round(km)}" else "%.1f".format(io.github.peol13.unicum.i18n.I18n.locale, km)
 
     /** Il nome breve di una seduta: tipo e obiettivo ("Facile 6 km", "Intervalli"). */
     fun nameOf(kind: String?, km: Double?, minutes: Int?): String {

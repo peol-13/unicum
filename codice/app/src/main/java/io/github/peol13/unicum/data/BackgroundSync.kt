@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tr
+
 import android.app.job.JobInfo
 import android.app.job.JobParameters
 import android.app.job.JobScheduler
@@ -47,9 +51,9 @@ object BackgroundSync {
     fun lastRunText(context: Context): String? {
         val p = prefs(context)
         val at = p.getLong("last_run", 0L).takeIf { it > 0 } ?: return null
-        val day = if (DateUtils.isToday(java.time.Instant.ofEpochMilli(at).atZone(java.time.ZoneId.systemDefault()).toLocalDate().toString())) "oggi"
-        else SimpleDateFormat("d MMM", Locale.ITALY).format(Date(at))
-        return "$day ${SimpleDateFormat("HH:mm", Locale.ITALY).format(Date(at))} · ${p.getString("last_note", "")}"
+        val day = if (DateUtils.isToday(java.time.Instant.ofEpochMilli(at).atZone(java.time.ZoneId.systemDefault()).toLocalDate().toString())) tr("oggi")
+        else SimpleDateFormat(tr("d MMM"), I18n.locale).format(Date(at))
+        return "$day ${SimpleDateFormat("HH:mm", I18n.locale).format(Date(at))} · ${p.getString("last_note", "")}"
     }
 
     /** Il lavoro vero: ogni passo è indipendente, uno che fallisce non ferma gli altri. */
@@ -65,13 +69,13 @@ object BackgroundSync {
             val status = HealthConnectSource.status(app)
             if (status is HealthConnectSource.Status.Available && status.anyGranted) {
                 when {
-                    !status.backgroundSupported -> notes += "Health Connect non legge ad app chiusa su questo telefono"
-                    !status.backgroundGranted -> notes += "manca il permesso per leggere ad app chiusa"
+                    !status.backgroundSupported -> notes += tr("Health Connect non legge ad app chiusa su questo telefono")
+                    !status.backgroundGranted -> notes += tr("manca il permesso per leggere ad app chiusa")
                     else -> {
                         val result = HealthConnectSource.sync(app, days = 7)
                         if (result.error == null) UserSettings.markSynced()
                         UnicumRepository.resolvePendingBackup(app)
-                        notes += if (result.error == null) "sincronizzato" else "sincronizzazione non riuscita"
+                        notes += if (result.error == null) tr("sincronizzato") else tr("sincronizzazione non riuscita")
                     }
                 }
             }
@@ -79,9 +83,9 @@ object BackgroundSync {
         step("Notion") { NotionPlan.sync(app, force = false) }
         step("Backup automatico") {
             when (val r = AutoBackup.run(app)) {
-                is AutoBackup.Outcome.Saved -> notes += "backup fatto"
-                is AutoBackup.Outcome.Failed -> notes += "backup non riuscito"
-                is AutoBackup.Outcome.Held -> notes += "backup fermo, serve conferma"
+                is AutoBackup.Outcome.Saved -> notes += tr("backup fatto")
+                is AutoBackup.Outcome.Failed -> notes += tr("backup non riuscito")
+                is AutoBackup.Outcome.Held -> notes += tr("backup fermo, serve conferma")
                 else -> Unit
             }
         }

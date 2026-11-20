@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
@@ -65,8 +67,8 @@ fun UnicumDatePickerDialog(
             TextButton(onClick = {
                 state.selectedDateMillis?.let { onPick(Instant.ofEpochMilli(it).atZone(utc).toLocalDate()) }
                 onDismiss()
-            }) { Text("Ok", color = UnicumPrimary) }
+            }) { Text(tr("Ok"), color = UnicumPrimary) }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Annulla", color = UnicumDark.copy(alpha = .7f)) } }
+        dismissButton = { TextButton(onClick = onDismiss) { Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f)) } }
     ) { DatePicker(state = state, showModeToggle = false, colors = colors, title = null) }
 }

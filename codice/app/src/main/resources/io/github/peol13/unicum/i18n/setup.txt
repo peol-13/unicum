@@ -1,0 +1,789 @@
+# Traduzioni di UNICUM (vedi common.txt per il formato).
+
+# Backup
+
+it: Non sono riuscito a salvare il file.
+en: Couldn't save the file.
+es: No he podido guardar el archivo.
+fr: Impossible d'enregistrer le fichier.
+de: Die Datei konnte nicht gespeichert werden.
+pt: Não consegui salvar o arquivo.
+
+it: Backup salvato, con il token di Notion: non condividere il file e tienilo in un posto sicuro.
+en: Backup saved, with the Notion token: don't share the file and keep it somewhere safe.
+es: Copia guardada, con el token de Notion: no compartas el archivo y guárdalo en un lugar seguro.
+fr: Sauvegarde enregistrée, avec le jeton Notion : ne partage pas le fichier et garde-le en lieu sûr.
+de: Sicherung gespeichert, mit dem Notion-Token: Teile die Datei nicht und bewahre sie sicher auf.
+pt: Backup salvo, com o token do Notion: não compartilhe o arquivo e guarde-o em um lugar seguro.
+
+it: Backup salvato. Conservalo in un posto sicuro (Drive, PC).
+en: Backup saved. Keep it somewhere safe (Drive, PC).
+es: Copia guardada. Guárdala en un lugar seguro (Drive, PC).
+fr: Sauvegarde enregistrée. Garde-la en lieu sûr (Drive, PC).
+de: Sicherung gespeichert. Bewahre sie sicher auf (Drive, PC).
+pt: Backup salvo. Guarde-o em um lugar seguro (Drive, PC).
+
+it: Il file non è un backup di UNICUM leggibile.
+en: The file isn't a readable UNICUM backup.
+es: El archivo no es una copia de UNICUM legible.
+fr: Le fichier n'est pas une sauvegarde UNICUM lisible.
+de: Die Datei ist keine lesbare UNICUM-Sicherung.
+pt: O arquivo não é um backup do UNICUM legível.
+
+it: Esporta
+en: Export
+es: Exportar
+fr: Exporter
+de: Exportieren
+pt: Exportar
+
+it: Crea un file con pasti, allenamenti inseriti a mano, alimenti personali, pasti fissi, prodotti salvati, profilo e obiettivi, scarpe, sensazioni e correzioni delle corse (ripetute comprese) e promemoria. Sonno, passi e allenamenti di Health Connect non servono: tornano da soli con la sincronizzazione.
+en: Creates a file with meals, manually entered workouts, custom foods, saved meals, saved products, profile and goals, shoes, run feelings and corrections (intervals included) and reminders. Sleep, steps and Health Connect workouts aren't needed: they come back on their own when syncing.
+es: Crea un archivo con comidas, entrenamientos introducidos a mano, alimentos personales, comidas fijas, productos guardados, perfil y objetivos, zapatillas, sensaciones y correcciones de las carreras (series incluidas) y recordatorios. Sueño, pasos y entrenamientos de Health Connect no hacen falta: vuelven solos con la sincronización.
+fr: Crée un fichier avec repas, séances saisies à la main, aliments perso, repas types, produits enregistrés, profil et objectifs, chaussures, ressentis et corrections des courses (fractionnés compris) et rappels. Sommeil, pas et séances de Health Connect ne sont pas nécessaires : ils reviennent seuls avec la synchro.
+de: Erstellt eine Datei mit Mahlzeiten, von Hand eingetragenen Trainings, eigenen Lebensmitteln, festen Mahlzeiten, gespeicherten Produkten, Profil und Zielen, Schuhen, Laufgefühl und Korrekturen (inkl. Intervalle) und Erinnerungen. Schlaf, Schritte und Trainings aus Health Connect sind nicht nötig: Sie kommen beim Synchronisieren von selbst zurück.
+pt: Cria um arquivo com refeições, treinos inseridos à mão, alimentos personalizados, refeições fixas, produtos salvos, perfil e metas, tênis, sensações e correções das corridas (tiros incluídos) e lembretes. Sono, passos e treinos do Health Connect não são necessários: voltam sozinhos com a sincronização.
+
+it: Includi il collegamento a Notion
+en: Include the Notion connection
+es: Incluir la conexión con Notion
+fr: Inclure la connexion à Notion
+de: Notion-Verbindung einschließen
+pt: Incluir a conexão com o Notion
+
+it: Il file conterrà il token in chiaro: chi lo trova può leggere le pagine condivise con l'integrazione. Non metterlo in cartelle condivise.
+en: The file will contain the token in plain text: anyone who finds it can read the pages shared with the integration. Don't put it in shared folders.
+es: El archivo tendrá el token en claro: quien lo encuentre puede leer las páginas compartidas con la integración. No lo pongas en carpetas compartidas.
+fr: Le fichier contiendra le jeton en clair : qui le trouve peut lire les pages partagées avec l'intégration. Ne le mets pas dans un dossier partagé.
+de: Die Datei enthält den Token im Klartext: Wer sie findet, kann die mit der Integration geteilten Seiten lesen. Leg sie nicht in geteilte Ordner.
+pt: O arquivo terá o token em texto puro: quem o encontrar pode ler as páginas compartilhadas com a integração. Não o coloque em pastas compartilhadas.
+
+it: Spento, il token resta fuori: sul telefono nuovo va incollato di nuovo. Il backup automatico non lo include mai.
+en: Off, the token stays out: on a new phone you'll paste it again. The automatic backup never includes it.
+es: Desactivado, el token queda fuera: en el teléfono nuevo hay que pegarlo otra vez. La copia automática nunca lo incluye.
+fr: Désactivé, le jeton reste en dehors : sur un nouveau téléphone il faudra le recoller. La sauvegarde automatique ne l'inclut jamais.
+de: Aus, der Token bleibt draußen: Auf dem neuen Telefon musst du ihn erneut einfügen. Die automatische Sicherung enthält ihn nie.
+pt: Desligado, o token fica de fora: no telefone novo será preciso colá-lo de novo. O backup automático nunca o inclui.
+
+it: Esporta i dati
+en: Export data
+es: Exportar los datos
+fr: Exporter les données
+de: Daten exportieren
+pt: Exportar os dados
+
+it: Importa
+en: Import
+es: Importar
+fr: Importer
+de: Importieren
+pt: Importar
+
+it: Scegli un file di backup: prima vedi cosa contiene, poi confermi. I dati si aggiungono a quelli che hai già, senza duplicare gli stessi pasti.
+en: Choose a backup file: first you see what it contains, then you confirm. Data is added to what you already have, without duplicating the same meals.
+es: Elige un archivo de copia: primero ves qué contiene y luego confirmas. Los datos se añaden a los que ya tienes, sin duplicar las mismas comidas.
+fr: Choisis un fichier de sauvegarde : tu vois d'abord ce qu'il contient, puis tu confirmes. Les données s'ajoutent à celles que tu as, sans dupliquer les mêmes repas.
+de: Wähle eine Sicherungsdatei: Zuerst siehst du den Inhalt, dann bestätigst du. Die Daten kommen zu den vorhandenen hinzu, ohne gleiche Mahlzeiten doppelt anzulegen.
+pt: Escolha um arquivo de backup: primeiro você vê o que contém, depois confirma. Os dados se somam aos que você já tem, sem duplicar as mesmas refeições.
+
+it: Scegli il file
+en: Choose file
+es: Elegir archivo
+fr: Choisir le fichier
+de: Datei wählen
+pt: Escolher arquivo
+
+it: Importazione non riuscita.
+en: Import failed.
+es: La importación ha fallado.
+fr: Échec de l'import.
+de: Import fehlgeschlagen.
+pt: Falha na importação.
+
+it: Importazione completata.
+en: Import complete.
+es: Importación completada.
+fr: Import terminé.
+de: Import abgeschlossen.
+pt: Importação concluída.
+
+it: Importazione completata. Sensazioni e scarpe di %d corsa si assegnano dopo la sincronizzazione con Health Connect.
+en: Import complete. Feelings and shoes of %d run will be assigned after syncing with Health Connect.
+es: Importación completada. Las sensaciones y zapatillas de %d carrera se asignan tras sincronizar con Health Connect.
+fr: Import terminé. Ressentis et chaussures de %d course seront attribués après la synchro avec Health Connect.
+de: Import abgeschlossen. Gefühl und Schuhe von %d Lauf werden nach der Synchronisierung mit Health Connect zugeordnet.
+pt: Importação concluída. Sensações e tênis de %d corrida serão atribuídos após sincronizar com o Health Connect.
+
+it: Importazione completata. Sensazioni e scarpe di %d corse si assegnano dopo la sincronizzazione con Health Connect.
+en: Import complete. Feelings and shoes of %d runs will be assigned after syncing with Health Connect.
+es: Importación completada. Las sensaciones y zapatillas de %d carreras se asignan tras sincronizar con Health Connect.
+fr: Import terminé. Ressentis et chaussures de %d courses seront attribués après la synchro avec Health Connect.
+de: Import abgeschlossen. Gefühl und Schuhe von %d Läufen werden nach der Synchronisierung mit Health Connect zugeordnet.
+pt: Importação concluída. Sensações e tênis de %d corridas serão atribuídos após sincronizar com o Health Connect.
+
+it: Quel posto non permette il salvataggio automatico. Scegline un altro (Drive o una cartella del telefono).
+en: That location doesn't allow automatic saving. Choose another (Drive or a phone folder).
+es: Ese lugar no permite el guardado automático. Elige otro (Drive o una carpeta del teléfono).
+fr: Cet emplacement ne permet pas l'enregistrement automatique. Choisis-en un autre (Drive ou un dossier du téléphone).
+de: Dieser Ort erlaubt kein automatisches Speichern. Wähle einen anderen (Drive oder einen Ordner auf dem Telefon).
+pt: Esse local não permite salvar automaticamente. Escolha outro (Drive ou uma pasta do telefone).
+
+it: Backup automatico
+en: Automatic backup
+es: Copia automática
+fr: Sauvegarde automatique
+de: Automatische Sicherung
+pt: Backup automático
+
+it: Una copia al giorno di tutto quello che c'è nell'app (come l'esportazione manuale), anche ad app chiusa. Quando scegli dove salvarla, nel selettore di Android apri Drive: il file resta nel tuo Google Drive, che tiene anche le versioni precedenti. Va bene anche una cartella del telefono.
+en: A daily copy of everything in the app (like the manual export), even with the app closed. When choosing where to save it, open Drive in the Android picker: the file stays in your Google Drive, which also keeps previous versions. A phone folder works too.
+es: Una copia al día de todo lo que hay en la app (como la exportación manual), incluso con la app cerrada. Al elegir dónde guardarla, abre Drive en el selector de Android: el archivo queda en tu Google Drive, que también guarda las versiones anteriores. También vale una carpeta del teléfono.
+fr: Une copie par jour de tout ce qu'il y a dans l'app (comme l'export manuel), même app fermée. Quand tu choisis où l'enregistrer, ouvre Drive dans le sélecteur d'Android : le fichier reste dans ton Google Drive, qui garde aussi les versions précédentes. Un dossier du téléphone convient aussi.
+de: Eine tägliche Kopie von allem in der App (wie der manuelle Export), auch bei geschlossener App. Öffne beim Speicherort im Android-Auswahldialog Drive: Die Datei bleibt in deinem Google Drive, das auch frühere Versionen behält. Ein Ordner auf dem Telefon geht auch.
+pt: Uma cópia por dia de tudo o que há no app (como a exportação manual), mesmo com o app fechado. Ao escolher onde salvar, abra o Drive no seletor do Android: o arquivo fica no seu Google Drive, que também guarda as versões anteriores. Uma pasta do telefone também serve.
+
+it: Scegli dove salvarlo
+en: Choose where to save it
+es: Elige dónde guardarla
+fr: Choisir où l'enregistrer
+de: Speicherort wählen
+pt: Escolher onde salvar
+
+it: Salvato in: %s
+en: Saved in: %s
+es: Guardado en: %s
+fr: Enregistré dans : %s
+de: Gespeichert in: %s
+pt: Salvo em: %s
+
+it: ancora nessuno
+en: none yet
+es: ninguna todavía
+fr: aucune pour l'instant
+de: noch keine
+pt: nenhum ainda
+
+it: Ultimo backup riuscito: %s
+en: Last successful backup: %s
+es: Última copia correcta: %s
+fr: Dernière sauvegarde réussie : %s
+de: Letzte erfolgreiche Sicherung: %s
+pt: Último backup bem-sucedido: %s
+
+it: Non c'è un backup riuscito da qualche giorno: apri l'app con la rete accesa o salva ora.
+en: There hasn't been a successful backup for a few days: open the app with a connection or save now.
+es: No hay una copia correcta desde hace unos días: abre la app con conexión o guarda ahora.
+fr: Aucune sauvegarde réussie depuis quelques jours : ouvre l'app avec une connexion ou enregistre maintenant.
+de: Seit einigen Tagen keine erfolgreiche Sicherung: Öffne die App mit Netz oder speichere jetzt.
+pt: Não há um backup bem-sucedido há alguns dias: abra o app com internet ou salve agora.
+
+it: Salva comunque
+en: Save anyway
+es: Guardar de todos modos
+fr: Enregistrer quand même
+de: Trotzdem speichern
+pt: Salvar mesmo assim
+
+it: Salvo...
+en: Saving...
+es: Guardando...
+fr: Enregistrement...
+de: Speichere...
+pt: Salvando...
+
+it: Salva ora
+en: Save now
+es: Guardar ahora
+fr: Enregistrer
+de: Jetzt speichern
+pt: Salvar agora
+
+it: Cambia posto
+en: Change location
+es: Cambiar lugar
+fr: Changer d'emplacement
+de: Ort ändern
+pt: Mudar local
+
+it: Disattiva
+en: Turn off
+es: Desactivar
+fr: Désactiver
+de: Ausschalten
+pt: Desativar
+
+it: Backup salvato (%s).
+en: Backup saved (%s).
+es: Copia guardada (%s).
+fr: Sauvegarde enregistrée (%s).
+de: Sicherung gespeichert (%s).
+pt: Backup salvo (%s).
+
+it: Scegli prima dove salvare il backup.
+en: First choose where to save the backup.
+es: Primero elige dónde guardar la copia.
+fr: Choisis d'abord où enregistrer la sauvegarde.
+de: Wähle zuerst einen Speicherort.
+pt: Escolha primeiro onde salvar o backup.
+
+it: Il backup di oggi è già fatto.
+en: Today's backup is already done.
+es: La copia de hoy ya está hecha.
+fr: La sauvegarde du jour est déjà faite.
+de: Die heutige Sicherung ist schon erledigt.
+pt: O backup de hoje já foi feito.
+
+it: Importare il backup?
+en: Import the backup?
+es: ¿Importar la copia?
+fr: Importer la sauvegarde ?
+de: Sicherung importieren?
+pt: Importar o backup?
+
+it: Tutto quello che c'è nel file è già nell'app: non c'è niente da aggiungere.
+en: Everything in the file is already in the app: nothing to add.
+es: Todo lo que hay en el archivo ya está en la app: no hay nada que añadir.
+fr: Tout ce qui est dans le fichier est déjà dans l'app : rien à ajouter.
+de: Alles aus der Datei ist schon in der App: nichts hinzuzufügen.
+pt: Tudo o que há no arquivo já está no app: não há nada a adicionar.
+
+it: Verranno aggiunti: %s
+en: Will be added: %s
+es: Se añadirán: %s
+fr: Seront ajoutés : %s
+de: Wird hinzugefügt: %s
+pt: Serão adicionados: %s
+
+it: solo le impostazioni
+en: settings only
+es: solo los ajustes
+fr: seulement les réglages
+de: nur die Einstellungen
+pt: só as configurações
+
+it: %d voci erano già presenti e non vengono ripetute.
+en: %d entries were already there and won't be repeated.
+es: %d entradas ya estaban y no se repiten.
+fr: %d entrées étaient déjà présentes et ne seront pas répétées.
+de: %d Einträge waren schon vorhanden und werden nicht wiederholt.
+pt: %d itens já estavam presentes e não serão repetidos.
+
+it: Il profilo, gli obiettivi e le preferenze del file sostituiranno quelli attuali; gli alimenti personali si uniscono.
+en: The file's profile, goals and preferences will replace the current ones; custom foods are merged.
+es: El perfil, los objetivos y las preferencias del archivo sustituirán a los actuales; los alimentos personales se unen.
+fr: Le profil, les objectifs et les préférences du fichier remplaceront les actuels ; les aliments perso sont fusionnés.
+de: Profil, Ziele und Einstellungen aus der Datei ersetzen die aktuellen; eigene Lebensmittel werden zusammengeführt.
+pt: O perfil, as metas e as preferências do arquivo substituirão os atuais; os alimentos personalizados são mesclados.
+
+it: Gli obiettivi di corsa del file sostituiranno quelli attuali.
+en: The file's running goals will replace the current ones.
+es: Los objetivos de carrera del archivo sustituirán a los actuales.
+fr: Les objectifs de course du fichier remplaceront les actuels.
+de: Die Laufziele aus der Datei ersetzen die aktuellen.
+pt: As metas de corrida do arquivo substituirão as atuais.
+
+it: Il programma di allenamento del file sostituirà quello tenuto nell'app.
+en: The file's training plan will replace the one kept in the app.
+es: El plan de entrenamiento del archivo sustituirá al guardado en la app.
+fr: Le programme d'entraînement du fichier remplacera celui de l'app.
+de: Der Trainingsplan aus der Datei ersetzt den in der App.
+pt: O plano de treino do arquivo substituirá o mantido no app.
+
+it: Il file contiene il collegamento a Notion: l'app si ricollega senza reinserire il token.
+en: The file contains the Notion connection: the app reconnects without re-entering the token.
+es: El archivo contiene la conexión con Notion: la app se vuelve a conectar sin introducir el token.
+fr: Le fichier contient la connexion à Notion : l'app se reconnecte sans ressaisir le jeton.
+de: Die Datei enthält die Notion-Verbindung: Die App verbindet sich ohne erneute Token-Eingabe.
+pt: O arquivo contém a conexão com o Notion: o app se reconecta sem digitar o token de novo.
+
+it: Anche gli orari dei promemoria vengono dal file. Su un telefono nuovo apri poi Profilo → Promemoria per consentire le notifiche.
+en: Reminder times also come from the file. On a new phone, then open Profile → Reminders to allow notifications.
+es: También los horarios de los recordatorios vienen del archivo. En un teléfono nuevo abre luego Perfil → Recordatorios para permitir las notificaciones.
+fr: Les horaires des rappels viennent aussi du fichier. Sur un nouveau téléphone, ouvre ensuite Profil → Rappels pour autoriser les notifications.
+de: Auch die Erinnerungszeiten kommen aus der Datei. Öffne auf einem neuen Telefon danach Profil → Erinnerungen, um Benachrichtigungen zu erlauben.
+pt: Os horários dos lembretes também vêm do arquivo. Em um telefone novo, abra depois Perfil → Lembretes para permitir as notificações.
+
+it: %d alimento nei pasti
+en: %d food in meals
+es: %d alimento en las comidas
+fr: %d aliment dans les repas
+de: %d Lebensmittel in Mahlzeiten
+pt: %d alimento nas refeições
+
+it: %d alimenti nei pasti
+en: %d foods in meals
+es: %d alimentos en las comidas
+fr: %d aliments dans les repas
+de: %d Lebensmittel in Mahlzeiten
+pt: %d alimentos nas refeições
+
+it: %d allenamento
+en: %d workout
+es: %d entrenamiento
+fr: %d séance
+de: %d Training
+pt: %d treino
+
+it: %d allenamenti
+en: %d workouts
+es: %d entrenamientos
+fr: %d séances
+de: %d Trainings
+pt: %d treinos
+
+it: %d prodotto salvato
+en: %d saved product
+es: %d producto guardado
+fr: %d produit enregistré
+de: %d gespeichertes Produkt
+pt: %d produto salvo
+
+it: %d prodotti salvati
+en: %d saved products
+es: %d productos guardados
+fr: %d produits enregistrés
+de: %d gespeicherte Produkte
+pt: %d produtos salvos
+
+it: le sensazioni di %d corsa
+en: feelings for %d run
+es: las sensaciones de %d carrera
+fr: les ressentis de %d course
+de: das Gefühl von %d Lauf
+pt: as sensações de %d corrida
+
+it: le sensazioni di %d corse
+en: feelings for %d runs
+es: las sensaciones de %d carreras
+fr: les ressentis de %d courses
+de: das Gefühl von %d Läufen
+pt: as sensações de %d corridas
+
+it: su %d giorno
+en: over %d day
+es: en %d día
+fr: sur %d jour
+de: an %d Tag
+pt: em %d dia
+
+it: su %d giorni
+en: over %d days
+es: en %d días
+fr: sur %d jours
+de: an %d Tagen
+pt: em %d dias
+
+# Primo avvio
+
+it: Iniziamo
+en: Let's start
+es: Empecemos
+fr: Commençons
+de: Los geht's
+pt: Vamos começar
+
+it: Continua
+en: Continue
+es: Continuar
+fr: Continuer
+de: Weiter
+pt: Continuar
+
+it: Apri UNICUM
+en: Open UNICUM
+es: Abrir UNICUM
+fr: Ouvrir UNICUM
+de: UNICUM öffnen
+pt: Abrir o UNICUM
+
+it: Avanti
+en: Next
+es: Siguiente
+fr: Suivant
+de: Weiter
+pt: Avançar
+
+it: Puoi anche farlo dopo da Profilo → Programma di allenamento.
+en: You can also do it later from Profile → Training plan.
+es: También puedes hacerlo luego desde Perfil → Plan de entrenamiento.
+fr: Tu peux aussi le faire plus tard depuis Profil → Programme d'entraînement.
+de: Du kannst das auch später unter Profil → Trainingsplan machen.
+pt: Você também pode fazer isso depois em Perfil → Plano de treino.
+
+it: Partiamo da te
+en: Let's start with you
+es: Empecemos por ti
+fr: Commençons par toi
+de: Fangen wir bei dir an
+pt: Vamos começar por você
+
+it: Serve a stimare quante calorie consumi a riposo.
+en: Used to estimate how many calories you burn at rest.
+es: Sirve para estimar cuántas calorías gastas en reposo.
+fr: Sert à estimer combien de calories tu dépenses au repos.
+de: Dient zur Schätzung, wie viele Kalorien du in Ruhe verbrauchst.
+pt: Serve para estimar quantas calorias você gasta em repouso.
+
+it: Quanti anni hai?
+en: How old are you?
+es: ¿Cuántos años tienes?
+fr: Quel âge as-tu ?
+de: Wie alt bist du?
+pt: Quantos anos você tem?
+
+it: Quanto pesi?
+en: How much do you weigh?
+es: ¿Cuánto pesas?
+fr: Combien pèses-tu ?
+de: Wie viel wiegst du?
+pt: Quanto você pesa?
+
+it: Puoi aggiornarlo quando vuoi: se hai una bilancia collegata arriva da sola.
+en: You can update it anytime: with a connected scale it comes in on its own.
+es: Puedes actualizarlo cuando quieras: si tienes una báscula conectada llega sola.
+fr: Tu peux le mettre à jour quand tu veux : avec une balance connectée, il arrive tout seul.
+de: Du kannst es jederzeit ändern: Mit einer verbundenen Waage kommt es von selbst.
+pt: Você pode atualizá-lo quando quiser: com uma balança conectada ele chega sozinho.
+
+it: Quanto sei alto?
+en: How tall are you?
+es: ¿Cuánto mides?
+fr: Combien mesures-tu ?
+de: Wie groß bist du?
+pt: Qual é a sua altura?
+
+it: Quanto ti muovi di solito?
+en: How active are you usually?
+es: ¿Cuánto te mueves normalmente?
+fr: Quel est ton niveau d'activité habituel ?
+de: Wie viel bewegst du dich normalerweise?
+pt: Quanto você se mexe normalmente?
+
+it: Serve solo a stimare l'obiettivo calorico: il movimento di ogni giorno lo conta l'app.
+en: Only used to estimate the calorie goal: the app counts each day's movement.
+es: Solo sirve para estimar el objetivo calórico: el movimiento de cada día lo cuenta la app.
+fr: Sert uniquement à estimer l'objectif calorique : l'app compte le mouvement de chaque jour.
+de: Dient nur zur Schätzung des Kalorienziels: Die tägliche Bewegung zählt die App.
+pt: Serve só para estimar a meta calórica: o movimento de cada dia o app conta.
+
+it: Qual è il tuo obiettivo?
+en: What's your goal?
+es: ¿Cuál es tu objetivo?
+fr: Quel est ton objectif ?
+de: Was ist dein Ziel?
+pt: Qual é a sua meta?
+
+it: Il deficit è quanto vuoi bruciare in più di quanto mangi ogni giorno.
+en: The deficit is how much more you want to burn than you eat each day.
+es: El déficit es cuánto quieres quemar de más respecto a lo que comes cada día.
+fr: Le déficit, c'est combien tu veux brûler de plus que ce que tu manges chaque jour.
+de: Das Defizit ist, wie viel du täglich mehr verbrennen willst, als du isst.
+pt: O déficit é quanto você quer queimar a mais do que come por dia.
+
+it: Dimagrire
+en: Lose weight
+es: Adelgazar
+fr: Perdre du poids
+de: Abnehmen
+pt: Emagrecer
+
+it: Deficit di 500 kcal al giorno (circa ½ kg a settimana)
+en: 500 kcal deficit per day (about ½ kg a week)
+es: Déficit de 500 kcal al día (aprox. ½ kg por semana)
+fr: Déficit de 500 kcal par jour (environ ½ kg par semaine)
+de: 500 kcal Defizit pro Tag (etwa ½ kg pro Woche)
+pt: Déficit de 500 kcal por dia (cerca de ½ kg por semana)
+
+it: Dimagrire con calma
+en: Lose weight slowly
+es: Adelgazar con calma
+fr: Perdre du poids en douceur
+de: Langsam abnehmen
+pt: Emagrecer com calma
+
+it: Deficit di 250 kcal al giorno
+en: 250 kcal deficit per day
+es: Déficit de 250 kcal al día
+fr: Déficit de 250 kcal par jour
+de: 250 kcal Defizit pro Tag
+pt: Déficit de 250 kcal por dia
+
+it: Mantenere il peso
+en: Maintain weight
+es: Mantener el peso
+fr: Maintenir le poids
+de: Gewicht halten
+pt: Manter o peso
+
+it: Nessun deficit
+en: No deficit
+es: Sin déficit
+fr: Pas de déficit
+de: Kein Defizit
+pt: Sem déficit
+
+it: Oppure scrivi il deficit
+en: Or enter the deficit
+es: O escribe el déficit
+fr: Ou indique le déficit
+de: Oder Defizit eingeben
+pt: Ou digite o déficit
+
+it: Il tuo fabbisogno
+en: Your needs
+es: Tus necesidades
+fr: Tes besoins
+de: Dein Bedarf
+pt: Sua necessidade
+
+it: Calcolato dai tuoi dati. Se conosci i valori veri, scrivili.
+en: Calculated from your details. If you know the real values, enter them.
+es: Calculado con tus datos. Si conoces los valores reales, escríbelos.
+fr: Calculé à partir de tes données. Si tu connais les vraies valeurs, indique-les.
+de: Aus deinen Daten berechnet. Wenn du die echten Werte kennst, trag sie ein.
+pt: Calculado pelos seus dados. Se souber os valores reais, informe-os.
+
+it: Le calorie che consumi a riposo in un giorno.
+en: The calories you burn at rest in a day.
+es: Las calorías que gastas en reposo en un día.
+fr: Les calories que tu dépenses au repos en une journée.
+de: Die Kalorien, die du an einem Tag in Ruhe verbrauchst.
+pt: As calorias que você gasta em repouso em um dia.
+
+it: Formula di Mifflin-St Jeor da sesso, età, peso e altezza.
+en: Mifflin-St Jeor formula from sex, age, weight and height.
+es: Fórmula de Mifflin-St Jeor a partir de sexo, edad, peso y altura.
+fr: Formule de Mifflin-St Jeor à partir du sexe, de l'âge, du poids et de la taille.
+de: Mifflin-St-Jeor-Formel aus Geschlecht, Alter, Gewicht und Größe.
+pt: Fórmula de Mifflin-St Jeor a partir de sexo, idade, peso e altura.
+
+it: Le calorie da mangiare ogni giorno. È fisso: l'attività aumenta solo il deficit.
+en: The calories to eat each day. It's fixed: activity only increases the deficit.
+es: Las calorías que comer cada día. Es fijo: la actividad solo aumenta el déficit.
+fr: Les calories à manger chaque jour. Il est fixe : l'activité augmente seulement le déficit.
+de: Die Kalorien, die du täglich isst. Es ist fest: Aktivität vergrößert nur das Defizit.
+pt: As calorias para comer a cada dia. É fixa: a atividade só aumenta o déficit.
+
+it: Macro: proteine %s%% · carboidrati %s%% · grassi %s%%
+en: Macros: protein %s%% · carbs %s%% · fat %s%%
+es: Macros: proteínas %s%% · carbohidratos %s%% · grasas %s%%
+fr: Macros : protéines %s %% · glucides %s %% · lipides %s %%
+de: Makros: Eiweiß %s %% · Kohlenhydrate %s %% · Fett %s %%
+pt: Macros: proteínas %s%% · carboidratos %s%% · gorduras %s%%
+
+it: Cosa vuoi vedere per primo?
+en: What do you want to see first?
+es: ¿Qué quieres ver primero?
+fr: Que veux-tu voir en premier ?
+de: Was willst du zuerst sehen?
+pt: O que você quer ver primeiro?
+
+it: La schermata principale. Puoi riordinare le card quando vuoi.
+en: The main screen. You can reorder the cards anytime.
+es: La pantalla principal. Puedes reordenar las tarjetas cuando quieras.
+fr: L'écran principal. Tu peux réordonner les cartes quand tu veux.
+de: Die Startansicht. Du kannst die Karten jederzeit umordnen.
+pt: A tela principal. Você pode reordenar os cards quando quiser.
+
+it: Hai un programma di corsa?
+en: Do you have a running plan?
+es: ¿Tienes un plan de carrera?
+fr: As-tu un programme de course ?
+de: Hast du einen Laufplan?
+pt: Você tem um plano de corrida?
+
+it: Le sedute compaiono in Allenamenti → Programma e le corse fatte si riconoscono dal giorno.
+en: Sessions appear in Workouts → Plan and completed runs are matched by day.
+es: Las sesiones aparecen en Entrenos → Plan y las carreras hechas se reconocen por el día.
+fr: Les séances apparaissent dans Séances → Programme et les courses faites sont reconnues par le jour.
+de: Die Einheiten erscheinen unter Training → Plan, absolvierte Läufe werden am Tag erkannt.
+pt: As sessões aparecem em Treinos → Plano e as corridas feitas são reconhecidas pelo dia.
+
+it: Da Notion
+en: From Notion
+es: Desde Notion
+fr: Depuis Notion
+de: Aus Notion
+pt: Do Notion
+
+it: Leggo il tuo database del programma (e il registro, se c'è)
+en: I'll read your plan database (and the log, if there is one)
+es: Leo tu base de datos del plan (y el registro, si lo hay)
+fr: Je lis ta base de données du programme (et le journal, s'il existe)
+de: Ich lese deine Plan-Datenbank (und das Tagebuch, falls vorhanden)
+pt: Leio seu banco de dados do plano (e o registro, se houver)
+
+it: Da un PDF
+en: From a PDF
+es: Desde un PDF
+fr: Depuis un PDF
+de: Aus einem PDF
+pt: De um PDF
+
+it: Importo le sedute dal file del tuo allenatore o di un'app
+en: I'll import the sessions from your coach's or an app's file
+es: Importo las sesiones del archivo de tu entrenador o de una app
+fr: J'importe les séances du fichier de ton coach ou d'une app
+de: Ich importiere die Einheiten aus der Datei deines Trainers oder einer App
+pt: Importo as sessões do arquivo do seu treinador ou de um app
+
+it: Nessuno per ora
+en: None for now
+es: Ninguno por ahora
+fr: Aucun pour l'instant
+de: Vorerst keiner
+pt: Nenhum por enquanto
+
+it: Potrai scrivere a mano le prossime corse in Allenamenti → Programma
+en: You can write upcoming runs by hand in Workouts → Plan
+es: Podrás escribir a mano las próximas carreras en Entrenos → Plan
+fr: Tu pourras écrire à la main les prochaines courses dans Séances → Programme
+de: Du kannst die nächsten Läufe unter Training → Plan von Hand eintragen
+pt: Você poderá escrever à mão as próximas corridas em Treinos → Plano
+
+it: Collega Notion
+en: Connect Notion
+es: Conectar Notion
+fr: Connecter Notion
+de: Notion verbinden
+pt: Conectar o Notion
+
+it: Importa il programma
+en: Import the plan
+es: Importar el plan
+fr: Importer le programme
+de: Plan importieren
+pt: Importar o plano
+
+it: Scegli il PDF: controlli le sedute trovate e le salvi.
+en: Choose the PDF: review the sessions found and save them.
+es: Elige el PDF: revisas las sesiones encontradas y las guardas.
+fr: Choisis le PDF : tu vérifies les séances trouvées et tu les enregistres.
+de: Wähle das PDF: Du prüfst die gefundenen Einheiten und speicherst sie.
+pt: Escolha o PDF: você confere as sessões encontradas e as salva.
+
+it: Benvenuto in UNICUM
+en: Welcome to UNICUM
+es: Bienvenido a UNICUM
+fr: Bienvenue dans UNICUM
+de: Willkommen bei UNICUM
+pt: Bem-vindo ao UNICUM
+
+it: Alimentazione: calorie, macro e deficit della giornata
+en: Nutrition: the day's calories, macros and deficit
+es: Alimentación: calorías, macros y déficit del día
+fr: Alimentation : calories, macros et déficit de la journée
+de: Ernährung: Kalorien, Makros und Defizit des Tages
+pt: Alimentação: calorias, macros e déficit do dia
+
+it: Allenamenti e corse da Health Connect, con il tuo programma
+en: Workouts and runs from Health Connect, with your plan
+es: Entrenamientos y carreras desde Health Connect, con tu plan
+fr: Séances et courses depuis Health Connect, avec ton programme
+de: Training und Läufe aus Health Connect, mit deinem Plan
+pt: Treinos e corridas do Health Connect, com o seu plano
+
+it: Sonno e recupero da anello e orologio
+en: Sleep and recovery from ring and watch
+es: Sueño y recuperación desde anillo y reloj
+fr: Sommeil et récupération depuis bague et montre
+de: Schlaf und Erholung von Ring und Uhr
+pt: Sono e recuperação do anel e do relógio
+
+it: Qualche domanda per partire: ci vuole un minuto e puoi cambiare tutto dal Profilo. I tuoi dati restano sul telefono.
+en: A few questions to get started: it takes a minute and you can change everything from Profile. Your data stays on your phone.
+es: Unas preguntas para empezar: lleva un minuto y puedes cambiarlo todo desde el perfil. Tus datos se quedan en el teléfono.
+fr: Quelques questions pour démarrer : ça prend une minute et tu peux tout changer depuis le profil. Tes données restent sur le téléphone.
+de: Ein paar Fragen zum Start: Das dauert eine Minute und du kannst alles im Profil ändern. Deine Daten bleiben auf dem Telefon.
+pt: Algumas perguntas para começar: leva um minuto e você pode mudar tudo no perfil. Seus dados ficam no telefone.
+
+it: Tutto pronto
+en: All set
+es: Todo listo
+fr: Tout est prêt
+de: Alles bereit
+pt: Tudo pronto
+
+it: Programma da Notion collegato
+en: Notion plan connected
+es: Plan de Notion conectado
+fr: Programme Notion connecté
+de: Notion-Plan verbunden
+pt: Plano do Notion conectado
+
+it: Programma nell'app: %d sedute
+en: Plan in the app: %d sessions
+es: Plan en la app: %d sesiones
+fr: Programme dans l'app : %d séances
+de: Plan in der App: %d Einheiten
+pt: Plano no app: %d sessões
+
+it: Nessun programma: le corse future si aggiungono in Allenamenti → Programma
+en: No plan: future runs can be added in Workouts → Plan
+es: Sin plan: las próximas carreras se añaden en Entrenos → Plan
+fr: Pas de programme : les prochaines courses s'ajoutent dans Séances → Programme
+de: Kein Plan: Künftige Läufe fügst du unter Training → Plan hinzu
+pt: Sem plano: as próximas corridas se adicionam em Treinos → Plano
+
+it: Obiettivo: %d kcal al giorno
+en: Goal: %d kcal per day
+es: Objetivo: %d kcal al día
+fr: Objectif : %d kcal par jour
+de: Ziel: %d kcal pro Tag
+pt: Meta: %d kcal por dia
+
+it: Deficit previsto: %d kcal
+en: Planned deficit: %d kcal
+es: Déficit previsto: %d kcal
+fr: Déficit prévu : %d kcal
+de: Geplantes Defizit: %d kcal
+pt: Déficit previsto: %d kcal
+
+it: Obiettivo: mantenere il peso
+en: Goal: maintain weight
+es: Objetivo: mantener el peso
+fr: Objectif : maintenir le poids
+de: Ziel: Gewicht halten
+pt: Meta: manter o peso
+
+it: Schermata principale: %s
+en: Main screen: %s
+es: Pantalla principal: %s
+fr: Écran principal : %s
+de: Startansicht: %s
+pt: Tela principal: %s
+
+it: Poi collega Health Connect dal Profilo: da lì arrivano passi, allenamenti, sonno e recupero.
+en: Then connect Health Connect from Profile: that's where steps, workouts, sleep and recovery come from.
+es: Luego conecta Health Connect desde el perfil: de ahí llegan pasos, entrenamientos, sueño y recuperación.
+fr: Ensuite connecte Health Connect depuis le profil : c'est de là que viennent pas, séances, sommeil et récupération.
+de: Verbinde dann Health Connect im Profil: Von dort kommen Schritte, Training, Schlaf und Erholung.
+pt: Depois conecte o Health Connect no perfil: de lá vêm passos, treinos, sono e recuperação.
+
+it: Scelta
+en: Selected
+es: Elegida
+fr: Choisie
+de: Gewählt
+pt: Escolhida
+
+it: Meno
+en: Less
+es: Menos
+fr: Moins
+de: Weniger
+pt: Menos
+
+it: Più
+en: More
+es: Más
+fr: Plus
+de: Mehr
+pt: Mais
+
+it: Valore tra %d e %d %s.
+en: Value between %d and %d %s.
+es: Valor entre %d y %d %s.
+fr: Valeur entre %d et %d %s.
+de: Wert zwischen %d und %d %s.
+pt: Valor entre %d e %d %s.

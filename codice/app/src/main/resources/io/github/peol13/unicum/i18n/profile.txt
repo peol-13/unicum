@@ -1,0 +1,658 @@
+# Traduzioni di UNICUM (vedi common.txt per il formato).
+
+# HRV
+
+it: HRV confrontabile dal
+en: HRV comparable from
+es: HRV comparable desde
+fr: HRV comparable depuis
+de: HRV vergleichbar ab
+pt: HRV comparável desde
+
+it: Se l'anello o l'orologio cambia algoritmo (o cambi dispositivo) l'HRV fa un salto e le medie mescolerebbero due scale diverse: l'app usa solo i valori da questa data.
+en: If your ring or watch changes algorithm (or you change device), HRV jumps and averages would mix two different scales: the app only uses values from this date.
+es: Si el anillo o el reloj cambia de algoritmo (o cambias de dispositivo), la HRV da un salto y las medias mezclarían dos escalas distintas: la app solo usa los valores desde esta fecha.
+fr: Si la bague ou la montre change d'algorithme (ou si tu changes d'appareil), la HRV fait un saut et les moyennes mélangeraient deux échelles : l'app n'utilise que les valeurs depuis cette date.
+de: Wenn Ring oder Uhr den Algorithmus ändern (oder du das Gerät wechselst), springt die HRV und die Mittelwerte würden zwei Skalen mischen: Die App nutzt nur Werte ab diesem Datum.
+pt: Se o anel ou o relógio muda de algoritmo (ou você troca de dispositivo), a HRV dá um salto e as médias misturariam duas escalas: o app usa só os valores a partir desta data.
+
+it: Automatico
+en: Automatic
+es: Automático
+fr: Automatique
+de: Automatisch
+pt: Automático
+
+it: Scelgo io
+en: I'll choose
+es: Elijo yo
+fr: Je choisis
+de: Ich wähle
+pt: Eu escolho
+
+it: Dal %s (scelto da te).
+en: From %s (chosen by you).
+es: Desde el %s (elegido por ti).
+fr: Depuis le %s (choisi par toi).
+de: Ab %s (von dir gewählt).
+pt: Desde %s (escolhido por você).
+
+it: Dal %s: lì i valori cambiano di scala.
+en: From %s: values change scale there.
+es: Desde el %s: ahí los valores cambian de escala.
+fr: Depuis le %s : là, les valeurs changent d'échelle.
+de: Ab %s: Dort ändern die Werte ihre Skala.
+pt: Desde %s: ali os valores mudam de escala.
+
+it: Tutta la serie: nessun salto di scala trovato.
+en: Whole series: no scale jump found.
+es: Toda la serie: ningún salto de escala encontrado.
+fr: Toute la série : aucun saut d'échelle trouvé.
+de: Ganze Reihe: kein Skalensprung gefunden.
+pt: Toda a série: nenhum salto de escala encontrado.
+
+it: Cambia data
+en: Change date
+es: Cambiar fecha
+fr: Changer la date
+de: Datum ändern
+pt: Mudar data
+
+# Profilo
+
+it: Profilo e alimentazione
+en: Profile and nutrition
+es: Perfil y alimentación
+fr: Profil et alimentation
+de: Profil und Ernährung
+pt: Perfil e alimentação
+
+it: Dati personali, obiettivo calorico e macro
+en: Personal details, calorie goal and macros
+es: Datos personales, objetivo calórico y macros
+fr: Données personnelles, objectif calorique et macros
+de: Persönliche Daten, Kalorienziel und Makros
+pt: Dados pessoais, meta calórica e macros
+
+it: Programma di allenamento
+en: Training plan
+es: Plan de entrenamiento
+fr: Programme d'entraînement
+de: Trainingsplan
+pt: Plano de treino
+
+it: Da Notion, da un PDF o scritto a mano
+en: From Notion, a PDF or written by hand
+es: Desde Notion, un PDF o escrito a mano
+fr: Depuis Notion, un PDF ou écrit à la main
+de: Aus Notion, einem PDF oder von Hand
+pt: Do Notion, de um PDF ou escrito à mão
+
+it: Recupero e HRV
+en: Recovery and HRV
+es: Recuperación y HRV
+fr: Récupération et HRV
+de: Erholung und HRV
+pt: Recuperação e HRV
+
+it: Da quando l'HRV è confrontabile
+en: Since when HRV is comparable
+es: Desde cuándo la HRV es comparable
+fr: Depuis quand la HRV est comparable
+de: Ab wann die HRV vergleichbar ist
+pt: Desde quando a HRV é comparável
+
+it: Notifiche
+en: Notifications
+es: Notificaciones
+fr: Notifications
+de: Benachrichtigungen
+pt: Notificações
+
+it: Promemoria dei pasti e avviso sul recupero
+en: Meal reminders and recovery alert
+es: Recordatorios de comidas y aviso de recuperación
+fr: Rappels de repas et alerte de récupération
+de: Essenserinnerungen und Erholungshinweis
+pt: Lembretes de refeições e aviso de recuperação
+
+it: Aspetto
+en: Appearance
+es: Apariencia
+fr: Apparence
+de: Darstellung
+pt: Aparência
+
+it: Tema, lingua e schermata principale
+en: Theme, language and main screen
+es: Tema, idioma y pantalla principal
+fr: Thème, langue et écran principal
+de: Design, Sprache und Startansicht
+pt: Tema, idioma e tela principal
+
+it: Backup dei dati
+en: Data backup
+es: Copia de seguridad
+fr: Sauvegarde des données
+de: Datensicherung
+pt: Backup dos dados
+
+it: Automatico, esporta e importa
+en: Automatic, export and import
+es: Automática, exportar e importar
+fr: Automatique, exporter et importer
+de: Automatisch, Export und Import
+pt: Automático, exportar e importar
+
+it: Statistiche anonime
+en: Anonymous statistics
+es: Estadísticas anónimas
+fr: Statistiques anonymes
+de: Anonyme Statistiken
+pt: Estatísticas anônimas
+
+it: Facoltative: cosa viene inviato
+en: Optional: what is sent
+es: Opcionales: qué se envía
+fr: Facultatives : ce qui est envoyé
+de: Optional: was gesendet wird
+pt: Opcionais: o que é enviado
+
+it: Fonti dati, obiettivi e preferenze
+en: Data sources, goals and preferences
+es: Fuentes de datos, objetivos y preferencias
+fr: Sources de données, objectifs et préférences
+de: Datenquellen, Ziele und Einstellungen
+pt: Fontes de dados, metas e preferências
+
+it: Tu
+en: You
+es: Tú
+fr: Toi
+de: Du
+pt: Você
+
+it: Peso, altezza, metabolismo, obiettivo calorico e macro
+en: Weight, height, metabolism, calorie goal and macros
+es: Peso, altura, metabolismo, objetivo calórico y macros
+fr: Poids, taille, métabolisme, objectif calorique et macros
+de: Gewicht, Größe, Stoffwechsel, Kalorienziel und Makros
+pt: Peso, altura, metabolismo, meta calórica e macros
+
+it: Allenamento
+en: Training
+es: Entrenamiento
+fr: Entraînement
+de: Training
+pt: Treino
+
+it: Da Notion: programma e registro delle corse
+en: From Notion: plan and run log
+es: Desde Notion: plan y registro de carreras
+fr: Depuis Notion : programme et journal des courses
+de: Aus Notion: Plan und Lauftagebuch
+pt: Do Notion: plano e registro de corridas
+
+it: Nell'app: %d sedute
+en: In the app: %d sessions
+es: En la app: %d sesiones
+fr: Dans l'app : %d séances
+de: In der App: %d Einheiten
+pt: No app: %d sessões
+
+it: da «%s»
+en: from “%s”
+es: de «%s»
+fr: de « %s »
+de: aus „%s“
+pt: de “%s”
+
+it: Importa un PDF, scrivi le sedute a mano o collega Notion
+en: Import a PDF, write sessions by hand or connect Notion
+es: Importa un PDF, escribe las sesiones a mano o conecta Notion
+fr: Importe un PDF, écris les séances à la main ou connecte Notion
+de: PDF importieren, Einheiten von Hand schreiben oder Notion verbinden
+pt: Importe um PDF, escreva as sessões à mão ou conecte o Notion
+
+it: HRV confrontabile dal %s
+en: HRV comparable from %s
+es: HRV comparable desde el %s
+fr: HRV comparable depuis le %s
+de: HRV vergleichbar ab %s
+pt: HRV comparável desde %s
+
+it: (scelto da te)
+en: (chosen by you)
+es: (elegido por ti)
+fr: (choisi par toi)
+de: (von dir gewählt)
+pt: (escolhido por você)
+
+it: (trovato dall'app)
+en: (found by the app)
+es: (detectado por la app)
+fr: (trouvé par l'app)
+de: (von der App erkannt)
+pt: (encontrado pelo app)
+
+it: HRV: tutta la serie è confrontabile
+en: HRV: the whole series is comparable
+es: HRV: toda la serie es comparable
+fr: HRV : toute la série est comparable
+de: HRV: die ganze Reihe ist vergleichbar
+pt: HRV: toda a série é comparável
+
+it: App
+en: App
+es: App
+fr: App
+de: App
+pt: App
+
+it: Promemoria agli orari dei pasti e avviso quando il recupero è più basso del solito
+en: Reminders at meal times and an alert when recovery is lower than usual
+es: Recordatorios a la hora de las comidas y aviso cuando la recuperación es más baja de lo normal
+fr: Rappels aux heures des repas et alerte quand la récupération est plus basse que d'habitude
+de: Erinnerungen zu den Essenszeiten und Hinweis, wenn die Erholung niedriger ist als sonst
+pt: Lembretes nos horários das refeições e aviso quando a recuperação está mais baixa que o normal
+
+it: Tema, lingua e schermata principale: %s
+en: Theme, language and main screen: %s
+es: Tema, idioma y pantalla principal: %s
+fr: Thème, langue et écran principal : %s
+de: Design, Sprache und Startansicht: %s
+pt: Tema, idioma e tela principal: %s
+
+it: Lingua
+en: Language
+es: Idioma
+fr: Langue
+de: Sprache
+pt: Idioma
+
+it: «Come il telefono» usa la lingua del sistema; se l'app non la conosce, è in inglese.
+en: “System default” uses the phone's language; if the app doesn't know it, it's in English.
+es: «Como el teléfono» usa el idioma del sistema; si la app no lo conoce, está en inglés.
+fr: « Comme le téléphone » utilise la langue du système ; si l'app ne la connaît pas, elle est en anglais.
+de: „Wie das Telefon“ nutzt die Systemsprache; kennt die App sie nicht, ist sie auf Englisch.
+pt: “Como o telefone” usa o idioma do sistema; se o app não o conhece, fica em inglês.
+
+it: Come il telefono
+en: System default
+es: Como el teléfono
+fr: Comme le téléphone
+de: Wie das Telefon
+pt: Como o telefone
+
+it: Selezionata
+en: Selected
+es: Seleccionada
+fr: Sélectionnée
+de: Ausgewählt
+pt: Selecionada
+
+it: Tema
+en: Theme
+es: Tema
+fr: Thème
+de: Design
+pt: Tema
+
+it: Il tema scuro può seguire quello del telefono.
+en: Dark mode can follow your phone's setting.
+es: El tema oscuro puede seguir al del teléfono.
+fr: Le thème sombre peut suivre celui du téléphone.
+de: Das dunkle Design kann dem Telefon folgen.
+pt: O tema escuro pode seguir o do telefone.
+
+it: Schermata principale
+en: Main screen
+es: Pantalla principal
+fr: Écran principal
+de: Startansicht
+pt: Tela principal
+
+it: Scegli cosa vedere per prima nella Home.
+en: Choose what to see first on Home.
+es: Elige qué ver primero en el inicio.
+fr: Choisis ce que tu vois en premier sur l'accueil.
+de: Wähle, was du auf dem Startbildschirm zuerst siehst.
+pt: Escolha o que ver primeiro no início.
+
+it: La modalità è un punto di partenza: puoi riordinare, togliere e aggiungere card.
+en: The mode is a starting point: you can reorder, remove and add cards.
+es: El modo es un punto de partida: puedes reordenar, quitar y añadir tarjetas.
+fr: Le mode est un point de départ : tu peux réordonner, retirer et ajouter des cartes.
+de: Der Modus ist ein Ausgangspunkt: Du kannst Karten umordnen, entfernen und hinzufügen.
+pt: O modo é um ponto de partida: você pode reordenar, remover e adicionar cards.
+
+it: Personalizza le card della Home
+en: Customize Home cards
+es: Personalizar las tarjetas del inicio
+fr: Personnaliser les cartes de l'accueil
+de: Startkarten anpassen
+pt: Personalizar os cards do início
+
+it: Dati personali
+en: Personal details
+es: Datos personales
+fr: Données personnelles
+de: Persönliche Daten
+pt: Dados pessoais
+
+it: Salvato
+en: Saved
+es: Guardado
+fr: Enregistré
+de: Gespeichert
+pt: Salvo
+
+it: Controlla i dati: età 14–100, peso 30–250 kg, altezza 120–230 cm, metabolismo 800–4500 kcal, obiettivo 800–6000 kcal, macro al 100%.
+en: Check your details: age 14–100, weight 30–250 kg, height 120–230 cm, metabolism 800–4500 kcal, goal 800–6000 kcal, macros at 100%.
+es: Revisa los datos: edad 14–100, peso 30–250 kg, altura 120–230 cm, metabolismo 800–4500 kcal, objetivo 800–6000 kcal, macros al 100%.
+fr: Vérifie les données : âge 14–100, poids 30–250 kg, taille 120–230 cm, métabolisme 800–4500 kcal, objectif 800–6000 kcal, macros à 100 %.
+de: Prüfe die Daten: Alter 14–100, Gewicht 30–250 kg, Größe 120–230 cm, Stoffwechsel 800–4500 kcal, Ziel 800–6000 kcal, Makros bei 100 %.
+pt: Confira os dados: idade 14–100, peso 30–250 kg, altura 120–230 cm, metabolismo 800–4500 kcal, meta 800–6000 kcal, macros em 100%.
+
+it: d MMM, HH:mm
+en: MMM d, HH:mm
+es: d MMM, HH:mm
+fr: d MMM, HH:mm
+de: d. MMM, HH:mm
+pt: d MMM, HH:mm
+
+it: Nessun backup automatico: scegli dove salvarlo, o esporta a mano
+en: No automatic backup: choose where to save it, or export manually
+es: Sin copia automática: elige dónde guardarla o exporta a mano
+fr: Pas de sauvegarde automatique : choisis où l'enregistrer, ou exporte à la main
+de: Keine automatische Sicherung: Wähle einen Speicherort oder exportiere von Hand
+pt: Sem backup automático: escolha onde salvá-lo ou exporte manualmente
+
+it: Automatico · ultimo backup: %s
+en: Automatic · last backup: %s
+es: Automática · última copia: %s
+fr: Automatique · dernière sauvegarde : %s
+de: Automatisch · letzte Sicherung: %s
+pt: Automático · último backup: %s
+
+it: in corso
+en: in progress
+es: en curso
+fr: en cours
+de: läuft
+pt: em andamento
+
+it: Attenzione: nessun backup riuscito da giorni (ultimo: %s)
+en: Warning: no successful backup for days (last: %s)
+es: Atención: ninguna copia correcta desde hace días (última: %s)
+fr: Attention : aucune sauvegarde réussie depuis des jours (dernière : %s)
+de: Achtung: seit Tagen keine erfolgreiche Sicherung (zuletzt: %s)
+pt: Atenção: nenhum backup bem-sucedido há dias (último: %s)
+
+it: mai
+en: never
+es: nunca
+fr: jamais
+de: nie
+pt: nunca
+
+it: Attenzione: un backup è fermo e aspetta la tua conferma
+en: Warning: a backup is on hold waiting for your confirmation
+es: Atención: una copia está detenida y espera tu confirmación
+fr: Attention : une sauvegarde est en attente de ta confirmation
+de: Achtung: Eine Sicherung wartet auf deine Bestätigung
+pt: Atenção: um backup está parado aguardando sua confirmação
+
+it: Attenzione: l'ultimo backup non è riuscito
+en: Warning: the last backup failed
+es: Atención: la última copia ha fallado
+fr: Attention : la dernière sauvegarde a échoué
+de: Achtung: Die letzte Sicherung ist fehlgeschlagen
+pt: Atenção: o último backup falhou
+
+it: Controllo Health Connect...
+en: Checking Health Connect...
+es: Comprobando Health Connect...
+fr: Vérification de Health Connect...
+de: Prüfe Health Connect...
+pt: Verificando o Health Connect...
+
+it: Health Connect va aggiornato per poter essere usato.
+en: Health Connect needs to be updated before it can be used.
+es: Hay que actualizar Health Connect para poder usarlo.
+fr: Health Connect doit être mis à jour pour être utilisé.
+de: Health Connect muss aktualisiert werden, um es zu nutzen.
+pt: O Health Connect precisa ser atualizado para ser usado.
+
+it: Health Connect non è installato su questo telefono.
+en: Health Connect isn't installed on this phone.
+es: Health Connect no está instalado en este teléfono.
+fr: Health Connect n'est pas installé sur ce téléphone.
+de: Health Connect ist auf diesem Telefon nicht installiert.
+pt: O Health Connect não está instalado neste telefone.
+
+it: Apri Play Store
+en: Open Play Store
+es: Abrir Play Store
+fr: Ouvrir le Play Store
+de: Play Store öffnen
+pt: Abrir a Play Store
+
+it: Non ancora collegato.
+en: Not connected yet.
+es: Aún no conectado.
+fr: Pas encore connecté.
+de: Noch nicht verbunden.
+pt: Ainda não conectado.
+
+it: Collega Health Connect
+en: Connect Health Connect
+es: Conectar Health Connect
+fr: Connecter Health Connect
+de: Health Connect verbinden
+pt: Conectar o Health Connect
+
+it: Sincronizzo...
+en: Syncing...
+es: Sincronizando...
+fr: Synchronisation...
+de: Synchronisiere...
+pt: Sincronizando...
+
+it: Sincronizza ora
+en: Sync now
+es: Sincronizar ahora
+fr: Synchroniser
+de: Jetzt synchronisieren
+pt: Sincronizar agora
+
+it: Health Connect e Notion insieme
+en: Health Connect and Notion together
+es: Health Connect y Notion juntos
+fr: Health Connect et Notion ensemble
+de: Health Connect und Notion zusammen
+pt: Health Connect e Notion juntos
+
+it: Ultima sincronizzazione: %s
+en: Last sync: %s
+es: Última sincronización: %s
+fr: Dernière synchro : %s
+de: Letzte Synchronisierung: %s
+pt: Última sincronização: %s
+
+it: Mai sincronizzato
+en: Never synced
+es: Nunca sincronizado
+fr: Jamais synchronisé
+de: Nie synchronisiert
+pt: Nunca sincronizado
+
+it: Su questo telefono Health Connect non legge ad app chiusa: i dati si aggiornano quando apri UNICUM.
+en: On this phone Health Connect can't read while the app is closed: data updates when you open UNICUM.
+es: En este teléfono Health Connect no lee con la app cerrada: los datos se actualizan al abrir UNICUM.
+fr: Sur ce téléphone, Health Connect ne lit pas app fermée : les données se mettent à jour quand tu ouvres UNICUM.
+de: Auf diesem Telefon liest Health Connect nicht bei geschlossener App: Die Daten werden beim Öffnen von UNICUM aktualisiert.
+pt: Neste telefone o Health Connect não lê com o app fechado: os dados se atualizam quando você abre o UNICUM.
+
+it: Per aggiornarsi anche ad app chiusa serve il permesso "in background" di Health Connect.
+en: To update while the app is closed, Health Connect's "background" permission is needed.
+es: Para actualizarse con la app cerrada hace falta el permiso "en segundo plano" de Health Connect.
+fr: Pour se mettre à jour app fermée, il faut l'autorisation "en arrière-plan" de Health Connect.
+de: Um sich bei geschlossener App zu aktualisieren, braucht es die Health-Connect-Berechtigung "im Hintergrund".
+pt: Para atualizar com o app fechado é preciso a permissão "em segundo plano" do Health Connect.
+
+it: Si aggiorna da sola anche ad app chiusa, circa ogni 3 ore
+en: Updates on its own even with the app closed, about every 3 hours
+es: Se actualiza sola incluso con la app cerrada, cada 3 horas aprox.
+fr: Se met à jour seule même app fermée, environ toutes les 3 heures
+de: Aktualisiert sich auch bei geschlossener App, etwa alle 3 Stunden
+pt: Atualiza sozinho mesmo com o app fechado, a cada 3 horas mais ou menos
+
+it: (ultima volta: %s)
+en: (last time: %s)
+es: (última vez: %s)
+fr: (dernière fois : %s)
+de: (zuletzt: %s)
+pt: (última vez: %s)
+
+it: Concedi i permessi mancanti
+en: Grant missing permissions
+es: Conceder los permisos que faltan
+fr: Accorder les autorisations manquantes
+de: Fehlende Berechtigungen erteilen
+pt: Conceder as permissões que faltam
+
+it: Sincronizzazione non riuscita: %s
+en: Sync failed: %s
+es: La sincronización ha fallado: %s
+fr: Échec de la synchro : %s
+de: Synchronisierung fehlgeschlagen: %s
+pt: Falha na sincronização: %s
+
+it: Nessun dato nuovo trovato. Controlla che le app dell'orologio, dell'anello o della bilancia condividano i dati con Health Connect.
+en: No new data found. Check that your watch, ring or scale apps share data with Health Connect.
+es: No se han encontrado datos nuevos. Comprueba que las apps del reloj, del anillo o de la báscula compartan los datos con Health Connect.
+fr: Aucune nouvelle donnée. Vérifie que les apps de la montre, de la bague ou de la balance partagent leurs données avec Health Connect.
+de: Keine neuen Daten gefunden. Prüfe, ob die Apps von Uhr, Ring oder Waage ihre Daten mit Health Connect teilen.
+pt: Nenhum dado novo encontrado. Verifique se os apps do relógio, do anel ou da balança compartilham os dados com o Health Connect.
+
+it: Permessi non concessi: %s.
+en: Permissions not granted: %s.
+es: Permisos no concedidos: %s.
+fr: Autorisations non accordées : %s.
+de: Nicht erteilte Berechtigungen: %s.
+pt: Permissões não concedidas: %s.
+
+it: Permessi mancanti: %s.
+en: Missing permissions: %s.
+es: Permisos que faltan: %s.
+fr: Autorisations manquantes : %s.
+de: Fehlende Berechtigungen: %s.
+pt: Permissões faltando: %s.
+
+# Notifiche e statistiche anonime
+
+it: Avvisi sul recupero
+en: Recovery alerts
+es: Avisos de recuperación
+fr: Alertes de récupération
+de: Erholungshinweise
+pt: Avisos de recuperação
+
+it: Una notifica quando l'HRV resta sotto la tua media del 20% per due notti o la temperatura notturna sale di mezzo grado: possibili segni di stress o di un inizio di malattia. Al massimo una al giorno.
+en: A notification when HRV stays 20% below your average two nights in a row or night temperature rises by half a degree: possible signs of stress or an oncoming illness. At most one a day.
+es: Una notificación cuando la HRV se queda un 20% por debajo de tu media dos noches o la temperatura nocturna sube medio grado: posibles señales de estrés o del inicio de una enfermedad. Como máximo una al día.
+fr: Une notification quand la HRV reste inférieure de 20 % à ta moyenne deux nuits ou que la température nocturne monte d'un demi-degré : signes possibles de stress ou d'un début de maladie. Au maximum une par jour.
+de: Eine Benachrichtigung, wenn die HRV zwei Nächte lang 20 % unter deinem Schnitt bleibt oder die Nachttemperatur um ein halbes Grad steigt: mögliche Zeichen von Stress oder einer beginnenden Krankheit. Höchstens eine pro Tag.
+pt: Uma notificação quando a HRV fica 20% abaixo da sua média por duas noites ou a temperatura noturna sobe meio grau: possíveis sinais de estresse ou do início de uma doença. No máximo uma por dia.
+
+it: Promemoria
+en: Reminders
+es: Recordatorios
+fr: Rappels
+de: Erinnerungen
+pt: Lembretes
+
+it: Ricevi una notifica all'orario del pasto. Se l'hai già registrato, non compare.
+en: Get a notification at meal time. If you've already logged it, it won't show.
+es: Recibe una notificación a la hora de la comida. Si ya la has registrado, no aparece.
+fr: Reçois une notification à l'heure du repas. Si tu l'as déjà noté, elle n'apparaît pas.
+de: Erhalte eine Benachrichtigung zur Essenszeit. Wenn du die Mahlzeit schon eingetragen hast, erscheint sie nicht.
+pt: Receba uma notificação no horário da refeição. Se você já a registrou, ela não aparece.
+
+it: Una volta al giorno: quali schermate hai aperto e quante volte, in quali giorni, versione dell'app e di Android, quali collegamenti usi (Health Connect, Notion). Con un codice casuale, non con il tuo nome. Mai dati di salute, pasti, allenamenti o profilo.
+en: Once a day: which screens you opened and how often, on which days, app and Android version, which connections you use (Health Connect, Notion). With a random code, not your name. Never health data, meals, workouts or profile.
+es: Una vez al día: qué pantallas has abierto y cuántas veces, en qué días, versión de la app y de Android, qué conexiones usas (Health Connect, Notion). Con un código aleatorio, no con tu nombre. Nunca datos de salud, comidas, entrenamientos ni perfil.
+fr: Une fois par jour : quels écrans tu as ouverts et combien de fois, quels jours, version de l'app et d'Android, quelles connexions tu utilises (Health Connect, Notion). Avec un code aléatoire, pas ton nom. Jamais de données de santé, repas, séances ou profil.
+de: Einmal am Tag: welche Bildschirme du wie oft geöffnet hast, an welchen Tagen, App- und Android-Version, welche Verbindungen du nutzt (Health Connect, Notion). Mit einem Zufallscode, nicht mit deinem Namen. Nie Gesundheitsdaten, Mahlzeiten, Trainings oder Profil.
+pt: Uma vez por dia: quais telas você abriu e quantas vezes, em quais dias, versão do app e do Android, quais conexões você usa (Health Connect, Notion). Com um código aleatório, não com seu nome. Nunca dados de saúde, refeições, treinos ou perfil.
+
+it: Aiuti a migliorare UNICUM?
+en: Help improve UNICUM?
+es: ¿Ayudas a mejorar UNICUM?
+fr: Tu aides à améliorer UNICUM ?
+de: Hilfst du, UNICUM zu verbessern?
+pt: Ajuda a melhorar o UNICUM?
+
+it: Puoi mandare statistiche anonime su come usi l'app: servono a capire quante persone la usano e quali parti migliorare.
+en: You can send anonymous statistics on how you use the app: they help understand how many people use it and what to improve.
+es: Puedes enviar estadísticas anónimas sobre cómo usas la app: sirven para saber cuántas personas la usan y qué partes mejorar.
+fr: Tu peux envoyer des statistiques anonymes sur ton usage de l'app : elles aident à savoir combien de personnes l'utilisent et quoi améliorer.
+de: Du kannst anonyme Statistiken zur Nutzung senden: Sie zeigen, wie viele Menschen die App nutzen und was verbessert werden sollte.
+pt: Você pode enviar estatísticas anônimas sobre como usa o app: elas ajudam a entender quantas pessoas o usam e o que melhorar.
+
+it: Puoi cambiare idea quando vuoi dal Profilo → Statistiche anonime.
+en: You can change your mind anytime in Profile → Anonymous statistics.
+es: Puedes cambiar de opinión cuando quieras en Perfil → Estadísticas anónimas.
+fr: Tu peux changer d'avis quand tu veux dans Profil → Statistiques anonymes.
+de: Du kannst es jederzeit unter Profil → Anonyme Statistiken ändern.
+pt: Você pode mudar de ideia quando quiser em Perfil → Estatísticas anônimas.
+
+it: Sì, invia
+en: Yes, send
+es: Sí, enviar
+fr: Oui, envoyer
+de: Ja, senden
+pt: Sim, enviar
+
+it: No, grazie
+en: No, thanks
+es: No, gracias
+fr: Non, merci
+de: Nein, danke
+pt: Não, obrigado
+
+it: Aiutano a capire quante persone usano UNICUM e quali schermate servono di più.
+en: They help understand how many people use UNICUM and which screens matter most.
+es: Ayudan a saber cuántas personas usan UNICUM y qué pantallas sirven más.
+fr: Elles aident à savoir combien de personnes utilisent UNICUM et quels écrans servent le plus.
+de: Sie zeigen, wie viele Menschen UNICUM nutzen und welche Bildschirme am wichtigsten sind.
+pt: Ajudam a entender quantas pessoas usam o UNICUM e quais telas são mais úteis.
+
+it: Spegnendole, i conteggi non ancora inviati e il codice casuale si cancellano dal telefono.
+en: Turning them off deletes unsent counts and the random code from the phone.
+es: Al desactivarlas, los recuentos no enviados y el código aleatorio se borran del teléfono.
+fr: En les désactivant, les comptes non envoyés et le code aléatoire sont effacés du téléphone.
+de: Beim Ausschalten werden nicht gesendete Zählungen und der Zufallscode vom Telefon gelöscht.
+pt: Ao desativá-las, as contagens não enviadas e o código aleatório são apagados do telefone.
+
+it: Il tuo codice: %s. Per far cancellare i dati già inviati, scrivi allo sviluppatore con questo codice.
+en: Your code: %s. To have data already sent deleted, write to the developer with this code.
+es: Tu código: %s. Para borrar los datos ya enviados, escribe al desarrollador con este código.
+fr: Ton code : %s. Pour faire effacer les données déjà envoyées, écris au développeur avec ce code.
+de: Dein Code: %s. Um bereits gesendete Daten löschen zu lassen, schreib dem Entwickler mit diesem Code.
+pt: Seu código: %s. Para apagar os dados já enviados, escreva ao desenvolvedor com este código.
+
+it: Attive: anonime, una volta al giorno
+en: On: anonymous, once a day
+es: Activadas: anónimas, una vez al día
+fr: Activées : anonymes, une fois par jour
+de: An: anonym, einmal am Tag
+pt: Ativadas: anônimas, uma vez por dia
+
+it: Spente · aiuta a capire quali parti migliorare
+en: Off · help find what to improve
+es: Desactivadas · ayuda a saber qué mejorar
+fr: Désactivées · aide à savoir quoi améliorer
+de: Aus · hilf herauszufinden, was besser werden soll
+pt: Desativadas · ajude a entender o que melhorar

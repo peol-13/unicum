@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.tk
+
 import java.time.LocalDate
 import kotlin.math.abs
 import kotlin.math.asin
@@ -35,7 +39,7 @@ object WorkoutAnalysis {
 
     /** 8432.0 → "8,43" (km con due decimali, virgola italiana). */
     fun formatKm(meters: Double?): String =
-        meters?.let { "%.2f".format(java.util.Locale.ITALIAN, it / 1000.0) } ?: "–"
+        meters?.let { "%.2f".format(io.github.peol13.unicum.i18n.I18n.locale, it / 1000.0) } ?: "–"
 
     // ---------- distanza nel tempo
 
@@ -129,7 +133,11 @@ object WorkoutAnalysis {
 
     // ---------- ripetute scritte dall'utente
 
-    enum class IntervalKind(val label: String) { WARM_UP("Riscaldamento"), WORK("Veloce"), REST("Recupero"), COOL_DOWN("Defaticamento") }
+    enum class IntervalKind(private val labelIt: String) {
+        WARM_UP(tk("Riscaldamento")), WORK(tk("Veloce")), REST(tk("Recupero")), COOL_DOWN(tk("Defaticamento"));
+
+        val label: String get() = tr(labelIt)
+    }
 
     /** Un pezzo della seduta a ripetute: [rep] = numero della ripetuta (per veloce e recupero). */
     data class IntervalSegment(
@@ -387,7 +395,7 @@ object WorkoutAnalysis {
 
     data class HrZone(val number: Int, val name: String, val fromBpm: Int, val toBpm: Int, val seconds: Int)
 
-    private val zoneNames = listOf("Riscaldamento", "Facile", "Aerobica", "Soglia", "Massimale")
+    private val zoneNames = listOf(tk("Riscaldamento"), tk("Facile"), tk("Aerobica"), tk("Soglia"), tk("Massimale"))
 
     /** FC massima stimata dall'età (formula di Tanaka: 208 − 0,7 × età). */
     fun estimatedMaxHr(age: Int): Int = (208 - 0.7 * age).roundToInt()
@@ -401,7 +409,7 @@ object WorkoutAnalysis {
             val z = bounds.indexOfLast { a.v >= it }.coerceAtMost(4)
             if (z >= 0) seconds[z] += dt
         }
-        return (0 until 5).map { HrZone(it + 1, zoneNames[it], bounds[it], bounds[it + 1], seconds[it]) }
+        return (0 until 5).map { HrZone(it + 1, tr(zoneNames[it]), bounds[it], bounds[it + 1], seconds[it]) }
     }
 
     // ---------- doppioni tra app

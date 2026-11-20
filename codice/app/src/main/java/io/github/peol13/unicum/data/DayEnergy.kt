@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.I18n
+
 import java.time.LocalDate
 
 /**
@@ -32,7 +34,7 @@ object DayEnergy {
     fun weightChangeText(kg: Double): String {
         val sign = if (kg < 0) "−" else "+"
         val abs = kotlin.math.abs(kg)
-        return sign + String.format(java.util.Locale.ITALY, if (abs < 0.1) "%.2f" else "%.1f", abs) + " kg"
+        return sign + String.format(I18n.locale, if (abs < 0.1) "%.2f" else "%.1f", abs) + " kg"
     }
 }
 

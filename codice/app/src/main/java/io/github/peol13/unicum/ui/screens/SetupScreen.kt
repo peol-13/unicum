@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
@@ -152,7 +154,7 @@ fun SetupScreen(onDone: () -> Unit) {
                 Box(
                     Modifier.size(44.dp).clip(CircleShape).clickable { go(-1) },
                     contentAlignment = Alignment.Center
-                ) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Indietro", tint = UnicumDark) }
+                ) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, tr("Indietro"), tint = UnicumDark) }
                 Spacer(Modifier.width(8.dp))
                 ThinProgress(index / steps.lastIndex.toFloat(), Modifier.weight(1f).padding(end = 12.dp))
             }
@@ -185,17 +187,17 @@ fun SetupScreen(onDone: () -> Unit) {
             Column(Modifier.widthIn(max = 560.dp).fillMaxWidth()) {
                 UnicumButton(
                     text = when (step) {
-                        Step.WELCOME -> "Iniziamo"
-                        Step.PLAN_SETUP -> "Continua"
-                        Step.DONE -> "Apri UNICUM"
-                        else -> "Avanti"
+                        Step.WELCOME -> tr("Iniziamo")
+                        Step.PLAN_SETUP -> tr("Continua")
+                        Step.DONE -> tr("Apri UNICUM")
+                        else -> tr("Avanti")
                     },
                     enabled = canContinue,
                     onClick = { if (step == Step.DONE) finish() else go(1) }
                 )
                 if (step == Step.PLAN_SETUP) {
                     Text(
-                        "Puoi anche farlo dopo da Profilo → Programma di allenamento.",
+                        tr("Puoi anche farlo dopo da Profilo → Programma di allenamento."),
                         color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                     )
@@ -211,29 +213,29 @@ private fun StepContent(step: Step, form: PersonalFormState) {
         Step.WELCOME -> Welcome()
 
         Step.SEX -> {
-            Question("Partiamo da te", "Serve a stimare quante calorie consumi a riposo.")
-            BigOption(Icons.Rounded.Male, "Uomo", null, form.male) { form.male = true }
+            Question(tr("Partiamo da te"), tr("Serve a stimare quante calorie consumi a riposo."))
+            BigOption(Icons.Rounded.Male, tr("Uomo"), null, form.male) { form.male = true }
             Spacer(Modifier.height(10.dp))
-            BigOption(Icons.Rounded.Female, "Donna", null, !form.male) { form.male = false }
+            BigOption(Icons.Rounded.Female, tr("Donna"), null, !form.male) { form.male = false }
         }
 
         Step.AGE -> {
-            Question("Quanti anni hai?", null)
-            BigNumberInput(form.age, "anni", 14..100, 1) { form.age = it }
+            Question(tr("Quanti anni hai?"), null)
+            BigNumberInput(form.age, tr("anni"), 14..100, 1) { form.age = it }
         }
 
         Step.WEIGHT -> {
-            Question("Quanto pesi?", "Puoi aggiornarlo quando vuoi: se hai una bilancia collegata arriva da sola.")
+            Question(tr("Quanto pesi?"), tr("Puoi aggiornarlo quando vuoi: se hai una bilancia collegata arriva da sola."))
             BigNumberInput(form.weight, "kg", 30..250, 1) { form.weight = it }
         }
 
         Step.HEIGHT -> {
-            Question("Quanto sei alto?", null)
+            Question(tr("Quanto sei alto?"), null)
             BigNumberInput(form.height, "cm", 120..230, 1) { form.height = it }
         }
 
         Step.ACTIVITY -> {
-            Question("Quanto ti muovi di solito?", "Serve solo a stimare l'obiettivo calorico: il movimento di ogni giorno lo conta l'app.")
+            Question(tr("Quanto ti muovi di solito?"), tr("Serve solo a stimare l'obiettivo calorico: il movimento di ogni giorno lo conta l'app."))
             ActivityLevel.entries.forEach { level ->
                 BigOption(null, level.label, level.description, form.activityLevel == level) { form.activityLevel = level }
                 Spacer(Modifier.height(10.dp))
@@ -241,55 +243,55 @@ private fun StepContent(step: Step, form: PersonalFormState) {
         }
 
         Step.GOAL -> {
-            Question("Qual è il tuo obiettivo?", "Il deficit è quanto vuoi bruciare in più di quanto mangi ogni giorno.")
+            Question(tr("Qual è il tuo obiettivo?"), tr("Il deficit è quanto vuoi bruciare in più di quanto mangi ogni giorno."))
             val presets = listOf(
-                Triple("Dimagrire", "Deficit di 500 kcal al giorno (circa ½ kg a settimana)", 500),
-                Triple("Dimagrire con calma", "Deficit di 250 kcal al giorno", 250),
-                Triple("Mantenere il peso", "Nessun deficit", 0)
+                Triple(tr("Dimagrire"), tr("Deficit di 500 kcal al giorno (circa ½ kg a settimana)"), 500),
+                Triple(tr("Dimagrire con calma"), tr("Deficit di 250 kcal al giorno"), 250),
+                Triple(tr("Mantenere il peso"), tr("Nessun deficit"), 0)
             )
             presets.forEach { (title, desc, kcal) ->
                 BigOption(null, title, desc, form.deficitValue == kcal) { form.deficit = kcal.toString() }
                 Spacer(Modifier.height(10.dp))
             }
             Spacer(Modifier.height(6.dp))
-            UnicumNumberField("Oppure scrivi il deficit", form.deficit, "kcal") { form.deficit = it }
+            UnicumNumberField(tr("Oppure scrivi il deficit"), form.deficit, "kcal") { form.deficit = it }
         }
 
         Step.NEEDS -> {
-            Question("Il tuo fabbisogno", "Calcolato dai tuoi dati. Se conosci i valori veri, scrivili.")
-            Text("Metabolismo basale", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
-            Text("Le calorie che consumi a riposo in un giorno.", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+            Question(tr("Il tuo fabbisogno"), tr("Calcolato dai tuoi dati. Se conosci i valori veri, scrivili."))
+            Text(tr("Metabolismo basale"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+            Text(tr("Le calorie che consumi a riposo in un giorno."), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
             Spacer(Modifier.height(8.dp))
             EstimatedNumberField(
-                "Metabolismo basale", "kcal", form.bmrEstimate, form.bmr,
-                "Formula di Mifflin-St Jeor da sesso, età, peso e altezza."
+                tr("Metabolismo basale"), "kcal", form.bmrEstimate, form.bmr,
+                tr("Formula di Mifflin-St Jeor da sesso, età, peso e altezza.")
             )
             Spacer(Modifier.height(18.dp))
-            Text("Obiettivo calorico", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+            Text(tr("Obiettivo calorico"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
             Text(
-                "Le calorie da mangiare ogni giorno. È fisso: l'attività aumenta solo il deficit.",
+                tr("Le calorie da mangiare ogni giorno. È fisso: l'attività aumenta solo il deficit."),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
             )
             Spacer(Modifier.height(8.dp))
             EstimatedNumberField(
-                "Obiettivo calorico", "kcal", form.intakeEstimate, form.intake,
-                "Metabolismo basale × livello di attività − deficit."
+                tr("Obiettivo calorico"), "kcal", form.intakeEstimate, form.intake,
+                tr("Metabolismo basale × livello di attività − deficit.")
             )
             ExpandRow(
                 SetupDraft.macrosOpen,
-                "Macro: proteine ${form.proteinPct}% · carboidrati ${form.carbsPct}% · grassi ${form.fatsPct}%",
+                tr("Macro: proteine %s%% · carboidrati %s%% · grassi %s%%", form.proteinPct, form.carbsPct, form.fatsPct),
                 { SetupDraft.macrosOpen = !SetupDraft.macrosOpen }
             )
             if (SetupDraft.macrosOpen || form.pctSum != 100) {
                 Spacer(Modifier.height(10.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    UnicumNumberField("Proteine", form.proteinPct, "%", Modifier.weight(1f)) { form.proteinPct = it.take(3) }
-                    UnicumNumberField("Carbo", form.carbsPct, "%", Modifier.weight(1f)) { form.carbsPct = it.take(3) }
-                    UnicumNumberField("Grassi", form.fatsPct, "%", Modifier.weight(1f)) { form.fatsPct = it.take(3) }
+                    UnicumNumberField(tr("Proteine"), form.proteinPct, "%", Modifier.weight(1f)) { form.proteinPct = it.take(3) }
+                    UnicumNumberField(tr("Carbo"), form.carbsPct, "%", Modifier.weight(1f)) { form.carbsPct = it.take(3) }
+                    UnicumNumberField(tr("Grassi"), form.fatsPct, "%", Modifier.weight(1f)) { form.fatsPct = it.take(3) }
                 }
                 if (form.pctSum != 100) {
                     Text(
-                        "Il totale è ${form.pctSum}%: deve essere 100%.",
+                        tr("Il totale è %d%%: deve essere 100%%.", form.pctSum),
                         color = io.github.peol13.unicum.ui.components.DeleteRed, style = UnicumType.Caption,
                         modifier = Modifier.padding(top = 6.dp)
                     )
@@ -298,7 +300,7 @@ private fun StepContent(step: Step, form: PersonalFormState) {
         }
 
         Step.HOME -> {
-            Question("Cosa vuoi vedere per primo?", "La schermata principale. Puoi riordinare le card quando vuoi.")
+            Question(tr("Cosa vuoi vedere per primo?"), tr("La schermata principale. Puoi riordinare le card quando vuoi."))
             DashboardMode.entries.forEach { m ->
                 val icon = when (m) {
                     DashboardMode.NUTRIZIONE -> Icons.Rounded.Restaurant
@@ -311,24 +313,24 @@ private fun StepContent(step: Step, form: PersonalFormState) {
         }
 
         Step.PLAN -> {
-            Question("Hai un programma di corsa?", "Le sedute compaiono in Allenamenti → Programma e le corse fatte si riconoscono dal giorno.")
-            BigOption(Icons.Rounded.ViewKanban, "Da Notion", "Leggo il tuo database del programma (e il registro, se c'è)",
+            Question(tr("Hai un programma di corsa?"), tr("Le sedute compaiono in Allenamenti → Programma e le corse fatte si riconoscono dal giorno."))
+            BigOption(Icons.Rounded.ViewKanban, tr("Da Notion"), tr("Leggo il tuo database del programma (e il registro, se c'è)"),
                 SetupDraft.plan == PlanChoice.NOTION) { SetupDraft.plan = PlanChoice.NOTION }
             Spacer(Modifier.height(10.dp))
-            BigOption(Icons.Rounded.Description, "Da un PDF", "Importo le sedute dal file del tuo allenatore o di un'app",
+            BigOption(Icons.Rounded.Description, tr("Da un PDF"), tr("Importo le sedute dal file del tuo allenatore o di un'app"),
                 SetupDraft.plan == PlanChoice.PDF) { SetupDraft.plan = PlanChoice.PDF }
             Spacer(Modifier.height(10.dp))
-            BigOption(Icons.Rounded.EditCalendar, "Nessuno per ora", "Potrai scrivere a mano le prossime corse in Allenamenti → Programma",
+            BigOption(Icons.Rounded.EditCalendar, tr("Nessuno per ora"), tr("Potrai scrivere a mano le prossime corse in Allenamenti → Programma"),
                 SetupDraft.plan == PlanChoice.NONE) { SetupDraft.plan = PlanChoice.NONE }
         }
 
         Step.PLAN_SETUP -> when (SetupDraft.plan) {
             PlanChoice.NOTION -> {
-                Question("Collega Notion", null)
+                Question(tr("Collega Notion"), null)
                 NotionPage()
             }
             else -> {
-                Question("Importa il programma", "Scegli il PDF: controlli le sedute trovate e le salvi.")
+                Question(tr("Importa il programma"), tr("Scegli il PDF: controlli le sedute trovate e le salvi."))
                 LocalPlanPage()
             }
         }
@@ -347,13 +349,13 @@ private fun Welcome() {
         Icon(Icons.AutoMirrored.Rounded.DirectionsRun, null, tint = UnicumPrimary, modifier = Modifier.size(44.dp))
     }
     Spacer(Modifier.height(24.dp))
-    Text("Benvenuto in UNICUM", color = UnicumDark, style = UnicumType.Screen, fontWeight = FontWeight.SemiBold)
+    Text(tr("Benvenuto in UNICUM"), color = UnicumDark, style = UnicumType.Screen, fontWeight = FontWeight.SemiBold)
     Text("Your health. Unified.", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Heading, fontWeight = FontWeight.Light)
     Spacer(Modifier.height(28.dp))
     listOf(
-        Icons.Rounded.Restaurant to "Alimentazione: calorie, macro e deficit della giornata",
-        Icons.AutoMirrored.Rounded.DirectionsRun to "Allenamenti e corse da Health Connect, con il tuo programma",
-        Icons.Rounded.Bedtime to "Sonno e recupero da anello e orologio"
+        Icons.Rounded.Restaurant to tr("Alimentazione: calorie, macro e deficit della giornata"),
+        Icons.AutoMirrored.Rounded.DirectionsRun to tr("Allenamenti e corse da Health Connect, con il tuo programma"),
+        Icons.Rounded.Bedtime to tr("Sonno e recupero da anello e orologio")
     ).forEach { (icon, text) ->
         Row(Modifier.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(
@@ -366,7 +368,7 @@ private fun Welcome() {
     }
     Spacer(Modifier.height(20.dp))
     Text(
-        "Qualche domanda per partire: ci vuole un minuto e puoi cambiare tutto dal Profilo. I tuoi dati restano sul telefono.",
+        tr("Qualche domanda per partire: ci vuole un minuto e puoi cambiare tutto dal Profilo. I tuoi dati restano sul telefono."),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail, lineHeight = 19.sp
     )
 }
@@ -379,17 +381,17 @@ private fun Done(form: PersonalFormState) {
         contentAlignment = Alignment.Center
     ) { Icon(Icons.Rounded.Check, null, tint = UnicumPrimary, modifier = Modifier.size(44.dp)) }
     Spacer(Modifier.height(24.dp))
-    Text("Tutto pronto", color = UnicumDark, style = UnicumType.Screen, fontWeight = FontWeight.SemiBold)
+    Text(tr("Tutto pronto"), color = UnicumDark, style = UnicumType.Screen, fontWeight = FontWeight.SemiBold)
     Spacer(Modifier.height(16.dp))
     val plan = when {
-        NotionPlan.connected -> "Programma da Notion collegato"
-        !LocalPlan.isEmpty -> "Programma nell'app: ${LocalPlan.runs.size} sedute"
-        else -> "Nessun programma: le corse future si aggiungono in Allenamenti → Programma"
+        NotionPlan.connected -> tr("Programma da Notion collegato")
+        !LocalPlan.isEmpty -> tr("Programma nell'app: %d sedute", LocalPlan.runs.size)
+        else -> tr("Nessun programma: le corse future si aggiungono in Allenamenti → Programma")
     }
     listOfNotNull(
-        form.intakeToSave?.let { "Obiettivo: $it kcal al giorno" },
-        form.deficitValue?.let { if (it > 0) "Deficit previsto: $it kcal" else "Obiettivo: mantenere il peso" },
-        "Schermata principale: ${SetupDraft.mode.label}",
+        form.intakeToSave?.let { tr("Obiettivo: %d kcal al giorno", it) },
+        form.deficitValue?.let { if (it > 0) tr("Deficit previsto: %d kcal", it) else tr("Obiettivo: mantenere il peso") },
+        tr("Schermata principale: %s", SetupDraft.mode.label),
         plan
     ).forEach {
         Row(Modifier.padding(vertical = 5.dp), verticalAlignment = Alignment.Top) {
@@ -400,7 +402,7 @@ private fun Done(form: PersonalFormState) {
     }
     Spacer(Modifier.height(18.dp))
     Text(
-        "Poi collega Health Connect dal Profilo: da lì arrivano passi, allenamenti, sonno e recupero.",
+        tr("Poi collega Health Connect dal Profilo: da lì arrivano passi, allenamenti, sonno e recupero."),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail, lineHeight = 19.sp
     )
 }
@@ -444,7 +446,7 @@ private fun BigOption(icon: ImageVector?, title: String, description: String?, s
                 Text(description, color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 16.sp)
             }
         }
-        if (selected) Icon(Icons.Rounded.Check, "Scelta", tint = UnicumPrimary, modifier = Modifier.size(22.dp))
+        if (selected) Icon(Icons.Rounded.Check, tr("Scelta"), tint = UnicumPrimary, modifier = Modifier.size(22.dp))
     }
 }
 
@@ -454,7 +456,7 @@ private fun BigNumberInput(value: String, unit: String, range: IntRange, step: I
     val n = value.toIntOrNull()
     val ok = n != null && n in range
     Row(Modifier.fillMaxWidth().padding(top = 24.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-        StepButton(Icons.Rounded.Remove, "Meno") { onChange(((n ?: range.first) - step).coerceIn(range).toString()) }
+        StepButton(Icons.Rounded.Remove, tr("Meno")) { onChange(((n ?: range.first) - step).coerceIn(range).toString()) }
         Spacer(Modifier.width(20.dp))
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             BasicTextField(
@@ -472,11 +474,11 @@ private fun BigNumberInput(value: String, unit: String, range: IntRange, step: I
             Text(unit, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Heading)
         }
         Spacer(Modifier.width(20.dp))
-        StepButton(Icons.Rounded.Add, "Più") { onChange(((n ?: range.first) + step).coerceIn(range).toString()) }
+        StepButton(Icons.Rounded.Add, tr("Più")) { onChange(((n ?: range.first) + step).coerceIn(range).toString()) }
     }
     if (!ok && value.isNotEmpty()) {
         Text(
-            "Valore tra ${range.first} e ${range.last} $unit.",
+            tr("Valore tra %d e %d %s.", range.first, range.last, unit),
             color = io.github.peol13.unicum.ui.components.DeleteRed, style = UnicumType.Caption, textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
         )

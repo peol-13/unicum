@@ -1,0 +1,1453 @@
+# Traduzioni di UNICUM (vedi common.txt per il formato).
+
+# Consigli
+
+it: La tua giornata
+en: Your day
+es: Tu día
+fr: Ta journée
+de: Dein Tag
+pt: Seu dia
+
+it: Alimentazione
+en: Nutrition
+es: Alimentación
+fr: Alimentation
+de: Ernährung
+pt: Alimentação
+
+it: Oltre di %d kcal: nessun dramma
+en: %d kcal over: no big deal
+es: %d kcal de más: sin dramas
+fr: %d kcal de trop : pas de drame
+de: %d kcal drüber: kein Drama
+pt: %d kcal a mais: sem drama
+
+it: Una camminata svelta di %d minuti brucia circa %d kcal. Domani non serve saltare pasti: riparti dal tuo obiettivo normale.
+en: A brisk %d-minute walk burns about %d kcal. No need to skip meals tomorrow: start again from your usual goal.
+es: Una caminata rápida de %d minutos quema unas %d kcal. Mañana no hace falta saltarse comidas: vuelve a tu objetivo normal.
+fr: Une marche rapide de %d minutes brûle environ %d kcal. Pas besoin de sauter des repas demain : repars de ton objectif habituel.
+de: Ein zügiger Spaziergang von %d Minuten verbrennt etwa %d kcal. Morgen musst du keine Mahlzeiten auslassen: Starte wieder mit deinem normalen Ziel.
+pt: Uma caminhada rápida de %d minutos queima cerca de %d kcal. Amanhã não precisa pular refeições: recomece da sua meta normal.
+
+it: Hai assunto %d kcal
+en: You've eaten %d kcal
+es: Has tomado %d kcal
+fr: Tu as mangé %d kcal
+de: Du hast %d kcal gegessen
+pt: Você consumiu %d kcal
+
+it: %s: circa %d kcal
+en: %s: about %d kcal
+es: %s: unas %d kcal
+fr: %s : environ %d kcal
+de: %s: etwa %d kcal
+pt: %s: cerca de %d kcal
+
+it: Ti restano %d kcal per %s
+en: You have %d kcal left for %s
+es: Te quedan %d kcal para %s
+fr: Il te reste %d kcal pour %s
+de: Dir bleiben %d kcal für %s
+pt: Restam %d kcal para %s
+
+it: un pasto
+en: one meal
+es: una comida
+fr: un repas
+de: eine Mahlzeit
+pt: uma refeição
+
+it: %d pasti
+en: %d meals
+es: %d comidas
+fr: %d repas
+de: %d Mahlzeiten
+pt: %d refeições
+
+it: punta a circa %d kcal con %d g di proteine.
+en: aim for about %d kcal with %d g of protein.
+es: apunta a unas %d kcal con %d g de proteínas.
+fr: vise environ %d kcal avec %d g de protéines.
+de: peile etwa %d kcal mit %d g Eiweiß an.
+pt: mire em cerca de %d kcal com %d g de proteínas.
+
+it: punta a circa %d kcal.
+en: aim for about %d kcal.
+es: apunta a unas %d kcal.
+fr: vise environ %d kcal.
+de: peile etwa %d kcal an.
+pt: mire em cerca de %d kcal.
+
+it: Finora %d kcal e %d g di proteine
+en: So far %d kcal and %d g of protein
+es: Hasta ahora %d kcal y %d g de proteínas
+fr: Jusqu'ici %d kcal et %d g de protéines
+de: Bisher %d kcal und %d g Eiweiß
+pt: Até agora %d kcal e %d g de proteínas
+
+it: Oggi hai mangiato poco
+en: You've eaten little today
+es: Hoy has comido poco
+fr: Tu as peu mangé aujourd'hui
+de: Du hast heute wenig gegessen
+pt: Hoje você comeu pouco
+
+it: Ti restano ancora %d kcal: non serve arrivare a zero, ma un deficit troppo forte ripetuto nei giorni fa perdere muscolo ed energia. Uno spuntino proteico ci sta.
+en: You still have %d kcal left: no need to reach zero, but a very large deficit repeated over days costs muscle and energy. A protein snack fits in.
+es: Aún te quedan %d kcal: no hace falta llegar a cero, pero un déficit muy fuerte repetido varios días hace perder músculo y energía. Un tentempié proteico cabe.
+fr: Il te reste encore %d kcal : pas besoin d'arriver à zéro, mais un déficit trop fort répété fait perdre du muscle et de l'énergie. Un en-cas protéiné a sa place.
+de: Dir bleiben noch %d kcal: Du musst nicht auf null kommen, aber ein zu großes Defizit über Tage kostet Muskeln und Energie. Ein Eiweiß-Snack passt.
+pt: Ainda restam %d kcal: não precisa chegar a zero, mas um déficit forte demais repetido por dias faz perder músculo e energia. Um lanche proteico cabe.
+
+it: Allenamento da %d kcal
+en: %d kcal workout
+es: Entrenamiento de %d kcal
+fr: Séance de %d kcal
+de: Training mit %d kcal
+pt: Treino de %d kcal
+
+it: Sei oltre l'obiettivo di %d kcal, ma con l'allenamento il deficit di oggi resta in linea: nessuna compensazione necessaria.
+en: You're %d kcal over your goal, but with the workout today's deficit stays on track: no need to compensate.
+es: Estás %d kcal por encima del objetivo, pero con el entrenamiento el déficit de hoy sigue en línea: no hace falta compensar.
+fr: Tu dépasses l'objectif de %d kcal, mais avec la séance le déficit du jour reste dans les clous : pas besoin de compenser.
+de: Du liegst %d kcal über dem Ziel, aber mit dem Training bleibt das heutige Defizit im Plan: Kein Ausgleich nötig.
+pt: Você está %d kcal acima da meta, mas com o treino o déficit de hoje continua no caminho: não precisa compensar.
+
+it: Il deficit di oggi è già più ampio del previsto: se hai fame puoi aggiungere fino a circa %d kcal (meglio proteiche) restando comunque oltre il tuo obiettivo di deficit.
+en: Today's deficit is already bigger than planned: if you're hungry you can add up to about %d kcal (preferably protein) and still beat your deficit goal.
+es: El déficit de hoy ya es mayor de lo previsto: si tienes hambre puedes añadir hasta unas %d kcal (mejor proteicas) y seguir por encima de tu objetivo de déficit.
+fr: Le déficit du jour est déjà plus grand que prévu : si tu as faim, tu peux ajouter jusqu'à environ %d kcal (plutôt protéinées) en restant au-delà de ton objectif de déficit.
+de: Das heutige Defizit ist schon größer als geplant: Wenn du Hunger hast, kannst du bis zu etwa %d kcal (am besten Eiweiß) ergänzen und bleibst trotzdem über deinem Defizitziel.
+pt: O déficit de hoje já é maior que o previsto: se tiver fome pode adicionar até cerca de %d kcal (de preferência proteicas) e continuar acima da sua meta de déficit.
+
+it: Mancano %d g di proteine
+en: %d g of protein to go
+es: Faltan %d g de proteínas
+fr: Il manque %d g de protéines
+de: Noch %d g Eiweiß
+pt: Faltam %d g de proteínas
+
+it: Uno spuntino proteico (yogurt greco, ricotta, fiocchi di latte) aiuta a chiudere la giornata.
+en: A protein snack (Greek yogurt, ricotta, cottage cheese) helps round off the day.
+es: Un tentempié proteico (yogur griego, requesón, queso cottage) ayuda a cerrar el día.
+fr: Un en-cas protéiné (yaourt grec, ricotta, cottage cheese) aide à boucler la journée.
+de: Ein Eiweiß-Snack (griechischer Joghurt, Ricotta, Hüttenkäse) hilft, den Tag abzuschließen.
+pt: Um lanche proteico (iogurte grego, ricota, queijo cottage) ajuda a fechar o dia.
+
+it: Per cena scegli una porzione abbondante di pesce, carne magra, legumi o uova; uno yogurt greco dopo cena aiuta a chiudere.
+en: For dinner choose a generous portion of fish, lean meat, legumes or eggs; a Greek yogurt after dinner helps round off.
+es: Para cenar elige una ración abundante de pescado, carne magra, legumbres o huevos; un yogur griego después de cenar ayuda a cerrar.
+fr: Au dîner, choisis une bonne portion de poisson, viande maigre, légumineuses ou œufs ; un yaourt grec après le dîner aide à boucler.
+de: Wähle zum Abendessen eine reichliche Portion Fisch, mageres Fleisch, Hülsenfrüchte oder Eier; ein griechischer Joghurt danach hilft beim Abschluss.
+pt: No jantar escolha uma porção generosa de peixe, carne magra, leguminosas ou ovos; um iogurte grego depois do jantar ajuda a fechar.
+
+it: Proteine a %d g su %d g
+en: Protein at %d g of %d g
+es: Proteínas a %d g de %d g
+fr: Protéines à %d g sur %d g
+de: Eiweiß bei %d g von %d g
+pt: Proteínas em %d g de %d g
+
+it: Muoviti un po' prima di sera
+en: Move a little before evening
+es: Muévete un poco antes de la noche
+fr: Bouge un peu avant le soir
+de: Beweg dich ein bisschen vor dem Abend
+pt: Mexa-se um pouco antes da noite
+
+it: Una camminata di 30 minuti adesso aggiunge circa %d kcal al deficit e circa 3.500 passi.
+en: A 30-minute walk now adds about %d kcal to the deficit and about 3,500 steps.
+es: Una caminata de 30 minutos ahora añade unas %d kcal al déficit y unos 3.500 pasos.
+fr: Une marche de 30 minutes maintenant ajoute environ %d kcal au déficit et environ 3 500 pas.
+de: Ein 30-Minuten-Spaziergang jetzt bringt etwa %d kcal mehr Defizit und rund 3.500 Schritte.
+pt: Uma caminhada de 30 minutos agora adiciona cerca de %d kcal ao déficit e cerca de 3.500 passos.
+
+it: Finora %d passi e nessun allenamento
+en: So far %d steps and no workout
+es: Hasta ahora %d pasos y ningún entrenamiento
+fr: Jusqu'ici %d pas et aucune séance
+de: Bisher %d Schritte und kein Training
+pt: Até agora %d passos e nenhum treino
+
+it: A colazione
+en: At breakfast
+es: En el desayuno
+fr: Au petit-déjeuner
+de: Zum Frühstück
+pt: No café da manhã
+
+it: A pranzo
+en: At lunch
+es: En la comida
+fr: Au déjeuner
+de: Zum Mittagessen
+pt: No almoço
+
+it: A cena
+en: At dinner
+es: En la cena
+fr: Au dîner
+de: Zum Abendessen
+pt: No jantar
+
+it: HRV %s rispetto alla tua media
+en: HRV %s vs your average
+es: HRV %s respecto a tu media
+fr: HRV %s par rapport à ta moyenne
+de: HRV %s ggü. deinem Schnitt
+pt: HRV %s em relação à sua média
+
+it: hai dormito %s
+en: you slept %s
+es: has dormido %s
+fr: tu as dormi %s
+de: du hast %s geschlafen
+pt: você dormiu %s
+
+it: Oggi recupero attivo
+en: Active recovery today
+es: Hoy recuperación activa
+fr: Récupération active aujourd'hui
+de: Heute aktive Erholung
+pt: Hoje recuperação ativa
+
+it: Camminata di 30–40 minuti a ritmo facile, mobilità e stretching. Evita allenamenti intensi: il corpo non è al meglio.
+en: A 30–40 minute easy walk, mobility and stretching. Avoid hard workouts: your body isn't at its best.
+es: Caminata de 30–40 minutos a ritmo suave, movilidad y estiramientos. Evita entrenamientos intensos: el cuerpo no está al máximo.
+fr: Marche de 30–40 minutes à allure facile, mobilité et étirements. Évite les séances intenses : le corps n'est pas au top.
+de: 30–40 Minuten lockeres Gehen, Mobilität und Dehnen. Vermeide hartes Training: Der Körper ist nicht in Bestform.
+pt: Caminhada de 30–40 minutos em ritmo leve, mobilidade e alongamento. Evite treinos intensos: o corpo não está no seu melhor.
+
+it: Buon momento per un allenamento intenso
+en: Good time for a hard workout
+es: Buen momento para un entrenamiento intenso
+fr: Bon moment pour une séance intense
+de: Guter Moment für ein hartes Training
+pt: Bom momento para um treino intenso
+
+it: Sei ben recuperato: scegli una corsa a intervalli, una sessione di forza o un giro in bici impegnativo.
+en: You're well recovered: go for an interval run, a strength session or a tough bike ride.
+es: Estás bien recuperado: elige una carrera con series, una sesión de fuerza o una salida en bici exigente.
+fr: Tu es bien récupéré : choisis du fractionné, une séance de renfo ou une sortie vélo exigeante.
+de: Du bist gut erholt: Wähle einen Intervalllauf, Krafttraining oder eine fordernde Radtour.
+pt: Você está bem recuperado: escolha uma corrida intervalada, uma sessão de força ou um pedal puxado.
+
+it: Allenamento moderato
+en: Moderate workout
+es: Entrenamiento moderado
+fr: Séance modérée
+de: Moderates Training
+pt: Treino moderado
+
+it: Una corsa facile di 30–45 minuti, bici o forza leggera: recupero discreto, meglio non spingere al massimo.
+en: An easy 30–45 minute run, bike or light strength: recovery is fair, better not to go all out.
+es: Una carrera suave de 30–45 minutos, bici o fuerza ligera: recuperación discreta, mejor no ir a tope.
+fr: Une course facile de 30–45 minutes, vélo ou renfo léger : récupération correcte, mieux vaut ne pas forcer.
+de: Ein lockerer Lauf von 30–45 Minuten, Rad oder leichtes Krafttraining: Die Erholung ist mittel, lieber nicht voll ausreizen.
+pt: Uma corrida leve de 30–45 minutos, bike ou força leve: recuperação razoável, melhor não forçar ao máximo.
+
+it: Senza dati di sonno e recupero ti consiglio una sessione moderata di 30–45 minuti. Collega Health Connect dal Profilo per avere consigli su misura.
+en: Without sleep and recovery data I suggest a moderate 30–45 minute session. Connect Health Connect from Profile for tailored tips.
+es: Sin datos de sueño y recuperación te recomiendo una sesión moderada de 30–45 minutos. Conecta Health Connect desde el perfil para recibir consejos a medida.
+fr: Sans données de sommeil et de récupération, je te conseille une séance modérée de 30–45 minutes. Connecte Health Connect depuis le profil pour des conseils sur mesure.
+de: Ohne Schlaf- und Erholungsdaten empfehle ich eine moderate Einheit von 30–45 Minuten. Verbinde Health Connect im Profil für persönliche Tipps.
+pt: Sem dados de sono e recuperação recomendo uma sessão moderada de 30–45 minutos. Conecte o Health Connect no perfil para ter dicas sob medida.
+
+it: Ti mancano %d minuti questa settimana
+en: %d minutes to go this week
+es: Te faltan %d minutos esta semana
+fr: Il te manque %d minutes cette semaine
+de: Dir fehlen diese Woche %d Minuten
+pt: Faltam %d minutos esta semana
+
+it: Per i 150 minuti di attività consigliati a settimana bastano 3 sessioni da circa %d minuti.
+en: For the recommended 150 minutes of activity a week, 3 sessions of about %d minutes are enough.
+es: Para los 150 minutos de actividad recomendados por semana bastan 3 sesiones de unos %d minutos.
+fr: Pour les 150 minutes d'activité conseillées par semaine, 3 séances d'environ %d minutes suffisent.
+de: Für die empfohlenen 150 Minuten Aktivität pro Woche reichen 3 Einheiten von etwa %d Minuten.
+pt: Para os 150 minutos de atividade recomendados por semana bastam 3 sessões de cerca de %d minutos.
+
+it: Negli ultimi 7 giorni hai fatto %d minuti
+en: In the last 7 days you did %d minutes
+es: En los últimos 7 días has hecho %d minutos
+fr: Ces 7 derniers jours tu as fait %d minutes
+de: In den letzten 7 Tagen hattest du %d Minuten
+pt: Nos últimos 7 dias você fez %d minutos
+
+it: Obiettivo settimanale raggiunto
+en: Weekly goal reached
+es: Objetivo semanal alcanzado
+fr: Objectif hebdomadaire atteint
+de: Wochenziel erreicht
+pt: Meta semanal atingida
+
+it: Hai superato i 150 minuti consigliati: mantieni il ritmo e alterna giorni intensi e leggeri.
+en: You've passed the recommended 150 minutes: keep it up and alternate hard and easy days.
+es: Has superado los 150 minutos recomendados: mantén el ritmo y alterna días intensos y suaves.
+fr: Tu as dépassé les 150 minutes conseillées : garde le rythme et alterne jours intenses et légers.
+de: Du hast die empfohlenen 150 Minuten überschritten: Bleib dran und wechsle harte und lockere Tage ab.
+pt: Você passou dos 150 minutos recomendados: mantenha o ritmo e alterne dias intensos e leves.
+
+it: Riparti con una sessione leggera
+en: Restart with an easy session
+es: Vuelve con una sesión suave
+fr: Reprends avec une séance légère
+de: Starte mit einer lockeren Einheit neu
+pt: Recomece com uma sessão leve
+
+it: Sono passati %s giorni senza allenamento: oggi bastano 20–30 minuti facili per rimetterti in moto.
+en: It's been %s days without a workout: today 20–30 easy minutes are enough to get going again.
+es: Han pasado %s días sin entrenar: hoy bastan 20–30 minutos suaves para volver a moverte.
+fr: Ça fait %s jours sans séance : aujourd'hui 20–30 minutes faciles suffisent pour repartir.
+de: Seit %s Tagen kein Training: Heute reichen 20–30 lockere Minuten, um wieder reinzukommen.
+pt: Já são %s dias sem treino: hoje bastam 20–30 minutos leves para voltar a se mexer.
+
+it: più di %d
+en: more than %d
+es: más de %d
+fr: plus de %d
+de: mehr als %d
+pt: mais de %d
+
+it: Nessun allenamento registrato di recente
+en: No recent workouts logged
+es: Ningún entrenamiento registrado recientemente
+fr: Aucune séance récente notée
+de: Kein Training in letzter Zeit eingetragen
+pt: Nenhum treino registrado recentemente
+
+it: Qualche passo in più
+en: A few more steps
+es: Unos pasos más
+fr: Quelques pas de plus
+de: Ein paar Schritte mehr
+pt: Alguns passos a mais
+
+it: Una camminata di 20 minuti ti avvicina agli 8.000 passi giornalieri consigliati.
+en: A 20-minute walk brings you closer to the recommended 8,000 daily steps.
+es: Una caminata de 20 minutos te acerca a los 8.000 pasos diarios recomendados.
+fr: Une marche de 20 minutes te rapproche des 8 000 pas quotidiens conseillés.
+de: Ein 20-Minuten-Spaziergang bringt dich näher an die empfohlenen 8.000 Schritte am Tag.
+pt: Uma caminhada de 20 minutos aproxima você dos 8.000 passos diários recomendados.
+
+it: Finora %d passi
+en: So far %d steps
+es: Hasta ahora %d pasos
+fr: Jusqu'ici %d pas
+de: Bisher %d Schritte
+pt: Até agora %d passos
+
+it: Ti svegli in media alle %s (ultime %d notti)
+en: You wake up on average at %s (last %d nights)
+es: Te despiertas de media a las %s (últimas %d noches)
+fr: Tu te réveilles en moyenne à %s (%d dernières nuits)
+de: Du wachst im Schnitt um %s auf (letzte %d Nächte)
+pt: Você acorda em média às %s (últimas %d noites)
+
+it: Nessuna notte registrata: ipotizzo il risveglio alle 07:00
+en: No nights recorded: assuming a 07:00 wake-up
+es: Ninguna noche registrada: supongo que te despiertas a las 07:00
+fr: Aucune nuit enregistrée : je suppose un réveil à 07:00
+de: Keine Nächte aufgezeichnet: Ich nehme 07:00 als Aufwachzeit an
+pt: Nenhuma noite registrada: suponho que você acorda às 07:00
+
+it: Vai a letto verso le %s
+en: Go to bed around %s
+es: Acuéstate hacia las %s
+fr: Va te coucher vers %s
+de: Geh gegen %s ins Bett
+pt: Vá para a cama por volta das %s
+
+it: Per svegliarti alle %s con 8 ore di sonno, considerando circa 15 minuti per addormentarti.
+en: To wake up at %s with 8 hours of sleep, allowing about 15 minutes to fall asleep.
+es: Para despertarte a las %s con 8 horas de sueño, contando unos 15 minutos para dormirte.
+fr: Pour te réveiller à %s avec 8 heures de sommeil, en comptant environ 15 minutes pour t'endormir.
+de: Um mit 8 Stunden Schlaf um %s aufzuwachen, bei etwa 15 Minuten zum Einschlafen.
+pt: Para acordar às %s com 8 horas de sono, considerando uns 15 minutos para adormecer.
+
+it: Dormi poco in media
+en: You sleep little on average
+es: Duermes poco de media
+fr: Tu dors peu en moyenne
+de: Du schläfst im Schnitt wenig
+pt: Você dorme pouco em média
+
+it: Prova ad anticipare l'orario di 30–45 minuti per qualche sera: l'obiettivo sono 7–9 ore.
+en: Try going to bed 30–45 minutes earlier for a few evenings: the goal is 7–9 hours.
+es: Prueba a adelantar la hora 30–45 minutos algunas noches: el objetivo son 7–9 horas.
+fr: Essaie d'avancer l'heure de 30–45 minutes quelques soirs : l'objectif est de 7–9 heures.
+de: Versuch ein paar Abende lang, 30–45 Minuten früher ins Bett zu gehen: Ziel sind 7–9 Stunden.
+pt: Tente adiantar o horário em 30–45 minutos por algumas noites: a meta são 7–9 horas.
+
+it: Media delle ultime %d notti: %s
+en: Average of the last %d nights: %s
+es: Media de las últimas %d noches: %s
+fr: Moyenne des %d dernières nuits : %s
+de: Schnitt der letzten %d Nächte: %s
+pt: Média das últimas %d noites: %s
+
+it: Orari troppo variabili
+en: Times too irregular
+es: Horarios demasiado variables
+fr: Horaires trop variables
+de: Zeiten zu unregelmäßig
+pt: Horários muito variáveis
+
+it: Cerca di andare a letto alla stessa ora anche nel weekend: un ritmo regolare migliora il recupero.
+en: Try to go to bed at the same time on weekends too: a regular rhythm improves recovery.
+es: Intenta acostarte a la misma hora también el fin de semana: un ritmo regular mejora la recuperación.
+fr: Essaie de te coucher à la même heure le week-end aussi : un rythme régulier améliore la récupération.
+de: Versuch, auch am Wochenende zur gleichen Zeit ins Bett zu gehen: Ein regelmäßiger Rhythmus verbessert die Erholung.
+pt: Tente deitar no mesmo horário também no fim de semana: um ritmo regular melhora a recuperação.
+
+it: L'orario in cui ti addormenti varia di circa %d minuti
+en: The time you fall asleep varies by about %d minutes
+es: La hora a la que te duermes varía unos %d minutos
+fr: L'heure à laquelle tu t'endors varie d'environ %d minutes
+de: Deine Einschlafzeit schwankt um etwa %d Minuten
+pt: O horário em que você adormece varia cerca de %d minutos
+
+it: Sonno poco continuo
+en: Broken sleep
+es: Sueño poco continuo
+fr: Sommeil peu continu
+de: Unruhiger Schlaf
+pt: Sono pouco contínuo
+
+it: Evita schermi e caffeina nell'ultima ora prima di dormire e tieni la stanza fresca e buia.
+en: Avoid screens and caffeine in the last hour before sleep and keep the room cool and dark.
+es: Evita pantallas y cafeína en la última hora antes de dormir y mantén la habitación fresca y oscura.
+fr: Évite écrans et caféine dans la dernière heure avant de dormir et garde la chambre fraîche et sombre.
+de: Vermeide Bildschirme und Koffein in der letzten Stunde vor dem Schlafen und halte das Zimmer kühl und dunkel.
+pt: Evite telas e cafeína na última hora antes de dormir e mantenha o quarto fresco e escuro.
+
+it: Efficienza della scorsa notte: %d%%
+en: Last night's efficiency: %d%%
+es: Eficiencia de anoche: %d%%
+fr: Efficacité de la nuit dernière : %d %%
+de: Effizienz letzte Nacht: %d %%
+pt: Eficiência da noite passada: %d%%
+
+it: Registra i pasti
+en: Log your meals
+es: Registra las comidas
+fr: Note tes repas
+de: Trag deine Mahlzeiten ein
+pt: Registre as refeições
+
+it: Quando aggiungi i pasti del giorno posso dirti quante calorie e proteine ti restano.
+en: When you add the day's meals I can tell you how many calories and how much protein you have left.
+es: Cuando añadas las comidas del día podré decirte cuántas calorías y proteínas te quedan.
+fr: Quand tu ajoutes les repas du jour, je peux te dire combien de calories et de protéines il te reste.
+de: Wenn du die Mahlzeiten des Tages einträgst, kann ich dir sagen, wie viele Kalorien und wie viel Eiweiß dir bleiben.
+pt: Quando você adicionar as refeições do dia, posso dizer quantas calorias e proteínas restam.
+
+it: Ti restano %d kcal
+en: You have %d kcal left
+es: Te quedan %d kcal
+fr: Il te reste %d kcal
+de: Dir bleiben %d kcal
+pt: Restam %d kcal
+
+it: Puoi ancora fare un pasto completo o uno spuntino senza uscire dal tuo obiettivo.
+en: You can still have a full meal or a snack without going over your goal.
+es: Aún puedes hacer una comida completa o un tentempié sin salirte de tu objetivo.
+fr: Tu peux encore faire un repas complet ou un en-cas sans dépasser ton objectif.
+de: Du kannst noch eine ganze Mahlzeit oder einen Snack essen, ohne dein Ziel zu überschreiten.
+pt: Você ainda pode fazer uma refeição completa ou um lanche sem sair da meta.
+
+it: Finora %d kcal assunte
+en: %d kcal eaten so far
+es: Hasta ahora %d kcal tomadas
+fr: %d kcal mangées jusqu'ici
+de: Bisher %d kcal gegessen
+pt: Até agora %d kcal consumidas
+
+it: Obiettivo calorico raggiunto
+en: Calorie goal reached
+es: Objetivo calórico alcanzado
+fr: Objectif calorique atteint
+de: Kalorienziel erreicht
+pt: Meta calórica atingida
+
+it: Per il resto della giornata scegli acqua, verdure o tisane.
+en: For the rest of the day choose water, vegetables or herbal tea.
+es: Para el resto del día elige agua, verduras o infusiones.
+fr: Pour le reste de la journée, choisis eau, légumes ou tisanes.
+de: Wähle für den Rest des Tages Wasser, Gemüse oder Kräutertee.
+pt: Pelo resto do dia escolha água, verduras ou chás.
+
+it: Aggiungi proteine
+en: Add protein
+es: Añade proteínas
+fr: Ajoute des protéines
+de: Mehr Eiweiß
+pt: Adicione proteínas
+
+it: Una fonte proteica (yogurt greco, uova, legumi, pesce) ti aiuta a recuperare e a sentirti sazio.
+en: A protein source (Greek yogurt, eggs, legumes, fish) helps you recover and feel full.
+es: Una fuente de proteínas (yogur griego, huevos, legumbres, pescado) te ayuda a recuperarte y a sentirte saciado.
+fr: Une source de protéines (yaourt grec, œufs, légumineuses, poisson) t'aide à récupérer et à te sentir rassasié.
+de: Eine Eiweißquelle (griechischer Joghurt, Eier, Hülsenfrüchte, Fisch) hilft dir bei der Erholung und macht satt.
+pt: Uma fonte de proteína (iogurte grego, ovos, leguminosas, peixe) ajuda você a se recuperar e a se sentir saciado.
+
+# Backup automatico, sincronizzazione
+
+it: Memoria del telefono
+en: Phone storage
+es: Memoria del teléfono
+fr: Mémoire du téléphone
+de: Telefonspeicher
+pt: Memória do telefone
+
+it: Il backup di adesso ha %d alimenti nei pasti contro i %d dell'ultimo: non l'ho sovrascritto. Se è giusto così, salva comunque.
+en: This backup has %d foods in meals versus %d in the last one: I didn't overwrite it. If that's right, save anyway.
+es: La copia de ahora tiene %d alimentos en las comidas frente a los %d de la última: no la he sobrescrito. Si es correcto, guarda de todos modos.
+fr: Cette sauvegarde a %d aliments dans les repas contre %d dans la dernière : je ne l'ai pas écrasée. Si c'est normal, enregistre quand même.
+de: Diese Sicherung hat %d Lebensmittel in Mahlzeiten gegenüber %d in der letzten: Ich habe sie nicht überschrieben. Wenn das stimmt, speichere trotzdem.
+pt: O backup de agora tem %d alimentos nas refeições contra %d do último: não o sobrescrevi. Se estiver certo, salve mesmo assim.
+
+it: Non ho più il permesso di scrivere in quel posto: scegli di nuovo dove salvare.
+en: I no longer have permission to write there: choose again where to save.
+es: Ya no tengo permiso para escribir en ese lugar: elige de nuevo dónde guardar.
+fr: Je n'ai plus l'autorisation d'écrire à cet endroit : choisis à nouveau où enregistrer.
+de: Ich darf dort nicht mehr schreiben: Wähle erneut einen Speicherort.
+pt: Não tenho mais permissão para gravar nesse local: escolha de novo onde salvar.
+
+it: Il file non c'è più (cancellato o spostato): scegli di nuovo dove salvare.
+en: The file is gone (deleted or moved): choose again where to save.
+es: El archivo ya no está (borrado o movido): elige de nuevo dónde guardar.
+fr: Le fichier n'existe plus (supprimé ou déplacé) : choisis à nouveau où enregistrer.
+de: Die Datei ist weg (gelöscht oder verschoben): Wähle erneut einen Speicherort.
+pt: O arquivo não existe mais (apagado ou movido): escolha de novo onde salvar.
+
+it: Backup non riuscito (%s).
+en: Backup failed (%s).
+es: La copia ha fallado (%s).
+fr: Échec de la sauvegarde (%s).
+de: Sicherung fehlgeschlagen (%s).
+pt: Falha no backup (%s).
+
+it: Health Connect non legge ad app chiusa su questo telefono
+en: Health Connect doesn't read with the app closed on this phone
+es: Health Connect no lee con la app cerrada en este teléfono
+fr: Health Connect ne lit pas app fermée sur ce téléphone
+de: Health Connect liest auf diesem Telefon nicht bei geschlossener App
+pt: O Health Connect não lê com o app fechado neste telefone
+
+it: manca il permesso per leggere ad app chiusa
+en: missing permission to read with the app closed
+es: falta el permiso para leer con la app cerrada
+fr: autorisation manquante pour lire app fermée
+de: Berechtigung zum Lesen bei geschlossener App fehlt
+pt: falta a permissão para ler com o app fechado
+
+it: sincronizzato
+en: synced
+es: sincronizado
+fr: synchronisé
+de: synchronisiert
+pt: sincronizado
+
+it: sincronizzazione non riuscita
+en: sync failed
+es: sincronización fallida
+fr: échec de la synchro
+de: Synchronisierung fehlgeschlagen
+pt: falha na sincronização
+
+it: backup fatto
+en: backup done
+es: copia hecha
+fr: sauvegarde faite
+de: Sicherung erledigt
+pt: backup feito
+
+it: backup non riuscito
+en: backup failed
+es: copia fallida
+fr: sauvegarde échouée
+de: Sicherung fehlgeschlagen
+pt: falha no backup
+
+it: backup fermo, serve conferma
+en: backup on hold, needs confirmation
+es: copia detenida, hace falta confirmar
+fr: sauvegarde en attente, confirmation requise
+de: Sicherung angehalten, Bestätigung nötig
+pt: backup parado, precisa de confirmação
+
+# Permessi di Health Connect
+
+it: Calorie totali
+en: Total calories
+es: Calorías totales
+fr: Calories totales
+de: Gesamtkalorien
+pt: Calorias totais
+
+it: Battito
+en: Heart rate
+es: Pulso
+fr: Fréquence cardiaque
+de: Puls
+pt: Batimentos
+
+it: Temperatura cutanea
+en: Skin temperature
+es: Temperatura cutánea
+fr: Température cutanée
+de: Hauttemperatur
+pt: Temperatura da pele
+
+it: Temperatura corporea
+en: Body temperature
+es: Temperatura corporal
+fr: Température corporelle
+de: Körpertemperatur
+pt: Temperatura corporal
+
+it: Velocità
+en: Speed
+es: Velocidad
+fr: Vitesse
+de: Tempo
+pt: Velocidade
+
+it: Scrittura pasti
+en: Writing meals
+es: Escritura de comidas
+fr: Écriture des repas
+de: Mahlzeiten schreiben
+pt: Gravação de refeições
+
+it: Passi/calorie
+en: Steps/calories
+es: Pasos/calorías
+fr: Pas/calories
+de: Schritte/Kalorien
+pt: Passos/calorias
+
+# Correlazioni
+
+it: Sonno e HRV
+en: Sleep and HRV
+es: Sueño y HRV
+fr: Sommeil et HRV
+de: Schlaf und HRV
+pt: Sono e HRV
+
+it: Dopo le notti di almeno 7 ore la tua HRV è in media %s rispetto alle notti più corte.
+en: After nights of at least 7 hours your HRV is on average %s than after shorter nights.
+es: Tras las noches de al menos 7 horas tu HRV es de media %s que en las noches más cortas.
+fr: Après les nuits d'au moins 7 heures, ta HRV est en moyenne %s que les nuits plus courtes.
+de: Nach Nächten mit mindestens 7 Stunden ist deine HRV im Schnitt %s als nach kürzeren Nächten.
+pt: Depois das noites de pelo menos 7 horas sua HRV é em média %s do que nas noites mais curtas.
+
+it: Allenamento e HRV
+en: Workouts and HRV
+es: Entrenamiento y HRV
+fr: Entraînement et HRV
+de: Training und HRV
+pt: Treino e HRV
+
+it: Nella notte dopo un allenamento la tua HRV è in media %s rispetto alle altre notti.
+en: The night after a workout your HRV is on average %s than on other nights.
+es: La noche después de un entrenamiento tu HRV es de media %s que las demás noches.
+fr: La nuit après une séance, ta HRV est en moyenne %s que les autres nuits.
+de: In der Nacht nach einem Training ist deine HRV im Schnitt %s als in anderen Nächten.
+pt: Na noite depois de um treino sua HRV é em média %s do que nas outras noites.
+
+it: Deficit e HRV
+en: Deficit and HRV
+es: Déficit y HRV
+fr: Déficit et HRV
+de: Defizit und HRV
+pt: Déficit e HRV
+
+it: Dopo i giorni con un deficit oltre 700 kcal la tua HRV è in media %s.
+en: After days with a deficit over 700 kcal your HRV is on average %s.
+es: Tras los días con un déficit de más de 700 kcal tu HRV es de media %s.
+fr: Après les jours avec un déficit de plus de 700 kcal, ta HRV est en moyenne %s.
+de: Nach Tagen mit über 700 kcal Defizit ist deine HRV im Schnitt %s.
+pt: Depois dos dias com déficit acima de 700 kcal sua HRV é em média %s.
+
+it: Passi e sonno
+en: Steps and sleep
+es: Pasos y sueño
+fr: Pas et sommeil
+de: Schritte und Schlaf
+pt: Passos e sono
+
+it: Dopo i giorni con almeno 8.000 passi dormi in media %s rispetto ai giorni più sedentari.
+en: After days with at least 8,000 steps you sleep on average %s than after more sedentary days.
+es: Tras los días con al menos 8.000 pasos duermes de media %s que en los días más sedentarios.
+fr: Après les jours avec au moins 8 000 pas, tu dors en moyenne %s que les jours plus sédentaires.
+de: Nach Tagen mit mindestens 8.000 Schritten schläfst du im Schnitt %s als nach bewegungsarmen Tagen.
+pt: Depois dos dias com pelo menos 8.000 passos você dorme em média %s do que nos dias mais sedentários.
+
+it: Allenamento e sonno
+en: Workouts and sleep
+es: Entrenamiento y sueño
+fr: Entraînement et sommeil
+de: Training und Schlaf
+pt: Treino e sono
+
+it: Nella notte dopo un allenamento dormi in media %s.
+en: The night after a workout you sleep on average %s.
+es: La noche después de un entrenamiento duermes de media %s.
+fr: La nuit après une séance, tu dors en moyenne %s.
+de: In der Nacht nach einem Training schläfst du im Schnitt %s.
+pt: Na noite depois de um treino você dorme em média %s.
+
+it: più alta del %d%%
+en: %d%% higher
+es: un %d%% más alta
+fr: %d %% plus élevée
+de: %d %% höher
+pt: %d%% mais alta
+
+it: più bassa del %d%%
+en: %d%% lower
+es: un %d%% más baja
+fr: %d %% plus basse
+de: %d %% niedriger
+pt: %d%% mais baixa
+
+it: %d minuti in più
+en: %d minutes more
+es: %d minutos más
+fr: %d minutes de plus
+de: %d Minuten länger
+pt: %d minutos a mais
+
+it: %d minuti in meno
+en: %d minutes less
+es: %d minutos menos
+fr: %d minutes de moins
+de: %d Minuten kürzer
+pt: %d minutos a menos
+
+# Macro
+
+it: Registra il primo pasto: ti dirò come bilanciare i macro.
+en: Log your first meal: I'll tell you how to balance your macros.
+es: Registra la primera comida: te diré cómo equilibrar los macros.
+fr: Note ton premier repas : je te dirai comment équilibrer les macros.
+de: Trag deine erste Mahlzeit ein: Ich sage dir, wie du die Makros ausgleichst.
+pt: Registre a primeira refeição: vou dizer como equilibrar os macros.
+
+it: Obiettivo calorico raggiunto: per il resto della giornata scegli cibi leggeri e poche calorie.
+en: Calorie goal reached: for the rest of the day choose light, low-calorie foods.
+es: Objetivo calórico alcanzado: para el resto del día elige alimentos ligeros y pocas calorías.
+fr: Objectif calorique atteint : pour le reste de la journée, choisis des aliments légers et peu caloriques.
+de: Kalorienziel erreicht: Wähle für den Rest des Tages leichte, kalorienarme Lebensmittel.
+pt: Meta calórica atingida: pelo resto do dia escolha alimentos leves e poucas calorias.
+
+it: La ripartizione è in linea con quella consigliata: nel prossimo pasto mantieni lo stesso equilibrio.
+en: Your split matches the recommended one: keep the same balance in your next meal.
+es: El reparto está en línea con el recomendado: en la próxima comida mantén el mismo equilibrio.
+fr: La répartition correspond à celle conseillée : garde le même équilibre au prochain repas.
+de: Die Verteilung passt zur empfohlenen: Behalte das Gleichgewicht bei der nächsten Mahlzeit bei.
+pt: A divisão está de acordo com a recomendada: na próxima refeição mantenha o mesmo equilíbrio.
+
+it: più %s
+en: more %s
+es: más %s
+fr: plus de %s
+de: mehr %s
+pt: mais %s
+
+it: meno %s
+en: less %s
+es: menos %s
+fr: moins de %s
+de: weniger %s
+pt: menos %s
+
+it: Nel prossimo pasto: %s.
+en: In your next meal: %s.
+es: En la próxima comida: %s.
+fr: Au prochain repas : %s.
+de: Bei der nächsten Mahlzeit: %s.
+pt: Na próxima refeição: %s.
+
+it: (ne mancano %d g)
+en: (%d g to go)
+es: (faltan %d g)
+fr: (il manque %d g)
+de: (noch %d g)
+pt: (faltam %d g)
+
+# Promemoria
+
+it: Spuntino
+en: Snack
+es: Tentempié
+fr: En-cas
+de: Snack
+pt: Lanche
+
+it: Promemoria pasti
+en: Meal reminders
+es: Recordatorios de comidas
+fr: Rappels de repas
+de: Essenserinnerungen
+pt: Lembretes de refeições
+
+it: Hai fatto colazione? Registrala in UNICUM.
+en: Had breakfast? Log it in UNICUM.
+es: ¿Has desayunado? Regístralo en UNICUM.
+fr: Tu as pris ton petit-déjeuner ? Note-le dans UNICUM.
+de: Schon gefrühstückt? Trag es in UNICUM ein.
+pt: Tomou café da manhã? Registre no UNICUM.
+
+it: È ora di pranzo: ricordati di registrare cosa mangi.
+en: It's lunchtime: remember to log what you eat.
+es: Es hora de comer: acuérdate de registrar lo que comes.
+fr: C'est l'heure du déjeuner : pense à noter ce que tu manges.
+de: Mittagszeit: Denk daran, einzutragen, was du isst.
+pt: É hora do almoço: lembre de registrar o que você come.
+
+it: Hai già cenato? Registra la cena in UNICUM.
+en: Had dinner already? Log it in UNICUM.
+es: ¿Ya has cenado? Registra la cena en UNICUM.
+fr: Tu as déjà dîné ? Note le dîner dans UNICUM.
+de: Schon zu Abend gegessen? Trag es in UNICUM ein.
+pt: Já jantou? Registre o jantar no UNICUM.
+
+it: Hai fatto uno spuntino? Registralo in UNICUM.
+en: Had a snack? Log it in UNICUM.
+es: ¿Has tomado un tentempié? Regístralo en UNICUM.
+fr: Tu as pris un en-cas ? Note-le dans UNICUM.
+de: Einen Snack gegessen? Trag ihn in UNICUM ein.
+pt: Fez um lanche? Registre no UNICUM.
+
+# Open Food Facts e PDF
+
+it: Marche
+en: Brands
+es: Marcas
+fr: Marques
+de: Marken
+pt: Marcas
+
+it: Nessuna connessione a internet.
+en: No internet connection.
+es: Sin conexión a internet.
+fr: Pas de connexion internet.
+de: Keine Internetverbindung.
+pt: Sem conexão com a internet.
+
+it: Open Food Facts non risponde: riprova tra poco.
+en: Open Food Facts isn't responding: try again shortly.
+es: Open Food Facts no responde: inténtalo de nuevo en un rato.
+fr: Open Food Facts ne répond pas : réessaie dans un instant.
+de: Open Food Facts antwortet nicht: Versuch es gleich noch mal.
+pt: O Open Food Facts não responde: tente de novo daqui a pouco.
+
+it: Ricerca online non riuscita (%s).
+en: Online search failed (%s).
+es: La búsqueda en línea ha fallado (%s).
+fr: Échec de la recherche en ligne (%s).
+de: Onlinesuche fehlgeschlagen (%s).
+pt: Falha na busca online (%s).
+
+it: Il file non si apre.
+en: The file won't open.
+es: El archivo no se abre.
+fr: Le fichier ne s'ouvre pas.
+de: Die Datei lässt sich nicht öffnen.
+pt: O arquivo não abre.
+
+it: Nel PDF non c'è testo da leggere: probabilmente è una foto o una scansione. Aggiungi le sedute a mano, oppure esporta il programma come PDF con il testo.
+en: There's no text to read in the PDF: it's probably a photo or a scan. Add the sessions by hand, or export the plan as a PDF with text.
+es: En el PDF no hay texto que leer: probablemente es una foto o un escaneo. Añade las sesiones a mano o exporta el plan como PDF con texto.
+fr: Le PDF ne contient pas de texte à lire : c'est sans doute une photo ou un scan. Ajoute les séances à la main ou exporte le programme en PDF avec du texte.
+de: Im PDF ist kein lesbarer Text: Wahrscheinlich ist es ein Foto oder Scan. Füge die Einheiten von Hand hinzu oder exportiere den Plan als PDF mit Text.
+pt: No PDF não há texto para ler: provavelmente é uma foto ou digitalização. Adicione as sessões à mão ou exporte o plano como PDF com texto.
+
+it: Il PDF è protetto da password: toglila e riprova.
+en: The PDF is password-protected: remove it and try again.
+es: El PDF está protegido con contraseña: quítala y vuelve a intentarlo.
+fr: Le PDF est protégé par mot de passe : retire-le et réessaie.
+de: Das PDF ist passwortgeschützt: Entferne das Passwort und versuch es erneut.
+pt: O PDF está protegido por senha: remova-a e tente de novo.
+
+it: Il PDF è troppo grande da leggere sul telefono.
+en: The PDF is too large to read on the phone.
+es: El PDF es demasiado grande para leerlo en el teléfono.
+fr: Le PDF est trop gros pour être lu sur le téléphone.
+de: Das PDF ist zu groß, um es auf dem Telefon zu lesen.
+pt: O PDF é grande demais para ler no telefone.
+
+it: Il file non sembra un PDF leggibile (%s).
+en: The file doesn't look like a readable PDF (%s).
+es: El archivo no parece un PDF legible (%s).
+fr: Le fichier ne semble pas être un PDF lisible (%s).
+de: Die Datei scheint kein lesbares PDF zu sein (%s).
+pt: O arquivo não parece um PDF legível (%s).
+
+# Avvisi sul recupero e recupero stimato
+
+it: Recupero basso da due notti
+en: Low recovery for two nights
+es: Recuperación baja desde hace dos noches
+fr: Récupération basse depuis deux nuits
+de: Geringe Erholung seit zwei Nächten
+pt: Recuperação baixa há duas noites
+
+it: HRV sotto la tua media del %d%% da due notti e temperatura notturna %s: possibili segni di stress o di un inizio di malattia. Oggi meglio riposo, acqua e una notte lunga.
+en: HRV %d%% below your average for two nights and night temperature %s: possible signs of stress or an oncoming illness. Today, better to rest, drink water and get a long night.
+es: HRV un %d%% por debajo de tu media desde hace dos noches y temperatura nocturna %s: posibles señales de estrés o del inicio de una enfermedad. Hoy mejor descanso, agua y una noche larga.
+fr: HRV inférieure de %d %% à ta moyenne depuis deux nuits et température nocturne %s : signes possibles de stress ou d'un début de maladie. Aujourd'hui, mieux vaut repos, eau et une longue nuit.
+de: HRV seit zwei Nächten %d %% unter deinem Schnitt und Nachttemperatur %s: mögliche Zeichen von Stress oder einer beginnenden Krankheit. Heute lieber Ruhe, Wasser und eine lange Nacht.
+pt: HRV %d%% abaixo da sua média há duas noites e temperatura noturna %s: possíveis sinais de estresse ou do início de uma doença. Hoje melhor descanso, água e uma noite longa.
+
+it: HRV bassa da due notti
+en: Low HRV for two nights
+es: HRV baja desde hace dos noches
+fr: HRV basse depuis deux nuits
+de: Niedrige HRV seit zwei Nächten
+pt: HRV baixa há duas noites
+
+it: L'HRV è sotto la tua media del %d%% per due notti di fila: il corpo sta recuperando poco. Oggi allenamento leggero o riposo.
+en: HRV has been %d%% below your average two nights in a row: your body is recovering poorly. Today, light training or rest.
+es: La HRV está un %d%% por debajo de tu media dos noches seguidas: el cuerpo se está recuperando poco. Hoy entrenamiento suave o descanso.
+fr: La HRV est inférieure de %d %% à ta moyenne deux nuits de suite : le corps récupère peu. Aujourd'hui séance légère ou repos.
+de: Die HRV liegt zwei Nächte hintereinander %d %% unter deinem Schnitt: Der Körper erholt sich wenig. Heute leichtes Training oder Ruhe.
+pt: A HRV está %d%% abaixo da sua média duas noites seguidas: o corpo está se recuperando pouco. Hoje treino leve ou descanso.
+
+it: Temperatura notturna più alta
+en: Higher night temperature
+es: Temperatura nocturna más alta
+fr: Température nocturne plus élevée
+de: Höhere Nachttemperatur
+pt: Temperatura noturna mais alta
+
+it: Stanotte la temperatura è %s rispetto alla tua media. Tieni d'occhio come ti senti e riposa se serve.
+en: Last night your temperature was %s compared with your average. Keep an eye on how you feel and rest if needed.
+es: Esta noche la temperatura está %s respecto a tu media. Vigila cómo te sientes y descansa si hace falta.
+fr: Cette nuit la température est de %s par rapport à ta moyenne. Surveille comment tu te sens et repose-toi si besoin.
+de: Letzte Nacht lag deine Temperatur %s über deinem Schnitt. Achte darauf, wie du dich fühlst, und ruh dich aus, wenn nötig.
+pt: Esta noite a temperatura está %s em relação à sua média. Fique de olho em como se sente e descanse se precisar.
+
+it: Stanotte:
+en: Last night:
+es: Esta noche:
+fr: Cette nuit :
+de: Letzte Nacht:
+pt: Esta noite:
+
+it: %s al risveglio:
+en: %s on waking:
+es: %s al despertar:
+fr: %s au réveil :
+de: %s beim Aufwachen:
+pt: %s ao acordar:
+
+it: %s, nella tua norma: il recupero che resta si accorcia del %d%%.
+en: %s, within your normal range: the remaining recovery is %d%% shorter.
+es: %s, en tu rango normal: la recuperación que queda se acorta un %d%%.
+fr: %s, dans ta norme : la récupération restante raccourcit de %d %%.
+de: %s, im Normalbereich: Die verbleibende Erholung verkürzt sich um %d %%.
+pt: %s, dentro do seu normal: a recuperação restante encurta %d%%.
+
+it: %s, sotto la tua norma: il recupero che resta si allunga del %d%%
+en: %s, below your normal range: the remaining recovery is %d%% longer
+es: %s, por debajo de tu rango normal: la recuperación que queda se alarga un %d%%
+fr: %s, sous ta norme : la récupération restante s'allonge de %d %%
+de: %s, unter dem Normalbereich: Die verbleibende Erholung verlängert sich um %d %%
+pt: %s, abaixo do seu normal: a recuperação restante aumenta %d%%
+
+it: almeno fino al risveglio dopo.
+en: at least until the following wake-up.
+es: al menos hasta el siguiente despertar.
+fr: au moins jusqu'au réveil suivant.
+de: mindestens bis zum nächsten Aufwachen.
+pt: pelo menos até o despertar seguinte.
+
+it: %s, vicina alla tua norma: il recupero cambia di poco.
+en: %s, close to your normal range: recovery changes little.
+es: %s, cerca de tu rango normal: la recuperación cambia poco.
+fr: %s, proche de ta norme : la récupération change peu.
+de: %s, nahe am Normalbereich: Die Erholung ändert sich kaum.
+pt: %s, perto do seu normal: a recuperação muda pouco.
+
+it: dormito %s: il recupero si allunga del %d%%.
+en: slept %s: recovery is %d%% longer.
+es: dormido %s: la recuperación se alarga un %d%%.
+fr: dormi %s : la récupération s'allonge de %d %%.
+de: %s geschlafen: Die Erholung verlängert sich um %d %%.
+pt: dormiu %s: a recuperação aumenta %d%%.
+
+it: temperatura notturna %s sopra la media: il recupero si allunga del %d%%.
+en: night temperature %s above average: recovery is %d%% longer.
+es: temperatura nocturna %s por encima de la media: la recuperación se alarga un %d%%.
+fr: température nocturne %s au-dessus de la moyenne : la récupération s'allonge de %d %%.
+de: Nachttemperatur %s über dem Schnitt: Die Erholung verlängert sich um %d %%.
+pt: temperatura noturna %s acima da média: a recuperação aumenta %d%%.
+
+# Stime e misure
+
+it: Prudente
+en: Cautious
+es: Prudente
+fr: Prudent
+de: Vorsichtig
+pt: Prudente
+
+it: Centrale
+en: Central
+es: Central
+fr: Central
+de: Mittel
+pt: Central
+
+it: Ottimista
+en: Optimistic
+es: Optimista
+fr: Optimiste
+de: Optimistisch
+pt: Otimista
+
+it: Sforzo percepito
+en: Perceived effort
+es: Esfuerzo percibido
+fr: Effort perçu
+de: Gefühlte Anstrengung
+pt: Esforço percebido
+
+it: Settimana
+en: Week
+es: Semana
+fr: Semaine
+de: Woche
+pt: Semana
+
+it: Mese
+en: Month
+es: Mes
+fr: Mois
+de: Monat
+pt: Mês
+
+it: Sempre
+en: All time
+es: Siempre
+fr: Toujours
+de: Gesamt
+pt: Sempre
+
+it: Sveglio
+en: Awake
+es: Despierto
+fr: Éveillé
+de: Wach
+pt: Acordado
+
+it: Profondo
+en: Deep
+es: Profundo
+fr: Profond
+de: Tief
+pt: Profundo
+
+it: Defaticamento
+en: Cool-down
+es: Vuelta a la calma
+fr: Retour au calme
+de: Auslaufen
+pt: Desaquecimento
+
+it: Aerobica
+en: Aerobic
+es: Aeróbica
+fr: Aérobie
+de: Aerob
+pt: Aeróbica
+
+it: Soglia
+en: Threshold
+es: Umbral
+fr: Seuil
+de: Schwelle
+pt: Limiar
+
+it: Sensazioni in linea con i dati.
+en: How it felt matches the data.
+es: Sensaciones en línea con los datos.
+fr: Ressenti en accord avec les données.
+de: Gefühl passt zu den Daten.
+pt: Sensações de acordo com os dados.
+
+it: Ti è sembrata molto più facile di quanto dice il battito: per il corpo è stata una seduta più dura.
+en: It felt much easier than your heart rate says: for your body it was a harder session.
+es: Te ha parecido mucho más fácil de lo que dice el pulso: para el cuerpo fue una sesión más dura.
+fr: Elle t'a semblé bien plus facile que ce que dit le pouls : pour le corps, c'était une séance plus dure.
+de: Sie kam dir viel leichter vor, als der Puls sagt: Für den Körper war es eine härtere Einheit.
+pt: Pareceu muito mais fácil do que diz o batimento: para o corpo foi uma sessão mais dura.
+
+it: Ti è sembrata più facile di quanto dice il battito.
+en: It felt easier than your heart rate says.
+es: Te ha parecido más fácil de lo que dice el pulso.
+fr: Elle t'a semblé plus facile que ce que dit le pouls.
+de: Sie kam dir leichter vor, als der Puls sagt.
+pt: Pareceu mais fácil do que diz o batimento.
+
+it: L'hai sentita molto più dura di quanto dice il battito: stanchezza, poco sonno, caldo o gambe pesanti?
+en: It felt much harder than your heart rate says: tiredness, little sleep, heat or heavy legs?
+es: La has sentido mucho más dura de lo que dice el pulso: ¿cansancio, poco sueño, calor o piernas pesadas?
+fr: Tu l'as trouvée bien plus dure que ce que dit le pouls : fatigue, peu de sommeil, chaleur ou jambes lourdes ?
+de: Sie fühlte sich viel härter an, als der Puls sagt: Müdigkeit, wenig Schlaf, Hitze oder schwere Beine?
+pt: Você sentiu muito mais dura do que diz o batimento: cansaço, pouco sono, calor ou pernas pesadas?
+
+it: L'hai sentita più dura di quanto dice il battito.
+en: It felt harder than your heart rate says.
+es: La has sentido más dura de lo que dice el pulso.
+fr: Tu l'as trouvée plus dure que ce que dit le pouls.
+de: Sie fühlte sich härter an, als der Puls sagt.
+pt: Você sentiu mais dura do que diz o batimento.
+
+# Racconto della settimana
+
+it: La tua settimana
+en: Your week
+es: Tu semana
+fr: Ta semaine
+de: Deine Woche
+pt: Sua semana
+
+it: Deficit medio
+en: Average deficit
+es: Déficit medio
+fr: Déficit moyen
+de: Ø Defizit
+pt: Déficit médio
+
+it: Surplus medio
+en: Average surplus
+es: Superávit medio
+fr: Surplus moyen
+de: Ø Überschuss
+pt: Superávit médio
+
+it: kcal al giorno
+en: kcal per day
+es: kcal al día
+fr: kcal par jour
+de: kcal pro Tag
+pt: kcal por dia
+
+it: Obiettivo di %d kcal non ancora raggiunto in nessun giorno.
+en: %d kcal goal not yet reached on any day.
+es: Objetivo de %d kcal aún no alcanzado ningún día.
+fr: Objectif de %d kcal pas encore atteint un seul jour.
+de: Ziel von %d kcal noch an keinem Tag erreicht.
+pt: Meta de %d kcal ainda não atingida em nenhum dia.
+
+it: Obiettivo di %d kcal raggiunto in %s su %d.
+en: %d kcal goal reached on %s out of %d.
+es: Objetivo de %d kcal alcanzado en %s de %d.
+fr: Objectif de %d kcal atteint %s sur %d.
+de: Ziel von %d kcal an %s von %d erreicht.
+pt: Meta de %d kcal atingida em %s de %d.
+
+it: In tutta la settimana: %s kcal, circa %s di grasso.
+en: Over the whole week: %s kcal, about %s of fat.
+es: En toda la semana: %s kcal, unos %s de grasa.
+fr: Sur toute la semaine : %s kcal, environ %s de graisse.
+de: In der ganzen Woche: %s kcal, etwa %s Fett.
+pt: Na semana toda: %s kcal, cerca de %s de gordura.
+
+it: Hai mangiato più di quanto hai consumato: %s kcal di surplus in tutta la settimana.
+en: You ate more than you burned: a %s kcal surplus over the whole week.
+es: Has comido más de lo que has gastado: %s kcal de superávit en toda la semana.
+fr: Tu as mangé plus que tu n'as dépensé : %s kcal de surplus sur la semaine.
+de: Du hast mehr gegessen als verbraucht: %s kcal Überschuss in der ganzen Woche.
+pt: Você comeu mais do que gastou: %s kcal de superávit na semana toda.
+
+it: minuti
+en: minutes
+es: minutos
+fr: minutes
+de: Minuten
+pt: minutos
+
+it: Obiettivo dei %d minuti settimanali raggiunto
+en: %d weekly minutes goal reached
+es: Objetivo de %d minutos semanales alcanzado
+fr: Objectif de %d minutes hebdomadaires atteint
+de: Ziel von %d Minuten pro Woche erreicht
+pt: Meta de %d minutos semanais atingida
+
+it: Mancano %d minuti ai %d settimanali consigliati
+en: %d minutes short of the recommended %d a week
+es: Faltan %d minutos para los %d semanales recomendados
+fr: Il manque %d minutes pour les %d hebdomadaires conseillées
+de: Es fehlen %d Minuten bis zu den empfohlenen %d pro Woche
+pt: Faltam %d minutos para os %d semanais recomendados
+
+it: con %s.
+en: with %s.
+es: con %s.
+fr: avec %s.
+de: mit %s.
+pt: com %s.
+
+it: Il giorno più attivo: %s (%d min).
+en: Most active day: %s (%d min).
+es: El día más activo: %s (%d min).
+fr: Jour le plus actif : %s (%d min).
+de: Aktivster Tag: %s (%d Min).
+pt: Dia mais ativo: %s (%d min).
+
+it: Sonno medio
+en: Average sleep
+es: Sueño medio
+fr: Sommeil moyen
+de: Ø Schlaf
+pt: Sono médio
+
+it: a notte
+en: per night
+es: por noche
+fr: par nuit
+de: pro Nacht
+pt: por noite
+
+it: La notte migliore: %s (%s).
+en: Best night: %s (%s).
+es: La mejor noche: %s (%s).
+fr: Meilleure nuit : %s (%s).
+de: Beste Nacht: %s (%s).
+pt: Melhor noite: %s (%s).
+
+it: Sei nella fascia delle 7-9 ore consigliate.
+en: You're within the recommended 7–9 hours.
+es: Estás en la franja de 7-9 horas recomendada.
+fr: Tu es dans la plage conseillée de 7 à 9 heures.
+de: Du liegst im empfohlenen Bereich von 7–9 Stunden.
+pt: Você está na faixa de 7-9 horas recomendada.
+
+it: Sotto le 7 ore consigliate: c'è margine.
+en: Under the recommended 7 hours: there's room to improve.
+es: Por debajo de las 7 horas recomendadas: hay margen.
+fr: Sous les 7 heures conseillées : il y a de la marge.
+de: Unter den empfohlenen 7 Stunden: Da ist Luft nach oben.
+pt: Abaixo das 7 horas recomendadas: há margem.
+
+it: Recupero migliore %s (%d ms), il più basso %s (%d ms).
+en: Best recovery %s (%d ms), lowest %s (%d ms).
+es: Mejor recuperación el %s (%d ms), la más baja el %s (%d ms).
+fr: Meilleure récupération %s (%d ms), la plus basse %s (%d ms).
+de: Beste Erholung %s (%d ms), niedrigste %s (%d ms).
+pt: Melhor recuperação %s (%d ms), a mais baixa %s (%d ms).
+
+it: Da %s (%s kg) a %s (%s kg). Conta la tendenza di più settimane, non il singolo giorno.
+en: From %s (%s kg) to %s (%s kg). The trend over several weeks matters, not a single day.
+es: Del %s (%s kg) al %s (%s kg). Cuenta la tendencia de varias semanas, no el día suelto.
+fr: De %s (%s kg) à %s (%s kg). C'est la tendance sur plusieurs semaines qui compte, pas un seul jour.
+de: Von %s (%s kg) bis %s (%s kg). Es zählt der Trend über mehrere Wochen, nicht der einzelne Tag.
+pt: De %s (%s kg) a %s (%s kg). Conta a tendência de várias semanas, não o dia isolado.
+
+it: Il sonno è il punto da curare: prova ad andare a letto 30 minuti prima per qualche sera.
+en: Sleep is the thing to work on: try going to bed 30 minutes earlier for a few evenings.
+es: El sueño es el punto a cuidar: prueba a acostarte 30 minutos antes algunas noches.
+fr: Le sommeil est le point à soigner : essaie de te coucher 30 minutes plus tôt quelques soirs.
+de: Am Schlaf solltest du arbeiten: Geh ein paar Abende 30 Minuten früher ins Bett.
+pt: O sono é o ponto a cuidar: tente deitar 30 minutos mais cedo por algumas noites.
+
+it: Aggiungi una o due sessioni da 30 minuti: bastano per arrivare ai %d minuti.
+en: Add one or two 30-minute sessions: that's enough to reach %d minutes.
+es: Añade una o dos sesiones de 30 minutos: bastan para llegar a los %d minutos.
+fr: Ajoute une ou deux séances de 30 minutes : ça suffit pour atteindre les %d minutes.
+de: Füge ein oder zwei Einheiten von 30 Minuten hinzu: Das reicht für die %d Minuten.
+pt: Adicione uma ou duas sessões de 30 minutos: bastam para chegar aos %d minutos.
+
+it: Il deficit è sotto l'obiettivo: registra tutti i pasti e tieni d'occhio gli spuntini.
+en: The deficit is below the goal: log all your meals and keep an eye on snacks.
+es: El déficit está por debajo del objetivo: registra todas las comidas y vigila los tentempiés.
+fr: Le déficit est sous l'objectif : note tous les repas et surveille les en-cas.
+de: Das Defizit liegt unter dem Ziel: Trag alle Mahlzeiten ein und behalte die Snacks im Blick.
+pt: O déficit está abaixo da meta: registre todas as refeições e fique de olho nos lanches.
+
+it: Registra i pasti ogni giorno: la prossima settimana potrai vedere anche il bilancio calorico.
+en: Log your meals every day: next week you'll also see your calorie balance.
+es: Registra las comidas cada día: la próxima semana podrás ver también el balance calórico.
+fr: Note tes repas chaque jour : la semaine prochaine tu verras aussi le bilan calorique.
+de: Trag deine Mahlzeiten jeden Tag ein: Nächste Woche siehst du auch die Kalorienbilanz.
+pt: Registre as refeições todo dia: na próxima semana você verá também o balanço calórico.
+
+it: Settimana equilibrata: mantieni lo stesso ritmo.
+en: A balanced week: keep the same rhythm.
+es: Semana equilibrada: mantén el mismo ritmo.
+fr: Semaine équilibrée : garde le même rythme.
+de: Ausgewogene Woche: Behalte den Rhythmus bei.
+pt: Semana equilibrada: mantenha o mesmo ritmo.
+
+it: Per la prossima settimana
+en: For next week
+es: Para la próxima semana
+fr: Pour la semaine prochaine
+de: Für nächste Woche
+pt: Para a próxima semana
+
+it: %d giorno con i pasti
+en: %d day with meals
+es: %d día con comidas
+fr: %d jour avec repas
+de: %d Tag mit Mahlzeiten
+pt: %d dia com refeições
+
+it: %d giorni con i pasti
+en: %d days with meals
+es: %d días con comidas
+fr: %d jours avec repas
+de: %d Tage mit Mahlzeiten
+pt: %d dias com refeições
+
+it: %d notte registrata
+en: %d night recorded
+es: %d noche registrada
+fr: %d nuit enregistrée
+de: %d Nacht aufgezeichnet
+pt: %d noite registrada
+
+it: %d notti registrate
+en: %d nights recorded
+es: %d noches registradas
+fr: %d nuits enregistrées
+de: %d Nächte aufgezeichnet
+pt: %d noites registradas
+
+it: %d giorno
+en: %d day
+es: %d día
+fr: %d jour
+de: %d Tag
+pt: %d dia
+
+it: %d giorni
+en: %d days
+es: %d días
+fr: %d jours
+de: %d Tagen
+pt: %d dias
+
+# Widget
+
+it: obiettivo %s
+en: goal %s
+es: objetivo %s
+fr: objectif %s
+de: Ziel %s
+pt: meta %s
+
+it: nessun allenamento
+en: no workouts
+es: ningún entrenamiento
+fr: aucune séance
+de: kein Training
+pt: nenhum treino
+
+it: sei pronto
+en: you're ready
+es: estás listo
+fr: tu es prêt
+de: du bist bereit
+pt: você está pronto
+
+it: Pronto tra
+en: Ready in
+es: Listo en
+fr: Prêt dans
+de: Bereit in
+pt: Pronto em
+
+it: Rimangono
+en: Left
+es: Quedan
+fr: Il reste
+de: Übrig
+pt: Restam
+
+it: Oltre l'obiettivo di
+en: Over goal by
+es: Por encima del objetivo en
+fr: Au-dessus de l'objectif de
+de: Über dem Ziel um
+pt: Acima da meta em
+
+it: %s di %s kcal mangiate
+en: %s of %s kcal eaten
+es: %s de %s kcal comidas
+fr: %s sur %s kcal mangées
+de: %s von %s kcal gegessen
+pt: %s de %s kcal consumidas
+
+it: Deficit %s kcal
+en: Deficit %s kcal
+es: Déficit %s kcal
+fr: Déficit %s kcal
+de: Defizit %s kcal
+pt: Déficit %s kcal
+
+it: Surplus %s kcal
+en: Surplus %s kcal
+es: Superávit %s kcal
+fr: Surplus %s kcal
+de: Überschuss %s kcal
+pt: Superávit %s kcal
+
+# Notion
+
+it: Link del database del programma non valido.
+en: Invalid plan database link.
+es: Enlace de la base de datos del plan no válido.
+fr: Lien de la base du programme non valide.
+de: Ungültiger Link zur Plan-Datenbank.
+pt: Link do banco de dados do plano inválido.
+
+it: Link del registro non valido.
+en: Invalid log link.
+es: Enlace del registro no válido.
+fr: Lien du journal non valide.
+de: Ungültiger Link zum Tagebuch.
+pt: Link do registro inválido.
+
+it: Manca il link del database del programma.
+en: The plan database link is missing.
+es: Falta el enlace de la base de datos del plan.
+fr: Il manque le lien de la base du programme.
+de: Der Link zur Plan-Datenbank fehlt.
+pt: Falta o link do banco de dados do plano.
+
+it: Token di Notion non valido.
+en: Invalid Notion token.
+es: Token de Notion no válido.
+fr: Jeton Notion non valide.
+de: Ungültiger Notion-Token.
+pt: Token do Notion inválido.
+
+it: Database non trovato: in Notion apri la pagina dei database → ••• → Connessioni e aggiungi l'integrazione.
+en: Database not found: in Notion open the databases page → ••• → Connections and add the integration.
+es: Base de datos no encontrada: en Notion abre la página de las bases → ••• → Conexiones y añade la integración.
+fr: Base introuvable : dans Notion, ouvre la page des bases → ••• → Connexions et ajoute l'intégration.
+de: Datenbank nicht gefunden: Öffne in Notion die Seite mit den Datenbanken → ••• → Verbindungen und füge die Integration hinzu.
+pt: Banco de dados não encontrado: no Notion abra a página dos bancos → ••• → Conexões e adicione a integração.
+
+it: Notion chiede di aspettare un momento: riprova tra poco.
+en: Notion asks to wait a moment: try again shortly.
+es: Notion pide esperar un momento: inténtalo de nuevo en un rato.
+fr: Notion demande d'attendre un instant : réessaie bientôt.
+de: Notion bittet, kurz zu warten: Versuch es gleich noch mal.
+pt: O Notion pede para esperar um momento: tente de novo daqui a pouco.
+
+it: Lettura da Notion non riuscita (%s).
+en: Reading from Notion failed (%s).
+es: La lectura de Notion ha fallado (%s).
+fr: Échec de la lecture depuis Notion (%s).
+de: Lesen aus Notion fehlgeschlagen (%s).
+pt: Falha na leitura do Notion (%s).

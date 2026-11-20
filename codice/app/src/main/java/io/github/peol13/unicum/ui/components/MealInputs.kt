@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.lfmt
+
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -86,27 +92,27 @@ private val GramPresets = listOf(30, 50, 100, 150, 200)
 
 /** Icona lineare della categoria di un alimento (database, prodotti con marca, alimenti personali). */
 fun foodCategoryIcon(category: String): ImageVector = when (category) {
-    "Carboidrati" -> Icons.Rounded.BakeryDining
-    "Proteine" -> Icons.Rounded.SetMeal
-    "Latticini" -> Icons.Rounded.LocalDrink
-    "Verdura" -> Icons.Rounded.Eco
-    "Frutta" -> Icons.Rounded.Spa
-    "Legumi" -> Icons.Rounded.Grain
-    "Grassi e frutta secca" -> Icons.Rounded.WaterDrop
-    "Dolci e snack" -> Icons.Rounded.Cookie
-    "Bevande" -> Icons.Rounded.LocalCafe
-    "Alcolici" -> Icons.Rounded.WineBar
-    "Condimenti" -> Icons.Rounded.Opacity
-    "Piatti pronti" -> Icons.Rounded.RamenDining
+    tk("Carboidrati") -> Icons.Rounded.BakeryDining
+    tk("Proteine") -> Icons.Rounded.SetMeal
+    tk("Latticini") -> Icons.Rounded.LocalDrink
+    tk("Verdura") -> Icons.Rounded.Eco
+    tk("Frutta") -> Icons.Rounded.Spa
+    tk("Legumi") -> Icons.Rounded.Grain
+    tk("Grassi e frutta secca") -> Icons.Rounded.WaterDrop
+    tk("Dolci e snack") -> Icons.Rounded.Cookie
+    tk("Bevande") -> Icons.Rounded.LocalCafe
+    tk("Alcolici") -> Icons.Rounded.WineBar
+    tk("Condimenti") -> Icons.Rounded.Opacity
+    tk("Piatti pronti") -> Icons.Rounded.RamenDining
     OpenFoodFacts.CATEGORY -> Icons.Rounded.QrCode
-    "Personalizzati" -> Icons.Rounded.EditNote
+    tk("Personalizzati") -> Icons.Rounded.EditNote
     else -> Icons.Rounded.Restaurant
 }
 
 @Composable
 fun MealTypeSelector(selected: String, onSelect: (String) -> Unit, modifier: Modifier = Modifier) {
     UnicumSegmented(
-        options = MealTime.TYPES,
+        options = MealTime.TYPES.map { MealTime.label(it) },
         selected = MealTime.TYPES.indexOf(selected).takeIf { it >= 0 },
         onSelect = { onSelect(MealTime.TYPES[it]) },
         modifier = modifier,
@@ -136,7 +142,7 @@ fun MealTypeInput(initialType: String, onChange: (String) -> Unit, modifier: Mod
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it.take(30); emit() },
-                placeholder = { Text("Nome (es. Spuntino mattina)", maxLines = 1) },
+                placeholder = { Text(tr("Nome (es. Spuntino mattina)"), maxLines = 1) },
                 singleLine = true,
                 textStyle = UnicumType.Body,
                 shape = RoundedCornerShape(16.dp),
@@ -165,7 +171,7 @@ fun MealTimePill(minuteOfDay: Int, onChange: (Int) -> Unit, modifier: Modifier =
             .padding(start = 10.dp, end = 14.dp, top = 7.dp, bottom = 7.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(Icons.Rounded.Schedule, "Orario", tint = UnicumPrimary, modifier = Modifier.size(18.dp))
+        Icon(Icons.Rounded.Schedule, tr("Orario"), tint = UnicumPrimary, modifier = Modifier.size(18.dp))
         Spacer(Modifier.width(6.dp))
         Text(MealTime.format(minuteOfDay), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
     }
@@ -186,7 +192,7 @@ fun MealTimePickerDialog(initial: Int, onDismiss: () -> Unit, onConfirm: (Int) -
         Surface(shape = RoundedCornerShape(28.dp), color = UnicumBackground) {
             Column(Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    "Orario del pasto", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold,
+                    tr("Orario del pasto"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(Modifier.height(16.dp))
@@ -205,9 +211,9 @@ fun MealTimePickerDialog(initial: Int, onDismiss: () -> Unit, onConfirm: (Int) -
                     )
                 )
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    TextButton(onClick = onDismiss) { Text("Annulla", color = UnicumDark.copy(alpha = .7f)) }
+                    TextButton(onClick = onDismiss) { Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f)) }
                     TextButton(onClick = { onConfirm(state.hour * 60 + state.minute) }) {
-                        Text("Conferma", color = UnicumPrimary, fontWeight = FontWeight.SemiBold)
+                        Text(tr("Conferma"), color = UnicumPrimary, fontWeight = FontWeight.SemiBold)
                     }
                 }
             }
@@ -229,7 +235,7 @@ internal fun StepButton(add: Boolean, size: Dp = 48.dp, onClick: () -> Unit) {
     ) {
         Icon(
             if (add) Icons.Rounded.Add else Icons.Rounded.Remove,
-            if (add) "Più 10 grammi" else "Meno 10 grammi",
+            if (add) tr("Più 10 grammi") else tr("Meno 10 grammi"),
             tint = UnicumPrimary,
             modifier = Modifier.size(size / 2)
         )
@@ -293,7 +299,7 @@ fun PortionOrGramsInput(
     }
     Column(modifier.fillMaxWidth()) {
         UnicumSegmented(
-            options = listOf("Porzioni", "Grammi"),
+            options = listOf(tr("Porzioni"), tr("Grammi")),
             selected = if (gramsMode) 1 else 0,
             onSelect = { gramsMode = it == 1; if (!gramsMode) apply() },
             height = 36.dp
@@ -306,7 +312,7 @@ fun PortionOrGramsInput(
                 StepButton(add = false) { if (count > 0.5f) apply(newCount = count - 0.5f) }
                 Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        if (count % 1f == 0f) count.roundToInt().toString() else "%.1f".format(count).replace('.', ','),
+                        if (count % 1f == 0f) count.roundToInt().toString() else lfmt("%.1f", count),
                         color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold
                     )
                     Text("${portion.label} · ${portion.grams} g", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail)
@@ -347,11 +353,11 @@ fun NutritionSummary(kcal: Int, protein: Float, carbs: Float, fats: Float, modif
             Spacer(Modifier.width(4.dp))
             Text("kcal", color = UnicumPrimary, style = UnicumType.Detail, modifier = Modifier.padding(bottom = 3.dp))
         }
-        MacroValue("Proteine", protein)
+        MacroValue(tr("Proteine"), protein)
         Spacer(Modifier.width(14.dp))
-        MacroValue("Carbo", carbs)
+        MacroValue(tr("Carbo"), carbs)
         Spacer(Modifier.width(14.dp))
-        MacroValue("Grassi", fats)
+        MacroValue(tr("Grassi"), fats)
     }
 }
 
@@ -364,7 +370,7 @@ private fun MacroValue(label: String, grams: Float) {
 }
 
 fun fmtGrams(v: Float): String =
-    if (v >= 10f || v == v.toInt().toFloat()) v.roundToInt().toString() else "%.1f".format(v)
+    if (v >= 10f || v == v.toInt().toFloat()) v.roundToInt().toString() else io.github.peol13.unicum.i18n.lfmt("%.1f", v)
 
 /**
  * Modifica di un alimento già registrato: quantità (kcal e macro si ricalcolano in proporzione),
@@ -393,16 +399,16 @@ fun EditMealDialog(
     UnicumDialog(onDismiss) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
-                Text("Modifica alimento", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+                Text(tr("Modifica alimento"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
                 Text(meal.name, color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
             }
-            IconButton(onClick = onDismiss) { Icon(Icons.Rounded.Close, "Chiudi", tint = UnicumDark) }
+            IconButton(onClick = onDismiss) { Icon(Icons.Rounded.Close, tr("Chiudi"), tint = UnicumDark) }
         }
 
         MealTypeInput(mealType, { mealType = it })
 
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("Orario", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
+            Text(tr("Orario"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
             MealTimePill(minute, { minute = it })
         }
 
@@ -413,7 +419,7 @@ fun EditMealDialog(
                 textStyle = unicumFieldTextStyle(),
                 value = kcalText,
                 onValueChange = { kcalText = it.filter(Char::isDigit).take(4) },
-                label = { Text("Calorie") },
+                label = { Text(tr("Calorie")) },
                 suffix = { Text("kcal") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -427,7 +433,7 @@ fun EditMealDialog(
         NutritionSummary(shown.calories, shown.protein, shown.carbohydrates, shown.fats)
 
         UnicumButton(
-            "Salva modifiche",
+            tr("Salva modifiche"),
             enabled = updated != null,
             onClick = { updated?.let { haptics.confirm(); onSave(it.copy(mealType = mealType, minuteOfDay = minute)) } }
         )
@@ -443,7 +449,7 @@ fun EditMealDialog(
         ) {
             Icon(Icons.Rounded.DeleteOutline, null, tint = DeleteRed, modifier = Modifier.size(18.dp))
             Spacer(Modifier.width(6.dp))
-            Text("Elimina dal pasto", color = DeleteRed, style = UnicumType.Body, fontWeight = FontWeight.Medium)
+            Text(tr("Elimina dal pasto"), color = DeleteRed, style = UnicumType.Body, fontWeight = FontWeight.Medium)
         }
     }
 }

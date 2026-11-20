@@ -1,14 +1,22 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.tk
+
 import java.time.ZoneId
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-enum class AdviceCategory(val label: String) {
-    GIORNATA("La tua giornata"),
-    ATTIVITA("Attività"),
-    SONNO("Sonno"),
-    ALIMENTAZIONE("Alimentazione")
+enum class AdviceCategory(private val labelIt: String) {
+    GIORNATA(tk("La tua giornata")),
+    ATTIVITA(tk("Attività")),
+    SONNO(tk("Sonno")),
+    ALIMENTAZIONE(tk("Alimentazione"));
+
+    val label: String get() = tr(labelIt)
 }
 
 /** Un consiglio con il motivo che l'ha generato (così si capisce da quali dati arriva). */
@@ -78,10 +86,10 @@ object AdviceEngine {
             val over = -i.remainingKcal
             val minutes = (((over / walkKcalPerMin) / 5).roundToInt() * 5).coerceIn(15, 90)
             out += Advice(
-                AdviceCategory.GIORNATA, "Oltre di $over kcal: nessun dramma",
-                "Una camminata svelta di $minutes minuti brucia circa ${(minutes * walkKcalPerMin).roundToInt()} kcal. " +
-                    "Domani non serve saltare pasti: riparti dal tuo obiettivo normale.",
-                "Hai assunto ${i.eatenKcal} kcal"
+                AdviceCategory.GIORNATA, tr("Oltre di %d kcal: nessun dramma", over),
+                tr("Una camminata svelta di %d minuti brucia circa %d kcal. Domani non serve saltare pasti: riparti dal tuo obiettivo normale.", minutes, (minutes * walkKcalPerMin).roundToInt()),
+                    
+                tr("Hai assunto %d kcal", i.eatenKcal)
             )
         } else if (i.remainingKcal >= 0) {
             // Budget per i pasti principali che restano oggi
@@ -90,20 +98,20 @@ object AdviceEngine {
                 val next = upcoming.first()
                 val kcal = round10(i.remainingKcal / upcoming.size)
                 val protein = proteinLeft / upcoming.size
-                val rest = if (upcoming.size > 1) " (${upcoming.joinToString(" e ") { it.lowercase() }})" else ""
+                val rest = if (upcoming.size > 1) " (${upcoming.joinToString(" " + tr("e") + " ") { tr(it).lowercase(I18n.locale) }})" else ""
                 out += Advice(
-                    AdviceCategory.GIORNATA, "${mealLabel(next)}: circa $kcal kcal",
-                    "Ti restano ${i.remainingKcal} kcal per ${if (upcoming.size == 1) "un pasto" else "${upcoming.size} pasti"}$rest" +
-                        (if (protein >= 10) ": punta a circa $kcal kcal con $protein g di proteine." else ": punta a circa $kcal kcal."),
-                    "Finora ${i.eatenKcal} kcal e ${i.proteinEaten.roundToInt()} g di proteine"
+                    AdviceCategory.GIORNATA, tr("%s: circa %d kcal", mealLabel(next), kcal),
+                    tr("Ti restano %d kcal per %s", i.remainingKcal, if (upcoming.size == 1) tr("un pasto") else tr("%d pasti", upcoming.size)) + rest +
+                        ": " + (if (protein >= 10) tr("punta a circa %d kcal con %d g di proteine.", kcal, protein) else tr("punta a circa %d kcal.", kcal)),
+                    tr("Finora %d kcal e %d g di proteine", i.eatenKcal, i.proteinEaten.roundToInt())
                 )
             } else if (upcoming.isEmpty() && now >= 20 * 60 + 30 && i.remainingKcal > 800) {
                 // Sera, con un deficit molto ampio
                 out += Advice(
-                    AdviceCategory.GIORNATA, "Oggi hai mangiato poco",
-                    "Ti restano ancora ${i.remainingKcal} kcal: non serve arrivare a zero, ma un deficit troppo forte " +
-                        "ripetuto nei giorni fa perdere muscolo ed energia. Uno spuntino proteico ci sta.",
-                    "Hai assunto ${i.eatenKcal} kcal"
+                    AdviceCategory.GIORNATA, tr("Oggi hai mangiato poco"),
+                    tr("Ti restano ancora %d kcal: non serve arrivare a zero, ma un deficit troppo forte ripetuto nei giorni fa perdere muscolo ed energia. Uno spuntino proteico ci sta.", i.remainingKcal),
+                        
+                    tr("Hai assunto %d kcal", i.eatenKcal)
                 )
             }
         }
@@ -111,40 +119,40 @@ object AdviceEngine {
         // Allenamento importante: margine in più se si ha fame
         if (workoutMargin > 0 && i.remainingKcal < 300) {
             out += Advice(
-                AdviceCategory.GIORNATA, "Allenamento da ${i.activityKcal} kcal",
+                AdviceCategory.GIORNATA, tr("Allenamento da %d kcal", i.activityKcal),
                 if (i.remainingKcal < 0)
-                    "Sei oltre l'obiettivo di ${-i.remainingKcal} kcal, ma con l'allenamento il deficit di oggi resta in linea: nessuna compensazione necessaria."
+                    tr("Sei oltre l'obiettivo di %d kcal, ma con l'allenamento il deficit di oggi resta in linea: nessuna compensazione necessaria.", -i.remainingKcal)
                 else
-                    "Il deficit di oggi è già più ampio del previsto: se hai fame puoi aggiungere fino a circa $workoutMargin kcal " +
-                        "(meglio proteiche) restando comunque oltre il tuo obiettivo di deficit."
+                    tr("Il deficit di oggi è già più ampio del previsto: se hai fame puoi aggiungere fino a circa %d kcal (meglio proteiche) restando comunque oltre il tuo obiettivo di deficit.", workoutMargin)
+                        
             )
         }
 
         // Sera e proteine indietro
         if (now >= 18 * 60 && i.proteinGoal > 0 && i.proteinEaten < i.proteinGoal * 0.7f && i.eatenKcal > 0) {
             out += Advice(
-                AdviceCategory.GIORNATA, "Mancano $proteinLeft g di proteine",
-                if ("Cena" in i.mealTypes) "Uno spuntino proteico (yogurt greco, ricotta, fiocchi di latte) aiuta a chiudere la giornata."
-                else "Per cena scegli una porzione abbondante di pesce, carne magra, legumi o uova; uno yogurt greco dopo cena aiuta a chiudere.",
-                "Proteine a ${i.proteinEaten.roundToInt()} g su ${i.proteinGoal} g"
+                AdviceCategory.GIORNATA, tr("Mancano %d g di proteine", proteinLeft),
+                if ("Cena" in i.mealTypes) tr("Uno spuntino proteico (yogurt greco, ricotta, fiocchi di latte) aiuta a chiudere la giornata.")
+                else tr("Per cena scegli una porzione abbondante di pesce, carne magra, legumi o uova; uno yogurt greco dopo cena aiuta a chiudere."),
+                tr("Proteine a %d g su %d g", i.proteinEaten.roundToInt(), i.proteinGoal)
             )
         }
 
         // Pomeriggio fermo
         if (now in 16 * 60 until 21 * 60 && i.activityKcal == 0 && i.steps != null && i.steps < 5000) {
             out += Advice(
-                AdviceCategory.GIORNATA, "Muoviti un po' prima di sera",
-                "Una camminata di 30 minuti adesso aggiunge circa ${(30 * walkKcalPerMin).roundToInt()} kcal al deficit e circa 3.500 passi.",
-                "Finora ${i.steps} passi e nessun allenamento"
+                AdviceCategory.GIORNATA, tr("Muoviti un po' prima di sera"),
+                tr("Una camminata di 30 minuti adesso aggiunge circa %d kcal al deficit e circa 3.500 passi.", (30 * walkKcalPerMin).roundToInt()),
+                tr("Finora %d passi e nessun allenamento", i.steps)
             )
         }
         return out.take(4)
     }
 
     private fun mealLabel(type: String) = when (type) {
-        "Colazione" -> "A colazione"
-        "Pranzo" -> "A pranzo"
-        else -> "A cena"
+        "Colazione" -> tr("A colazione")
+        "Pranzo" -> tr("A pranzo")
+        else -> tr("A cena")
     }
 
     private fun round10(v: Int) = (v / 10f).roundToInt() * 10
@@ -162,9 +170,9 @@ object AdviceEngine {
         val reasons = mutableListOf<String>()
         if (hrvDelta != null) {
             val pct = hrvDelta.roundToInt()
-            reasons += "HRV ${if (pct >= 0) "+" else ""}$pct% rispetto alla tua media"
+            reasons += tr("HRV %s rispetto alla tua media", "${if (pct >= 0) "+" else ""}$pct%")
         }
-        if (sleepMin != null) reasons += "hai dormito ${duration(sleepMin)}"
+        if (sleepMin != null) reasons += tr("hai dormito %s", duration(sleepMin))
         val reason = reasons.joinToString(", ").replaceFirstChar { it.uppercase() }.ifEmpty { null }
 
         val lowRecovery = (hrvDelta != null && hrvDelta <= -10.0) || (sleepMin != null && sleepMin < 6 * 60)
@@ -172,24 +180,24 @@ object AdviceEngine {
 
         out += when {
             lowRecovery -> Advice(
-                AdviceCategory.ATTIVITA, "Oggi recupero attivo",
-                "Camminata di 30–40 minuti a ritmo facile, mobilità e stretching. Evita allenamenti intensi: il corpo non è al meglio.",
+                AdviceCategory.ATTIVITA, tr("Oggi recupero attivo"),
+                tr("Camminata di 30–40 minuti a ritmo facile, mobilità e stretching. Evita allenamenti intensi: il corpo non è al meglio."),
                 reason
             )
             goodRecovery -> Advice(
-                AdviceCategory.ATTIVITA, "Buon momento per un allenamento intenso",
-                "Sei ben recuperato: scegli una corsa a intervalli, una sessione di forza o un giro in bici impegnativo.",
+                AdviceCategory.ATTIVITA, tr("Buon momento per un allenamento intenso"),
+                tr("Sei ben recuperato: scegli una corsa a intervalli, una sessione di forza o un giro in bici impegnativo."),
                 reason
             )
             sleepMin != null || hrvDelta != null -> Advice(
-                AdviceCategory.ATTIVITA, "Allenamento moderato",
-                "Una corsa facile di 30–45 minuti, bici o forza leggera: recupero discreto, meglio non spingere al massimo.",
+                AdviceCategory.ATTIVITA, tr("Allenamento moderato"),
+                tr("Una corsa facile di 30–45 minuti, bici o forza leggera: recupero discreto, meglio non spingere al massimo."),
                 reason
             )
             else -> Advice(
-                AdviceCategory.ATTIVITA, "Allenamento moderato",
-                "Senza dati di sonno e recupero ti consiglio una sessione moderata di 30–45 minuti. " +
-                    "Collega Health Connect dal Profilo per avere consigli su misura."
+                AdviceCategory.ATTIVITA, tr("Allenamento moderato"),
+                tr("Senza dati di sonno e recupero ti consiglio una sessione moderata di 30–45 minuti. Collega Health Connect dal Profilo per avere consigli su misura.")
+                    
             )
         }
 
@@ -200,15 +208,15 @@ object AdviceEngine {
             out += if (missing > 0) {
                 val perSession = ((missing / 3f) / 5f).roundToInt() * 5
                 Advice(
-                    AdviceCategory.ATTIVITA, "Ti mancano $missing minuti questa settimana",
-                    "Per i 150 minuti di attività consigliati a settimana bastano 3 sessioni da circa ${perSession.coerceAtLeast(10)} minuti.",
-                    "Negli ultimi 7 giorni hai fatto $total minuti"
+                    AdviceCategory.ATTIVITA, tr("Ti mancano %d minuti questa settimana", missing),
+                    tr("Per i 150 minuti di attività consigliati a settimana bastano 3 sessioni da circa %d minuti.", perSession.coerceAtLeast(10)),
+                    tr("Negli ultimi 7 giorni hai fatto %d minuti", total)
                 )
             } else {
                 Advice(
-                    AdviceCategory.ATTIVITA, "Obiettivo settimanale raggiunto",
-                    "Hai superato i 150 minuti consigliati: mantieni il ritmo e alterna giorni intensi e leggeri.",
-                    "Negli ultimi 7 giorni hai fatto $total minuti"
+                    AdviceCategory.ATTIVITA, tr("Obiettivo settimanale raggiunto"),
+                    tr("Hai superato i 150 minuti consigliati: mantieni il ritmo e alterna giorni intensi e leggeri."),
+                    tr("Negli ultimi 7 giorni hai fatto %d minuti", total)
                 )
             }
 
@@ -217,10 +225,10 @@ object AdviceEngine {
             val daysStill = if (lastIndex == -1) i.weekMinutes.size else i.weekMinutes.size - 1 - lastIndex
             if (daysStill >= 3 && !lowRecovery) {
                 out += Advice(
-                    AdviceCategory.ATTIVITA, "Riparti con una sessione leggera",
-                    "Sono passati ${if (lastIndex == -1) "più di ${i.weekMinutes.size}" else daysStill.toString()} giorni senza allenamento: " +
-                        "oggi bastano 20–30 minuti facili per rimetterti in moto.",
-                    "Nessun allenamento registrato di recente"
+                    AdviceCategory.ATTIVITA, tr("Riparti con una sessione leggera"),
+                    tr("Sono passati %s giorni senza allenamento: oggi bastano 20–30 minuti facili per rimetterti in moto.", if (lastIndex == -1) tr("più di %d", i.weekMinutes.size) else daysStill.toString()),
+                        
+                    tr("Nessun allenamento registrato di recente")
                 )
             }
         }
@@ -228,9 +236,9 @@ object AdviceEngine {
         // Passi
         if (i.steps != null && i.steps < 6000 && i.isToday && !i.proactive()) {
             out += Advice(
-                AdviceCategory.ATTIVITA, "Qualche passo in più",
-                "Una camminata di 20 minuti ti avvicina agli 8.000 passi giornalieri consigliati.",
-                "Finora ${i.steps} passi"
+                AdviceCategory.ATTIVITA, tr("Qualche passo in più"),
+                tr("Una camminata di 20 minuti ti avvicina agli 8.000 passi giornalieri consigliati."),
+                tr("Finora %d passi", i.steps)
             )
         }
         return out
@@ -250,15 +258,15 @@ object AdviceEngine {
         val reasonWake: String
         if (summary != null) {
             wakeMinutes = summary.recommendedWake
-            reasonWake = "Ti svegli in media alle ${clock(wakeMinutes)} (ultime ${nights.size} notti)"
+            reasonWake = tr("Ti svegli in media alle %s (ultime %d notti)", clock(wakeMinutes), nights.size)
         } else {
             wakeMinutes = 7 * 60
-            reasonWake = "Nessuna notte registrata: ipotizzo il risveglio alle 07:00"
+            reasonWake = tr("Nessuna notte registrata: ipotizzo il risveglio alle 07:00")
         }
         val bed = wakeMinutes - SleepRegularity.SLEEP_GOAL_MIN - SleepRegularity.FALL_ASLEEP_MIN
         out += Advice(
-            AdviceCategory.SONNO, "Vai a letto verso le ${clock(bed)}",
-            "Per svegliarti alle ${clock(wakeMinutes)} con 8 ore di sonno, considerando circa 15 minuti per addormentarti.",
+            AdviceCategory.SONNO, tr("Vai a letto verso le %s", clock(bed)),
+            tr("Per svegliarti alle %s con 8 ore di sonno, considerando circa 15 minuti per addormentarti.", clock(wakeMinutes)),
             reasonWake
         )
 
@@ -266,18 +274,18 @@ object AdviceEngine {
             val avg = nights.map { it.durationMinutes }.average().roundToInt()
             if (avg < 7 * 60) {
                 out += Advice(
-                    AdviceCategory.SONNO, "Dormi poco in media",
-                    "Prova ad anticipare l'orario di 30–45 minuti per qualche sera: l'obiettivo sono 7–9 ore.",
-                    "Media delle ultime ${nights.size} notti: ${duration(avg)}"
+                    AdviceCategory.SONNO, tr("Dormi poco in media"),
+                    tr("Prova ad anticipare l'orario di 30–45 minuti per qualche sera: l'obiettivo sono 7–9 ore."),
+                    tr("Media delle ultime %d notti: %s", nights.size, duration(avg))
                 )
             }
 
             // Regolarità degli orari di addormentamento
             if (summary != null && nights.size >= 3 && summary.bedSpread > 60) {
                 out += Advice(
-                    AdviceCategory.SONNO, "Orari troppo variabili",
-                    "Cerca di andare a letto alla stessa ora anche nel weekend: un ritmo regolare migliora il recupero.",
-                    "L'orario in cui ti addormenti varia di circa ${summary.bedSpread} minuti"
+                    AdviceCategory.SONNO, tr("Orari troppo variabili"),
+                    tr("Cerca di andare a letto alla stessa ora anche nel weekend: un ritmo regolare migliora il recupero."),
+                    tr("L'orario in cui ti addormenti varia di circa %d minuti", summary.bedSpread)
                 )
             }
         }
@@ -285,9 +293,9 @@ object AdviceEngine {
         val last = i.lastNight
         if (last != null && last.efficiencyPercent in 1..84) {
             out += Advice(
-                AdviceCategory.SONNO, "Sonno poco continuo",
-                "Evita schermi e caffeina nell'ultima ora prima di dormire e tieni la stanza fresca e buia.",
-                "Efficienza della scorsa notte: ${last.efficiencyPercent}%"
+                AdviceCategory.SONNO, tr("Sonno poco continuo"),
+                tr("Evita schermi e caffeina nell'ultima ora prima di dormire e tieni la stanza fresca e buia."),
+                tr("Efficienza della scorsa notte: %d%%", last.efficiencyPercent)
             )
         }
         return out
@@ -301,8 +309,8 @@ object AdviceEngine {
         if (i.eatenKcal == 0) {
             return listOf(
                 Advice(
-                    AdviceCategory.ALIMENTAZIONE, "Registra i pasti",
-                    "Quando aggiungi i pasti del giorno posso dirti quante calorie e proteine ti restano."
+                    AdviceCategory.ALIMENTAZIONE, tr("Registra i pasti"),
+                    tr("Quando aggiungi i pasti del giorno posso dirti quante calorie e proteine ti restano.")
                 )
             )
         }
@@ -311,22 +319,22 @@ object AdviceEngine {
             // Calorie rimaste e proteine della sera sono già in "La tua giornata"
         } else if (i.remainingKcal > 0) {
             out += Advice(
-                AdviceCategory.ALIMENTAZIONE, "Ti restano ${i.remainingKcal} kcal",
-                "Puoi ancora fare un pasto completo o uno spuntino senza uscire dal tuo obiettivo.",
-                "Finora ${i.eatenKcal} kcal assunte"
+                AdviceCategory.ALIMENTAZIONE, tr("Ti restano %d kcal", i.remainingKcal),
+                tr("Puoi ancora fare un pasto completo o uno spuntino senza uscire dal tuo obiettivo."),
+                tr("Finora %d kcal assunte", i.eatenKcal)
             )
         } else {
             out += Advice(
-                AdviceCategory.ALIMENTAZIONE, "Obiettivo calorico raggiunto",
-                "Per il resto della giornata scegli acqua, verdure o tisane.",
-                "Hai assunto ${i.eatenKcal} kcal"
+                AdviceCategory.ALIMENTAZIONE, tr("Obiettivo calorico raggiunto"),
+                tr("Per il resto della giornata scegli acqua, verdure o tisane."),
+                tr("Hai assunto %d kcal", i.eatenKcal)
             )
         }
         if (i.proteinGoal > 0 && i.proteinEaten < i.proteinGoal * 0.5f && !(i.proactive() && i.minuteOfDay!! >= 18 * 60)) {
             out += Advice(
-                AdviceCategory.ALIMENTAZIONE, "Aggiungi proteine",
-                "Una fonte proteica (yogurt greco, uova, legumi, pesce) ti aiuta a recuperare e a sentirti sazio.",
-                "Proteine a ${i.proteinEaten.roundToInt()} g su ${i.proteinGoal} g"
+                AdviceCategory.ALIMENTAZIONE, tr("Aggiungi proteine"),
+                tr("Una fonte proteica (yogurt greco, uova, legumi, pesce) ti aiuta a recuperare e a sentirti sazio."),
+                tr("Proteine a %d g su %d g", i.proteinEaten.roundToInt(), i.proteinGoal)
             )
         }
         return out

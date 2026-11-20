@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -143,7 +145,7 @@ object AutoBackup {
         val place = when {
             uri.authority?.contains("com.google.android.apps.docs") == true -> "Google Drive"
             uri.authority == "com.android.providers.downloads.documents" -> "Download"
-            uri.authority == "com.android.externalstorage.documents" -> "Memoria del telefono"
+            uri.authority == "com.android.externalstorage.documents" -> tr("Memoria del telefono")
             else -> null
         }
         return listOfNotNull(place, name).joinToString(" · ")
@@ -171,8 +173,8 @@ object AutoBackup {
                 // Il file che c'è già: se ha molti più dati di questo, qualcosa è andato storto
                 val old = readText(context, uri)?.let(BackupCodec::decode)
                 if (!overrideHold && BackupCodec.shrunk(old, fresh)) {
-                    val msg = "Il backup di adesso ha ${fresh.meals.size} alimenti nei pasti contro i ${old!!.meals.size} " +
-                        "dell'ultimo: non l'ho sovrascritto. Se è giusto così, salva comunque."
+                    val msg = tr("Il backup di adesso ha %d alimenti nei pasti contro i %d dell'ultimo: non l'ho sovrascritto. Se è giusto così, salva comunque.", fresh.meals.size, old!!.meals.size)
+                        
                     save(state.copy(held = msg, lastError = null))
                     return@withContext Outcome.Held(msg)
                 }
@@ -214,8 +216,8 @@ object AutoBackup {
     }.getOrNull()
 
     internal fun friendlyError(e: Throwable): String = when (e) {
-        is SecurityException -> "Non ho più il permesso di scrivere in quel posto: scegli di nuovo dove salvare."
-        is FileNotFoundException -> "Il file non c'è più (cancellato o spostato): scegli di nuovo dove salvare."
-        else -> "Backup non riuscito (${e.message ?: e.javaClass.simpleName})."
+        is SecurityException -> tr("Non ho più il permesso di scrivere in quel posto: scegli di nuovo dove salvare.")
+        is FileNotFoundException -> tr("Il file non c'è più (cancellato o spostato): scegli di nuovo dove salvare.")
+        else -> tr("Backup non riuscito (%s).", e.message ?: e.javaClass.simpleName)
     }
 }

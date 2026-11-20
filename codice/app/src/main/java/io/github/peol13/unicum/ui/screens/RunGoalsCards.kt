@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -81,12 +83,12 @@ internal fun GoalsSection(runs: List<RunProgress.Run>) {
     val goals = RunGoalStore.goals
     val history = remember(runs) { RunProgress.estimateHistory(runs) }
     var editing by remember { mutableStateOf<Boolean?>(null) }
-    GoalCard("Obiettivo a breve termine", Icons.Rounded.Flag, goals.short, runs, history) { editing = true }
+    GoalCard(tr("Obiettivo a breve termine"), Icons.Rounded.Flag, goals.short, runs, history) { editing = true }
     Spacer(Modifier.height(14.dp))
-    GoalCard("Obiettivo a lungo termine", Icons.Rounded.EmojiEvents, goals.long, runs, history) { editing = false }
+    GoalCard(tr("Obiettivo a lungo termine"), Icons.Rounded.EmojiEvents, goals.long, runs, history) { editing = false }
     editing?.let { short ->
         GoalDialog(
-            title = if (short) "Obiettivo a breve termine" else "Obiettivo a lungo termine",
+            title = if (short) tr("Obiettivo a breve termine") else tr("Obiettivo a lungo termine"),
             initial = if (short) goals.short else goals.long,
             estimateAt = { km -> history.lastOrNull()?.let { RunProgress.atDistance(it.seconds5k, km) } },
             onDismiss = { editing = null },
@@ -103,14 +105,14 @@ private fun statusLook(s: Status): Pair<Color, String> {
     val red = if (dark) Color(0xFFD08F82) else Color(0xFFC27A6B)
     val muted = UnicumDark.copy(alpha = .45f)
     return when (s) {
-        Status.REACHED -> UnicumPrimary to "Obiettivo alla portata"
-        Status.AHEAD -> UnicumPrimary to "Sopra l'obiettivo"
-        Status.ON_TRACK -> UnicumSecondary to "In linea"
-        Status.CLOSE -> sand to "Quasi in linea"
-        Status.BEHIND -> red to "Sotto l'obiettivo"
-        Status.NO_TREND -> muted to "Tendenza ancora incerta"
-        Status.NO_DATA -> muted to "Servono più dati"
-        Status.MISSED -> red to "Scaduto"
+        Status.REACHED -> UnicumPrimary to tr("Obiettivo alla portata")
+        Status.AHEAD -> UnicumPrimary to tr("Sopra l'obiettivo")
+        Status.ON_TRACK -> UnicumSecondary to tr("In linea")
+        Status.CLOSE -> sand to tr("Quasi in linea")
+        Status.BEHIND -> red to tr("Sotto l'obiettivo")
+        Status.NO_TREND -> muted to tr("Tendenza ancora incerta")
+        Status.NO_DATA -> muted to tr("Servono più dati")
+        Status.MISSED -> red to tr("Scaduto")
     }
 }
 
@@ -118,11 +120,11 @@ private fun statusLook(s: Status): Pair<Color, String> {
 private fun withYear(label: String, d: LocalDate): String = if (d.year != DateUtils.today().year) "$label ${d.year}" else label
 
 private fun daysText(days: Int): String = when {
-    days < 0 -> "scaduto"
-    days == 0 -> "oggi"
-    days == 1 -> "domani"
-    days <= 60 -> "tra $days giorni"
-    else -> "tra ${(days / 7.0).roundToInt()} settimane"
+    days < 0 -> tr("scaduto")
+    days == 0 -> tr("oggi")
+    days == 1 -> tr("domani")
+    days <= 60 -> tr("tra %d giorni", days)
+    else -> tr("tra %d settimane", (days / 7.0).roundToInt())
 }
 
 @Composable
@@ -135,15 +137,15 @@ private fun GoalCard(
     onEdit: () -> Unit
 ) {
     UnicumCard {
-        CardHeader(icon, title, action = if (goal != null) "Modifica" else null, onAction = onEdit)
+        CardHeader(icon, title, action = if (goal != null) tr("Modifica") else null, onAction = onEdit)
         Spacer(Modifier.height(12.dp))
         if (goal == null) {
             Text(
-                "Scegli distanza, ritmo e data: l'app ti dice se, continuando ad allenarti così, ci arrivi in tempo.",
+                tr("Scegli distanza, ritmo e data: l'app ti dice se, continuando ad allenarti così, ci arrivi in tempo."),
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp
             )
             Spacer(Modifier.height(12.dp))
-            UnicumButton("Imposta obiettivo", onClick = onEdit)
+            UnicumButton(tr("Imposta obiettivo"), onClick = onEdit)
             return@UnicumCard
         }
         val today = DateUtils.today()
@@ -152,9 +154,9 @@ private fun GoalCard(
         val kmL = kmLabel(goal.km)
         val deadline = withYear(DateUtils.shortLabel(goal.deadlineDate), goal.deadlineDate)
 
-        Text("$kmL km in ${mmss(p.target)}", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(tr("%s km in %s", kmL, mmss(p.target)), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
         Text(
-            "${pace(goal.paceSec)}/km · entro ${deadline.lowercase()} · ${daysText(p.daysLeft)}",
+            "${pace(goal.paceSec)}/km · " + tr("entro %s", deadline.lowercase(io.github.peol13.unicum.i18n.I18n.locale)) + " · ${daysText(p.daysLeft)}",
             color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption
         )
         Spacer(Modifier.height(12.dp))
@@ -170,19 +172,19 @@ private fun GoalCard(
             Text(label, color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.SemiBold)
         }
         Spacer(Modifier.height(8.dp))
-        val atDeadline = "il ${withYear(dayLabel(goal.deadlineDate), goal.deadlineDate)}"
+        val atDeadline = tr("il %s", withYear(dayLabel(goal.deadlineDate), goal.deadlineDate))
         val projGap = p.projectedGap
         Text(
             when (p.status) {
-                Status.REACHED -> if (p.expired) "Ce l'hai fatta: alla scadenza la stima era ${mmss(p.current!!)}."
-                else "La stima di oggi (${mmss(p.current!!)}) è già entro l'obiettivo: ora si tratta di correrlo davvero."
-                Status.AHEAD -> "Se continui così: ${mmss(p.projected!!)} $atDeadline, ${gapText(projGap!!)} meglio dell'obiettivo."
-                Status.ON_TRACK -> "Se continui così: ${mmss(p.projected!!)} $atDeadline, giusto in tempo."
-                Status.CLOSE -> "Se continui così: ${mmss(p.projected!!)} $atDeadline, ${gapText(projGap!!)} più lento dell'obiettivo: basta poco in più."
-                Status.BEHIND -> "Se continui così: ${mmss(p.projected!!)} $atDeadline, ${gapText(projGap!!)} più lento dell'obiettivo."
-                Status.NO_TREND -> "Per la tendenza servono almeno 3 stime in 10 giorni. Oggi sei a ${gapText(p.gap!!)} dall'obiettivo."
-                Status.NO_DATA -> "La stima arriva con almeno 3 uscite Facili da 2 km e uno sforzo con RPE 7 o più."
-                Status.MISSED -> "Alla scadenza la stima era ${mmss(p.current!!)}, ${gapText(p.gap!!)} più lento. Modificalo per fissarne uno nuovo."
+                Status.REACHED -> if (p.expired) tr("Ce l'hai fatta: alla scadenza la stima era %s.", mmss(p.current!!))
+                else tr("La stima di oggi (%s) è già entro l'obiettivo: ora si tratta di correrlo davvero.", mmss(p.current!!))
+                Status.AHEAD -> tr("Se continui così: %s %s, %s meglio dell'obiettivo.", mmss(p.projected!!), atDeadline, gapText(projGap!!))
+                Status.ON_TRACK -> tr("Se continui così: %s %s, giusto in tempo.", mmss(p.projected!!), atDeadline)
+                Status.CLOSE -> tr("Se continui così: %s %s, %s più lento dell'obiettivo: basta poco in più.", mmss(p.projected!!), atDeadline, gapText(projGap!!))
+                Status.BEHIND -> tr("Se continui così: %s %s, %s più lento dell'obiettivo.", mmss(p.projected!!), atDeadline, gapText(projGap!!))
+                Status.NO_TREND -> tr("Per la tendenza servono almeno 3 stime in 10 giorni. Oggi sei a %s dall'obiettivo.", gapText(p.gap!!))
+                Status.NO_DATA -> tr("La stima arriva con almeno 3 uscite Facili da 2 km e uno sforzo con RPE 7 o più.")
+                Status.MISSED -> tr("Alla scadenza la stima era %s, %s più lento. Modificalo per fissarne uno nuovo.", mmss(p.current!!), gapText(p.gap!!))
             },
             color = UnicumDark.copy(alpha = .75f), style = UnicumType.Caption, lineHeight = 17.sp
         )
@@ -191,23 +193,23 @@ private fun GoalCard(
         // I numeri
         Spacer(Modifier.height(14.dp))
         Row(Modifier.fillMaxWidth()) {
-            BigStat(mmss(p.current), "Stima di oggi", Modifier.weight(1f))
-            BigStat((if (p.gap!! <= 0) "−" else "+") + gapText(p.gap!!), "Dall'obiettivo", Modifier.weight(1f))
+            BigStat(mmss(p.current), tr("Stima di oggi"), Modifier.weight(1f))
+            BigStat((if (p.gap!! <= 0) "−" else "+") + gapText(p.gap!!), tr("Dall'obiettivo"), Modifier.weight(1f))
             BigStat(
                 p.perWeek?.let { w -> val s = w.roundToInt(); if (s == 0) "±0 s" else (if (s < 0) "−" else "+") + gapText(s) } ?: "–",
-                "A settimana", Modifier.weight(1f)
+                tr("A settimana"), Modifier.weight(1f)
             )
         }
         p.neededPerWeek?.let { need ->
             Spacer(Modifier.height(6.dp))
             val n = abs(need)
-            val needText = if (n < 1) "meno di 1 s" else gapText(n.roundToInt())
+            val needText = if (n < 1) tr("meno di 1 s") else gapText(n.roundToInt())
             val now = p.perWeek?.let { w ->
-                if (w < -0.5) "; nelle ultime settimane: ${gapText(abs(w).roundToInt())} in meno a settimana."
-                else "; nelle ultime settimane la stima non è migliorata."
+                if (w < -0.5) "; " + tr("nelle ultime settimane: %s in meno a settimana.", gapText(abs(w).roundToInt()))
+                else "; " + tr("nelle ultime settimane la stima non è migliorata.")
             } ?: "."
             Text(
-                "Per arrivarci servono $needText in meno a settimana$now",
+                tr("Per arrivarci servono %s in meno a settimana", needText) + now,
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -218,7 +220,7 @@ private fun GoalCard(
         if (p.longestKm < goal.km * 0.98) {
             Spacer(Modifier.height(16.dp))
             Text(
-                "Distanza continua più lunga: ${WorkoutAnalysis.formatKm(p.longestKm * 1000)} km di $kmL",
+                tr("Distanza continua più lunga: %s km di %s", WorkoutAnalysis.formatKm(p.longestKm * 1000), kmL),
                 color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.Medium
             )
             Spacer(Modifier.height(6.dp))
@@ -228,7 +230,7 @@ private fun GoalCard(
             }
             Spacer(Modifier.height(4.dp))
             Text(
-                "Mancano ${WorkoutAnalysis.formatKm((goal.km - p.longestKm) * 1000)} km: la stima vale se arrivi a correrli tutti di fila.",
+                tr("Mancano %s km: la stima vale se arrivi a correrli tutti di fila.", WorkoutAnalysis.formatKm((goal.km - p.longestKm) * 1000)),
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -274,14 +276,14 @@ private fun GoalDialog(
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             OutlinedTextField(
                 value = kmText, onValueChange = { kmText = it.filter { c -> c.isDigit() || c == ',' || c == '.' }.take(5) },
-                label = { Text("Distanza") }, suffix = { Text("km") }, singleLine = true,
+                label = { Text(tr("Distanza")) }, suffix = { Text("km") }, singleLine = true,
                 isError = kmText.isNotBlank() && km == null,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f)
             )
             OutlinedTextField(
                 value = paceText, onValueChange = { paceText = it.filter { c -> c.isDigit() || c in ":.,'" }.take(5) },
-                label = { Text("Ritmo") }, placeholder = { Text("6:30") }, suffix = { Text("/km") }, singleLine = true,
+                label = { Text(tr("Ritmo")) }, placeholder = { Text("6:30") }, suffix = { Text("/km") }, singleLine = true,
                 isError = paceText.isNotBlank() && paceSec == null,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f)
@@ -291,9 +293,9 @@ private fun GoalDialog(
         Text(
             if (km != null && paceSec != null) {
                 val target = (km * paceSec).roundToInt()
-                "Tempo obiettivo: ${mmss(target)} sui ${kmLabel(km)} km" +
-                    (estimateAt(km)?.let { " · stima di oggi ${mmss(it)}" } ?: "")
-            } else "Ritmo in minuti e secondi al km, per esempio 6:30.",
+                tr("Tempo obiettivo: %s sui %s km", mmss(target), kmLabel(km)) +
+                    (estimateAt(km)?.let { " · " + tr("stima di oggi %s", mmss(it)) } ?: "")
+            } else tr("Ritmo in minuti e secondi al km, per esempio 6:30."),
             color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp
         )
         Row(
@@ -305,20 +307,20 @@ private fun GoalDialog(
             Icon(Icons.Rounded.CalendarMonth, null, tint = UnicumPrimary, modifier = Modifier.size(20.dp))
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
-                Text("Entro il", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
+                Text(tr("Entro il"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
                 Text(withYear(DateUtils.fullLabel(LocalDate.parse(deadline)), LocalDate.parse(deadline)), color = UnicumDark, style = UnicumType.Body)
             }
         }
         Spacer(Modifier.height(4.dp))
         UnicumButton(
-            "Salva", enabled = km != null && paceSec != null,
+            tr("Salva"), enabled = km != null && paceSec != null,
             onClick = { if (km != null && paceSec != null) onSave(RunGoal(km, paceSec, deadline)) }
         )
         if (initial != null) {
             TextButton(onClick = { onSave(null) }, modifier = Modifier.fillMaxWidth()) {
-                Text("Togli obiettivo", color = UnicumDark.copy(alpha = .7f))
+                Text(tr("Togli obiettivo"), color = UnicumDark.copy(alpha = .7f))
             }
         }
-        TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) { Text("Annulla", color = UnicumPrimary) }
+        TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) { Text(tr("Annulla"), color = UnicumPrimary) }
     }
 }

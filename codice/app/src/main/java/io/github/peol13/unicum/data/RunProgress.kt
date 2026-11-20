@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.tk
+
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.abs
@@ -191,7 +195,7 @@ object RunProgress {
      */
     fun scenarios(runs: List<Run>, km: Double = 5.0): List<Scenario> {
         val last = estimateHistory(runs).lastOrNull() ?: return emptyList()
-        return listOf("Prudente" to -5, "Centrale" to 0, "Ottimista" to 5).map { (name, d) ->
+        return listOf(tk("Prudente") to -5, tk("Centrale") to 0, tk("Ottimista") to 5).map { (name, d) ->
             val hr = last.hardHr + d
             val fromHr = (last.beatsPerKm.toDouble() / hr * 60 * 5).roundToInt()
             val t5 = last.perfSeconds5k?.let { ((fromHr + it) / 2.0).roundToInt() } ?: fromHr
@@ -207,16 +211,18 @@ object RunProgress {
     // ---------- confronto tra corse dello stesso tipo
 
     /** Le misure del confronto; [better]: 1 = più alto è meglio, -1 = più basso è meglio, 0 = neutra. */
-    enum class Metric(val label: String, val better: Int, val get: (Run) -> Double?) {
-        PACE("Ritmo medio", -1, { it.paceSec?.toDouble() }),
-        KM("Distanza", 1, { it.km }),
-        DURATION("Durata", 1, { it.seconds.toDouble() }),
-        HR("FC media", -1, { it.hr?.toDouble() }),
-        HR_MAX("FC max", 0, { it.hrMax?.toDouble() }),
-        BPK("Battiti per km", -1, { it.beatsPerKm?.toDouble() }),
-        CADENCE("Cadenza", 1, { it.cadence?.toDouble() }),
-        RPE("Sforzo percepito", -1, { it.rpe?.toDouble() }),
-        VO2("VO₂ max", 1, { it.vo2 })
+    enum class Metric(private val labelIt: String, val better: Int, val get: (Run) -> Double?) {
+        PACE(tk("Ritmo medio"), -1, { it.paceSec?.toDouble() }),
+        KM(tk("Distanza"), 1, { it.km }),
+        DURATION(tk("Durata"), 1, { it.seconds.toDouble() }),
+        HR(tk("FC media"), -1, { it.hr?.toDouble() }),
+        HR_MAX(tk("FC max"), 0, { it.hrMax?.toDouble() }),
+        BPK(tk("Battiti per km"), -1, { it.beatsPerKm?.toDouble() }),
+        CADENCE(tk("Cadenza"), 1, { it.cadence?.toDouble() }),
+        RPE(tk("Sforzo percepito"), -1, { it.rpe?.toDouble() }),
+        VO2("VO₂ max", 1, { it.vo2 });
+
+        val label: String get() = tr(labelIt)
     }
 
     /** Misure senza un "meglio" per quel tipo: in un facile il ritmo non deve scendere, nelle ripetute conta altro. */

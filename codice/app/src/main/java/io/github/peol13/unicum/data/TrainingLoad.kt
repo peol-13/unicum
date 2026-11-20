@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -112,21 +114,21 @@ object TrainingLoad {
 
     /** Stessa scala dell'RPE nelle Sensazioni. */
     fun label(score: Int): String = when (score) {
-        in 1..3 -> "Leggero"
-        in 4..6 -> "Moderato"
-        in 7..8 -> "Duro"
-        else -> "Massimale"
+        in 1..3 -> tr("Leggero")
+        in 4..6 -> tr("Moderato")
+        in 7..8 -> tr("Duro")
+        else -> tr("Massimale")
     }
 
     /** Confronto tra quello che hai sentito ([rpe]) e quello che dice il battito. */
     fun compare(rpe: Int, measured: Int): String {
         val diff = rpe - measured
         return when {
-            abs(diff) <= 1 -> "Sensazioni in linea con i dati."
-            diff <= -3 -> "Ti è sembrata molto più facile di quanto dice il battito: per il corpo è stata una seduta più dura."
-            diff < 0 -> "Ti è sembrata più facile di quanto dice il battito."
-            diff >= 3 -> "L'hai sentita molto più dura di quanto dice il battito: stanchezza, poco sonno, caldo o gambe pesanti?"
-            else -> "L'hai sentita più dura di quanto dice il battito."
+            abs(diff) <= 1 -> tr("Sensazioni in linea con i dati.")
+            diff <= -3 -> tr("Ti è sembrata molto più facile di quanto dice il battito: per il corpo è stata una seduta più dura.")
+            diff < 0 -> tr("Ti è sembrata più facile di quanto dice il battito.")
+            diff >= 3 -> tr("L'hai sentita molto più dura di quanto dice il battito: stanchezza, poco sonno, caldo o gambe pesanti?")
+            else -> tr("L'hai sentita più dura di quanto dice il battito.")
         }
     }
 }

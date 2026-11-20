@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tr
+
 import java.time.LocalDate
 import java.util.Locale
 import kotlin.math.roundToInt
@@ -45,16 +49,16 @@ object RecoveryAlerts {
         val tempRise = tempRise(temp, day)
         if (hrvDrop == null && tempRise == null) return null
         val drop = hrvDrop?.let { (it * 100).roundToInt() }
-        val rise = tempRise?.let { String.format(Locale.ITALY, "+%.1f °C", it) }
+        val rise = tempRise?.let { String.format(I18n.locale, "+%.1f °C", it) }
         val (title, text) = when {
-            drop != null && rise != null -> "Recupero basso da due notti" to
-                "HRV sotto la tua media del $drop% da due notti e temperatura notturna $rise: possibili segni di stress " +
-                "o di un inizio di malattia. Oggi meglio riposo, acqua e una notte lunga."
-            drop != null -> "HRV bassa da due notti" to
-                "L'HRV è sotto la tua media del $drop% per due notti di fila: il corpo sta recuperando poco. " +
-                "Oggi allenamento leggero o riposo."
-            else -> "Temperatura notturna più alta" to
-                "Stanotte la temperatura è $rise rispetto alla tua media. Tieni d'occhio come ti senti e riposa se serve."
+            drop != null && rise != null -> tr("Recupero basso da due notti") to
+                tr("HRV sotto la tua media del %d%% da due notti e temperatura notturna %s: possibili segni di stress o di un inizio di malattia. Oggi meglio riposo, acqua e una notte lunga.", drop, rise)
+                
+            drop != null -> tr("HRV bassa da due notti") to
+                tr("L'HRV è sotto la tua media del %d%% per due notti di fila: il corpo sta recuperando poco. Oggi allenamento leggero o riposo.", drop)
+                
+            else -> tr("Temperatura notturna più alta") to
+                tr("Stanotte la temperatura è %s rispetto alla tua media. Tieni d'occhio come ti senti e riposa se serve.", rise)
         }
         return RecoveryAlert(day, title, text, drop, tempRise)
     }

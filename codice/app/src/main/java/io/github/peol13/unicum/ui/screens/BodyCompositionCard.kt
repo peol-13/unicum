@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -63,12 +69,14 @@ import kotlin.math.floor
 import io.github.peol13.unicum.ui.theme.UnicumType
 
 /** Periodi del grafico (giorni) quando la card è espansa. */
-private val RANGES = listOf(30 to "30 giorni", 90 to "3 mesi", 365 to "1 anno")
+private val RANGES get() = listOf(30 to tr("30 giorni"), 90 to tr("3 mesi"), 365 to tr("1 anno"))
 
-private enum class BodyMetric(val label: String, val unit: String) {
-    PESO("Peso", "kg"),
-    MASSA_GRASSA("Massa grassa", "kg"),
-    GRASSO("Grasso corporeo", "%")
+private enum class BodyMetric(private val labelIt: String, val unit: String) {
+    PESO(tk("Peso"), "kg"),
+    MASSA_GRASSA(tk("Massa grassa"), "kg"),
+    GRASSO(tk("Grasso corporeo"), "%");
+
+    val label: String get() = tr(labelIt)
 }
 
 /**
@@ -110,8 +118,8 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
 
     UnicumCard(onClick = onDetails) {
         CardHeader(
-            Icons.Rounded.MonitorWeight, "Peso e composizione",
-            action = if (onDetails != null) "Dettagli" else null, onAction = { onDetails?.invoke() }
+            Icons.Rounded.MonitorWeight, tr("Peso e composizione"),
+            action = if (onDetails != null) tr("Dettagli") else null, onAction = { onDetails?.invoke() }
         )
         Spacer(Modifier.height(10.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -123,8 +131,8 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
 
         if (values.isEmpty()) {
             HealthEmptyState(
-                "Nessuna misura",
-                "Pesati con una bilancia che scrive in Health Connect (anche tramite la sua app) e concedi i permessi di peso e grasso corporeo."
+                tr("Nessuna misura"),
+                tr("Pesati con una bilancia che scrive in Health Connect (anche tramite la sua app) e concedi i permessi di peso e grasso corporeo.")
             )
         } else {
             val all = values.values
@@ -133,7 +141,7 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
             val previous = sorted.getOrNull(sorted.size - 2)
             val day = DateUtils.parse(latest.key)
             Text(
-                "Ultima misura · " + day.format(DAY_MONTH),
+                tr("Ultima misura") + " · " + day.format(DAY_MONTH),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
             )
             Row(verticalAlignment = Alignment.Bottom) {
@@ -149,14 +157,14 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
                 }
             }
             Text(
-                "Min ${fmt1(all.min())}  ·  Max ${fmt1(all.max())}  ·  Media ${fmt1(all.average())} ${metric.unit}" +
+                tr("Min %s  ·  Max %s  ·  Media %s", fmt1(all.min()), fmt1(all.max()), fmt1(all.average())) + " ${metric.unit}" +
                     "  (${RANGES.first { it.first == days }.second})",
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption
             )
             // Tendenza (media mobile di 7 giorni): dice se stai davvero scendendo, al netto dell'acqua
             BodyTrend.trendChange(values.mapKeys { DateUtils.parse(it.key) })?.let { change ->
                 Text(
-                    "Tendenza: ${signed(change)} ${metric.unit} in ${RANGES.first { it.first == days }.second}",
+                    tr("Tendenza: %s in %s", "${signed(change)} ${metric.unit}", RANGES.first { it.first == days }.second),
                     color = UnicumPrimary, style = UnicumType.Caption, fontWeight = FontWeight.Medium
                 )
             }
@@ -174,7 +182,7 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
     }
 }
 
-private fun fmt1(v: Double): String = String.format(Locale.ITALY, "%.1f", v)
+private fun fmt1(v: Double): String = String.format(I18n.locale, "%.1f", v)
 
 /** Peso previsto dal deficit accanto alla tendenza reale, dalla prima all'ultima misura del periodo. */
 private class Projection(
@@ -217,16 +225,16 @@ private fun ProjectionSummary(p: Projection) {
             .background(UnicumAccent.copy(alpha = .2f))
             .padding(horizontal = 12.dp, vertical = 10.dp)
     ) {
-        Text("Deficit teorico e peso reale", color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+        Text(tr("Deficit teorico e peso reale"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
         Text(
-            "Previsto dal deficit: ${signed(p.predictedChange)} kg · reale (tendenza): ${signed(p.realChange)} kg " +
-                "in ${p.days} giorni.",
+            tr("Previsto dal deficit: %s kg · reale (tendenza): %s kg in %d giorni.", signed(p.predictedChange), signed(p.realChange), p.days),
+                
             color = UnicumDark.copy(alpha = .75f), style = UnicumType.Caption, lineHeight = 17.sp
         )
         Text(
             if (p.daysWithMeals * 2 < p.days)
-                "Pasti registrati solo in ${p.daysWithMeals} giorni su ${p.days}: nei giorni mancanti la previsione resta ferma, quindi il confronto è parziale."
-            else "Calcolato su ${p.daysWithMeals} giorni con i pasti registrati (7.700 kcal ≈ 1 kg). Le differenze vengono da acqua, stime del consumo e pasti non registrati.",
+                tr("Pasti registrati solo in %d giorni su %d: nei giorni mancanti la previsione resta ferma, quindi il confronto è parziale.", p.daysWithMeals, p.days)
+            else tr("Calcolato su %d giorni con i pasti registrati (7.700 kcal ≈ 1 kg). Le differenze vengono da acqua, stime del consumo e pasti non registrati.", p.daysWithMeals),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
         )
     }
@@ -236,11 +244,11 @@ private fun ProjectionSummary(p: Projection) {
 private fun signed(diff: Double): String = "${if (diff >= 0) "+" else "−"}${fmt1(abs(diff))}"
 
 /** "+0,4 vs precedente" oppure "−0,2 vs precedente". */
-private fun diffText(diff: Double): String = "${signed(diff)} vs precedente"
+private fun diffText(diff: Double): String = tr("%s vs precedente", signed(diff))
 
-private val DAY_MONTH = DateTimeFormatter.ofPattern("d MMM", Locale.ITALY)
-private val WEEKDAY_DAY_MONTH = DateTimeFormatter.ofPattern("EEE d MMM", Locale.ITALY)
-private val MONTH_YEAR = DateTimeFormatter.ofPattern("MMM yy", Locale.ITALY)
+private val DAY_MONTH get() = DateTimeFormatter.ofPattern(tr("d MMM"), I18n.locale)
+private val WEEKDAY_DAY_MONTH get() = DateTimeFormatter.ofPattern(tr("EEE d MMM"), I18n.locale)
+private val MONTH_YEAR get() = DateTimeFormatter.ofPattern("MMM yy", I18n.locale)
 
 /**
  * Grafico del periodo: le misure sono punti tenui, la linea è la tendenza (media mobile di 7 giorni).
@@ -290,7 +298,7 @@ private fun LineChart(values: Map<String, Double>, unit: String, days: Int, proj
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (sel == null) {
-            Text("Tocca il grafico per leggere ogni misura", color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption)
+            Text(tr("Tocca il grafico per leggere ogni misura"), color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption)
         } else {
             val d = DateUtils.parse(dayList[sel.first])
             val prev = selected?.let { points.getOrNull(it - 1) }
@@ -376,9 +384,9 @@ private fun LineChart(values: Map<String, Double>, unit: String, days: Int, proj
     }
     Spacer(Modifier.height(8.dp))
     Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
-        ChartLegend(dot.copy(alpha = .45f), "misure", isLine = false)
-        ChartLegend(line, if (projected.isEmpty()) "tendenza (media di 7 giorni)" else "tendenza", isLine = true)
-        if (projected.isNotEmpty()) ChartLegend(dot, "previsto dal deficit", isLine = true, dashed = true)
+        ChartLegend(dot.copy(alpha = .45f), tr("misure"), isLine = false)
+        ChartLegend(line, if (projected.isEmpty()) tr("tendenza (media di 7 giorni)") else tr("tendenza"), isLine = true)
+        if (projected.isNotEmpty()) ChartLegend(dot, tr("previsto dal deficit"), isLine = true, dashed = true)
     }
 }
 

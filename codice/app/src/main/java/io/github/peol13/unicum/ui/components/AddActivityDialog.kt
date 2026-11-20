@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,14 +35,14 @@ import io.github.peol13.unicum.ui.theme.UnicumType
 private data class SportPreset(val name: String, val met: Float)
 
 private val sports = listOf(
-    SportPreset("Corsa", 9.8f),
-    SportPreset("Camminata", 3.8f),
-    SportPreset("Palestra", 5f),
-    SportPreset("Ciclismo", 7.5f),
-    SportPreset("Nuoto", 7f),
-    SportPreset("Yoga", 2.5f),
-    SportPreset("Calcio", 7f),
-    SportPreset("Altro", 5f)
+    SportPreset(tk("Corsa"), 9.8f),
+    SportPreset(tk("Camminata"), 3.8f),
+    SportPreset(tk("Palestra"), 5f),
+    SportPreset(tk("Ciclismo"), 7.5f),
+    SportPreset(tk("Nuoto"), 7f),
+    SportPreset(tk("Yoga"), 2.5f),
+    SportPreset(tk("Calcio"), 7f),
+    SportPreset(tk("Altro"), 5f)
 )
 
 /** Registrazione di un allenamento: sport, durata e calorie (stimate dal peso se non le conosci). */
@@ -61,14 +65,14 @@ fun AddActivityDialog(
     val haptics = rememberHaptics()
 
     UnicumDialog(onDismiss, spacing = 12.dp) {
-        Text("Registra allenamento", color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold)
+        Text(tr("Registra allenamento"), color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold)
 
         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(sports) { s -> UnicumChip(s.name, type == s.name, { type = s.name }) }
+            items(sports) { s -> UnicumChip(tr(s.name), type == s.name, { type = s.name }) }
         }
 
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("Orario di inizio", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
+            Text(tr("Orario di inizio"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1f))
             MealTimePill(startMinute, { startMinute = it })
         }
 
@@ -76,7 +80,7 @@ fun AddActivityDialog(
             textStyle = unicumFieldTextStyle(),
             value = durationText,
             onValueChange = { durationText = it.filter(Char::isDigit).take(4) },
-            label = { Text("Durata") },
+            label = { Text(tr("Durata")) },
             suffix = { Text("min") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -88,10 +92,10 @@ fun AddActivityDialog(
             textStyle = unicumFieldTextStyle(),
             value = caloriesText,
             onValueChange = { caloriesText = it.filter(Char::isDigit).take(4) },
-            label = { Text("Calorie bruciate") },
+            label = { Text(tr("Calorie bruciate")) },
             suffix = { Text("kcal") },
-            placeholder = { if (estimate > 0) Text("Stimate: $estimate") },
-            supportingText = { Text("Lascia vuoto per usare la stima in base al tuo peso.") },
+            placeholder = { if (estimate > 0) Text(tr("Stimate: %d", estimate)) },
+            supportingText = { Text(tr("Lascia vuoto per usare la stima in base al tuo peso.")) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             shape = RoundedCornerShape(14.dp),
@@ -100,9 +104,9 @@ fun AddActivityDialog(
         )
 
         Spacer(Modifier.height(2.dp))
-        UnicumButton("Salva allenamento", enabled = valid, onClick = { haptics.confirm(); onConfirm(type, duration, calories, startMinute) })
+        UnicumButton(tr("Salva allenamento"), enabled = valid, onClick = { haptics.confirm(); onConfirm(type, duration, calories, startMinute) })
         TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
-            Text("Annulla", color = UnicumDark.copy(alpha = .7f))
+            Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
         }
     }
 }

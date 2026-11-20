@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.runtime.getValue
@@ -137,8 +139,8 @@ object NotionPlan {
      * Token vuoto = scollega e dimentica il programma.
      */
     fun connect(token: String, database: String, logDatabase: String = ""): String? {
-        val id = parseDatabaseId(database) ?: return "Link del database del programma non valido."
-        val logId = if (logDatabase.isBlank()) null else parseDatabaseId(logDatabase) ?: return "Link del registro non valido."
+        val id = parseDatabaseId(database) ?: return tr("Link del database del programma non valido.")
+        val logId = if (logDatabase.isBlank()) null else parseDatabaseId(logDatabase) ?: return tr("Link del registro non valido.")
         val t = token.trim()
         prefs.edit().putString("token", t.ifEmpty { null }).putString("database", id).putString("log_database", logId).apply()
         connected = t.isNotEmpty()
@@ -172,7 +174,7 @@ object NotionPlan {
     suspend fun sync(context: Context, force: Boolean = true) {
         init(context)
         val token = prefs.getString("token", null)?.takeIf { it.isNotBlank() } ?: return
-        val planId = databaseId ?: run { withContext(Dispatchers.Main) { error = "Manca il link del database del programma." }; return }
+        val planId = databaseId ?: run { withContext(Dispatchers.Main) { error = tr("Manca il link del database del programma.") }; return }
         if (syncing) return
         if (!force && System.currentTimeMillis() - lastSyncMillis < MIN_INTERVAL_MS) return
         withContext(Dispatchers.Main) { syncing = true }
@@ -296,12 +298,12 @@ object NotionPlan {
     private class NotionError(val status: Int) : IOException("HTTP $status")
 
     fun friendlyError(e: Throwable): String = when {
-        e is UnknownHostException -> "Nessuna connessione a internet."
-        e is NotionError && e.status == 401 -> "Token di Notion non valido."
+        e is UnknownHostException -> tr("Nessuna connessione a internet.")
+        e is NotionError && e.status == 401 -> tr("Token di Notion non valido.")
         e is NotionError && e.status == 404 ->
-            "Database non trovato: in Notion apri la pagina dei database → ••• → Connessioni e aggiungi l'integrazione."
-        e is NotionError && e.status == 429 -> "Notion chiede di aspettare un momento: riprova tra poco."
-        else -> "Lettura da Notion non riuscita (${e.message})."
+            tr("Database non trovato: in Notion apri la pagina dei database → ••• → Connessioni e aggiungi l'integrazione.")
+        e is NotionError && e.status == 429 -> tr("Notion chiede di aspettare un momento: riprova tra poco.")
+        else -> tr("Lettura da Notion non riuscita (%s).", e.message)
     }
 
     /** Id del database da un link di Notion (…/0123abcd…?v=…) o dall'id con o senza trattini; null se non c'è. */

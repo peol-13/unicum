@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,11 +40,11 @@ fun AddFabMenu(onAddMeal: () -> Unit, onAddActivity: () -> Unit) {
     var open by remember { mutableStateOf(false) }
     Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(10.dp)) {
         if (open) {
-            AddMenuItem(Icons.Rounded.Restaurant, "Aggiungi pasto") {
+            AddMenuItem(Icons.Rounded.Restaurant, tr("Aggiungi pasto")) {
                 open = false
                 onAddMeal()
             }
-            AddMenuItem(Icons.Rounded.FitnessCenter, "Aggiungi allenamento") {
+            AddMenuItem(Icons.Rounded.FitnessCenter, tr("Aggiungi allenamento")) {
                 open = false
                 onAddActivity()
             }

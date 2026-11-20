@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -114,7 +116,7 @@ fun WeekStoryScreen(monday: LocalDate, onClose: () -> Unit) {
                             )
                         }
                     }
-                    IconButton(onClick = onClose) { Icon(Icons.Rounded.Close, "Chiudi", tint = Color.White) }
+                    IconButton(onClick = onClose) { Icon(Icons.Rounded.Close, tr("Chiudi"), tint = Color.White) }
                 }
                 HorizontalPager(pager, Modifier.weight(1f).fillMaxWidth()) { index ->
                     Box(
@@ -124,7 +126,7 @@ fun WeekStoryScreen(monday: LocalDate, onClose: () -> Unit) {
                     ) { StoryPageContent(list[index]) }
                 }
                 Text(
-                    if (pager.currentPage < list.lastIndex) "Tocca o scorri per andare avanti" else "Tocca per chiudere",
+                    if (pager.currentPage < list.lastIndex) tr("Tocca o scorri per andare avanti") else tr("Tocca per chiudere"),
                     color = Color.White.copy(alpha = .7f), style = UnicumType.Caption,
                     modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 20.dp)
                 )
@@ -189,9 +191,9 @@ internal fun WeekStoryTeaser(onOpen: () -> Unit) {
         Icon(Icons.Rounded.AutoStories, null, tint = UnicumPrimary, modifier = Modifier.size(24.dp))
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
-            Text("La tua settimana è pronta", color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold)
+            Text(tr("La tua settimana è pronta"), color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold)
             Text(
-                "${DateUtils.weekLabel(monday)}: deficit, attività, sonno e peso in un colpo d'occhio",
+                tr("%s: deficit, attività, sonno e peso in un colpo d'occhio", DateUtils.weekLabel(monday)),
                 color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, lineHeight = 17.sp
             )
         }

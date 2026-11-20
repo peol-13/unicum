@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import android.content.Context
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.HealthConnectFeatures
@@ -65,21 +69,21 @@ object HealthConnectSource {
     const val SOURCE_AGGREGATE = "health_connect"
 
     private val readPermissions: Map<String, KClass<out Record>> = mapOf(
-        "Passi" to StepsRecord::class,
-        "Calorie attive" to ActiveCaloriesBurnedRecord::class,
-        "Calorie totali" to TotalCaloriesBurnedRecord::class,
-        "Distanza" to DistanceRecord::class,
-        "Allenamenti" to ExerciseSessionRecord::class,
-        "Battito" to HeartRateRecord::class,
+        tk("Passi") to StepsRecord::class,
+        tk("Calorie attive") to ActiveCaloriesBurnedRecord::class,
+        tk("Calorie totali") to TotalCaloriesBurnedRecord::class,
+        tk("Distanza") to DistanceRecord::class,
+        tk("Allenamenti") to ExerciseSessionRecord::class,
+        tk("Battito") to HeartRateRecord::class,
         "HRV" to HeartRateVariabilityRmssdRecord::class,
-        "Sonno" to SleepSessionRecord::class,
-        "Temperatura cutanea" to SkinTemperatureRecord::class,
-        "Temperatura corporea" to BodyTemperatureRecord::class,
-        "Peso" to WeightRecord::class,
-        "Grasso corporeo" to BodyFatRecord::class,
-        "Velocità" to SpeedRecord::class,
-        "Cadenza" to StepsCadenceRecord::class,
-        "Dislivello" to ElevationGainedRecord::class,
+        tk("Sonno") to SleepSessionRecord::class,
+        tk("Temperatura cutanea") to SkinTemperatureRecord::class,
+        tk("Temperatura corporea") to BodyTemperatureRecord::class,
+        tk("Peso") to WeightRecord::class,
+        tk("Grasso corporeo") to BodyFatRecord::class,
+        tk("Velocità") to SpeedRecord::class,
+        tk("Cadenza") to StepsCadenceRecord::class,
+        tk("Dislivello") to ElevationGainedRecord::class,
         "VO₂ max" to Vo2MaxRecord::class
     )
 
@@ -181,7 +185,7 @@ object HealthConnectSource {
             val now = Instant.now()
             val skipped = mutableListOf<String>()
             readPermissions.forEach { (label, type) -> if (!can(type)) skipped += label }
-            if (HealthConnectWriter.writePermission !in granted) skipped += "Scrittura pasti"
+            if (HealthConnectWriter.writePermission !in granted) skipped += tr("Scrittura pasti")
 
             val metrics = mutableListOf<DailyMetricEntity>()
             val activities = mutableListOf<ActivityEntity>()
@@ -217,7 +221,7 @@ object HealthConnectSource {
                         }
                     }
                 }
-            }.onFailure { rethrowCancellation(it); skipped += "Passi/calorie (${it.javaClass.simpleName})" }
+            }.onFailure { rethrowCancellation(it); skipped += tr("Passi/calorie") + " (${it.javaClass.simpleName})" }
 
             // --- sonno (si parte dal giorno prima: la notte inizia prima della mezzanotte)
             var sleepRead = false
@@ -227,7 +231,7 @@ object HealthConnectSource {
                     sleep += r.toEntity(zone)
                 }
                 sleepRead = true
-            }.onFailure { rethrowCancellation(it); skipped += "Sonno (${it.javaClass.simpleName})" }
+            }.onFailure { rethrowCancellation(it); skipped += tr("Sonno") + " (${it.javaClass.simpleName})" }
 
             // --- HRV e temperatura notturna: media giornaliera per fonte
             val from = firstDay.atStartOfDay(zone).toInstant()
@@ -267,13 +271,13 @@ object HealthConnectSource {
                         else TempSample(d.time.toEpochMilli(), v, true, src)
                     }
                 }
-            }.onFailure { rethrowCancellation(it); skipped += "Temperatura cutanea" }
+            }.onFailure { rethrowCancellation(it); skipped += tr("Temperatura cutanea") }
 
             if (can(BodyTemperatureRecord::class)) runCatching {
                 readAll<BodyTemperatureRecord>(client, tempFrom, now).forEach { r ->
                     samples += TempSample(r.time.toEpochMilli(), r.temperature.inCelsius, false, r.metadata.dataOrigin.packageName)
                 }
-            }.onFailure { rethrowCancellation(it); skipped += "Temperatura corporea" }
+            }.onFailure { rethrowCancellation(it); skipped += tr("Temperatura corporea") }
 
             nights.forEach { (date, night) ->
                 samples.filter { it.at in night.startMillis..night.endMillis }
@@ -291,12 +295,12 @@ object HealthConnectSource {
             if (can(WeightRecord::class)) runCatching {
                 metrics += dailyAverages(readAll<WeightRecord>(client, bodyFrom, now), MetricType.WEIGHT_KG, zone,
                     { it.time }, { it.weight.inKilograms })
-            }.onFailure { rethrowCancellation(it); skipped += "Peso" }
+            }.onFailure { rethrowCancellation(it); skipped += tr("Peso") }
 
             if (can(BodyFatRecord::class)) runCatching {
                 metrics += dailyAverages(readAll<BodyFatRecord>(client, bodyFrom, now), MetricType.BODY_FAT_PCT, zone,
                     { it.time }, { it.percentage.value })
-            }.onFailure { rethrowCancellation(it); skipped += "Grasso corporeo" }
+            }.onFailure { rethrowCancellation(it); skipped += tr("Grasso corporeo") }
 
             // --- allenamenti
             // Per ognuno si legge anche il dettaglio (serie, percorso, VO₂ max) per la sezione Allenamenti.
@@ -353,7 +357,7 @@ object HealthConnectSource {
                 sessionsRead = true
                 // Se qualcosa non si è letto (es. app finita in secondo piano) lo storico si riprova la volta dopo
                 if (history && canHistory && failures == 0 && readErrors == 0) UserSettings.markWorkoutHistoryDone()
-            }.onFailure { rethrowCancellation(it); skipped += "Allenamenti (${it.javaClass.simpleName})" }
+            }.onFailure { rethrowCancellation(it); skipped += tr("Allenamenti") + " (${it.javaClass.simpleName})" }
 
             // --- doppioni: la stessa sessione scritta da due app (es. Samsung Health e Health Sync) conterebbe
             // due volte minuti e calorie. Si confrontano le nuove con quelle già salvate e resta la fonte preferita;
@@ -560,9 +564,9 @@ object HealthConnectSource {
         ExerciseSessionRecord.EXERCISE_TYPE_STRENGTH_TRAINING,
         ExerciseSessionRecord.EXERCISE_TYPE_WEIGHTLIFTING -> "Palestra"
         ExerciseSessionRecord.EXERCISE_TYPE_YOGA -> "Yoga"
-        ExerciseSessionRecord.EXERCISE_TYPE_HIKING -> "Escursionismo"
+        ExerciseSessionRecord.EXERCISE_TYPE_HIKING -> tk("Escursionismo")
         ExerciseSessionRecord.EXERCISE_TYPE_SOCCER -> "Calcio"
         ExerciseSessionRecord.EXERCISE_TYPE_HIGH_INTENSITY_INTERVAL_TRAINING -> "HIIT"
-        else -> r.title?.takeIf { it.isNotBlank() } ?: "Allenamento"
+        else -> r.title?.takeIf { it.isNotBlank() } ?: tk("Allenamento")
     }
 }

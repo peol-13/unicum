@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.lfmt
+
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import androidx.activity.compose.BackHandler
@@ -163,10 +167,10 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
     UnicumScreen(selectedItem = Route.Allenamenti, onNavigate = onNavigate) {
         val raw = detail
         if (raw == null) {
-            PageHeader("Allenamento", "", onBack)
+            PageHeader(tr("Allenamento"), "", onBack)
             if (loaded) {
                 Spacer(Modifier.height(16.dp))
-                EmptyState("Allenamento non trovato", "Forse è stato cancellato dalla fonte: sincronizza di nuovo.")
+                EmptyState(tr("Allenamento non trovato"), tr("Forse è stato cancellato dalla fonte: sincronizza di nuovo."))
             }
             return@UnicumScreen
         }
@@ -186,12 +190,12 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         when {
             d.route.size >= 2 -> UnicumCard(padding = 8.dp) { RouteMap(d.route, selectedT) }
             d.routeStatus == RouteStatus.CONSENT -> EmptyState(
-                "Percorso da autorizzare", "Health Connect chiede il permesso per mostrare il percorso GPS di questo allenamento.",
-                action = "Mostra percorso", onAction = { routeLauncher.launch(d.externalId) }
+                tr("Percorso da autorizzare"), tr("Health Connect chiede il permesso per mostrare il percorso GPS di questo allenamento."),
+                action = tr("Mostra percorso"), onAction = { routeLauncher.launch(d.externalId) }
             )
             else -> EmptyState(
-                "Percorso non disponibile",
-                "${SourceInfo.label(d.source)} non ha condiviso il percorso GPS con Health Connect. Gli altri dati ci sono."
+                tr("Percorso non disponibile"),
+                tr("%s non ha condiviso il percorso GPS con Health Connect. Gli altri dati ci sono.", SourceInfo.label(d.source))
             )
         }
         Spacer(Modifier.height(14.dp))
@@ -207,15 +211,15 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 if (feedback.isCorrected)
-                    "Corretta a mano (registrata: ${WorkoutAnalysis.formatDuration(raw.movingSeconds)}, ${WorkoutAnalysis.formatKm(raw.distanceM)} km)." +
+                    tr("Corretta a mano (registrata: %s, %s km).", WorkoutAnalysis.formatDuration(raw.movingSeconds), WorkoutAnalysis.formatKm(raw.distanceM)) +
                         (runSegment?.takeIf { feedback.avgHr != null }?.let {
-                            " FC dal tratto corso, da ${WorkoutAnalysis.formatDuration(it.first)} a ${WorkoutAnalysis.formatDuration(it.second)}."
-                        } ?: "") + " I grafici mostrano tutta la registrazione."
-                else "L'orologio ha registrato anche riscaldamento o cammino?",
+                            " " + tr("FC dal tratto corso, da %s a %s.", WorkoutAnalysis.formatDuration(it.first), WorkoutAnalysis.formatDuration(it.second))
+                        } ?: "") + " " + tr("I grafici mostrano tutta la registrazione.")
+                else tr("L'orologio ha registrato anche riscaldamento o cammino?"),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp, modifier = Modifier.weight(1f)
             )
             Spacer(Modifier.width(8.dp))
-            UnicumChip("Correggi", false, { correcting = true }, compact = true)
+            UnicumChip(tr("Correggi"), false, { correcting = true }, compact = true)
         }
         Spacer(Modifier.height(14.dp))
 
@@ -234,13 +238,13 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
 
         val pace = remember(d) { WorkoutAnalysis.paceSeries(d) }
         if (pace.size >= 2) {
-            ChartCard(Icons.Rounded.Speed, "Ritmo") {
+            ChartCard(Icons.Rounded.Speed, tr("Ritmo")) {
                 SeriesChart(
                     xs = pace.map { it.t.toFloat() }, ys = pace.map { it.v },
                     color = UnicumPrimary, invert = true,
                     xLabel = { WorkoutAnalysis.formatDuration(it.roundToInt()) },
                     yLabel = { WorkoutAnalysis.formatPace(it.roundToInt()) },
-                    summary = "Medio ${WorkoutAnalysis.formatPace(WorkoutAnalysis.averagePace(d))}/km · in alto più veloce",
+                    summary = tr("Medio %s/km · in alto più veloce", WorkoutAnalysis.formatPace(WorkoutAnalysis.averagePace(d))),
                     selectedX = selectedT?.toFloat(), onSelect = { selectedT = it?.roundToInt() }
                 )
             }
@@ -249,22 +253,22 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
 
         if (d.hr.size >= 2) {
             val maxHr = maxOf(WorkoutAnalysis.estimatedMaxHr(UserSettings.age), d.maxHr ?: 0)
-            ChartCard(Icons.Rounded.Favorite, "Frequenza cardiaca") {
+            ChartCard(Icons.Rounded.Favorite, tr("Frequenza cardiaca")) {
                 SeriesChart(
                     xs = d.hr.map { it.t.toFloat() }, ys = d.hr.map { it.v },
                     color = MacroFatsColor,
                     xLabel = { WorkoutAnalysis.formatDuration(it.roundToInt()) },
                     yLabel = { "${it.roundToInt()} bpm" },
-                    summary = "Media ${d.avgHr ?: "–"} · max ${d.maxHr ?: "–"} · min ${d.minHr ?: "–"} bpm",
+                    summary = tr("Media %s · max %s · min %s bpm", d.avgHr ?: "–", d.maxHr ?: "–", d.minHr ?: "–"),
                     selectedX = selectedT?.toFloat(), onSelect = { selectedT = it?.roundToInt() }
                 )
                 Spacer(Modifier.height(16.dp))
-                Text("ZONE", color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note, fontWeight = FontWeight.SemiBold)
+                Text(tr("ZONE"), color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note, fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.height(4.dp))
                 HrZoneBars(remember(d, maxHr) { WorkoutAnalysis.hrZones(d.hr, maxHr) })
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    "Zone in % della FC massima ($maxHr bpm: stimata dall'età, o la più alta registrata).",
+                    tr("Zone in %% della FC massima (%d bpm: stimata dall'età, o la più alta registrata).", maxHr),
                     color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
                 )
             }
@@ -272,15 +276,15 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         }
 
         if (d.cadence.size >= 2) {
-            SeriesCard(Icons.Rounded.Straighten, "Cadenza", remember(d) { WorkoutAnalysis.smooth(d.cadence.filter { it.v > 0 }, 15) }, UnicumSecondary, "spm",
-                "Media ${WorkoutAnalysis.averageCadence(d) ?: "–"} passi/min", selectedT) { selectedT = it }
+            SeriesCard(Icons.Rounded.Straighten, tr("Cadenza"), remember(d) { WorkoutAnalysis.smooth(d.cadence.filter { it.v > 0 }, 15) }, UnicumSecondary, "spm",
+                tr("Media %s passi/min", WorkoutAnalysis.averageCadence(d) ?: "–"), selectedT) { selectedT = it }
             Spacer(Modifier.height(14.dp))
         }
 
         val altitude = remember(d) { WorkoutAnalysis.altitudeSeries(d) }
         if (altitude.size >= 2) {
-            SeriesCard(Icons.Rounded.Terrain, "Altitudine", altitude, UnicumSecondary, "m",
-                "Dislivello positivo ${d.elevationGainM?.roundToInt() ?: "–"} m", selectedT) { selectedT = it }
+            SeriesCard(Icons.Rounded.Terrain, tr("Altitudine"), altitude, UnicumSecondary, "m",
+                tr("Dislivello positivo %s m", d.elevationGainM?.roundToInt() ?: "–"), selectedT) { selectedT = it }
             Spacer(Modifier.height(14.dp))
         }
 
@@ -297,14 +301,14 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         Spacer(Modifier.height(14.dp))
 
         val missing = listOfNotNull(
-            "percorso GPS".takeIf { d.route.size < 2 },
-            "cadenza".takeIf { d.cadence.isEmpty() && d.steps == null },
-            "dislivello".takeIf { d.elevationGainM == null && altitude.isEmpty() }
+            tr("percorso GPS").takeIf { d.route.size < 2 },
+            tr("cadenza").takeIf { d.cadence.isEmpty() && d.steps == null },
+            tr("dislivello").takeIf { d.elevationGainM == null && altitude.isEmpty() }
         )
         if (missing.isNotEmpty()) {
             Text(
-                "Non arrivati da Health Connect per questa sessione: ${missing.joinToString(", ")}." +
-                    (d.device?.let { " Dispositivo: $it." } ?: ""),
+                tr("Non arrivati da Health Connect per questa sessione: %s.", missing.joinToString(", ")) +
+                    (d.device?.let { " " + tr("Dispositivo: %s.", it) } ?: ""),
                 color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -328,22 +332,22 @@ private fun SummaryCard(d: WorkoutDetail, splits: List<WorkoutAnalysis.Split>) {
         }
         Spacer(Modifier.height(12.dp))
         val tiles = listOf(
-            WorkoutAnalysis.formatDuration(d.movingSeconds) to "Durata",
-            (WorkoutAnalysis.formatPace(WorkoutAnalysis.averagePace(d)) + "/km") to "Ritmo medio",
-            (d.avgHr?.let { "$it bpm" } ?: "–") to "FC media",
-            (d.maxHr?.let { "$it bpm" } ?: "–") to "FC max",
-            (cadence?.let { "$it spm" } ?: "–") to (if (d.cadence.isEmpty() && cadence != null) "Cadenza (dai passi)" else "Cadenza"),
-            (d.vo2max?.let { "%.1f".format(it) } ?: "–") to (if (d.vo2maxFromSession || d.vo2max == null) "VO₂ max" else "VO₂ max (ultimo)"),
-            (d.kcal?.let { "${it.roundToInt()} kcal" } ?: "–") to "Calorie",
-            (best?.let { WorkoutAnalysis.formatPace(it.paceSec) + "/km" } ?: "–") to "Km più veloce",
-            (d.maxSpeedMs?.let { "%.1f km/h".format(it * 3.6) } ?: "–") to "Velocità max"
+            WorkoutAnalysis.formatDuration(d.movingSeconds) to tr("Durata"),
+            (WorkoutAnalysis.formatPace(WorkoutAnalysis.averagePace(d)) + "/km") to tr("Ritmo medio"),
+            (d.avgHr?.let { "$it bpm" } ?: "–") to tr("FC media"),
+            (d.maxHr?.let { "$it bpm" } ?: "–") to tr("FC max"),
+            (cadence?.let { "$it spm" } ?: "–") to (if (d.cadence.isEmpty() && cadence != null) tr("Cadenza (dai passi)") else tr("Cadenza")),
+            (d.vo2max?.let { lfmt("%.1f", it) } ?: "–") to (if (d.vo2maxFromSession || d.vo2max == null) "VO₂ max" else tr("VO₂ max (ultimo)")),
+            (d.kcal?.let { "${it.roundToInt()} kcal" } ?: "–") to tr("Calorie"),
+            (best?.let { WorkoutAnalysis.formatPace(it.paceSec) + "/km" } ?: "–") to tr("Km più veloce"),
+            (d.maxSpeedMs?.let { lfmt("%.1f km/h", it * 3.6) } ?: "–") to tr("Velocità max")
         ) + listOfNotNull(
             // Costo per km della dashboard: FC media × minuti al km
-            WorkoutAnalysis.averagePace(d)?.let { p -> d.avgHr?.let { "%,d".format((it * p / 60.0).roundToInt()).replace(',', '.') to "Battiti per km" } },
+            WorkoutAnalysis.averagePace(d)?.let { p -> d.avgHr?.let { lfmt("%,d", (it * p / 60.0).roundToInt()) to tr("Battiti per km") } },
             // Solo se la fonte li dà: non sono nel registro corse e spesso mancano
-            d.elevationGainM?.let { "${it.roundToInt()} m" to "Dislivello" },
-            d.steps?.let { "%,d".format(it).replace(',', '.') to "Passi" },
-            (WorkoutAnalysis.formatDuration(d.durationSeconds) to "Tempo totale").takeIf { d.durationSeconds - d.movingSeconds >= 30 }
+            d.elevationGainM?.let { "${it.roundToInt()} m" to tr("Dislivello") },
+            d.steps?.let { lfmt("%,d", it) to tr("Passi") },
+            (WorkoutAnalysis.formatDuration(d.durationSeconds) to tr("Tempo totale")).takeIf { d.durationSeconds - d.movingSeconds >= 30 }
         )
         tiles.chunked(3).forEach { row ->
             Row(Modifier.fillMaxWidth().padding(vertical = 6.dp)) {
@@ -369,36 +373,36 @@ private fun SplitsCard(
     var tab by rememberSaveable { mutableStateOf(0) }
     UnicumCard {
         CardHeader(
-            Icons.Rounded.Straighten, "Parziali",
-            action = if (!canEditIntervals) null else if (segments.isEmpty() || fromPlan != null) "Ripetute" else "Modifica",
+            Icons.Rounded.Straighten, tr("Parziali"),
+            action = if (!canEditIntervals) null else if (segments.isEmpty() || fromPlan != null) tr("Ripetute") else tr("Modifica"),
             onAction = onEditIntervals
         )
         Spacer(Modifier.height(12.dp))
         if (segments.isNotEmpty() && splits.isNotEmpty()) {
-            UnicumSegmented(listOf("Ripetute", "1 km"), tab, { tab = it }, height = 36.dp)
+            UnicumSegmented(listOf(tr("Ripetute"), "1 km"), tab, { tab = it }, height = 36.dp)
             Spacer(Modifier.height(12.dp))
         }
         when {
             segments.isNotEmpty() && (tab == 0 || splits.isEmpty()) -> IntervalsTable(segments)
             splits.isNotEmpty() -> KmSplits(splits)
             else -> Text(
-                "Parziali per km non disponibili per questa registrazione.",
+                tr("Parziali per km non disponibili per questa registrazione."),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
             )
         }
         if (fromPlan != null && segments.isNotEmpty() && (tab == 0 || splits.isEmpty())) {
             Spacer(Modifier.height(10.dp))
             Text(
-                "Pezzi presi dal programma (\"$fromPlan\"), collocati dove la corsa li segue meglio. " +
-                    "Se hai fatto altro, scrivi la struttura con \"Ripetute\".",
+                tr("Pezzi presi dal programma (\"%s\"), collocati dove la corsa li segue meglio. Se hai fatto altro, scrivi la struttura con \"Ripetute\".", fromPlan),
+                    
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
         if (segments.isEmpty() && canEditIntervals && suggestIntervals) {
             Spacer(Modifier.height(10.dp))
             Text(
-                "I giri dell'orologio non arrivano in Health Connect: tocca \"Ripetute\" e scrivi la struttura " +
-                    "(es. 10' di riscaldamento, 3 × 4' veloce e 2' di recupero) per vederle una per una.",
+                tr("I giri dell'orologio non arrivano in Health Connect: tocca \"Ripetute\" e scrivi la struttura (es. 10' di riscaldamento, 3 × 4' veloce e 2' di recupero) per vederle una per una."),
+                    
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -412,10 +416,10 @@ private fun IntervalsTable(segments: List<WorkoutAnalysis.IntervalSegment>) {
     val blocks = segments.none { it.kind == WorkoutAnalysis.IntervalKind.REST }
     Row(Modifier.fillMaxWidth().padding(bottom = 4.dp)) {
         Header("", Modifier.weight(1f))
-        Header("Durata", Modifier.width(52.dp), TextAlign.End)
+        Header(tr("Durata"), Modifier.width(52.dp), TextAlign.End)
         Header("Km", Modifier.width(44.dp), TextAlign.End)
-        Header("Ritmo", Modifier.width(52.dp), TextAlign.End)
-        Header("FC", Modifier.width(40.dp), TextAlign.End)
+        Header(tr("Ritmo"), Modifier.width(52.dp), TextAlign.End)
+        Header(tr("FC"), Modifier.width(40.dp), TextAlign.End)
     }
     segments.forEach { s ->
         val strong = s.kind == WorkoutAnalysis.IntervalKind.WORK
@@ -429,7 +433,7 @@ private fun IntervalsTable(segments: List<WorkoutAnalysis.IntervalSegment>) {
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    (if (strong && blocks) "Blocco" else s.kind.label) + (s.rep?.takeIf { strong }?.let { " $it" } ?: ""),
+                    (if (strong && blocks) tr("Blocco") else s.kind.label) + (s.rep?.takeIf { strong }?.let { " $it" } ?: ""),
                     color = color, style = UnicumType.Caption, fontWeight = weight, maxLines = 1
                 )
             }
@@ -450,9 +454,9 @@ private fun IntervalsTable(segments: List<WorkoutAnalysis.IntervalSegment>) {
         val fastest = work.filter { it.paceSec != null }.minByOrNull { it.paceSec!! }
         Spacer(Modifier.height(8.dp))
         Text(
-            "${if (blocks) "Blocchi" else "Veloci"}: ${kmText(meters)} km in ${WorkoutAnalysis.formatDuration(seconds)}, ritmo medio " +
-                "${WorkoutAnalysis.formatPace(WorkoutAnalysis.paceSecPerKm(meters, seconds))}/km" +
-                (hr?.let { " · FC $it" } ?: "") + (fastest?.let { " · ${if (blocks) "il più veloce il ${it.rep}°" else "la più veloce la ${it.rep}ª"}" } ?: ""),
+            tr("%s: %s km in %s, ritmo medio %s/km", if (blocks) tr("Blocchi") else tr("Veloci"), kmText(meters), WorkoutAnalysis.formatDuration(seconds),
+                                WorkoutAnalysis.formatPace(WorkoutAnalysis.paceSecPerKm(meters, seconds))) +
+                (hr?.let { " · " + tr("FC %d", it) } ?: "") + (fastest?.let { " · " + if (blocks) tr("il più veloce il %d°", it.rep) else tr("la più veloce la %dª", it.rep) } ?: ""),
             color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note, lineHeight = 15.sp
         )
     }
@@ -467,14 +471,14 @@ private fun KmSplits(splits: List<WorkoutAnalysis.Split>) {
     Column {
         Row(Modifier.fillMaxWidth().padding(bottom = 4.dp)) {
             Header("Km", Modifier.width(34.dp))
-            Header("Ritmo", Modifier.weight(1f))
-            Header("Tempo", Modifier.width(58.dp), TextAlign.End)
-            Header("FC", Modifier.width(44.dp), TextAlign.End)
+            Header(tr("Ritmo"), Modifier.weight(1f))
+            Header(tr("Tempo"), Modifier.width(58.dp), TextAlign.End)
+            Header(tr("FC"), Modifier.width(44.dp), TextAlign.End)
         }
         splits.forEach { s ->
             Row(Modifier.fillMaxWidth().padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    if (s.meters >= 990) s.index.toString() else "%.2f".format(s.meters / 1000).replace('.', ','),
+                    if (s.meters >= 990) s.index.toString() else lfmt("%.2f", s.meters / 1000),
                     color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.Medium, modifier = Modifier.width(34.dp)
                 )
                 Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
@@ -554,7 +558,7 @@ private fun withSegmentHr(raw: WorkoutDetail, f: WorkoutFeedback): WorkoutFeedba
     return f.copy(avgHr = hr?.first, maxHr = hr?.second)
 }
 
-private fun kmText(meters: Double): String = "%.2f".format(meters / 1000).replace('.', ',')
+private fun kmText(meters: Double): String = lfmt("%.2f", meters / 1000)
 
 /**
  * Correzione a mano di una corsa quando l'orologio ha registrato anche riscaldamento o cammino: durata e
@@ -585,29 +589,29 @@ private fun CorrectionDialog(
     }
 
     io.github.peol13.unicum.ui.components.UnicumDialog(onDismiss) {
-        Text("Correggi la corsa", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(tr("Correggi la corsa"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
         Text(
-            "Registrata dall'orologio: ${WorkoutAnalysis.formatDuration(raw.movingSeconds)} e ${raw.distanceM?.let(::kmText) ?: "–"} km. " +
-                "Scrivi durata e distanza della sola corsa, oppure durata e ritmo medio: la distanza si calcola da sé.",
+            tr("Registrata dall'orologio: %s e %s km. Scrivi durata e distanza della sola corsa, oppure durata e ritmo medio: la distanza si calcola da sé.", WorkoutAnalysis.formatDuration(raw.movingSeconds), raw.distanceM?.let(::kmText) ?: "–"),
+                
             color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, lineHeight = 17.sp
         )
-        CorrectionField("Durata (min:sec)", durationText, androidx.compose.ui.text.input.KeyboardType.Text) {
+        CorrectionField(tr("Durata (min:sec)"), durationText, androidx.compose.ui.text.input.KeyboardType.Text) {
             durationText = it
             val s = parseClock(it)
             val p = parseClock(paceText)
             if (paceLast && s != null && p != null) kmTextValue = kmText(s * 1000.0 / p) else updatePace(s, typedMeters)
         }
-        CorrectionField("Distanza (km)", kmTextValue, androidx.compose.ui.text.input.KeyboardType.Decimal) {
+        CorrectionField(tr("Distanza (km)"), kmTextValue, androidx.compose.ui.text.input.KeyboardType.Decimal) {
             kmTextValue = it; paceLast = false; updatePace(seconds, it.replace(',', '.').toDoubleOrNull()?.times(1000))
         }
-        CorrectionField("Ritmo medio (min:sec al km)", paceText, androidx.compose.ui.text.input.KeyboardType.Text) {
+        CorrectionField(tr("Ritmo medio (min:sec al km)"), paceText, androidx.compose.ui.text.input.KeyboardType.Text) {
             paceText = it
             paceLast = true
             val p = parseClock(it) // "6:17" o "6'17" → 377 s al km
             if (p != null && seconds != null) kmTextValue = kmText(seconds * 1000.0 / p)
         }
         io.github.peol13.unicum.ui.components.UnicumButton(
-            "Salva correzione",
+            tr("Salva correzione"),
             enabled = seconds != null && meters != null,
             onClick = { onSave(withSegmentHr(raw, feedback.copy(movingSeconds = seconds, distanceM = meters))) }
         )
@@ -616,11 +620,11 @@ private fun CorrectionDialog(
                 onClick = { onSave(feedback.copy(movingSeconds = null, distanceM = null, avgHr = null, maxHr = null)) },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Torna ai dati dell'orologio", color = UnicumPrimary)
+                Text(tr("Torna ai dati dell'orologio"), color = UnicumPrimary)
             }
         }
         androidx.compose.material3.TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
-            Text("Annulla", color = UnicumDark.copy(alpha = .7f))
+            Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
         }
     }
 }
@@ -673,20 +677,20 @@ private fun IntervalsDialog(raw: WorkoutDetail, current: IntervalPlan?, onDismis
     val preview = remember(plan) { plan?.let { WorkoutAnalysis.intervals(raw, it) }.orEmpty() }
 
     io.github.peol13.unicum.ui.components.UnicumDialog(onDismiss, spacing = 12.dp) {
-        Text("Ripetute", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(tr("Ripetute"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
         Text(
-            "I giri dell'orologio non arrivano in Health Connect: scrivi come era fatta la seduta. Ogni parte a tempo " +
-                "(min:sec) o a distanza (km). Il resto in fondo diventa defaticamento.",
+            tr("I giri dell'orologio non arrivano in Health Connect: scrivi come era fatta la seduta. Ogni parte a tempo (min:sec) o a distanza (km). Il resto in fondo diventa defaticamento."),
+                
             color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, lineHeight = 17.sp
         )
-        PartField("Riscaldamento", "es. 10:00 (se c'è)", warmUp)
-        CorrectionField("Numero di ripetute", repsText, androidx.compose.ui.text.input.KeyboardType.Number) { repsText = it.filter(Char::isDigit) }
-        PartField("Veloce", "es. 4:00", work)
-        PartField("Recupero", "es. 2:00", rest)
+        PartField(tr("Riscaldamento"), tr("es. 10:00 (se c'è)"), warmUp)
+        CorrectionField(tr("Numero di ripetute"), repsText, androidx.compose.ui.text.input.KeyboardType.Number) { repsText = it.filter(Char::isDigit) }
+        PartField(tr("Veloce"), tr("es. 4:00"), work)
+        PartField(tr("Recupero"), tr("es. 2:00"), rest)
 
         if (preview.isNotEmpty()) {
             Spacer(Modifier.height(2.dp))
-            Text("COME VIENE", color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note, fontWeight = FontWeight.SemiBold)
+            Text(tr("COME VIENE"), color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note, fontWeight = FontWeight.SemiBold)
             preview.forEach { s ->
                 val strong = s.kind == WorkoutAnalysis.IntervalKind.WORK
                 Text(
@@ -698,14 +702,14 @@ private fun IntervalsDialog(raw: WorkoutDetail, current: IntervalPlan?, onDismis
                 )
             }
         }
-        io.github.peol13.unicum.ui.components.UnicumButton("Salva ripetute", enabled = plan != null && preview.isNotEmpty(), onClick = { onSave(plan) })
+        io.github.peol13.unicum.ui.components.UnicumButton(tr("Salva ripetute"), enabled = plan != null && preview.isNotEmpty(), onClick = { onSave(plan) })
         if (current != null) {
             androidx.compose.material3.TextButton(onClick = { onSave(null) }, modifier = Modifier.fillMaxWidth()) {
-                Text("Togli le ripetute", color = UnicumPrimary)
+                Text(tr("Togli le ripetute"), color = UnicumPrimary)
             }
         }
         androidx.compose.material3.TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
-            Text("Annulla", color = UnicumDark.copy(alpha = .7f))
+            Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
         }
     }
 }
@@ -715,7 +719,7 @@ private fun PartField(label: String, placeholder: String, input: PartInput) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         OutlinedTextField(
             value = input.text, onValueChange = { input.text = it.take(8) },
-            label = { Text(label) }, placeholder = { Text(if (input.km) "es. 0,40" else placeholder) }, singleLine = true,
+            label = { Text(label) }, placeholder = { Text(if (input.km) tr("es. 0,40") else placeholder) }, singleLine = true,
             keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
                 keyboardType = if (input.km) androidx.compose.ui.text.input.KeyboardType.Decimal else androidx.compose.ui.text.input.KeyboardType.Text
             ),
@@ -752,8 +756,8 @@ private fun FeedbackCard(
     LaunchedEffect(note) {
         if (note != feedback.note.orEmpty()) { delay(600); onChange(feedback.copy(note = note)) }
     }
-    ChartCard(Icons.Rounded.SentimentSatisfied, "Sensazioni") {
-        FieldLabel("Sforzo percepito (RPE)", rpeLocked)
+    ChartCard(Icons.Rounded.SentimentSatisfied, tr("Sensazioni")) {
+        FieldLabel(tr("Sforzo percepito (RPE)"), rpeLocked)
         Spacer(Modifier.height(8.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             (1..10).forEach { v ->
@@ -773,11 +777,11 @@ private fun FeedbackCard(
         Spacer(Modifier.height(4.dp))
         Text(
             when (rpe) {
-                null -> "1 = facilissimo, 10 = massimo sforzo"
-                in 1..3 -> "Leggero"
-                in 4..6 -> "Moderato"
-                in 7..8 -> "Duro"
-                else -> "Massimale"
+                null -> tr("1 = facilissimo, 10 = massimo sforzo")
+                in 1..3 -> tr("Leggero")
+                in 4..6 -> tr("Moderato")
+                in 7..8 -> tr("Duro")
+                else -> tr("Massimale")
             },
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
         )
@@ -787,7 +791,7 @@ private fun FeedbackCard(
         }
         if (isRun) {
             Spacer(Modifier.height(14.dp))
-            FieldLabel("Tipo di seduta", kindLocked, if (kindFromPlan) "dal programma" else null)
+            FieldLabel(tr("Tipo di seduta"), kindLocked, if (kindFromPlan) tr("dal programma") else null)
             Spacer(Modifier.height(8.dp))
             LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 items(kinds.size) { i ->
@@ -798,14 +802,14 @@ private fun FeedbackCard(
         }
         Spacer(Modifier.height(14.dp))
         if (logged?.note != null) {
-            FieldLabel("Nota", true)
+            FieldLabel(tr("Nota"), true)
             Spacer(Modifier.height(4.dp))
             Text(logged.note, color = UnicumDark, style = UnicumType.Detail, lineHeight = 19.sp)
             return@ChartCard
         }
         OutlinedTextField(
             value = note, onValueChange = { note = it.take(500) },
-            placeholder = { Text("Nota (come ti sentivi, meteo…)") },
+            placeholder = { Text(tr("Nota (come ti sentivi, meteo…)")) },
             textStyle = unicumFieldTextStyle(), colors = unicumFieldColors(),
             shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth(), minLines = 2
         )
@@ -820,7 +824,7 @@ private fun FeedbackCard(
 private fun MeasuredEffort(effort: TrainingLoad.Effort, rpe: Int?, recoveryHours: Double?, countsForRecovery: Boolean) {
     val filled = UnicumSecondary
     val track = UnicumTrack
-    FieldLabel("Fatica misurata dai dati", false, "automatica")
+    FieldLabel(tr("Fatica misurata dai dati"), false, tr("automatica"))
     Spacer(Modifier.height(8.dp))
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
         (1..10).forEach { v ->
@@ -833,24 +837,24 @@ private fun MeasuredEffort(effort: TrainingLoad.Effort, rpe: Int?, recoveryHours
         Spacer(Modifier.width(6.dp))
         Text(TrainingLoad.label(effort.score), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, modifier = Modifier.weight(1f))
         recoveryHours?.takeIf { it > 0 }?.let {
-            Text("recupero ~${hoursText(it)}", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+            Text(tr("recupero ~%s", hoursText(it)), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
         }
     }
     Text(
-        (if (effort.fromSeries) "Dal battito: " else "Dalla FC media: ") +
-            "${effort.hardMinutes}' sopra l'80% della FC max · carico ${effort.load.roundToInt()}",
+        (if (effort.fromSeries) tr("Dal battito:") else tr("Dalla FC media:")) + " " +
+            tr("%d' sopra l'80%% della FC max · carico %d", effort.hardMinutes, effort.load.roundToInt()),
         color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
     )
     if (!countsForRecovery) {
         Text(
-            "Riconosciuto in automatico dall'orologio (battito a tratti): non conta per il recupero.",
+            tr("Riconosciuto in automatico dall'orologio (battito a tratti): non conta per il recupero."),
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
         )
     }
     if (rpe != null) {
         Spacer(Modifier.height(6.dp))
         Text(
-            "Hai sentito $rpe, i dati dicono ${effort.score}. ${TrainingLoad.compare(rpe, effort.score)}",
+            tr("Hai sentito %d, i dati dicono %d.", rpe, effort.score) + " " + TrainingLoad.compare(rpe, effort.score),
             color = UnicumDark, style = UnicumType.Detail, lineHeight = 18.sp
         )
     }
@@ -861,7 +865,7 @@ private fun MeasuredEffort(effort: TrainingLoad.Effort, rpe: Int?, recoveryHours
 private fun FieldLabel(text: String, fromNotion: Boolean, hint: String? = null) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(text, color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, modifier = Modifier.weight(1f))
-        val tag = if (fromNotion) "da Notion" else hint
+        val tag = if (fromNotion) tr("da Notion") else hint
         if (tag != null) Text(tag, color = UnicumPrimary, style = UnicumType.Note, fontWeight = FontWeight.Medium)
     }
 }

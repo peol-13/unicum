@@ -1,0 +1,2937 @@
+# Traduzioni di UNICUM (vedi common.txt per il formato).
+
+# Allenamenti
+
+it: Le tue corse
+en: Your runs
+es: Tus carreras
+fr: Tes courses
+de: Deine Läufe
+pt: Suas corridas
+
+it: Cosa ti aspetta
+en: What's ahead
+es: Lo que te espera
+fr: Ce qui t'attend
+de: Was dich erwartet
+pt: O que vem por aí
+
+it: Corse fatte
+en: Completed runs
+es: Carreras hechas
+fr: Courses faites
+de: Absolvierte Läufe
+pt: Corridas feitas
+
+it: Programma
+en: Plan
+es: Plan
+fr: Programme
+de: Plan
+pt: Plano
+
+it: Corse programmate
+en: Planned runs
+es: Carreras planificadas
+fr: Courses prévues
+de: Geplante Läufe
+pt: Corridas planejadas
+
+it: Stime
+en: Estimates
+es: Estimaciones
+fr: Estimations
+de: Schätzungen
+pt: Estimativas
+
+it: Obiettivi
+en: Goals
+es: Objetivos
+fr: Objectifs
+de: Ziele
+pt: Metas
+
+it: Nessuna corsa
+en: No runs
+es: Ninguna carrera
+fr: Aucune course
+de: Keine Läufe
+pt: Nenhuma corrida
+
+it: Le corse registrate dall'orologio (Samsung Health, Garmin, Health Sync…) arrivano da Health Connect: sincronizza dal Profilo.
+en: Runs recorded by your watch (Samsung Health, Garmin, Health Sync…) come from Health Connect: sync from Profile.
+es: Las carreras grabadas por el reloj (Samsung Health, Garmin, Health Sync…) llegan desde Health Connect: sincroniza desde el perfil.
+fr: Les courses enregistrées par la montre (Samsung Health, Garmin, Health Sync…) arrivent via Health Connect : synchronise depuis le profil.
+de: Von der Uhr aufgezeichnete Läufe (Samsung Health, Garmin, Health Sync…) kommen über Health Connect: Synchronisiere im Profil.
+pt: As corridas gravadas pelo relógio (Samsung Health, Garmin, Health Sync…) chegam pelo Health Connect: sincronize no perfil.
+
+it: Ultima corsa
+en: Latest run
+es: Última carrera
+fr: Dernière course
+de: Letzter Lauf
+pt: Última corrida
+
+it: Confronti
+en: Comparisons
+es: Comparaciones
+fr: Comparaisons
+de: Vergleiche
+pt: Comparações
+
+it: Scarpe
+en: Shoes
+es: Zapatillas
+fr: Chaussures
+de: Schuhe
+pt: Tênis
+
+it: Tutte le corse
+en: All runs
+es: Todas las carreras
+fr: Toutes les courses
+de: Alle Läufe
+pt: Todas as corridas
+
+it: %d corse · dal %s
+en: %d runs · since %s
+es: %d carreras · desde el %s
+fr: %d courses · depuis le %s
+de: %d Läufe · seit %s
+pt: %d corridas · desde %s
+
+it: %d corse
+en: %d runs
+es: %d carreras
+fr: %d courses
+de: %d Läufe
+pt: %d corridas
+
+it: durata
+en: duration
+es: duración
+fr: durée
+de: Dauer
+pt: duração
+
+it: ritmo
+en: pace
+es: ritmo
+fr: allure
+de: Pace
+pt: ritmo
+
+it: FC max %d
+en: Max HR %d
+es: FC máx %d
+fr: FC max %d
+de: HF max %d
+pt: FC máx %d
+
+it: %s battiti/km
+en: %s beats/km
+es: %s latidos/km
+fr: %s battements/km
+de: %s Schläge/km
+pt: %s batimentos/km
+
+it: cadenza %d spm
+en: cadence %d spm
+es: cadencia %d ppm
+fr: cadence %d ppm
+de: Kadenz %d spm
+pt: cadência %d ppm
+
+it: Escursionismo
+en: Hiking
+es: Senderismo
+fr: Randonnée
+de: Wandern
+pt: Trilha
+
+# Notion
+
+it: Apri in Notion
+en: Open in Notion
+es: Abrir en Notion
+fr: Ouvrir dans Notion
+de: In Notion öffnen
+pt: Abrir no Notion
+
+it: Collegato
+en: Connected
+es: Conectado
+fr: Connecté
+de: Verbunden
+pt: Conectado
+
+it: Come collegarlo
+en: How to connect it
+es: Cómo conectarlo
+fr: Comment le connecter
+de: So verbindest du es
+pt: Como conectar
+
+it: Lettura in corso…
+en: Reading…
+es: Leyendo…
+fr: Lecture en cours…
+de: Wird gelesen…
+pt: Lendo…
+
+it: %d sedute del programma e %d corse del registro, lette %s.
+en: %d plan sessions and %d log runs, read %s.
+es: %d sesiones del plan y %d carreras del registro, leídas %s.
+fr: %d séances du programme et %d courses du journal, lues %s.
+de: %d Plan-Einheiten und %d Tagebuch-Läufe, gelesen %s.
+pt: %d sessões do plano e %d corridas do registro, lidas %s.
+
+it: Non ancora letto.
+en: Not read yet.
+es: Aún no leído.
+fr: Pas encore lu.
+de: Noch nicht gelesen.
+pt: Ainda não lido.
+
+it: Dal Registro corse arrivano tipo, RPE e nota delle corse fatte (vincono su quelli scritti nell'app); dal Programma le prossime sedute e, per intervalli e progressivi, i pezzi della corsa. Si aggiorna all'apertura dell'app, quando tiri giù la pagina e con "Sincronizza ora" nel Profilo, insieme a Health Connect. L'app legge soltanto: per cambiare qualcosa modificalo in Notion.
+en: The run log provides type, RPE and notes for completed runs (they win over those written in the app); the plan provides upcoming sessions and, for intervals and progressions, the run's segments. It updates when the app opens, when you pull down the page and with "Sync now" in Profile, together with Health Connect. The app only reads: to change something, edit it in Notion.
+es: Del registro de carreras llegan tipo, RPE y nota de las carreras hechas (prevalecen sobre los escritos en la app); del plan, las próximas sesiones y, para series y progresivos, los tramos de la carrera. Se actualiza al abrir la app, al deslizar la página hacia abajo y con "Sincronizar ahora" en el perfil, junto con Health Connect. La app solo lee: para cambiar algo, edítalo en Notion.
+fr: Le journal des courses fournit type, RPE et note des courses faites (ils priment sur ceux saisis dans l'app) ; le programme fournit les prochaines séances et, pour les fractionnés et progressifs, les segments de la course. Mise à jour à l'ouverture de l'app, en tirant la page vers le bas et avec "Synchroniser" dans le profil, avec Health Connect. L'app lit seulement : pour changer quelque chose, modifie-le dans Notion.
+de: Aus dem Lauftagebuch kommen Typ, RPE und Notiz der absolvierten Läufe (sie haben Vorrang vor den Angaben in der App); aus dem Plan die nächsten Einheiten und bei Intervallen und Steigerungsläufen die Abschnitte. Aktualisierung beim Öffnen der App, beim Herunterziehen und mit "Jetzt synchronisieren" im Profil, zusammen mit Health Connect. Die App liest nur: Um etwas zu ändern, bearbeite es in Notion.
+pt: Do registro de corridas vêm tipo, RPE e nota das corridas feitas (prevalecem sobre os escritos no app); do plano, as próximas sessões e, para tiros e progressivos, os trechos da corrida. Atualiza ao abrir o app, ao puxar a página para baixo e com "Sincronizar agora" no perfil, junto com o Health Connect. O app só lê: para mudar algo, edite no Notion.
+
+it: Legge da
+en: Reads from
+es: Lee de
+fr: Lit depuis
+de: Liest aus
+pt: Lê de
+
+it: Programma corse
+en: Run plan
+es: Plan de carreras
+fr: Programme de course
+de: Laufplan
+pt: Plano de corridas
+
+it: Registro
+en: Log
+es: Registro
+fr: Journal
+de: Tagebuch
+pt: Registro
+
+it: Registro corse
+en: Run log
+es: Registro de carreras
+fr: Journal des courses
+de: Lauftagebuch
+pt: Registro de corridas
+
+it: Nessun registro: tipo, RPE e nota delle corse si scrivono nell'app.
+en: No log: type, RPE and notes for runs are written in the app.
+es: Sin registro: tipo, RPE y nota de las carreras se escriben en la app.
+fr: Pas de journal : type, RPE et note des courses s'écrivent dans l'app.
+de: Kein Tagebuch: Typ, RPE und Notiz der Läufe trägst du in der App ein.
+pt: Sem registro: tipo, RPE e nota das corridas se escrevem no app.
+
+it: Scollega Notion
+en: Disconnect Notion
+es: Desconectar Notion
+fr: Déconnecter Notion
+de: Notion trennen
+pt: Desconectar o Notion
+
+it: 1. Da computer apri notion.so/profile/integrations e crea un'integrazione interna (per esempio "UNICUM"). Basta la lettura dei contenuti.
+en: 1. On a computer, open notion.so/profile/integrations and create an internal integration (for example "UNICUM"). Read content access is enough.
+es: 1. Desde el ordenador abre notion.so/profile/integrations y crea una integración interna (por ejemplo "UNICUM"). Basta con leer el contenido.
+fr: 1. Depuis un ordinateur, ouvre notion.so/profile/integrations et crée une intégration interne (par exemple "UNICUM"). La lecture du contenu suffit.
+de: 1. Öffne am Computer notion.so/profile/integrations und erstelle eine interne Integration (zum Beispiel "UNICUM"). Lesezugriff auf Inhalte reicht.
+pt: 1. No computador, abra notion.so/profile/integrations e crie uma integração interna (por exemplo "UNICUM"). Basta a leitura do conteúdo.
+
+it: 2. Copia il suo token segreto (inizia con "ntn_").
+en: 2. Copy its secret token (it starts with "ntn_").
+es: 2. Copia su token secreto (empieza por "ntn_").
+fr: 2. Copie son jeton secret (il commence par "ntn_").
+de: 2. Kopiere ihren geheimen Token (beginnt mit "ntn_").
+pt: 2. Copie o token secreto dela (começa com "ntn_").
+
+it: 3. In Notion apri la pagina con i database del programma → ••• → Connessioni → aggiungi l'integrazione.
+en: 3. In Notion open the page with the plan databases → ••• → Connections → add the integration.
+es: 3. En Notion abre la página con las bases de datos del plan → ••• → Conexiones → añade la integración.
+fr: 3. Dans Notion, ouvre la page avec les bases du programme → ••• → Connexions → ajoute l'intégration.
+de: 3. Öffne in Notion die Seite mit den Plan-Datenbanken → ••• → Verbindungen → Integration hinzufügen.
+pt: 3. No Notion abra a página com os bancos de dados do plano → ••• → Conexões → adicione a integração.
+
+it: 4. Incolla qui il token e il link del database del programma (Condividi → Copia link).
+en: 4. Paste the token and the plan database link here (Share → Copy link).
+es: 4. Pega aquí el token y el enlace de la base de datos del plan (Compartir → Copiar enlace).
+fr: 4. Colle ici le jeton et le lien de la base du programme (Partager → Copier le lien).
+de: 4. Füge hier den Token und den Link zur Plan-Datenbank ein (Teilen → Link kopieren).
+pt: 4. Cole aqui o token e o link do banco de dados do plano (Compartilhar → Copiar link).
+
+it: Token e database
+en: Token and database
+es: Token y base de datos
+fr: Jeton et base de données
+de: Token und Datenbank
+pt: Token e banco de dados
+
+it: Token dell'integrazione
+en: Integration token
+es: Token de la integración
+fr: Jeton de l'intégration
+de: Integrations-Token
+pt: Token da integração
+
+it: Database del programma (link o id)
+en: Plan database (link or id)
+es: Base de datos del plan (enlace o id)
+fr: Base du programme (lien ou id)
+de: Plan-Datenbank (Link oder ID)
+pt: Banco de dados do plano (link ou id)
+
+it: Registro delle corse (facoltativo)
+en: Run log (optional)
+es: Registro de carreras (opcional)
+fr: Journal des courses (facultatif)
+de: Lauftagebuch (optional)
+pt: Registro de corridas (opcional)
+
+it: Se lasci vuoto il registro, l'app cerca tra i database condivisi quello con "Registro" nel nome o con il campo RPE.
+en: If you leave the log empty, the app looks among shared databases for one with "Registro" or "Log" in its name or an RPE field.
+es: Si dejas vacío el registro, la app busca entre las bases compartidas la que tenga "Registro" en el nombre o el campo RPE.
+fr: Si tu laisses le journal vide, l'app cherche parmi les bases partagées celle qui a "Registro" dans son nom ou un champ RPE.
+de: Wenn du das Tagebuch leer lässt, sucht die App unter den geteilten Datenbanken eine mit "Registro" im Namen oder einem RPE-Feld.
+pt: Se deixar o registro vazio, o app procura entre os bancos compartilhados o que tem "Registro" no nome ou o campo RPE.
+
+it: Collega e leggi
+en: Connect and read
+es: Conectar y leer
+fr: Connecter et lire
+de: Verbinden und lesen
+pt: Conectar e ler
+
+it: Il token resta su questo telefono (finisce in un backup solo se lo scegli) e serve unicamente a leggere il database.
+en: The token stays on this phone (it goes into a backup only if you choose) and is used only to read the database.
+es: El token se queda en este teléfono (solo va a una copia si lo eliges) y sirve únicamente para leer la base de datos.
+fr: Le jeton reste sur ce téléphone (il va dans une sauvegarde seulement si tu le choisis) et sert uniquement à lire la base.
+de: Der Token bleibt auf diesem Telefon (in eine Sicherung nur, wenn du es wählst) und dient nur zum Lesen der Datenbank.
+pt: O token fica neste telefone (só vai para um backup se você escolher) e serve apenas para ler o banco de dados.
+
+# Seduta
+
+it: Nuova seduta
+en: New session
+es: Nueva sesión
+fr: Nouvelle séance
+de: Neue Einheit
+pt: Nova sessão
+
+it: Seduta
+en: Session
+es: Sesión
+fr: Séance
+de: Einheit
+pt: Sessão
+
+it: Giorno
+en: Day
+es: Día
+fr: Jour
+de: Tag
+pt: Dia
+
+it: Senza data: tocca per sceglierla
+en: No date: tap to choose it
+es: Sin fecha: toca para elegirla
+fr: Sans date : touche pour la choisir
+de: Kein Datum: Tippen zum Auswählen
+pt: Sem data: toque para escolher
+
+it: Tipo
+en: Type
+es: Tipo
+fr: Type
+de: Typ
+pt: Tipo
+
+it: Obiettivo
+en: Target
+es: Objetivo
+fr: Objectif
+de: Ziel
+pt: Meta
+
+it: Ritmo (es. 6:30/km)
+en: Pace (e.g. 6:30/km)
+es: Ritmo (p. ej. 6:30/km)
+fr: Allure (ex. 6:30/km)
+de: Pace (z. B. 6:30/km)
+pt: Ritmo (ex. 6:30/km)
+
+it: RPE previsto
+en: Planned RPE
+es: RPE previsto
+fr: RPE prévu
+de: Geplantes RPE
+pt: RPE previsto
+
+it: Struttura
+en: Structure
+es: Estructura
+fr: Structure
+de: Aufbau
+pt: Estrutura
+
+it: es. 10' facile + 5×(3' a 5:50 + 2' lento) + 5' defaticamento
+en: e.g. 10' easy + 5×(3' at 5:50 + 2' slow) + 5' cool-down
+es: p. ej. 10' suave + 5×(3' a 5:50 + 2' lento) + 5' vuelta a la calma
+fr: ex. 10' facile + 5×(3' à 5:50 + 2' lent) + 5' retour au calme
+de: z. B. 10' locker + 5×(3' in 5:50 + 2' langsam) + 5' Auslaufen
+pt: ex. 10' leve + 5×(3' a 5:50 + 2' lento) + 5' desaquecimento
+
+it: Com'è andata
+en: How it went
+es: Cómo fue
+fr: Comment ça s'est passé
+de: Wie es lief
+pt: Como foi
+
+it: Da fare
+en: To do
+es: Pendiente
+fr: À faire
+de: Offen
+pt: A fazer
+
+it: Fatta
+en: Done
+es: Hecha
+fr: Faite
+de: Erledigt
+pt: Feita
+
+it: Saltata
+en: Skipped
+es: Saltada
+fr: Sautée
+de: Ausgelassen
+pt: Pulada
+
+it: Se nel giorno c'è una corsa registrata è già fatta da sola: "Fatta" serve per le corse senza orologio.
+en: If a run is recorded that day it's marked done on its own: "Done" is for runs without a watch.
+es: Si ese día hay una carrera registrada, ya está hecha sola: "Hecha" sirve para carreras sin reloj.
+fr: S'il y a une course enregistrée ce jour-là, elle est faite automatiquement : "Faite" sert aux courses sans montre.
+de: Wenn an dem Tag ein Lauf aufgezeichnet ist, ist sie automatisch erledigt: "Erledigt" ist für Läufe ohne Uhr.
+pt: Se no dia há uma corrida registrada, ela já fica feita sozinha: "Feita" serve para corridas sem relógio.
+
+it: Elimina seduta
+en: Delete session
+es: Eliminar sesión
+fr: Supprimer la séance
+de: Einheit löschen
+pt: Excluir sessão
+
+# Programma
+
+it: Aggiungi il programma di allenamento
+en: Add your training plan
+es: Añade tu plan de entrenamiento
+fr: Ajoute ton programme d'entraînement
+de: Füge deinen Trainingsplan hinzu
+pt: Adicione seu plano de treino
+
+it: Da un PDF, scritto a mano o da Notion
+en: From a PDF, written by hand or from Notion
+es: Desde un PDF, escrito a mano o desde Notion
+fr: Depuis un PDF, écrit à la main ou depuis Notion
+de: Aus einem PDF, von Hand oder aus Notion
+pt: De um PDF, escrito à mão ou do Notion
+
+it: Nessuna corsa in programma
+en: No runs planned
+es: Ninguna carrera planificada
+fr: Aucune course prévue
+de: Keine Läufe geplant
+pt: Nenhuma corrida planejada
+
+it: Aggiungi le prossime sedute o importa un nuovo PDF.
+en: Add upcoming sessions or import a new PDF.
+es: Añade las próximas sesiones o importa un PDF nuevo.
+fr: Ajoute les prochaines séances ou importe un nouveau PDF.
+de: Füge die nächsten Einheiten hinzu oder importiere ein neues PDF.
+pt: Adicione as próximas sessões ou importe um novo PDF.
+
+it: Il programma non è ancora stato letto.
+en: The plan hasn't been read yet.
+es: El plan aún no se ha leído.
+fr: Le programme n'a pas encore été lu.
+de: Der Plan wurde noch nicht gelesen.
+pt: O plano ainda não foi lido.
+
+it: Aggiungi le prossime sedute nel database del programma su Notion.
+en: Add upcoming sessions to the plan database in Notion.
+es: Añade las próximas sesiones en la base de datos del plan en Notion.
+fr: Ajoute les prochaines séances dans la base du programme sur Notion.
+de: Füge die nächsten Einheiten in der Plan-Datenbank in Notion hinzu.
+pt: Adicione as próximas sessões no banco de dados do plano no Notion.
+
+it: settimana %d
+en: week %d
+es: semana %d
+fr: semaine %d
+de: Woche %d
+pt: semana %d
+
+it: Ritmo: %s
+en: Pace: %s
+es: Ritmo: %s
+fr: Allure : %s
+de: Pace: %s
+pt: Ritmo: %s
+
+it: Struttura della seduta
+en: Session structure
+es: Estructura de la sesión
+fr: Structure de la séance
+de: Aufbau der Einheit
+pt: Estrutura da sessão
+
+it: Focus
+en: Focus
+es: Enfoque
+fr: Objectif
+de: Fokus
+pt: Foco
+
+it: Fatta: %s
+en: Done: %s
+es: Hecha: %s
+fr: Faite : %s
+de: Erledigt: %s
+pt: Feita: %s
+
+it: Ultime 2 settimane: %d di %d sedute fatte
+en: Last 2 weeks: %d of %d sessions done
+es: Últimas 2 semanas: %d de %d sesiones hechas
+fr: 2 dernières semaines : %d séances faites sur %d
+de: Letzte 2 Wochen: %d von %d Einheiten erledigt
+pt: Últimas 2 semanas: %d de %d sessões feitas
+
+it: Piano e corse fatte
+en: Plan vs completed runs
+es: Plan y carreras hechas
+fr: Programme et courses faites
+de: Plan und absolvierte Läufe
+pt: Plano e corridas feitas
+
+it: Piano %s → fatta %s
+en: Plan %s → done %s
+es: Plan %s → hecha %s
+fr: Prévu %s → fait %s
+de: Plan %s → gelaufen %s
+pt: Plano %s → feita %s
+
+it: Segnata come fatta (corsa non registrata)
+en: Marked as done (run not recorded)
+es: Marcada como hecha (carrera no registrada)
+fr: Marquée comme faite (course non enregistrée)
+de: Als erledigt markiert (Lauf nicht aufgezeichnet)
+pt: Marcada como feita (corrida não registrada)
+
+it: Completata in Notion, corsa non trovata nell'app
+en: Completed in Notion, run not found in the app
+es: Completada en Notion, carrera no encontrada en la app
+fr: Terminée dans Notion, course introuvable dans l'app
+de: In Notion erledigt, Lauf nicht in der App gefunden
+pt: Concluída no Notion, corrida não encontrada no app
+
+it: Nessuna corsa registrata
+en: No run recorded
+es: Ninguna carrera registrada
+fr: Aucune course enregistrée
+de: Kein Lauf aufgezeichnet
+pt: Nenhuma corrida registrada
+
+it: Dal PDF «%s»
+en: From PDF “%s”
+es: Del PDF «%s»
+fr: Du PDF « %s »
+de: Aus dem PDF „%s“
+pt: Do PDF “%s”
+
+it: Programma scritto nell'app
+en: Plan written in the app
+es: Plan escrito en la app
+fr: Programme écrit dans l'app
+de: In der App geschriebener Plan
+pt: Plano escrito no app
+
+it: tocca per modificarlo
+en: tap to edit it
+es: toca para editarlo
+fr: touche pour le modifier
+de: zum Bearbeiten tippen
+pt: toque para editar
+
+it: Lettura da Notion…
+en: Reading from Notion…
+es: Leyendo de Notion…
+fr: Lecture depuis Notion…
+de: Lese aus Notion…
+pt: Lendo do Notion…
+
+it: Da Notion · letto %s
+en: From Notion · read %s
+es: Desde Notion · leído %s
+fr: Depuis Notion · lu %s
+de: Aus Notion · gelesen %s
+pt: Do Notion · lido %s
+
+it: %s alle %s
+en: %s at %s
+es: %s a las %s
+fr: %s à %s
+de: %s um %s
+pt: %s às %s
+
+it: Domani
+en: Tomorrow
+es: Mañana
+fr: Demain
+de: Morgen
+pt: Amanhã
+
+# Recupero stimato
+
+it: %d g
+en: %d d
+es: %d d
+fr: %d j
+de: %d T
+pt: %d d
+
+it: oggi
+en: today
+es: hoy
+fr: aujourd'hui
+de: heute
+pt: hoje
+
+it: domani
+en: tomorrow
+es: mañana
+fr: demain
+de: morgen
+pt: amanhã
+
+it: %s di %s
+en: %s %s
+es: %s de %s
+fr: %s d'%s
+de: %s von %s
+pt: %s de %s
+
+it: %s del %s
+en: %s on %s
+es: %s del %s
+fr: %s du %s
+de: %s vom %s
+pt: %s de %s
+
+it: Recuperato
+en: Recovered
+es: Recuperado
+fr: Récupéré
+de: Erholt
+pt: Recuperado
+
+it: Pronto tra %s
+en: Ready in %s
+es: Listo en %s
+fr: Prêt dans %s
+de: Bereit in %s
+pt: Pronto em %s
+
+it: dopo %s
+en: after %s
+es: tras %s
+fr: après %s
+de: nach %s
+pt: depois de %s
+
+it: Ultimo allenamento: %s
+en: Last workout: %s
+es: Último entrenamiento: %s
+fr: Dernière séance : %s
+de: Letztes Training: %s
+pt: Último treino: %s
+
+it: Nessun allenamento recente
+en: No recent workouts
+es: Ningún entrenamiento reciente
+fr: Aucune séance récente
+de: Kein Training in letzter Zeit
+pt: Nenhum treino recente
+
+it: Come è calcolato
+en: How it's calculated
+es: Cómo se calcula
+fr: Comment c'est calculé
+de: So wird es berechnet
+pt: Como é calculado
+
+it: %s: carico %d, fatica misurata %d/10 (%s) → circa %s di recupero.
+en: %s: load %d, measured strain %d/10 (%s) → about %s of recovery.
+es: %s: carga %d, fatiga medida %d/10 (%s) → unas %s de recuperación.
+fr: %s : charge %d, fatigue mesurée %d/10 (%s) → environ %s de récupération.
+de: %s: Last %d, gemessene Belastung %d/10 (%s) → etwa %s Erholung.
+pt: %s: carga %d, fadiga medida %d/10 (%s) → cerca de %s de recuperação.
+
+it: Come recuperi tu
+en: How you recover
+es: Cómo te recuperas tú
+fr: Comment tu récupères
+de: Wie du dich erholst
+pt: Como você se recupera
+
+it: Non ci sono ancora allenamenti con HRV affidabile da confrontare: stima standard.
+en: No workouts with reliable HRV to compare yet: standard estimate.
+es: Aún no hay entrenamientos con HRV fiable para comparar: estimación estándar.
+fr: Pas encore de séances avec une HRV fiable à comparer : estimation standard.
+de: Noch keine Trainings mit verlässlicher HRV zum Vergleich: Standardschätzung.
+pt: Ainda não há treinos com HRV confiável para comparar: estimativa padrão.
+
+it: Un solo allenamento con HRV affidabile finora: ne servono almeno 2 per adattare la stima a te.
+en: Only one workout with reliable HRV so far: at least 2 are needed to tailor the estimate to you.
+es: Solo un entrenamiento con HRV fiable por ahora: hacen falta al menos 2 para adaptar la estimación a ti.
+fr: Une seule séance avec une HRV fiable pour l'instant : il en faut au moins 2 pour adapter l'estimation à toi.
+de: Bisher nur ein Training mit verlässlicher HRV: Für eine persönliche Schätzung braucht es mindestens 2.
+pt: Só um treino com HRV confiável até agora: são necessários pelo menos 2 para adaptar a estimativa a você.
+
+it: Su %d allenamenti l'HRV è tornata nella tua norma %s:
+en: Over %d workouts your HRV returned to normal %s:
+es: En %d entrenamientos la HRV volvió a tu rango normal %s:
+fr: Sur %d séances, la HRV est revenue dans ta norme %s :
+de: Bei %d Trainings war deine HRV %s wieder im Normalbereich:
+pt: Em %d treinos a HRV voltou ao seu normal %s:
+
+it: sempre la prima notte
+en: always the first night
+es: siempre la primera noche
+fr: toujours la première nuit
+de: immer in der ersten Nacht
+pt: sempre na primeira noite
+
+it: la prima notte %d volta
+en: the first night %d time
+es: la primera noche %d vez
+fr: la première nuit %d fois
+de: %d Mal in der ersten Nacht
+pt: na primeira noite %d vez
+
+it: la prima notte %d volte
+en: the first night %d times
+es: la primera noche %d veces
+fr: la première nuit %d fois
+de: %d Mal in der ersten Nacht
+pt: na primeira noite %d vezes
+
+it: su %d
+en: out of %d
+es: de %d
+fr: sur %d
+de: von %d
+pt: de %d
+
+it: recuperi più in fretta della stima standard (%d%% di tempo).
+en: you recover faster than the standard estimate (%d%% time).
+es: te recuperas más rápido que la estimación estándar (%d%% de tiempo).
+fr: tu récupères plus vite que l'estimation standard (%d %% de temps).
+de: du erholst dich schneller als die Standardschätzung (%d %% Zeit).
+pt: você se recupera mais rápido que a estimativa padrão (%d%% de tempo).
+
+it: ti serve più tempo della stima standard (+%d%%).
+en: you need more time than the standard estimate (+%d%%).
+es: necesitas más tiempo que la estimación estándar (+%d%%).
+fr: il te faut plus de temps que l'estimation standard (+%d %%).
+de: du brauchst mehr Zeit als die Standardschätzung (+%d %%).
+pt: você precisa de mais tempo que a estimativa padrão (+%d%%).
+
+it: recuperi come la stima standard.
+en: you recover in line with the standard estimate.
+es: te recuperas como la estimación estándar.
+fr: tu récupères comme l'estimation standard.
+de: du erholst dich wie die Standardschätzung.
+pt: você se recupera como a estimativa padrão.
+
+it: sonno %s
+en: sleep %s
+es: sueño %s
+fr: sommeil %s
+de: Schlaf %s
+pt: sono %s
+
+it: temperatura %s
+en: temperature %s
+es: temperatura %s
+fr: température %s
+de: Temperatur %s
+pt: temperatura %s
+
+it: Stanotte
+en: Last night
+es: Esta noche
+fr: Cette nuit
+de: Letzte Nacht
+pt: Esta noite
+
+it: Dati della notte non ancora arrivati.
+en: Night data hasn't arrived yet.
+es: Los datos de la noche aún no han llegado.
+fr: Les données de la nuit ne sont pas encore arrivées.
+de: Die Nachtdaten sind noch nicht da.
+pt: Os dados da noite ainda não chegaram.
+
+it: Carico = minuti in ogni zona × numero della zona (FC max %d bpm).
+en: Load = minutes in each zone × zone number (max HR %d bpm).
+es: Carga = minutos en cada zona × número de la zona (FC máx %d lpm).
+fr: Charge = minutes dans chaque zone × numéro de la zone (FC max %d bpm).
+de: Last = Minuten in jeder Zone × Zonennummer (HF max %d bpm).
+pt: Carga = minutos em cada zona × número da zona (FC máx %d bpm).
+
+it: HRV media della notte
+en: HRV night average
+es: HRV media de la noche
+fr: HRV moyenne de la nuit
+de: HRV Nachtdurchschnitt
+pt: HRV média da noite
+
+it: HRV media del giorno
+en: HRV daily average
+es: HRV media del día
+fr: HRV moyenne du jour
+de: HRV Tagesdurchschnitt
+pt: HRV média do dia
+
+it: considerata solo dal %s: prima i valori erano su un'altra scala (Profilo → Recupero).
+en: counted only from %s: before that, values were on another scale (Profile → Recovery).
+es: considerada solo desde el %s: antes los valores estaban en otra escala (Perfil → Recuperación).
+fr: prise en compte seulement depuis le %s : avant, les valeurs étaient sur une autre échelle (Profil → Récupération).
+de: erst ab %s berücksichtigt: Davor waren die Werte auf einer anderen Skala (Profil → Erholung).
+pt: considerada só desde %s: antes os valores estavam em outra escala (Perfil → Recuperação).
+
+# Programma nell'app
+
+it: Da dove arriva il programma
+en: Where the plan comes from
+es: De dónde viene el plan
+fr: D'où vient le programme
+de: Woher der Plan kommt
+pt: De onde vem o plano
+
+it: PDF o a mano
+en: PDF or by hand
+es: PDF o a mano
+fr: PDF ou à la main
+de: PDF oder von Hand
+pt: PDF ou à mão
+
+it: Ora il programma arriva da Notion. Per usare quello dell'app scollega Notion (il programma dell'app resta salvato).
+en: The plan now comes from Notion. To use the app's plan, disconnect Notion (the app's plan stays saved).
+es: Ahora el plan viene de Notion. Para usar el de la app, desconecta Notion (el plan de la app sigue guardado).
+fr: Le programme vient maintenant de Notion. Pour utiliser celui de l'app, déconnecte Notion (le programme de l'app reste enregistré).
+de: Der Plan kommt jetzt aus Notion. Um den der App zu nutzen, trenne Notion (der App-Plan bleibt gespeichert).
+pt: Agora o plano vem do Notion. Para usar o do app, desconecte o Notion (o plano do app continua salvo).
+
+it: Il testo del PDF non si riesce a leggere come programma: aggiungi le sedute a mano.
+en: The PDF's text can't be read as a plan: add the sessions by hand.
+es: El texto del PDF no se puede leer como plan: añade las sesiones a mano.
+fr: Le texte du PDF ne peut pas être lu comme un programme : ajoute les séances à la main.
+de: Der Text des PDFs lässt sich nicht als Plan lesen: Füge die Einheiten von Hand hinzu.
+pt: O texto do PDF não pode ser lido como plano: adicione as sessões à mão.
+
+it: Nessun programma
+en: No plan
+es: Ningún plan
+fr: Aucun programme
+de: Kein Plan
+pt: Nenhum plano
+
+it: Programma nell'app
+en: Plan in the app
+es: Plan en la app
+fr: Programme dans l'app
+de: Plan in der App
+pt: Plano no app
+
+it: Importa il programma da un PDF (con il testo, non una foto) oppure scrivi le sedute a mano.
+en: Import the plan from a PDF (with text, not a photo) or write the sessions by hand.
+es: Importa el plan desde un PDF (con texto, no una foto) o escribe las sesiones a mano.
+fr: Importe le programme depuis un PDF (avec du texte, pas une photo) ou écris les séances à la main.
+de: Importiere den Plan aus einem PDF (mit Text, kein Foto) oder schreib die Einheiten von Hand.
+pt: Importe o plano de um PDF (com texto, não uma foto) ou escreva as sessões à mão.
+
+it: importato il %s
+en: imported on %s
+es: importado el %s
+fr: importé le %s
+de: importiert am %s
+pt: importado em %s
+
+it: Tipo, RPE e nota di ogni corsa fatta si scrivono nella sua pagina; se mancano, il tipo è quello della seduta.
+en: Type, RPE and notes for each completed run are written on its page; if missing, the type is the session's.
+es: Tipo, RPE y nota de cada carrera hecha se escriben en su página; si faltan, el tipo es el de la sesión.
+fr: Type, RPE et note de chaque course faite s'écrivent sur sa page ; s'ils manquent, le type est celui de la séance.
+de: Typ, RPE und Notiz jedes Laufs trägst du auf seiner Seite ein; fehlt der Typ, gilt der der Einheit.
+pt: Tipo, RPE e nota de cada corrida feita se escrevem na página dela; se faltarem, o tipo é o da sessão.
+
+it: Lettura del PDF…
+en: Reading the PDF…
+es: Leyendo el PDF…
+fr: Lecture du PDF…
+de: PDF wird gelesen…
+pt: Lendo o PDF…
+
+it: Importa da PDF
+en: Import from PDF
+es: Importar desde PDF
+fr: Importer depuis un PDF
+de: Aus PDF importieren
+pt: Importar de PDF
+
+it: Aggiungi una seduta a mano
+en: Add a session by hand
+es: Añadir una sesión a mano
+fr: Ajouter une séance à la main
+de: Einheit von Hand hinzufügen
+pt: Adicionar uma sessão à mão
+
+it: Prossime sedute
+en: Upcoming sessions
+es: Próximas sesiones
+fr: Prochaines séances
+de: Nächste Einheiten
+pt: Próximas sessões
+
+it: Nessuna seduta da oggi in poi.
+en: No sessions from today on.
+es: Ninguna sesión desde hoy.
+fr: Aucune séance à partir d'aujourd'hui.
+de: Keine Einheiten ab heute.
+pt: Nenhuma sessão de hoje em diante.
+
+it: Sedute passate (%d)
+en: Past sessions (%d)
+es: Sesiones pasadas (%d)
+fr: Séances passées (%d)
+de: Vergangene Einheiten (%d)
+pt: Sessões passadas (%d)
+
+it: Cancella il programma
+en: Delete the plan
+es: Borrar el plan
+fr: Supprimer le programme
+de: Plan löschen
+pt: Apagar o plano
+
+it: Cancellare il programma?
+en: Delete the plan?
+es: ¿Borrar el plan?
+fr: Supprimer le programme ?
+de: Plan löschen?
+pt: Apagar o plano?
+
+it: Le %d sedute dell'app vengono tolte. Le corse fatte e le loro sensazioni restano.
+en: The app's %d sessions will be removed. Completed runs and their feelings stay.
+es: Se quitan las %d sesiones de la app. Las carreras hechas y sus sensaciones se quedan.
+fr: Les %d séances de l'app seront retirées. Les courses faites et leurs ressentis restent.
+de: Die %d Einheiten der App werden entfernt. Absolvierte Läufe und ihr Gefühl bleiben.
+pt: As %d sessões do app serão removidas. As corridas feitas e suas sensações permanecem.
+
+it: Senza data
+en: No date
+es: Sin fecha
+fr: Sans date
+de: Ohne Datum
+pt: Sem data
+
+it: Nessuna seduta trovata.
+en: No sessions found.
+es: Ninguna sesión encontrada.
+fr: Aucune séance trouvée.
+de: Keine Einheiten gefunden.
+pt: Nenhuma sessão encontrada.
+
+it: e
+en: and
+es: y
+fr: et
+de: und
+pt: e
+
+it: (saltati %s).
+en: (skipped %s).
+es: (omitidos %s).
+fr: (ignorés : %s).
+de: (übersprungen: %s).
+pt: (pulados %s).
+
+it: L'app cerca le sedute dalla data (es. 17/11, lun 17 nov) o dal giorno della settimana sotto "Settimana 1", all'inizio di ogni riga. Puoi aggiungere le sedute a mano.
+en: The app finds sessions by date (e.g. 17/11, Mon 17 Nov) or by weekday under "Week 1", at the start of each line. You can add sessions by hand.
+es: La app busca las sesiones por la fecha (p. ej. 17/11, lun 17 nov) o por el día de la semana bajo "Semana 1", al principio de cada línea. Puedes añadir sesiones a mano.
+fr: L'app cherche les séances par date (ex. 17/11, lun 17 nov) ou par jour de la semaine sous "Semaine 1", au début de chaque ligne. Tu peux ajouter des séances à la main.
+de: Die App findet Einheiten am Datum (z. B. 17/11, Mo 17 Nov) oder am Wochentag unter "Woche 1", jeweils am Zeilenanfang. Du kannst Einheiten von Hand hinzufügen.
+pt: O app procura as sessões pela data (ex. 17/11, seg 17 nov) ou pelo dia da semana sob "Semana 1", no início de cada linha. Você pode adicionar sessões à mão.
+
+it: Controlla le sedute: tocca una riga per correggere giorno, tipo, km o struttura.
+en: Check the sessions: tap a row to fix day, type, km or structure.
+es: Revisa las sesiones: toca una fila para corregir día, tipo, km o estructura.
+fr: Vérifie les séances : touche une ligne pour corriger jour, type, km ou structure.
+de: Prüfe die Einheiten: Tippe auf eine Zeile, um Tag, Typ, km oder Aufbau zu korrigieren.
+pt: Confira as sessões: toque em uma linha para corrigir dia, tipo, km ou estrutura.
+
+it: Quando inizia?
+en: When does it start?
+es: ¿Cuándo empieza?
+fr: Quand commence-t-il ?
+de: Wann beginnt er?
+pt: Quando começa?
+
+it: Il programma è scritto per settimane e giorni, senza date: scegli il primo giorno della settimana 1.
+en: The plan is written in weeks and days, without dates: choose the first day of week 1.
+es: El plan está escrito por semanas y días, sin fechas: elige el primer día de la semana 1.
+fr: Le programme est écrit en semaines et jours, sans dates : choisis le premier jour de la semaine 1.
+de: Der Plan ist in Wochen und Tagen ohne Datum geschrieben: Wähle den ersten Tag von Woche 1.
+pt: O plano está escrito em semanas e dias, sem datas: escolha o primeiro dia da semana 1.
+
+it: %d sedute senza data: non compaiono finché non scegli il giorno.
+en: %d sessions without a date: they won't show until you pick the day.
+es: %d sesiones sin fecha: no aparecen hasta que elijas el día.
+fr: %d séances sans date : elles n'apparaissent pas tant que tu ne choisis pas le jour.
+de: %d Einheiten ohne Datum: Sie erscheinen erst, wenn du den Tag wählst.
+pt: %d sessões sem data: não aparecem até você escolher o dia.
+
+it: Salva il programma
+en: Save the plan
+es: Guardar el plan
+fr: Enregistrer le programme
+de: Plan speichern
+pt: Salvar o plano
+
+it: Sostituisci il programma attuale
+en: Replace the current plan
+es: Sustituir el plan actual
+fr: Remplacer le programme actuel
+de: Aktuellen Plan ersetzen
+pt: Substituir o plano atual
+
+it: Aggiungi a quello attuale
+en: Add to the current one
+es: Añadir al actual
+fr: Ajouter à l'actuel
+de: Zum aktuellen hinzufügen
+pt: Adicionar ao atual
+
+it: %d seduta
+en: %d session
+es: %d sesión
+fr: %d séance
+de: %d Einheit
+pt: %d sessão
+
+it: %d sedute
+en: %d sessions
+es: %d sesiones
+fr: %d séances
+de: %d Einheiten
+pt: %d sessões
+
+it: Trovata %d seduta
+en: Found %d session
+es: Encontrada %d sesión
+fr: %d séance trouvée
+de: %d Einheit gefunden
+pt: Encontrada %d sessão
+
+it: Trovate %d sedute
+en: Found %d sessions
+es: Encontradas %d sesiones
+fr: %d séances trouvées
+de: %d Einheiten gefunden
+pt: Encontradas %d sessões
+
+it: %d giorno di riposo
+en: %d rest day
+es: %d día de descanso
+fr: %d jour de repos
+de: %d Ruhetag
+pt: %d dia de descanso
+
+it: %d giorni di riposo
+en: %d rest days
+es: %d días de descanso
+fr: %d jours de repos
+de: %d Ruhetage
+pt: %d dias de descanso
+
+it: %d allenamento non di corsa
+en: %d non-running workout
+es: %d entrenamiento que no es carrera
+fr: %d séance hors course
+de: %d Training ohne Laufen
+pt: %d treino que não é corrida
+
+it: %d allenamenti non di corsa
+en: %d non-running workouts
+es: %d entrenamientos que no son carrera
+fr: %d séances hors course
+de: %d Trainings ohne Laufen
+pt: %d treinos que não são corrida
+
+# Pagina della corsa
+
+it: Allenamento non trovato
+en: Workout not found
+es: Entrenamiento no encontrado
+fr: Séance introuvable
+de: Training nicht gefunden
+pt: Treino não encontrado
+
+it: Forse è stato cancellato dalla fonte: sincronizza di nuovo.
+en: It may have been deleted at the source: sync again.
+es: Quizá se ha borrado en la fuente: sincroniza de nuevo.
+fr: Il a peut-être été supprimé à la source : synchronise à nouveau.
+de: Vielleicht wurde es an der Quelle gelöscht: Synchronisiere erneut.
+pt: Talvez tenha sido apagado na fonte: sincronize de novo.
+
+it: Percorso da autorizzare
+en: Route needs permission
+es: Ruta por autorizar
+fr: Parcours à autoriser
+de: Strecke freigeben
+pt: Percurso a autorizar
+
+it: Health Connect chiede il permesso per mostrare il percorso GPS di questo allenamento.
+en: Health Connect asks for permission to show this workout's GPS route.
+es: Health Connect pide permiso para mostrar la ruta GPS de este entrenamiento.
+fr: Health Connect demande l'autorisation d'afficher le parcours GPS de cette séance.
+de: Health Connect fragt nach der Berechtigung, die GPS-Strecke dieses Trainings zu zeigen.
+pt: O Health Connect pede permissão para mostrar o percurso GPS deste treino.
+
+it: Mostra percorso
+en: Show route
+es: Mostrar ruta
+fr: Afficher le parcours
+de: Strecke zeigen
+pt: Mostrar percurso
+
+it: Percorso non disponibile
+en: Route not available
+es: Ruta no disponible
+fr: Parcours indisponible
+de: Strecke nicht verfügbar
+pt: Percurso indisponível
+
+it: %s non ha condiviso il percorso GPS con Health Connect. Gli altri dati ci sono.
+en: %s didn't share the GPS route with Health Connect. The other data is there.
+es: %s no ha compartido la ruta GPS con Health Connect. Los demás datos están.
+fr: %s n'a pas partagé le parcours GPS avec Health Connect. Les autres données sont là.
+de: %s hat die GPS-Strecke nicht mit Health Connect geteilt. Die übrigen Daten sind da.
+pt: %s não compartilhou o percurso GPS com o Health Connect. Os outros dados estão lá.
+
+it: Corretta a mano (registrata: %s, %s km).
+en: Corrected by hand (recorded: %s, %s km).
+es: Corregida a mano (registrada: %s, %s km).
+fr: Corrigée à la main (enregistrée : %s, %s km).
+de: Von Hand korrigiert (aufgezeichnet: %s, %s km).
+pt: Corrigida à mão (registrada: %s, %s km).
+
+it: FC dal tratto corso, da %s a %s.
+en: HR from the running segment, from %s to %s.
+es: FC del tramo corrido, de %s a %s.
+fr: FC du tronçon couru, de %s à %s.
+de: HF aus dem gelaufenen Abschnitt, von %s bis %s.
+pt: FC do trecho corrido, de %s a %s.
+
+it: I grafici mostrano tutta la registrazione.
+en: The charts show the whole recording.
+es: Los gráficos muestran toda la grabación.
+fr: Les graphiques montrent tout l'enregistrement.
+de: Die Diagramme zeigen die ganze Aufzeichnung.
+pt: Os gráficos mostram toda a gravação.
+
+it: L'orologio ha registrato anche riscaldamento o cammino?
+en: Did the watch also record warm-up or walking?
+es: ¿El reloj grabó también calentamiento o caminata?
+fr: La montre a aussi enregistré l'échauffement ou de la marche ?
+de: Hat die Uhr auch Aufwärmen oder Gehen aufgezeichnet?
+pt: O relógio gravou também aquecimento ou caminhada?
+
+it: Correggi
+en: Correct
+es: Corregir
+fr: Corriger
+de: Korrigieren
+pt: Corrigir
+
+it: Ritmo
+en: Pace
+es: Ritmo
+fr: Allure
+de: Pace
+pt: Ritmo
+
+it: Medio %s/km · in alto più veloce
+en: Average %s/km · faster at the top
+es: Medio %s/km · arriba más rápido
+fr: Moyenne %s/km · plus rapide en haut
+de: Ø %s/km · oben schneller
+pt: Médio %s/km · em cima mais rápido
+
+it: Frequenza cardiaca
+en: Heart rate
+es: Frecuencia cardiaca
+fr: Fréquence cardiaque
+de: Herzfrequenz
+pt: Frequência cardíaca
+
+it: Media %s · max %s · min %s bpm
+en: Avg %s · max %s · min %s bpm
+es: Media %s · máx %s · mín %s lpm
+fr: Moy. %s · max %s · min %s bpm
+de: Ø %s · max %s · min %s bpm
+pt: Média %s · máx %s · mín %s bpm
+
+it: ZONE
+en: ZONES
+es: ZONAS
+fr: ZONES
+de: ZONEN
+pt: ZONAS
+
+it: Zone in %% della FC massima (%d bpm: stimata dall'età, o la più alta registrata).
+en: Zones as %% of max HR (%d bpm: estimated from age, or the highest recorded).
+es: Zonas en %% de la FC máxima (%d lpm: estimada por la edad, o la más alta registrada).
+fr: Zones en %% de la FC max (%d bpm : estimée d'après l'âge, ou la plus haute enregistrée).
+de: Zonen in %% der HF max (%d bpm: aus dem Alter geschätzt oder die höchste gemessene).
+pt: Zonas em %% da FC máxima (%d bpm: estimada pela idade, ou a mais alta registrada).
+
+it: Cadenza
+en: Cadence
+es: Cadencia
+fr: Cadence
+de: Kadenz
+pt: Cadência
+
+it: Media %s passi/min
+en: Average %s steps/min
+es: Media %s pasos/min
+fr: Moyenne %s pas/min
+de: Ø %s Schritte/min
+pt: Média %s passos/min
+
+it: Altitudine
+en: Elevation
+es: Altitud
+fr: Altitude
+de: Höhe
+pt: Altitude
+
+it: Dislivello positivo %s m
+en: Elevation gain %s m
+es: Desnivel positivo %s m
+fr: Dénivelé positif %s m
+de: Höhengewinn %s m
+pt: Ganho de elevação %s m
+
+it: percorso GPS
+en: GPS route
+es: ruta GPS
+fr: parcours GPS
+de: GPS-Strecke
+pt: percurso GPS
+
+it: cadenza
+en: cadence
+es: cadencia
+fr: cadence
+de: Kadenz
+pt: cadência
+
+it: dislivello
+en: elevation
+es: desnivel
+fr: dénivelé
+de: Höhenmeter
+pt: elevação
+
+it: Non arrivati da Health Connect per questa sessione: %s.
+en: Not received from Health Connect for this session: %s.
+es: No llegados desde Health Connect para esta sesión: %s.
+fr: Non reçus de Health Connect pour cette séance : %s.
+de: Für diese Einheit nicht von Health Connect erhalten: %s.
+pt: Não recebidos do Health Connect nesta sessão: %s.
+
+it: Dispositivo: %s.
+en: Device: %s.
+es: Dispositivo: %s.
+fr: Appareil : %s.
+de: Gerät: %s.
+pt: Dispositivo: %s.
+
+it: Ritmo medio
+en: Avg pace
+es: Ritmo medio
+fr: Allure moyenne
+de: Ø Pace
+pt: Ritmo médio
+
+it: FC media
+en: Avg HR
+es: FC media
+fr: FC moyenne
+de: Ø HF
+pt: FC média
+
+it: FC max
+en: Max HR
+es: FC máx
+fr: FC max
+de: HF max
+pt: FC máx
+
+it: Cadenza (dai passi)
+en: Cadence (from steps)
+es: Cadencia (por los pasos)
+fr: Cadence (d'après les pas)
+de: Kadenz (aus Schritten)
+pt: Cadência (pelos passos)
+
+it: VO₂ max (ultimo)
+en: VO₂ max (latest)
+es: VO₂ máx (último)
+fr: VO₂ max (dernier)
+de: VO₂max (letzter)
+pt: VO₂ máx (último)
+
+it: Km più veloce
+en: Fastest km
+es: Km más rápido
+fr: Km le plus rapide
+de: Schnellster km
+pt: Km mais rápido
+
+it: Velocità max
+en: Max speed
+es: Velocidad máx
+fr: Vitesse max
+de: Max. Tempo
+pt: Velocidade máx
+
+it: Battiti per km
+en: Beats per km
+es: Latidos por km
+fr: Battements par km
+de: Schläge pro km
+pt: Batimentos por km
+
+it: Dislivello
+en: Elevation gain
+es: Desnivel
+fr: Dénivelé
+de: Höhenmeter
+pt: Elevação
+
+it: Tempo totale
+en: Total time
+es: Tiempo total
+fr: Temps total
+de: Gesamtzeit
+pt: Tempo total
+
+it: Parziali
+en: Splits
+es: Parciales
+fr: Temps intermédiaires
+de: Splits
+pt: Parciais
+
+it: Ripetute
+en: Intervals
+es: Series
+fr: Fractionné
+de: Intervalle
+pt: Tiros
+
+it: Parziali per km non disponibili per questa registrazione.
+en: Km splits not available for this recording.
+es: Parciales por km no disponibles para esta grabación.
+fr: Temps par km indisponibles pour cet enregistrement.
+de: Km-Splits für diese Aufzeichnung nicht verfügbar.
+pt: Parciais por km indisponíveis para esta gravação.
+
+it: Pezzi presi dal programma ("%s"), collocati dove la corsa li segue meglio. Se hai fatto altro, scrivi la struttura con "Ripetute".
+en: Segments taken from the plan ("%s"), placed where the run follows them best. If you did something else, write the structure with "Intervals".
+es: Tramos tomados del plan ("%s"), colocados donde la carrera mejor los sigue. Si hiciste otra cosa, escribe la estructura con "Series".
+fr: Segments pris du programme ("%s"), placés là où la course les suit le mieux. Si tu as fait autre chose, écris la structure avec "Fractionné".
+de: Abschnitte aus dem Plan ("%s"), dort platziert, wo der Lauf ihnen am besten folgt. Wenn du etwas anderes gemacht hast, schreib den Aufbau unter "Intervalle".
+pt: Trechos tirados do plano ("%s"), colocados onde a corrida melhor os segue. Se você fez outra coisa, escreva a estrutura em "Tiros".
+
+it: I giri dell'orologio non arrivano in Health Connect: tocca "Ripetute" e scrivi la struttura (es. 10' di riscaldamento, 3 × 4' veloce e 2' di recupero) per vederle una per una.
+en: Watch laps don't reach Health Connect: tap "Intervals" and write the structure (e.g. 10' warm-up, 3 × 4' fast and 2' recovery) to see them one by one.
+es: Las vueltas del reloj no llegan a Health Connect: toca "Series" y escribe la estructura (p. ej. 10' de calentamiento, 3 × 4' rápido y 2' de recuperación) para verlas una a una.
+fr: Les tours de la montre n'arrivent pas dans Health Connect : touche "Fractionné" et écris la structure (ex. 10' d'échauffement, 3 × 4' rapide et 2' de récup) pour les voir une par une.
+de: Die Runden der Uhr kommen nicht in Health Connect an: Tippe auf "Intervalle" und schreib den Aufbau (z. B. 10' Aufwärmen, 3 × 4' schnell und 2' Pause), um sie einzeln zu sehen.
+pt: As voltas do relógio não chegam ao Health Connect: toque em "Tiros" e escreva a estrutura (ex. 10' de aquecimento, 3 × 4' rápido e 2' de recuperação) para vê-los um a um.
+
+it: FC
+en: HR
+es: FC
+fr: FC
+de: HF
+pt: FC
+
+it: Blocco
+en: Block
+es: Bloque
+fr: Bloc
+de: Block
+pt: Bloco
+
+it: %s: %s km in %s, ritmo medio %s/km
+en: %s: %s km in %s, avg pace %s/km
+es: %s: %s km en %s, ritmo medio %s/km
+fr: %s : %s km en %s, allure moyenne %s/km
+de: %s: %s km in %s, Ø Pace %s/km
+pt: %s: %s km em %s, ritmo médio %s/km
+
+it: Blocchi
+en: Blocks
+es: Bloques
+fr: Blocs
+de: Blöcke
+pt: Blocos
+
+it: Veloci
+en: Fast reps
+es: Rápidas
+fr: Rapides
+de: Schnelle
+pt: Rápidos
+
+it: FC %d
+en: HR %d
+es: FC %d
+fr: FC %d
+de: HF %d
+pt: FC %d
+
+it: il più veloce il %d°
+en: fastest: #%d
+es: el más rápido el %d.º
+fr: le plus rapide : le %de
+de: der schnellste: der %d.
+pt: o mais rápido o %dº
+
+it: la più veloce la %dª
+en: fastest: #%d
+es: la más rápida la %d.ª
+fr: la plus rapide : la %de
+de: die schnellste: die %d.
+pt: o mais rápido o %dº
+
+it: Tempo
+en: Time
+es: Tiempo
+fr: Temps
+de: Zeit
+pt: Tempo
+
+it: Correggi la corsa
+en: Correct the run
+es: Corregir la carrera
+fr: Corriger la course
+de: Lauf korrigieren
+pt: Corrigir a corrida
+
+it: Registrata dall'orologio: %s e %s km. Scrivi durata e distanza della sola corsa, oppure durata e ritmo medio: la distanza si calcola da sé.
+en: Recorded by the watch: %s and %s km. Enter the duration and distance of the run only, or duration and average pace: the distance is calculated for you.
+es: Grabada por el reloj: %s y %s km. Escribe duración y distancia solo de la carrera, o duración y ritmo medio: la distancia se calcula sola.
+fr: Enregistrée par la montre : %s et %s km. Indique durée et distance de la course seule, ou durée et allure moyenne : la distance se calcule toute seule.
+de: Von der Uhr aufgezeichnet: %s und %s km. Gib Dauer und Distanz nur des Laufs ein oder Dauer und Ø Pace: Die Distanz wird berechnet.
+pt: Gravada pelo relógio: %s e %s km. Escreva duração e distância só da corrida, ou duração e ritmo médio: a distância se calcula sozinha.
+
+it: Durata (min:sec)
+en: Duration (min:sec)
+es: Duración (min:seg)
+fr: Durée (min:s)
+de: Dauer (min:s)
+pt: Duração (min:seg)
+
+it: Distanza (km)
+en: Distance (km)
+es: Distancia (km)
+fr: Distance (km)
+de: Distanz (km)
+pt: Distância (km)
+
+it: Ritmo medio (min:sec al km)
+en: Avg pace (min:sec per km)
+es: Ritmo medio (min:seg por km)
+fr: Allure moyenne (min:s au km)
+de: Ø Pace (min:s pro km)
+pt: Ritmo médio (min:seg por km)
+
+it: Salva correzione
+en: Save correction
+es: Guardar corrección
+fr: Enregistrer la correction
+de: Korrektur speichern
+pt: Salvar correção
+
+it: Torna ai dati dell'orologio
+en: Back to the watch data
+es: Volver a los datos del reloj
+fr: Revenir aux données de la montre
+de: Zurück zu den Uhrdaten
+pt: Voltar aos dados do relógio
+
+it: I giri dell'orologio non arrivano in Health Connect: scrivi come era fatta la seduta. Ogni parte a tempo (min:sec) o a distanza (km). Il resto in fondo diventa defaticamento.
+en: Watch laps don't reach Health Connect: write how the session was built. Each part by time (min:sec) or distance (km). Whatever's left at the end becomes cool-down.
+es: Las vueltas del reloj no llegan a Health Connect: escribe cómo era la sesión. Cada parte por tiempo (min:seg) o por distancia (km). Lo que sobra al final es vuelta a la calma.
+fr: Les tours de la montre n'arrivent pas dans Health Connect : écris comment était la séance. Chaque partie en temps (min:s) ou en distance (km). Le reste à la fin devient retour au calme.
+de: Die Runden der Uhr kommen nicht in Health Connect an: Schreib, wie die Einheit aufgebaut war. Jeder Teil nach Zeit (min:s) oder Distanz (km). Der Rest am Ende wird Auslaufen.
+pt: As voltas do relógio não chegam ao Health Connect: escreva como foi a sessão. Cada parte por tempo (min:seg) ou distância (km). O que sobra no fim vira desaquecimento.
+
+it: Riscaldamento
+en: Warm-up
+es: Calentamiento
+fr: Échauffement
+de: Aufwärmen
+pt: Aquecimento
+
+it: es. 10:00 (se c'è)
+en: e.g. 10:00 (if any)
+es: p. ej. 10:00 (si lo hay)
+fr: ex. 10:00 (s'il y en a)
+de: z. B. 10:00 (falls vorhanden)
+pt: ex. 10:00 (se houver)
+
+it: Numero di ripetute
+en: Number of reps
+es: Número de series
+fr: Nombre de répétitions
+de: Anzahl Wiederholungen
+pt: Número de tiros
+
+it: Veloce
+en: Fast
+es: Rápido
+fr: Rapide
+de: Schnell
+pt: Rápido
+
+it: es. 4:00
+en: e.g. 4:00
+es: p. ej. 4:00
+fr: ex. 4:00
+de: z. B. 4:00
+pt: ex. 4:00
+
+it: es. 2:00
+en: e.g. 2:00
+es: p. ej. 2:00
+fr: ex. 2:00
+de: z. B. 2:00
+pt: ex. 2:00
+
+it: COME VIENE
+en: PREVIEW
+es: VISTA PREVIA
+fr: APERÇU
+de: VORSCHAU
+pt: PRÉVIA
+
+it: Salva ripetute
+en: Save intervals
+es: Guardar series
+fr: Enregistrer le fractionné
+de: Intervalle speichern
+pt: Salvar tiros
+
+it: Togli le ripetute
+en: Remove intervals
+es: Quitar las series
+fr: Retirer le fractionné
+de: Intervalle entfernen
+pt: Remover os tiros
+
+it: es. 0,40
+en: e.g. 0.40
+es: p. ej. 0,40
+fr: ex. 0,40
+de: z. B. 0,40
+pt: ex. 0,40
+
+it: Sensazioni
+en: How it felt
+es: Sensaciones
+fr: Ressenti
+de: Gefühl
+pt: Sensações
+
+it: Sforzo percepito (RPE)
+en: Perceived effort (RPE)
+es: Esfuerzo percibido (RPE)
+fr: Effort perçu (RPE)
+de: Gefühlte Anstrengung (RPE)
+pt: Esforço percebido (RPE)
+
+it: 1 = facilissimo, 10 = massimo sforzo
+en: 1 = very easy, 10 = max effort
+es: 1 = facilísimo, 10 = esfuerzo máximo
+fr: 1 = très facile, 10 = effort maximal
+de: 1 = sehr leicht, 10 = maximale Anstrengung
+pt: 1 = facílimo, 10 = esforço máximo
+
+it: Duro
+en: Hard
+es: Duro
+fr: Dur
+de: Hart
+pt: Difícil
+
+it: Massimale
+en: Maximal
+es: Máximo
+fr: Maximal
+de: Maximal
+pt: Máximo
+
+it: Tipo di seduta
+en: Session type
+es: Tipo de sesión
+fr: Type de séance
+de: Art der Einheit
+pt: Tipo de sessão
+
+it: dal programma
+en: from the plan
+es: del plan
+fr: du programme
+de: aus dem Plan
+pt: do plano
+
+it: Nota
+en: Note
+es: Nota
+fr: Note
+de: Notiz
+pt: Nota
+
+it: Nota (come ti sentivi, meteo…)
+en: Note (how you felt, weather…)
+es: Nota (cómo te sentías, tiempo…)
+fr: Note (ressenti, météo…)
+de: Notiz (wie du dich gefühlt hast, Wetter…)
+pt: Nota (como se sentia, clima…)
+
+it: Fatica misurata dai dati
+en: Strain measured from data
+es: Fatiga medida por los datos
+fr: Fatigue mesurée par les données
+de: Gemessene Belastung
+pt: Fadiga medida pelos dados
+
+it: automatica
+en: automatic
+es: automática
+fr: automatique
+de: automatisch
+pt: automática
+
+it: recupero ~%s
+en: recovery ~%s
+es: recuperación ~%s
+fr: récupération ~%s
+de: Erholung ~%s
+pt: recuperação ~%s
+
+it: Dal battito:
+en: From heart rate:
+es: Por el pulso:
+fr: D'après le pouls :
+de: Aus dem Puls:
+pt: Pelo batimento:
+
+it: Dalla FC media:
+en: From average HR:
+es: Por la FC media:
+fr: D'après la FC moyenne :
+de: Aus der Ø HF:
+pt: Pela FC média:
+
+it: %d' sopra l'80%% della FC max · carico %d
+en: %d' above 80%% of max HR · load %d
+es: %d' por encima del 80%% de la FC máx · carga %d
+fr: %d' au-dessus de 80 %% de la FC max · charge %d
+de: %d' über 80 %% der HF max · Last %d
+pt: %d' acima de 80%% da FC máx · carga %d
+
+it: Riconosciuto in automatico dall'orologio (battito a tratti): non conta per il recupero.
+en: Auto-detected by the watch (patchy heart rate): doesn't count toward recovery.
+es: Detectado automáticamente por el reloj (pulso a ratos): no cuenta para la recuperación.
+fr: Détecté automatiquement par la montre (pouls intermittent) : ne compte pas pour la récupération.
+de: Automatisch von der Uhr erkannt (lückenhafter Puls): zählt nicht für die Erholung.
+pt: Reconhecido automaticamente pelo relógio (batimento intermitente): não conta para a recuperação.
+
+it: Hai sentito %d, i dati dicono %d.
+en: You felt %d, the data says %d.
+es: Sentiste %d, los datos dicen %d.
+fr: Tu as ressenti %d, les données disent %d.
+de: Du hast %d gefühlt, die Daten sagen %d.
+pt: Você sentiu %d, os dados dizem %d.
+
+it: da Notion
+en: from Notion
+es: de Notion
+fr: de Notion
+de: aus Notion
+pt: do Notion
+
+# Tipi di seduta predefiniti
+
+it: Facile
+en: Easy
+es: Suave
+fr: Facile
+de: Locker
+pt: Leve
+
+it: Lungo facile
+en: Long easy
+es: Largo suave
+fr: Sortie longue
+de: Langer lockerer Lauf
+pt: Longão leve
+
+it: Progressivo
+en: Progression
+es: Progresivo
+fr: Progressif
+de: Steigerungslauf
+pt: Progressivo
+
+it: Intervalli
+en: Intervals
+es: Series
+fr: Fractionné
+de: Intervalle
+pt: Intervalado
+
+it: Test
+en: Test
+es: Test
+fr: Test
+de: Test
+pt: Teste
+
+it: Libera
+en: Free
+es: Libre
+fr: Libre
+de: Frei
+pt: Livre
+
+# Stime e progressi
+
+it: Stima
+en: Estimate
+es: Estimación
+fr: Estimation
+de: Schätzung
+pt: Estimativa
+
+it: Per la stima servono almeno 3 uscite Facili (o Lungo facile) da 2 km in su con RPE fino a 6, e uno sforzo con RPE 7 o più: segnali nelle Sensazioni di ogni corsa.
+en: The estimate needs at least 3 Easy (or Long easy) runs of 2 km or more with RPE up to 6, and one effort with RPE 7 or more: mark them under How it felt on each run.
+es: Para la estimación hacen falta al menos 3 salidas Suaves (o Largo suave) de 2 km o más con RPE hasta 6, y un esfuerzo con RPE 7 o más: márcalos en las Sensaciones de cada carrera.
+fr: L'estimation demande au moins 3 sorties Faciles (ou Sortie longue) de 2 km ou plus avec RPE jusqu'à 6, et un effort avec RPE 7 ou plus : indique-les dans le Ressenti de chaque course.
+de: Für die Schätzung braucht es mindestens 3 lockere Läufe (oder lange lockere) ab 2 km mit RPE bis 6 und eine Belastung mit RPE 7 oder mehr: Trag sie unter Gefühl bei jedem Lauf ein.
+pt: Para a estimativa são necessárias pelo menos 3 saídas Leves (ou Longão leve) de 2 km ou mais com RPE até 6, e um esforço com RPE 7 ou mais: marque-os nas Sensações de cada corrida.
+
+it: Con l'allenamento attuale correresti i %s km in
+en: With your current training you'd run %s km in
+es: Con el entrenamiento actual correrías los %s km en
+fr: Avec ton entraînement actuel, tu courrais les %s km en
+de: Mit deinem aktuellen Training läufst du %s km in
+pt: Com o treino atual você correria os %s km em
+
+it: Obiettivo %s entro il %s:
+en: Goal %s by %s:
+es: Objetivo %s antes del %s:
+fr: Objectif %s d'ici le %s :
+de: Ziel %s bis %s:
+pt: Meta %s até %s:
+
+it: ci sei
+en: you're there
+es: lo tienes
+fr: tu y es
+de: geschafft
+pt: você chegou
+
+it: %s meglio
+en: %s better
+es: %s mejor
+fr: %s de mieux
+de: %s besser
+pt: %s melhor
+
+it: mancano %s
+en: %s to go
+es: faltan %s
+fr: il manque %s
+de: noch %s
+pt: faltam %s
+
+it: %s sulla stima precedente
+en: %s vs previous estimate
+es: %s sobre la estimación anterior
+fr: %s par rapport à l'estimation précédente
+de: %s ggü. der vorherigen Schätzung
+pt: %s em relação à estimativa anterior
+
+it: È il tuo potenziale: finora hai corso al massimo %s km di fila.
+en: It's your potential: so far you've run at most %s km in one go.
+es: Es tu potencial: hasta ahora has corrido como máximo %s km seguidos.
+fr: C'est ton potentiel : jusqu'ici tu as couru au maximum %s km d'affilée.
+de: Das ist dein Potenzial: Bisher bist du höchstens %s km am Stück gelaufen.
+pt: É o seu potencial: até agora você correu no máximo %s km seguidos.
+
+it: Scenari e come è calcolata
+en: Scenarios and how it's calculated
+es: Escenarios y cómo se calcula
+fr: Scénarios et calcul
+de: Szenarien und Berechnung
+pt: Cenários e como é calculada
+
+it: Forchetta %s km
+en: %s km range
+es: Horquilla %s km
+fr: Fourchette %s km
+de: Spanne %s km
+pt: Faixa %s km
+
+it: FC per %s/km
+en: HR for %s/km
+es: FC para %s/km
+fr: FC pour %s/km
+de: HF für %s/km
+pt: FC para %s/km
+
+it: Negli sforzi duri tieni %d bpm: %d bpm di margine sul ritmo dell'obiettivo.
+en: In hard efforts you hold %d bpm: %d bpm of margin on goal pace.
+es: En los esfuerzos duros mantienes %d lpm: %d lpm de margen sobre el ritmo objetivo.
+fr: Dans les efforts durs tu tiens %d bpm : %d bpm de marge sur l'allure visée.
+de: Bei harten Belastungen hältst du %d bpm: %d bpm Reserve zum Zieltempo.
+pt: Nos esforços duros você mantém %d bpm: %d bpm de margem sobre o ritmo da meta.
+
+it: Negli sforzi duri tieni %d bpm: mancano %d bpm per il ritmo dell'obiettivo.
+en: In hard efforts you hold %d bpm: %d bpm short of goal pace.
+es: En los esfuerzos duros mantienes %d lpm: faltan %d lpm para el ritmo objetivo.
+fr: Dans les efforts durs tu tiens %d bpm : il manque %d bpm pour l'allure visée.
+de: Bei harten Belastungen hältst du %d bpm: Für das Zieltempo fehlen %d bpm.
+pt: Nos esforços duros você mantém %d bpm: faltam %d bpm para o ritmo da meta.
+
+it: Come è calcolata: la stima dei 5 km è la media di due stime. Dal battito: battiti per km (FC media × ritmo) delle uscite facili, mediana delle ultime %d (oggi %s), diviso la FC degli sforzi con RPE ≥ 7 degli ultimi 90 giorni (%d bpm su %d; nelle ripetute conta la FC dei tratti veloci) = %s.
+en: How it's calculated: the 5 km estimate is the average of two estimates. From heart rate: beats per km (avg HR × pace) of easy runs, median of the last %d (today %s), divided by the HR of efforts with RPE ≥ 7 in the last 90 days (%d bpm over %d; in intervals the HR of the fast segments counts) = %s.
+es: Cómo se calcula: la estimación de 5 km es la media de dos estimaciones. Por el pulso: latidos por km (FC media × ritmo) de las salidas suaves, mediana de las últimas %d (hoy %s), dividido por la FC de los esfuerzos con RPE ≥ 7 de los últimos 90 días (%d lpm en %d; en las series cuenta la FC de los tramos rápidos) = %s.
+fr: Calcul : l'estimation sur 5 km est la moyenne de deux estimations. D'après le pouls : battements par km (FC moyenne × allure) des sorties faciles, médiane des %d dernières (aujourd'hui %s), divisée par la FC des efforts avec RPE ≥ 7 des 90 derniers jours (%d bpm sur %d ; dans le fractionné, la FC des parties rapides compte) = %s.
+de: Berechnung: Die 5-km-Schätzung ist der Mittelwert zweier Schätzungen. Aus dem Puls: Schläge pro km (Ø HF × Pace) der lockeren Läufe, Median der letzten %d (heute %s), geteilt durch die HF der Belastungen mit RPE ≥ 7 der letzten 90 Tage (%d bpm aus %d; bei Intervallen zählt die HF der schnellen Abschnitte) = %s.
+pt: Como é calculada: a estimativa dos 5 km é a média de duas estimativas. Pelo batimento: batimentos por km (FC média × ritmo) das saídas leves, mediana das últimas %d (hoje %s), dividido pela FC dos esforços com RPE ≥ 7 dos últimos 90 dias (%d bpm em %d; nos tiros conta a FC dos trechos rápidos) = %s.
+
+it: Dalla prova reale: il miglior sforzo continuo degli ultimi 90 giorni (%s, %s km in %s) portato a 5 km = %s.
+en: From a real effort: the best continuous effort of the last 90 days (%s, %s km in %s) scaled to 5 km = %s.
+es: Por la prueba real: el mejor esfuerzo continuo de los últimos 90 días (%s, %s km en %s) llevado a 5 km = %s.
+fr: D'après l'épreuve réelle : le meilleur effort continu des 90 derniers jours (%s, %s km en %s) ramené à 5 km = %s.
+de: Aus einem echten Lauf: die beste durchgehende Belastung der letzten 90 Tage (%s, %s km in %s) auf 5 km umgerechnet = %s.
+pt: Pela prova real: o melhor esforço contínuo dos últimos 90 dias (%s, %s km em %s) levado a 5 km = %s.
+
+it: Nessuno sforzo continuo duro negli ultimi 90 giorni: conta solo il battito.
+en: No hard continuous effort in the last 90 days: only heart rate counts.
+es: Ningún esfuerzo continuo duro en los últimos 90 días: solo cuenta el pulso.
+fr: Aucun effort continu dur ces 90 derniers jours : seul le pouls compte.
+de: Keine harte durchgehende Belastung in den letzten 90 Tagen: Es zählt nur der Puls.
+pt: Nenhum esforço contínuo duro nos últimos 90 dias: conta só o batimento.
+
+it: Si scartano le uscite facili con RPE oltre 6, sotto i 2 km o con battiti per km fuori scala (±15%). I 7 e i 10 km vengono dai 5 con la formula di Riegel (esponente 1,08; forchetta 1,06–1,10): valgono se riesci a tenere il ritmo per tutta la distanza.
+en: Easy runs with RPE over 6, under 2 km or with out-of-range beats per km (±15%) are discarded. 7 and 10 km come from 5 km with Riegel's formula (exponent 1.08; range 1.06–1.10): they hold if you can keep the pace for the whole distance.
+es: Se descartan las salidas suaves con RPE mayor de 6, de menos de 2 km o con latidos por km fuera de escala (±15%). Los 7 y 10 km salen de los 5 con la fórmula de Riegel (exponente 1,08; horquilla 1,06–1,10): valen si consigues mantener el ritmo toda la distancia.
+fr: Les sorties faciles avec RPE au-dessus de 6, sous 2 km ou avec des battements par km hors norme (±15%) sont écartées. Les 7 et 10 km viennent des 5 km avec la formule de Riegel (exposant 1,08 ; fourchette 1,06–1,10) : valables si tu tiens l'allure sur toute la distance.
+de: Lockere Läufe mit RPE über 6, unter 2 km oder mit Schlägen pro km außerhalb der Skala (±15%) werden verworfen. 7 und 10 km kommen aus den 5 km mit der Riegel-Formel (Exponent 1,08; Spanne 1,06–1,10): Sie gelten, wenn du das Tempo über die ganze Distanz hältst.
+pt: Descartam-se as saídas leves com RPE acima de 6, abaixo de 2 km ou com batimentos por km fora da escala (±15%). Os 7 e 10 km vêm dos 5 com a fórmula de Riegel (expoente 1,08; faixa 1,06–1,10): valem se você conseguir manter o ritmo a distância toda.
+
+it: %s: hai corso %s km in %s (%s/km)
+en: %s: you ran %s km in %s (%s/km)
+es: %s: corriste %s km en %s (%s/km)
+fr: %s : tu as couru %s km en %s (%s/km)
+de: %s: Du bist %s km in %s gelaufen (%s/km)
+pt: %s: você correu %s km em %s (%s/km)
+
+it: %s: hai corso %s km di fila in %s, cioè %s km in %s (%s/km)
+en: %s: you ran %s km in one go in %s, i.e. %s km in %s (%s/km)
+es: %s: corriste %s km seguidos en %s, es decir %s km en %s (%s/km)
+fr: %s : tu as couru %s km d'affilée en %s, soit %s km en %s (%s/km)
+de: %s: Du bist %s km am Stück in %s gelaufen, also %s km in %s (%s/km)
+pt: %s: você correu %s km seguidos em %s, ou seja %s km em %s (%s/km)
+
+it: Dopo il %s: %s (%s/km)
+en: After %s: %s (%s/km)
+es: Tras el %s: %s (%s/km)
+fr: Après le %s : %s (%s/km)
+de: Nach dem %s: %s (%s/km)
+pt: Depois de %s: %s (%s/km)
+
+it: dai 5 km in %s
+en: from 5 km in %s
+es: desde los 5 km en %s
+fr: d'après les 5 km en %s
+de: aus 5 km in %s
+pt: a partir dos 5 km em %s
+
+it: battito %s, prova reale %s
+en: heart rate %s, real effort %s
+es: pulso %s, prueba real %s
+fr: pouls %s, épreuve réelle %s
+de: Puls %s, echter Lauf %s
+pt: batimento %s, prova real %s
+
+it: %s battiti/km ÷ %d bpm
+en: %s beats/km ÷ %d bpm
+es: %s latidos/km ÷ %d lpm
+fr: %s battements/km ÷ %d bpm
+de: %s Schläge/km ÷ %d bpm
+pt: %s batimentos/km ÷ %d bpm
+
+it: Tocca un punto per i dettagli. Gli anelli sono i %s km corsi davvero, per confrontarli con la stima.
+en: Tap a point for details. The rings are the %s km you actually ran, to compare with the estimate.
+es: Toca un punto para ver detalles. Los anillos son los %s km corridos de verdad, para compararlos con la estimación.
+fr: Touche un point pour les détails. Les anneaux sont les %s km vraiment courus, pour les comparer à l'estimation.
+de: Tippe auf einen Punkt für Details. Die Ringe sind die wirklich gelaufenen %s km, zum Vergleich mit der Schätzung.
+pt: Toque em um ponto para ver detalhes. Os anéis são os %s km corridos de verdade, para comparar com a estimativa.
+
+it: Tocca un punto per i dettagli
+en: Tap a point for details
+es: Toca un punto para ver detalles
+fr: Touche un point pour les détails
+de: Tippe auf einen Punkt für Details
+pt: Toque em um ponto para ver detalhes
+
+it: Stima %s km
+en: %s km estimate
+es: Estimación %s km
+fr: Estimation %s km
+de: Schätzung %s km
+pt: Estimativa %s km
+
+it: Corsi davvero
+en: Actually run
+es: Corridos de verdad
+fr: Vraiment courus
+de: Wirklich gelaufen
+pt: Corridos de verdade
+
+it: Se continui così
+en: If you keep this up
+es: Si sigues así
+fr: Si tu continues ainsi
+de: Wenn du so weitermachst
+pt: Se continuar assim
+
+it: SE IN GARA LA FC FOSSE…
+en: IF YOUR RACE HR WERE…
+es: SI EN CARRERA LA FC FUERA…
+fr: SI EN COURSE LA FC ÉTAIT…
+de: WENN DIE HF IM WETTKAMPF WÄRE…
+pt: SE NA PROVA A FC FOSSE…
+
+it: Scenario
+en: Scenario
+es: Escenario
+fr: Scénario
+de: Szenario
+pt: Cenário
+
+it: Battiti/km
+en: Beats/km
+es: Latidos/km
+fr: Battements/km
+de: Schläge/km
+pt: Batimentos/km
+
+it: Corse a confronto
+en: Runs compared
+es: Carreras comparadas
+fr: Courses comparées
+de: Läufe im Vergleich
+pt: Corridas comparadas
+
+it: Queste corse non hanno ancora il tipo: aprile e scegli il tipo di seduta nelle Sensazioni.
+en: These runs don't have a type yet: open them and choose the session type under How it felt.
+es: Estas carreras aún no tienen tipo: ábrelas y elige el tipo de sesión en las Sensaciones.
+fr: Ces courses n'ont pas encore de type : ouvre-les et choisis le type de séance dans le Ressenti.
+de: Diese Läufe haben noch keinen Typ: Öffne sie und wähle die Art der Einheit unter Gefühl.
+pt: Estas corridas ainda não têm tipo: abra-as e escolha o tipo de sessão nas Sensações.
+
+it: %d corse · media %s (tratteggio)
+en: %d runs · average %s (dashed)
+es: %d carreras · media %s (discontinua)
+fr: %d courses · moyenne %s (pointillés)
+de: %d Läufe · Schnitt %s (gestrichelt)
+pt: %d corridas · média %s (tracejado)
+
+it: Nessun dato di questa misura per il tipo scelto.
+en: No data for this metric for the chosen type.
+es: Sin datos de esta medida para el tipo elegido.
+fr: Aucune donnée pour cette mesure et ce type.
+de: Keine Daten dieser Messgröße für den gewählten Typ.
+pt: Sem dados desta medida para o tipo escolhido.
+
+it: Una sola corsa con questo dato: il grafico compare dalla seconda.
+en: Only one run with this data: the chart appears from the second.
+es: Solo una carrera con este dato: el gráfico aparece a partir de la segunda.
+fr: Une seule course avec cette donnée : le graphique apparaît dès la deuxième.
+de: Nur ein Lauf mit diesem Wert: Das Diagramm erscheint ab dem zweiten.
+pt: Só uma corrida com este dado: o gráfico aparece a partir da segunda.
+
+it: Confronta due corse
+en: Compare two runs
+es: Comparar dos carreras
+fr: Comparer deux courses
+de: Zwei Läufe vergleichen
+pt: Comparar duas corridas
+
+it: Differenza = prima corsa − seconda; verde se è un miglioramento. Nelle uscite facili il ritmo non ha un "meglio"; nelle ripetute nemmeno distanza, durata e battiti per km.
+en: Difference = first run − second; green if it's an improvement. In easy runs pace has no "better"; in intervals neither do distance, duration and beats per km.
+es: Diferencia = primera carrera − segunda; verde si es una mejora. En las salidas suaves el ritmo no tiene un "mejor"; en las series tampoco distancia, duración y latidos por km.
+fr: Différence = première course − deuxième ; vert si c'est un progrès. Dans les sorties faciles l'allure n'a pas de "mieux" ; dans le fractionné, ni la distance, ni la durée, ni les battements par km.
+de: Differenz = erster Lauf − zweiter; grün bei Verbesserung. Bei lockeren Läufen hat die Pace kein "besser"; bei Intervallen auch Distanz, Dauer und Schläge pro km nicht.
+pt: Diferença = primeira corrida − segunda; verde se for uma melhora. Nas saídas leves o ritmo não tem um "melhor"; nos tiros nem distância, duração e batimentos por km.
+
+it: Tutte
+en: All
+es: Todas
+fr: Toutes
+de: Alle
+pt: Todas
+
+it: Senza tipo
+en: No type
+es: Sin tipo
+fr: Sans type
+de: Ohne Typ
+pt: Sem tipo
+
+it: Scegli la corsa
+en: Choose the run
+es: Elige la carrera
+fr: Choisis la course
+de: Lauf wählen
+pt: Escolha a corrida
+
+it: Misura
+en: Metric
+es: Medida
+fr: Mesure
+de: Messgröße
+pt: Medida
+
+it: Prima
+en: First
+es: Primera
+fr: Première
+de: Erster
+pt: Primeira
+
+it: Seconda
+en: Second
+es: Segunda
+fr: Deuxième
+de: Zweiter
+pt: Segunda
+
+it: Diff.
+en: Diff.
+es: Dif.
+fr: Écart
+de: Diff.
+pt: Dif.
+
+it: Migliore
+en: Best
+es: Mejor
+fr: Meilleure
+de: Beste
+pt: Melhor
+
+it: Km per settimana
+en: Km per week
+es: Km por semana
+fr: Km par semaine
+de: Km pro Woche
+pt: Km por semana
+
+it: 12 settimane
+en: 12 weeks
+es: 12 semanas
+fr: 12 semaines
+de: 12 Wochen
+pt: 12 semanas
+
+it: Uscite
+en: Runs
+es: Salidas
+fr: Sorties
+de: Läufe
+pt: Saídas
+
+it: Media a settimana
+en: Weekly average
+es: Media por semana
+fr: Moyenne par semaine
+de: Ø pro Woche
+pt: Média por semana
+
+it: Dal %s: %s km · %d min · %d uscite
+en: From %s: %s km · %d min · %d runs
+es: Desde el %s: %s km · %d min · %d salidas
+fr: Depuis le %s : %s km · %d min · %d sorties
+de: Ab %s: %s km · %d Min · %d Läufe
+pt: Desde %s: %s km · %d min · %d saídas
+
+it: Tocca una colonna per il dettaglio
+en: Tap a bar for details
+es: Toca una columna para ver el detalle
+fr: Touche une colonne pour le détail
+de: Tippe auf eine Säule für Details
+pt: Toque em uma coluna para ver o detalhe
+
+# Obiettivi di corsa
+
+it: Obiettivo a breve termine
+en: Short-term goal
+es: Objetivo a corto plazo
+fr: Objectif à court terme
+de: Kurzfristiges Ziel
+pt: Meta de curto prazo
+
+it: Obiettivo a lungo termine
+en: Long-term goal
+es: Objetivo a largo plazo
+fr: Objectif à long terme
+de: Langfristiges Ziel
+pt: Meta de longo prazo
+
+it: Obiettivo alla portata
+en: Goal within reach
+es: Objetivo a tu alcance
+fr: Objectif à portée
+de: Ziel in Reichweite
+pt: Meta ao alcance
+
+it: Sopra l'obiettivo
+en: Ahead of goal
+es: Por encima del objetivo
+fr: Au-dessus de l'objectif
+de: Besser als das Ziel
+pt: Acima da meta
+
+it: In linea
+en: On track
+es: En línea
+fr: Dans les temps
+de: Im Plan
+pt: No caminho
+
+it: Quasi in linea
+en: Nearly on track
+es: Casi en línea
+fr: Presque dans les temps
+de: Fast im Plan
+pt: Quase no caminho
+
+it: Sotto l'obiettivo
+en: Behind goal
+es: Por debajo del objetivo
+fr: En dessous de l'objectif
+de: Hinter dem Ziel
+pt: Abaixo da meta
+
+it: Tendenza ancora incerta
+en: Trend still unclear
+es: Tendencia aún incierta
+fr: Tendance encore incertaine
+de: Trend noch unklar
+pt: Tendência ainda incerta
+
+it: Servono più dati
+en: More data needed
+es: Hacen falta más datos
+fr: Il faut plus de données
+de: Mehr Daten nötig
+pt: São necessários mais dados
+
+it: Scaduto
+en: Expired
+es: Vencido
+fr: Expiré
+de: Abgelaufen
+pt: Expirado
+
+it: tra %d giorni
+en: in %d days
+es: en %d días
+fr: dans %d jours
+de: in %d Tagen
+pt: em %d dias
+
+it: tra %d settimane
+en: in %d weeks
+es: en %d semanas
+fr: dans %d semaines
+de: in %d Wochen
+pt: em %d semanas
+
+it: Scegli distanza, ritmo e data: l'app ti dice se, continuando ad allenarti così, ci arrivi in tempo.
+en: Choose distance, pace and date: the app tells you whether, training like this, you'll get there in time.
+es: Elige distancia, ritmo y fecha: la app te dice si, entrenando así, llegas a tiempo.
+fr: Choisis distance, allure et date : l'app te dit si, en continuant ainsi, tu y arrives à temps.
+de: Wähle Distanz, Pace und Datum: Die App sagt dir, ob du es mit diesem Training rechtzeitig schaffst.
+pt: Escolha distância, ritmo e data: o app diz se, treinando assim, você chega a tempo.
+
+it: Imposta obiettivo
+en: Set goal
+es: Fijar objetivo
+fr: Définir l'objectif
+de: Ziel festlegen
+pt: Definir meta
+
+it: %s km in %s
+en: %s km in %s
+es: %s km en %s
+fr: %s km en %s
+de: %s km in %s
+pt: %s km em %s
+
+it: entro %s
+en: by %s
+es: antes del %s
+fr: d'ici le %s
+de: bis %s
+pt: até %s
+
+it: il %s
+en: on %s
+es: el %s
+fr: le %s
+de: am %s
+pt: em %s
+
+it: Ce l'hai fatta: alla scadenza la stima era %s.
+en: You made it: at the deadline the estimate was %s.
+es: Lo lograste: en la fecha límite la estimación era %s.
+fr: Tu l'as fait : à l'échéance, l'estimation était de %s.
+de: Geschafft: Zum Stichtag lag die Schätzung bei %s.
+pt: Você conseguiu: no prazo a estimativa era %s.
+
+it: La stima di oggi (%s) è già entro l'obiettivo: ora si tratta di correrlo davvero.
+en: Today's estimate (%s) is already within the goal: now it's about actually running it.
+es: La estimación de hoy (%s) ya está dentro del objetivo: ahora toca correrlo de verdad.
+fr: L'estimation du jour (%s) est déjà dans l'objectif : il reste à le courir pour de vrai.
+de: Die heutige Schätzung (%s) liegt schon im Ziel: Jetzt musst du es nur noch laufen.
+pt: A estimativa de hoje (%s) já está dentro da meta: agora é correr de verdade.
+
+it: Se continui così: %s %s, %s meglio dell'obiettivo.
+en: If you keep this up: %s %s, %s better than the goal.
+es: Si sigues así: %s %s, %s mejor que el objetivo.
+fr: Si tu continues ainsi : %s %s, %s de mieux que l'objectif.
+de: Wenn du so weitermachst: %s %s, %s besser als das Ziel.
+pt: Se continuar assim: %s %s, %s melhor que a meta.
+
+it: Se continui così: %s %s, giusto in tempo.
+en: If you keep this up: %s %s, just in time.
+es: Si sigues así: %s %s, justo a tiempo.
+fr: Si tu continues ainsi : %s %s, juste à temps.
+de: Wenn du so weitermachst: %s %s, gerade rechtzeitig.
+pt: Se continuar assim: %s %s, bem a tempo.
+
+it: Se continui così: %s %s, %s più lento dell'obiettivo: basta poco in più.
+en: If you keep this up: %s %s, %s slower than the goal: a little more will do.
+es: Si sigues así: %s %s, %s más lento que el objetivo: basta un poco más.
+fr: Si tu continues ainsi : %s %s, %s plus lent que l'objectif : il suffit d'un petit effort.
+de: Wenn du so weitermachst: %s %s, %s langsamer als das Ziel: Es fehlt nicht viel.
+pt: Se continuar assim: %s %s, %s mais lento que a meta: basta um pouco mais.
+
+it: Se continui così: %s %s, %s più lento dell'obiettivo.
+en: If you keep this up: %s %s, %s slower than the goal.
+es: Si sigues así: %s %s, %s más lento que el objetivo.
+fr: Si tu continues ainsi : %s %s, %s plus lent que l'objectif.
+de: Wenn du so weitermachst: %s %s, %s langsamer als das Ziel.
+pt: Se continuar assim: %s %s, %s mais lento que a meta.
+
+it: Per la tendenza servono almeno 3 stime in 10 giorni. Oggi sei a %s dall'obiettivo.
+en: The trend needs at least 3 estimates within 10 days. Today you're %s from the goal.
+es: Para la tendencia hacen falta al menos 3 estimaciones en 10 días. Hoy estás a %s del objetivo.
+fr: La tendance demande au moins 3 estimations en 10 jours. Aujourd'hui tu es à %s de l'objectif.
+de: Für den Trend braucht es mindestens 3 Schätzungen in 10 Tagen. Heute fehlen dir %s zum Ziel.
+pt: Para a tendência são necessárias pelo menos 3 estimativas em 10 dias. Hoje você está a %s da meta.
+
+it: La stima arriva con almeno 3 uscite Facili da 2 km e uno sforzo con RPE 7 o più.
+en: The estimate comes with at least 3 Easy runs of 2 km and one effort with RPE 7 or more.
+es: La estimación llega con al menos 3 salidas Suaves de 2 km y un esfuerzo con RPE 7 o más.
+fr: L'estimation arrive avec au moins 3 sorties Faciles de 2 km et un effort avec RPE 7 ou plus.
+de: Die Schätzung kommt mit mindestens 3 lockeren Läufen über 2 km und einer Belastung mit RPE 7 oder mehr.
+pt: A estimativa chega com pelo menos 3 saídas Leves de 2 km e um esforço com RPE 7 ou mais.
+
+it: Alla scadenza la stima era %s, %s più lento. Modificalo per fissarne uno nuovo.
+en: At the deadline the estimate was %s, %s slower. Edit it to set a new one.
+es: En la fecha límite la estimación era %s, %s más lenta. Edítalo para fijar uno nuevo.
+fr: À l'échéance, l'estimation était de %s, %s plus lente. Modifie-le pour en fixer un nouveau.
+de: Zum Stichtag lag die Schätzung bei %s, %s langsamer. Bearbeite es, um ein neues festzulegen.
+pt: No prazo a estimativa era %s, %s mais lenta. Edite para definir uma nova.
+
+it: Stima di oggi
+en: Today's estimate
+es: Estimación de hoy
+fr: Estimation du jour
+de: Heutige Schätzung
+pt: Estimativa de hoje
+
+it: Dall'obiettivo
+en: From goal
+es: Del objetivo
+fr: De l'objectif
+de: Zum Ziel
+pt: Da meta
+
+it: A settimana
+en: Per week
+es: Por semana
+fr: Par semaine
+de: Pro Woche
+pt: Por semana
+
+it: meno di 1 s
+en: less than 1 s
+es: menos de 1 s
+fr: moins de 1 s
+de: weniger als 1 s
+pt: menos de 1 s
+
+it: nelle ultime settimane: %s in meno a settimana.
+en: in recent weeks: %s less per week.
+es: en las últimas semanas: %s menos por semana.
+fr: ces dernières semaines : %s de moins par semaine.
+de: in den letzten Wochen: %s weniger pro Woche.
+pt: nas últimas semanas: %s a menos por semana.
+
+it: nelle ultime settimane la stima non è migliorata.
+en: in recent weeks the estimate hasn't improved.
+es: en las últimas semanas la estimación no ha mejorado.
+fr: ces dernières semaines l'estimation ne s'est pas améliorée.
+de: in den letzten Wochen hat sich die Schätzung nicht verbessert.
+pt: nas últimas semanas a estimativa não melhorou.
+
+it: Per arrivarci servono %s in meno a settimana
+en: To get there you need %s less per week
+es: Para llegar hacen falta %s menos por semana
+fr: Pour y arriver, il faut %s de moins par semaine
+de: Dafür brauchst du %s weniger pro Woche
+pt: Para chegar lá são necessários %s a menos por semana
+
+it: Distanza continua più lunga: %s km di %s
+en: Longest continuous distance: %s km of %s
+es: Distancia continua más larga: %s km de %s
+fr: Plus longue distance continue : %s km sur %s
+de: Längste durchgehende Distanz: %s km von %s
+pt: Maior distância contínua: %s km de %s
+
+it: Mancano %s km: la stima vale se arrivi a correrli tutti di fila.
+en: %s km to go: the estimate holds if you manage to run them all in one go.
+es: Faltan %s km: la estimación vale si llegas a correrlos todos seguidos.
+fr: Il manque %s km : l'estimation vaut si tu arrives à les courir d'affilée.
+de: Es fehlen %s km: Die Schätzung gilt, wenn du sie alle am Stück läufst.
+pt: Faltam %s km: a estimativa vale se você conseguir correr todos seguidos.
+
+it: Tempo obiettivo: %s sui %s km
+en: Target time: %s over %s km
+es: Tiempo objetivo: %s en %s km
+fr: Temps visé : %s sur %s km
+de: Zielzeit: %s über %s km
+pt: Tempo da meta: %s nos %s km
+
+it: stima di oggi %s
+en: today's estimate %s
+es: estimación de hoy %s
+fr: estimation du jour %s
+de: heutige Schätzung %s
+pt: estimativa de hoje %s
+
+it: Ritmo in minuti e secondi al km, per esempio 6:30.
+en: Pace in minutes and seconds per km, for example 6:30.
+es: Ritmo en minutos y segundos por km, por ejemplo 6:30.
+fr: Allure en minutes et secondes au km, par exemple 6:30.
+de: Pace in Minuten und Sekunden pro km, zum Beispiel 6:30.
+pt: Ritmo em minutos e segundos por km, por exemplo 6:30.
+
+it: Entro il
+en: By
+es: Antes del
+fr: D'ici le
+de: Bis
+pt: Até
+
+it: Togli obiettivo
+en: Remove goal
+es: Quitar objetivo
+fr: Retirer l'objectif
+de: Ziel entfernen
+pt: Remover meta
+
+# Statistiche corse
+
+it: Questa settimana · dal %s
+en: This week · from %s
+es: Esta semana · desde el %s
+fr: Cette semaine · depuis le %s
+de: Diese Woche · ab %s
+pt: Esta semana · desde %s
+
+it: Dal %s
+en: Since %s
+es: Desde el %s
+fr: Depuis le %s
+de: Seit %s
+pt: Desde %s
+
+it: Corse
+en: Runs
+es: Carreras
+fr: Courses
+de: Läufe
+pt: Corridas
+
+it: ritmo medio
+en: avg pace
+es: ritmo medio
+fr: allure moyenne
+de: Ø Pace
+pt: ritmo médio
+
+it: battiti/km
+en: beats/km
+es: latidos/km
+fr: battements/km
+de: Schläge/km
+pt: batimentos/km
+
+it: Rispetto alla settimana scorsa
+en: Compared with last week
+es: Respecto a la semana pasada
+fr: Par rapport à la semaine dernière
+de: Im Vergleich zur Vorwoche
+pt: Em relação à semana passada
+
+it: Rispetto a %s
+en: Compared with %s
+es: Respecto a %s
+fr: Par rapport à %s
+de: Im Vergleich zu %s
+pt: Em relação a %s
+
+it: Ora
+en: Now
+es: Ahora
+fr: Maintenant
+de: Jetzt
+pt: Agora
+
+it: Il periodo in corso non è finito: ritmo e battiti si confrontano già, i km si riempiono man mano.
+en: The current period isn't over: pace and heart rate already compare, km fill up as you go.
+es: El periodo actual no ha terminado: ritmo y pulso ya se comparan, los km se llenan poco a poco.
+fr: La période en cours n'est pas finie : allure et pouls se comparent déjà, les km se remplissent au fur et à mesure.
+de: Der laufende Zeitraum ist noch nicht vorbei: Pace und Puls lassen sich schon vergleichen, die km füllen sich nach und nach.
+pt: O período atual não acabou: ritmo e batimentos já se comparam, os km vão enchendo aos poucos.
+
+it: Km nelle ultime 12 settimane (sotto, il lunedì)
+en: Km in the last 12 weeks (Monday below)
+es: Km en las últimas 12 semanas (abajo, el lunes)
+fr: Km sur les 12 dernières semaines (en bas, le lundi)
+de: Km in den letzten 12 Wochen (unten der Montag)
+pt: Km nas últimas 12 semanas (embaixo, a segunda-feira)
+
+it: Km negli ultimi 6 mesi
+en: Km in the last 6 months
+es: Km en los últimos 6 meses
+fr: Km sur les 6 derniers mois
+de: Km in den letzten 6 Monaten
+pt: Km nos últimos 6 meses
+
+it: Km mese per mese
+en: Km month by month
+es: Km mes a mes
+fr: Km mois par mois
+de: Km Monat für Monat
+pt: Km mês a mês
+
+it: Record
+en: Records
+es: Récords
+fr: Records
+de: Rekorde
+pt: Recordes
+
+it: Corsa più lunga
+en: Longest run
+es: Carrera más larga
+fr: Course la plus longue
+de: Längster Lauf
+pt: Corrida mais longa
+
+it: Ritmo migliore (≥ 2 km)
+en: Best pace (≥ 2 km)
+es: Mejor ritmo (≥ 2 km)
+fr: Meilleure allure (≥ 2 km)
+de: Beste Pace (≥ 2 km)
+pt: Melhor ritmo (≥ 2 km)
+
+it: 5 km più veloce
+en: Fastest 5 km
+es: 5 km más rápido
+fr: 5 km le plus rapide
+de: Schnellste 5 km
+pt: 5 km mais rápido
+
+it: Settimana con più km
+en: Week with most km
+es: Semana con más km
+fr: Semaine avec le plus de km
+de: Woche mit den meisten km
+pt: Semana com mais km
+
+it: dal %s
+en: from %s
+es: desde el %s
+fr: depuis le %s
+de: ab %s
+pt: desde %s
+
+it: Mese con più km
+en: Month with most km
+es: Mes con más km
+fr: Mois avec le plus de km
+de: Monat mit den meisten km
+pt: Mês com mais km
+
+it: Le prime 4 corse e le ultime 4
+en: Your first 4 runs vs your last 4
+es: Las primeras 4 carreras y las últimas 4
+fr: Les 4 premières courses et les 4 dernières
+de: Die ersten 4 und die letzten 4 Läufe
+pt: As primeiras 4 corridas e as últimas 4
+
+it: Inizio
+en: Start
+es: Inicio
+fr: Début
+de: Anfang
+pt: Início
+
+it: Distanza media
+en: Avg distance
+es: Distancia media
+fr: Distance moyenne
+de: Ø Distanz
+pt: Distância média
+
+# Scarpe
+
+it: Gestisci
+en: Manage
+es: Gestionar
+fr: Gérer
+de: Verwalten
+pt: Gerenciar
+
+it: Registra le tue scarpe per sapere quanti km hanno fatto e quando cambiarle.
+en: Add your shoes to know how many km they've done and when to replace them.
+es: Registra tus zapatillas para saber cuántos km llevan y cuándo cambiarlas.
+fr: Enregistre tes chaussures pour savoir combien de km elles ont fait et quand les changer.
+de: Trag deine Schuhe ein, um zu wissen, wie viele km sie haben und wann du sie ersetzen solltest.
+pt: Cadastre seus tênis para saber quantos km já fizeram e quando trocá-los.
+
+it: Aggiungi scarpa
+en: Add shoe
+es: Añadir zapatilla
+fr: Ajouter une chaussure
+de: Schuh hinzufügen
+pt: Adicionar tênis
+
+it: Nessuna
+en: None
+es: Ninguna
+fr: Aucune
+de: Keiner
+pt: Nenhum
+
+it: %s km su %d
+en: %s km of %d
+es: %s km de %d
+fr: %s km sur %d
+de: %s km von %d
+pt: %s km de %d
+
+it: Imposta una scarpa predefinita: le prossime corse le verranno assegnate da sole.
+en: Set a default shoe: upcoming runs will be assigned to it automatically.
+es: Fija una zapatilla predeterminada: las próximas carreras se le asignarán solas.
+fr: Définis une chaussure par défaut : les prochaines courses lui seront attribuées automatiquement.
+de: Leg einen Standardschuh fest: Künftige Läufe werden ihm automatisch zugeordnet.
+pt: Defina um tênis padrão: as próximas corridas serão atribuídas a ele sozinhas.
+
+it: Le tue scarpe
+en: Your shoes
+es: Tus zapatillas
+fr: Tes chaussures
+de: Deine Schuhe
+pt: Seus tênis
+
+it: Aggiungi le scarpe e scegli quale usi in ogni corsa
+en: Add your shoes and choose which one you use on each run
+es: Añade las zapatillas y elige cuál usas en cada carrera
+fr: Ajoute tes chaussures et choisis laquelle tu utilises à chaque course
+de: Füge deine Schuhe hinzu und wähle, welchen du bei jedem Lauf trägst
+pt: Adicione os tênis e escolha qual usa em cada corrida
+
+it: Nessuna scarpa in uso
+en: No shoes in use
+es: Ninguna zapatilla en uso
+fr: Aucune chaussure en service
+de: Kein Schuh in Gebrauch
+pt: Nenhum tênis em uso
+
+it: Gestisci scarpe
+en: Manage shoes
+es: Gestionar zapatillas
+fr: Gérer les chaussures
+de: Schuhe verwalten
+pt: Gerenciar tênis
+
+it: predefinita
+en: default
+es: predeterminada
+fr: par défaut
+de: Standard
+pt: padrão
+
+it: ultima %s
+en: last %s
+es: última %s
+fr: dernière %s
+de: zuletzt %s
+pt: última %s
+
+it: ritirata
+en: retired
+es: retirada
+fr: retirée
+de: ausgemustert
+pt: aposentado
+
+it: Km e usura delle tue scarpe
+en: Km and wear of your shoes
+es: Km y desgaste de tus zapatillas
+fr: Km et usure de tes chaussures
+de: Km und Verschleiß deiner Schuhe
+pt: Km e desgaste dos seus tênis
+
+it: %d paio
+en: %d pair
+es: %d par
+fr: %d paire
+de: %d Paar
+pt: %d par
+
+it: %d paia
+en: %d pairs
+es: %d pares
+fr: %d paires
+de: %d Paar
+pt: %d pares
+
+it: Aggiungi le scarpe che usi per correre. Nella pagina di ogni corsa scegli quale hai usato; la scarpa predefinita viene assegnata da sola alle nuove corse.
+en: Add the shoes you run in. On each run's page choose which one you used; the default shoe is assigned to new runs automatically.
+es: Añade las zapatillas con las que corres. En la página de cada carrera elige cuál usaste; la predeterminada se asigna sola a las carreras nuevas.
+fr: Ajoute les chaussures avec lesquelles tu cours. Sur la page de chaque course, choisis laquelle tu as utilisée ; celle par défaut est attribuée automatiquement aux nouvelles courses.
+de: Füge die Schuhe hinzu, mit denen du läufst. Wähle auf der Seite jedes Laufs, welchen du getragen hast; der Standardschuh wird neuen Läufen automatisch zugeordnet.
+pt: Adicione os tênis com que você corre. Na página de cada corrida escolha qual usou; o padrão é atribuído sozinho às novas corridas.
+
+it: Ritirate
+en: Retired
+es: Retiradas
+fr: Retirées
+de: Ausgemustert
+pt: Aposentados
+
+it: Le %d corse fatte con questa scarpa resteranno senza scarpa. Se vuoi solo smettere di usarla, ritirala.
+en: The %d runs done in this shoe will be left without a shoe. If you just want to stop using it, retire it.
+es: Las %d carreras hechas con esta zapatilla se quedarán sin zapatilla. Si solo quieres dejar de usarla, retírala.
+fr: Les %d courses faites avec cette chaussure resteront sans chaussure. Si tu veux juste arrêter de l'utiliser, retire-la.
+de: Die %d Läufe mit diesem Schuh bleiben ohne Schuh. Wenn du ihn nur nicht mehr nutzen willst, mustere ihn aus.
+pt: As %d corridas feitas com este tênis ficarão sem tênis. Se só quer parar de usá-lo, aposente-o.
+
+it: Scarpa
+en: Shoe
+es: Zapatilla
+fr: Chaussure
+de: Schuh
+pt: Tênis
+
+it: In uso dal %s
+en: In use since %s
+es: En uso desde el %s
+fr: En service depuis le %s
+de: In Gebrauch seit %s
+pt: Em uso desde %s
+
+it: su %d km
+en: of %d km
+es: de %d km
+fr: sur %d km
+de: von %d km
+pt: de %d km
+
+it: Hai superato i %d km: l'ammortizzazione è probabilmente calata, valuta di cambiarla.
+en: You've passed %d km: cushioning has probably worn down, consider replacing it.
+es: Has superado los %d km: la amortiguación probablemente ha bajado, plantéate cambiarla.
+fr: Tu as dépassé les %d km : l'amorti a sans doute baissé, pense à la changer.
+de: Du hast %d km überschritten: Die Dämpfung hat wahrscheinlich nachgelassen, denk über einen Wechsel nach.
+pt: Você passou dos %d km: o amortecimento provavelmente caiu, considere trocá-lo.
+
+it: Ritirata con %s km.
+en: Retired at %s km.
+es: Retirada con %s km.
+fr: Retirée avec %s km.
+de: Ausgemustert mit %s km.
+pt: Aposentado com %s km.
+
+it: Ne restano %s km: a %s km a settimana, circa %s
+en: %s km left: at %s km a week, about %s
+es: Quedan %s km: a %s km por semana, unos %s
+fr: Il reste %s km : à %s km par semaine, environ %s
+de: Noch %s km: Bei %s km pro Woche etwa %s
+pt: Restam %s km: a %s km por semana, cerca de %s
+
+it: %d anni.
+en: %d years.
+es: %d años.
+fr: %d ans.
+de: %d Jahre.
+pt: %d anos.
+
+it: %d mesi.
+en: %d months.
+es: %d meses.
+fr: %d mois.
+de: %d Monate.
+pt: %d meses.
+
+it: 1 settimana.
+en: 1 week.
+es: 1 semana.
+fr: 1 semaine.
+de: 1 Woche.
+pt: 1 semana.
+
+it: %d settimane.
+en: %d weeks.
+es: %d semanas.
+fr: %d semaines.
+de: %d Wochen.
+pt: %d semanas.
+
+it: Ne restano %s km.
+en: %s km left.
+es: Quedan %s km.
+fr: Il reste %s km.
+de: Noch %s km.
+pt: Restam %s km.
+
+it: Compresi %s km fatti prima dell'app.
+en: Including %s km done before the app.
+es: Incluidos %s km hechos antes de la app.
+fr: Y compris %s km faits avant l'app.
+de: Inklusive %s km vor der App.
+pt: Incluindo %s km feitos antes do app.
+
+it: corsa
+en: run
+es: carrera
+fr: course
+de: Lauf
+pt: corrida
+
+it: corse
+en: runs
+es: carreras
+fr: courses
+de: Läufe
+pt: corridas
+
+it: %d corsa
+en: %d run
+es: %d carrera
+fr: %d course
+de: %d Lauf
+pt: %d corrida
+
+it: km più lunga
+en: longest km
+es: km más larga
+fr: km la plus longue
+de: längster Lauf (km)
+pt: km mais longa
+
+it: km in 30 giorni
+en: km in 30 days
+es: km en 30 días
+fr: km en 30 jours
+de: km in 30 Tagen
+pt: km em 30 dias
+
+it: km a settimana
+en: km per week
+es: km por semana
+fr: km par semaine
+de: km pro Woche
+pt: km por semana
+
+it: ultima corsa
+en: last run
+es: última carrera
+fr: dernière course
+de: letzter Lauf
+pt: última corrida
+
+it: Per tipo di seduta
+en: By session type
+es: Por tipo de sesión
+fr: Par type de séance
+de: Nach Art der Einheit
+pt: Por tipo de sessão
+
+it: Predefinita
+en: Default
+es: Predeterminada
+fr: Par défaut
+de: Standard
+pt: Padrão
+
+it: Rendi predefinita
+en: Make default
+es: Hacer predeterminada
+fr: Définir par défaut
+de: Als Standard
+pt: Tornar padrão
+
+it: Rimetti in uso
+en: Put back in use
+es: Volver a usar
+fr: Remettre en service
+de: Wieder nutzen
+pt: Voltar a usar
+
+it: Ritira
+en: Retire
+es: Retirar
+fr: Retirer
+de: Ausmustern
+pt: Aposentar
+
+it: Corse con questa scarpa
+en: Runs in this shoe
+es: Carreras con esta zapatilla
+fr: Courses avec cette chaussure
+de: Läufe mit diesem Schuh
+pt: Corridas com este tênis
+
+it: Nuova scarpa
+en: New shoe
+es: Nueva zapatilla
+fr: Nouvelle chaussure
+de: Neuer Schuh
+pt: Novo tênis
+
+it: Modifica scarpa
+en: Edit shoe
+es: Editar zapatilla
+fr: Modifier la chaussure
+de: Schuh bearbeiten
+pt: Editar tênis
+
+it: Nome (es. Pegasus 41)
+en: Name (e.g. Pegasus 41)
+es: Nombre (p. ej. Pegasus 41)
+fr: Nom (ex. Pegasus 41)
+de: Name (z. B. Pegasus 41)
+pt: Nome (ex. Pegasus 41)
+
+it: Km già fatti
+en: Km already done
+es: Km ya hechos
+fr: Km déjà faits
+de: Bereits gelaufene km
+pt: Km já feitos
+
+it: Da cambiare a
+en: Replace at
+es: Cambiar a los
+fr: À changer à
+de: Wechseln bei
+pt: Trocar aos
+
+it: In uso dal
+en: In use since
+es: En uso desde
+fr: En service depuis
+de: In Gebrauch seit
+pt: Em uso desde
+
+it: Scarpa predefinita
+en: Default shoe
+es: Zapatilla predeterminada
+fr: Chaussure par défaut
+de: Standardschuh
+pt: Tênis padrão
+
+it: Le corse da quel giorno senza una scarpa scelta vanno a questa.
+en: Runs from that day without a chosen shoe go to this one.
+es: Las carreras desde ese día sin zapatilla elegida van a esta.
+fr: Les courses depuis ce jour sans chaussure choisie vont à celle-ci.
+de: Läufe ab diesem Tag ohne gewählten Schuh gehen an diesen.
+pt: As corridas desde esse dia sem tênis escolhido vão para este.
+
+it: Sì
+en: Yes
+es: Sí
+fr: Oui
+de: Ja
+pt: Sim
+
+it: No
+en: No
+es: No
+fr: Non
+de: Nein
+pt: Não

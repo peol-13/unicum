@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import androidx.compose.runtime.compositionLocalOf
@@ -501,7 +503,7 @@ fun UnicumButton(
  * sotto con `if (open)`). Sopra c'è una linea sottile che la separa dal resto della card.
  */
 @Composable
-fun ExpandRow(open: Boolean, label: String, onToggle: () -> Unit, openLabel: String = "Nascondi") {
+fun ExpandRow(open: Boolean, label: String, onToggle: () -> Unit, openLabel: String = tr("Nascondi")) {
     Spacer(Modifier.height(12.dp))
     Box(Modifier.fillMaxWidth().height(1.dp).background(UnicumAccent.copy(alpha = .35f)))
     Row(

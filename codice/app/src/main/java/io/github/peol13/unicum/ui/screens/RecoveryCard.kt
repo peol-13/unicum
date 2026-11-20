@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.lfmt
+
+import io.github.peol13.unicum.i18n.trp
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -49,7 +55,7 @@ fun rememberRecovery(): RecoveryData.Loaded? {
 /** "14 h", "2 g 3 h". */
 internal fun hoursText(hours: Double): String {
     val h = ceil(hours).toInt().coerceAtLeast(1)
-    return if (h < 48) "$h h" else "${h / 24} g${if (h % 24 > 0) " ${h % 24} h" else ""}"
+    return if (h < 48) "$h h" else tr("%d g", h / 24) + if (h % 24 > 0) " ${h % 24} h" else ""
 }
 
 /** "oggi alle 21:30", "domani alle 9:00", "Gio 12 Nov alle 8:00". */
@@ -57,17 +63,17 @@ internal fun readyText(millis: Long): String {
     val t = Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault())
     val today = DateUtils.today()
     val day = when (t.toLocalDate()) {
-        today -> "oggi"
-        today.plusDays(1) -> "domani"
+        today -> tr("oggi")
+        today.plusDays(1) -> tr("domani")
         else -> DateUtils.shortLabel(t.toLocalDate())
     }
-    return "$day alle ${t.hour}:${"%02d".format(t.minute)}"
+    return tr("%s alle %s", day, "${t.hour}:${"%02d".format(t.minute)}")
 }
 
 /** "Corsa di ieri", "Allenamento di oggi", "Corsa del Ven 6 Nov". */
 private fun sessionText(s: RecoveryEstimate.Session): String {
     val day = DateUtils.relativeLabel(s.date)
-    return "${s.type} " + if (s.date >= DateUtils.today().minusDays(1)) "di ${day.lowercase()}" else "del $day"
+    return if (s.date >= DateUtils.today().minusDays(1)) tr("%s di %s", tr(s.type), day.lowercase(io.github.peol13.unicum.i18n.I18n.locale)) else tr("%s del %s", tr(s.type), day)
 }
 
 /**
@@ -86,21 +92,21 @@ fun RecoveryCard(data: RecoveryData.Loaded) {
             }
             Spacer(Modifier.width(14.dp))
             Column(Modifier.weight(1f)) {
-                Text("Recupero", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+                Text(tr("Recupero"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
                 Text(
-                    if (r.recovered) "Recuperato" else "Pronto tra ${hoursText(r.remainingHours)}",
+                    if (r.recovered) tr("Recuperato") else tr("Pronto tra %s", hoursText(r.remainingHours)),
                     color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold
                 )
                 val sub = when {
                     !r.recovered && r.readyAtMillis != null ->
-                        readyText(r.readyAtMillis) + (r.main?.let { " · dopo ${sessionText(it)}" } ?: "")
-                    r.lastSession != null -> "Ultimo allenamento: ${sessionText(r.lastSession)}"
-                    else -> "Nessun allenamento recente"
+                        readyText(r.readyAtMillis) + (r.main?.let { " · " + tr("dopo %s", sessionText(it)) } ?: "")
+                    r.lastSession != null -> tr("Ultimo allenamento: %s", sessionText(r.lastSession))
+                    else -> tr("Nessun allenamento recente")
                 }
                 Text(sub, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp)
             }
         }
-        ExpandRow(open, "Come è calcolato", { open = !open })
+        ExpandRow(open, tr("Come è calcolato"), { open = !open })
         if (open) RecoveryDetails(data)
     }
 }
@@ -112,44 +118,44 @@ private fun RecoveryDetails(data: RecoveryData.Loaded) {
     val main = r.main
     if (main != null && r.mainHours != null) {
         DetailLine(
-            "Allenamento",
-            "${sessionText(main)}: carico ${main.effort.load.roundToInt()}, fatica misurata ${main.effort.score}/10 " +
-                "(${TrainingLoad.label(main.effort.score).lowercase()}) → circa ${hoursText(r.mainHours)} di recupero."
+            tr("Allenamento"),
+            tr("%s: carico %d, fatica misurata %d/10 (%s) → circa %s di recupero.", sessionText(main), main.effort.load.roundToInt(), main.effort.score,
+                                TrainingLoad.label(main.effort.score).lowercase(io.github.peol13.unicum.i18n.I18n.locale), hoursText(r.mainHours))
         )
     }
     val n = r.history.size
     DetailLine(
-        "Come recuperi tu",
+        tr("Come recuperi tu"),
         when {
-            n == 0 -> "Non ci sono ancora allenamenti con HRV affidabile da confrontare: stima standard."
-            n == 1 -> "Un solo allenamento con HRV affidabile finora: ne servono almeno 2 per adattare la stima a te."
+            n == 0 -> tr("Non ci sono ancora allenamenti con HRV affidabile da confrontare: stima standard.")
+            n == 1 -> tr("Un solo allenamento con HRV affidabile finora: ne servono almeno 2 per adattare la stima a te.")
             else -> {
                 val pct = ((r.personalFactor - 1) * 100).roundToInt()
                 val firstNight = r.history.count { it.night == 1 }
-                "Su $n allenamenti l'HRV è tornata nella tua norma " +
-                    (if (firstNight == n) "sempre la prima notte"
-                    else "la prima notte $firstNight ${if (firstNight == 1) "volta" else "volte"} su $n") + ": " +
+                tr("Su %d allenamenti l'HRV è tornata nella tua norma %s:", n,
+                                        if (firstNight == n) tr("sempre la prima notte")
+                                        else trp(firstNight, "la prima notte %d volta", "la prima notte %d volte") + " " + tr("su %d", n)) + " " +
                     when {
-                        pct <= -5 -> "recuperi più in fretta della stima standard (${pct}% di tempo)."
-                        pct >= 5 -> "ti serve più tempo della stima standard (+$pct%)."
-                        else -> "recuperi come la stima standard."
+                        pct <= -5 -> tr("recuperi più in fretta della stima standard (%d%% di tempo).", pct)
+                        pct >= 5 -> tr("ti serve più tempo della stima standard (+%d%%).", pct)
+                        else -> tr("recuperi come la stima standard.")
                     }
             }
         }
     )
     val t = r.today
     val tonight = listOfNotNull(
-        t.hrv?.let { "HRV ${it.roundToInt()} ms" + (t.hrvDeltaPct?.let { p -> " (${signedPercent(p)} vs media)" } ?: "") },
-        t.sleepMinutes?.let { "sonno ${it / 60} h ${"%02d".format(it % 60)}" },
-        t.tempDelta?.let { "temperatura ${if (it >= 0) "+" else ""}${"%.1f".format(it).replace('.', ',')} °C" }
+        t.hrv?.let { "HRV ${it.roundToInt()} ms" + (t.hrvDeltaPct?.let { p -> " " + tr("(%s vs media)", signedPercent(p)) } ?: "") },
+        t.sleepMinutes?.let { tr("sonno %s", "${it / 60} h ${"%02d".format(it % 60)}") },
+        t.tempDelta?.let { tr("temperatura %s", lfmt("%+.1f °C", it)) }
     )
-    DetailLine("Stanotte", if (tonight.isEmpty()) "Dati della notte non ancora arrivati." else tonight.joinToString(" · ").replaceFirstChar { it.uppercase() })
+    DetailLine(tr("Stanotte"), if (tonight.isEmpty()) tr("Dati della notte non ancora arrivati.") else tonight.joinToString(" · ").replaceFirstChar { it.uppercase() })
     r.reasons.forEach { DetailLine(null, it) }
     Spacer(Modifier.height(6.dp))
     Text(
-        "Carico = minuti in ogni zona × numero della zona (FC max ${data.maxHr} bpm). " +
-            "HRV ${if (data.nightHrv) "media della notte" else "media del giorno"}" +
-            (HrvData.reliableFrom?.let { ", considerata solo dal ${it.dayOfMonth}/${it.monthValue}: prima i valori erano su un'altra scala (Profilo → Recupero)." } ?: "."),
+        tr("Carico = minuti in ogni zona × numero della zona (FC max %d bpm).", data.maxHr) + " " +
+            (if (data.nightHrv) tr("HRV media della notte") else tr("HRV media del giorno")) +
+            (HrvData.reliableFrom?.let { ", " + tr("considerata solo dal %s: prima i valori erano su un'altra scala (Profilo → Recupero).", "${it.dayOfMonth}/${it.monthValue}") } ?: "."),
         color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
     )
 }

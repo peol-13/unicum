@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -53,30 +55,30 @@ fun HrvSettingCard() {
     }
 
     UnicumCard {
-        CardHeader(Icons.Rounded.MonitorHeart, "HRV confrontabile dal")
+        CardHeader(Icons.Rounded.MonitorHeart, tr("HRV confrontabile dal"))
         Spacer(Modifier.height(4.dp))
         Text(
-            "Se l'anello o l'orologio cambia algoritmo (o cambi dispositivo) l'HRV fa un salto e le medie mescolerebbero " +
-                "due scale diverse: l'app usa solo i valori da questa data.",
+            tr("Se l'anello o l'orologio cambia algoritmo (o cambi dispositivo) l'HRV fa un salto e le medie mescolerebbero due scale diverse: l'app usa solo i valori da questa data."),
+                
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
         Spacer(Modifier.height(12.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            UnicumChip("Automatico", manual == null, { if (manual != null) apply(null) })
-            UnicumChip("Scelgo io", manual != null, { picking = true })
+            UnicumChip(tr("Automatico"), manual == null, { if (manual != null) apply(null) })
+            UnicumChip(tr("Scelgo io"), manual != null, { picking = true })
         }
         Spacer(Modifier.height(10.dp))
         Text(
             when {
-                manual != null -> "Dal ${hrvDayLabel(manual)} (scelto da te)."
-                auto != null -> "Dal ${hrvDayLabel(auto)}: lì i valori cambiano di scala."
-                else -> "Tutta la serie: nessun salto di scala trovato."
+                manual != null -> tr("Dal %s (scelto da te).", hrvDayLabel(manual))
+                auto != null -> tr("Dal %s: lì i valori cambiano di scala.", hrvDayLabel(auto))
+                else -> tr("Tutta la serie: nessun salto di scala trovato.")
             },
             color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium
         )
         if (manual != null) {
             TextButton(onClick = { picking = true }, modifier = Modifier.fillMaxWidth()) {
-                Text("Cambia data", color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+                Text(tr("Cambia data"), color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
             }
         }
     }

@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import android.content.Intent
@@ -73,7 +75,7 @@ private fun SourceRow(role: String, fallback: String, source: NotionSource) {
             Text(source.title ?: fallback, color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium)
             Text("id ${source.id.take(8)}…", color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note)
         }
-        Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = "Apri in Notion", tint = UnicumPrimary, modifier = Modifier.size(18.dp))
+        Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = tr("Apri in Notion"), tint = UnicumPrimary, modifier = Modifier.size(18.dp))
     }
 }
 
@@ -89,45 +91,45 @@ fun NotionPage() {
     var message by remember { mutableStateOf<String?>(null) }
 
     UnicumCard {
-        CardHeader(Icons.Rounded.CalendarMonth, if (NotionPlan.connected) "Collegato" else "Come collegarlo")
+        CardHeader(Icons.Rounded.CalendarMonth, if (NotionPlan.connected) tr("Collegato") else tr("Come collegarlo"))
         Spacer(Modifier.height(8.dp))
         if (NotionPlan.connected) {
             Text(
                 when {
-                    NotionPlan.syncing -> "Lettura in corso…"
+                    NotionPlan.syncing -> tr("Lettura in corso…")
                     NotionPlan.error != null -> NotionPlan.error!!
                     NotionPlan.lastSyncMillis > 0 ->
-                        "${NotionPlan.runs.size} sedute del programma e ${NotionPlan.log.size} corse del registro, lette ${syncTime(NotionPlan.lastSyncMillis)}."
-                    else -> "Non ancora letto."
+                        tr("%d sedute del programma e %d corse del registro, lette %s.", NotionPlan.runs.size, NotionPlan.log.size, syncTime(NotionPlan.lastSyncMillis))
+                    else -> tr("Non ancora letto.")
                 },
                 color = UnicumDark.copy(alpha = .7f), style = UnicumType.Detail, lineHeight = 18.sp
             )
             Spacer(Modifier.height(6.dp))
             Text(
-                "Dal Registro corse arrivano tipo, RPE e nota delle corse fatte (vincono su quelli scritti nell'app); " +
-                    "dal Programma le prossime sedute e, per intervalli e progressivi, i pezzi della corsa. " +
-                    "Si aggiorna all'apertura dell'app, quando tiri giù la pagina e con \"Sincronizza ora\" nel Profilo, " +
-                    "insieme a Health Connect. L'app legge soltanto: per cambiare qualcosa modificalo in Notion.",
+                tr("Dal Registro corse arrivano tipo, RPE e nota delle corse fatte (vincono su quelli scritti nell'app); dal Programma le prossime sedute e, per intervalli e progressivi, i pezzi della corsa. Si aggiorna all'apertura dell'app, quando tiri giù la pagina e con \"Sincronizza ora\" nel Profilo, insieme a Health Connect. L'app legge soltanto: per cambiare qualcosa modificalo in Notion."),
+                    
+                    
+                    
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
             )
             Spacer(Modifier.height(14.dp))
-            Text("Legge da", color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
-            NotionPlan.planSource?.let { SourceRow("Programma", "Programma corse", it) }
-            NotionPlan.logSource?.let { SourceRow("Registro", "Registro corse", it) } ?: Text(
-                "Nessun registro: tipo, RPE e nota delle corse si scrivono nell'app.",
+            Text(tr("Legge da"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+            NotionPlan.planSource?.let { SourceRow(tr("Programma"), tr("Programma corse"), it) }
+            NotionPlan.logSource?.let { SourceRow(tr("Registro"), tr("Registro corse"), it) } ?: Text(
+                tr("Nessun registro: tipo, RPE e nota delle corse si scrivono nell'app."),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
             )
             Spacer(Modifier.height(6.dp))
             TextButton(onClick = { NotionPlan.disconnect(); message = null }, modifier = Modifier.fillMaxWidth()) {
-                Text("Scollega Notion", color = DeleteRed, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+                Text(tr("Scollega Notion"), color = DeleteRed, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
             }
         } else {
             listOf(
-                "1. Da computer apri notion.so/profile/integrations e crea un'integrazione interna (per esempio \"UNICUM\"). " +
-                    "Basta la lettura dei contenuti.",
-                "2. Copia il suo token segreto (inizia con \"ntn_\").",
-                "3. In Notion apri la pagina con i database del programma → ••• → Connessioni → aggiungi l'integrazione.",
-                "4. Incolla qui il token e il link del database del programma (Condividi → Copia link)."
+                tr("1. Da computer apri notion.so/profile/integrations e crea un'integrazione interna (per esempio \"UNICUM\"). Basta la lettura dei contenuti."),
+                    
+                tr("2. Copia il suo token segreto (inizia con \"ntn_\")."),
+                tr("3. In Notion apri la pagina con i database del programma → ••• → Connessioni → aggiungi l'integrazione."),
+                tr("4. Incolla qui il token e il link del database del programma (Condividi → Copia link).")
             ).forEach {
                 Text(it, color = UnicumDark.copy(alpha = .75f), style = UnicumType.Detail, lineHeight = 18.sp)
                 Spacer(Modifier.height(6.dp))
@@ -138,11 +140,11 @@ fun NotionPage() {
 
     Spacer(Modifier.height(14.dp))
     UnicumCard {
-        CardHeader(Icons.Rounded.Key, "Token e database")
+        CardHeader(Icons.Rounded.Key, tr("Token e database"))
         Spacer(Modifier.height(12.dp))
         OutlinedTextField(
             value = token, onValueChange = { token = it.trim(); message = null },
-            label = { Text("Token dell'integrazione") },
+            label = { Text(tr("Token dell'integrazione")) },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Next),
@@ -152,7 +154,7 @@ fun NotionPage() {
         Spacer(Modifier.height(10.dp))
         OutlinedTextField(
             value = database, onValueChange = { database = it; message = null },
-            label = { Text("Database del programma (link o id)") },
+            label = { Text(tr("Database del programma (link o id)")) },
             singleLine = true,
             colors = unicumFieldColors(),
             modifier = Modifier.fillMaxWidth()
@@ -160,14 +162,14 @@ fun NotionPage() {
         Spacer(Modifier.height(10.dp))
         OutlinedTextField(
             value = logDatabase, onValueChange = { logDatabase = it; message = null },
-            label = { Text("Registro delle corse (facoltativo)") },
+            label = { Text(tr("Registro delle corse (facoltativo)")) },
             singleLine = true,
             colors = unicumFieldColors(),
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            "Se lasci vuoto il registro, l'app cerca tra i database condivisi quello con \"Registro\" nel nome o con il campo RPE.",
+            tr("Se lasci vuoto il registro, l'app cerca tra i database condivisi quello con \"Registro\" nel nome o con il campo RPE."),
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 14.sp
         )
         message?.let {
@@ -176,7 +178,7 @@ fun NotionPage() {
         }
         Spacer(Modifier.height(14.dp))
         UnicumButton(
-            "Collega e leggi",
+            tr("Collega e leggi"),
             enabled = token.isNotBlank() && database.isNotBlank(),
             onClick = {
                 message = NotionPlan.connect(token, database, logDatabase)
@@ -186,7 +188,7 @@ fun NotionPage() {
     }
     Spacer(Modifier.height(10.dp))
     Text(
-        "Il token resta su questo telefono (finisce in un backup solo se lo scegli) e serve unicamente a leggere il database.",
+        tr("Il token resta su questo telefono (finisce in un backup solo se lo scegli) e serve unicamente a leggere il database."),
         color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp,
         modifier = Modifier.fillMaxWidth()
     )

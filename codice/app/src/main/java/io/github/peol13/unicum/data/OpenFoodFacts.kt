@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,7 +29,7 @@ object OpenFoodFacts {
     private val USER_AGENT = AppInfo.USER_AGENT
     const val SOURCE = "openfoodfacts"
     const val ID_PREFIX = "off:"
-    const val CATEGORY = "Marche"
+    val CATEGORY = tk("Marche")
     private const val FIELDS = "code,product_name,brands,nutriments"
 
     /** Cerca prodotti per nome o marca. Non solleva eccezioni: l'errore è dentro il [Result]. */
@@ -77,9 +81,9 @@ object OpenFoodFacts {
 
     /** Messaggio comprensibile per l'utente. */
     fun friendlyError(e: Throwable): String = when (e) {
-        is UnknownHostException -> "Nessuna connessione a internet."
-        is SocketTimeoutException -> "Open Food Facts non risponde: riprova tra poco."
-        else -> "Ricerca online non riuscita (${e.message ?: e.javaClass.simpleName})."
+        is UnknownHostException -> tr("Nessuna connessione a internet.")
+        is SocketTimeoutException -> tr("Open Food Facts non risponde: riprova tra poco.")
+        else -> tr("Ricerca online non riuscita (%s).", e.message ?: e.javaClass.simpleName)
     }
 
     /**

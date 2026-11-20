@@ -1,5 +1,13 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.lfmt
+
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 import io.github.peol13.unicum.ui.Route
 
 import androidx.activity.compose.BackHandler
@@ -114,27 +122,27 @@ fun AllenamentiScreen(onNavigate: (Route) -> Unit) {
         onRefresh = { UnicumAppState.refresh(context) },
         isRefreshing = UnicumAppState.refreshing
     ) {
-        ScreenTitle("Allenamenti", if (tab == 0) "Le tue corse" else "Cosa ti aspetta")
+        ScreenTitle(tr("Allenamenti"), if (tab == 0) tr("Le tue corse") else tr("Cosa ti aspetta"))
         Spacer(Modifier.height(12.dp))
         // Recupero dopo corse e allenamenti avviati a mano, visibile in entrambe le schede
         recovery?.let {
             RecoveryCard(it)
             Spacer(Modifier.height(14.dp))
         }
-        UnicumSegmented(listOf("Corse fatte", "Programma"), tab, { tab = it }, height = 38.dp)
+        UnicumSegmented(listOf(tr("Corse fatte"), tr("Programma")), tab, { tab = it }, height = 38.dp)
         Spacer(Modifier.height(18.dp))
 
         if (tab == 1) {
             // Una corsa per giorno (la più recente), per segnare come fatte le sedute del programma
             val runsByDate = remember(runs) { runs.groupBy { it.date }.mapValues { it.value.first() } }
-            SectionTitle("Corse programmate")
+            SectionTitle(tr("Corse programmate"))
             PlannedRunsSection(runsByDate, onNavigate)
             if (data == null || runs.isEmpty()) return@UnicumScreen
             Spacer(Modifier.height(24.dp))
-            SectionTitle("Stime")
+            SectionTitle(tr("Stime"))
             EstimateCard(progress)
             Spacer(Modifier.height(24.dp))
-            SectionTitle("Obiettivi")
+            SectionTitle(tr("Obiettivi"))
             GoalsSection(progress)
             return@UnicumScreen
         }
@@ -142,40 +150,40 @@ fun AllenamentiScreen(onNavigate: (Route) -> Unit) {
         if (data == null) return@UnicumScreen
         if (runs.isEmpty()) {
             HealthEmptyState(
-                "Nessuna corsa",
-                "Le corse registrate dall'orologio (Samsung Health, Garmin, Health Sync…) arrivano da Health Connect: sincronizza dal Profilo."
+                tr("Nessuna corsa"),
+                tr("Le corse registrate dall'orologio (Samsung Health, Garmin, Health Sync…) arrivano da Health Connect: sincronizza dal Profilo.")
             )
             return@UnicumScreen
         }
 
         // 1. L'ultima uscita, da aprire subito
-        SectionTitle("Ultima corsa")
+        SectionTitle(tr("Ultima corsa"))
         val last = runs.first()
         WorkoutRow(last, data.feedback[last.externalId], onClick = { onNavigate(Route.Workout(last.externalId)) })
 
         // 2. I numeri: settimana, mese, da sempre
         Spacer(Modifier.height(24.dp))
-        SectionTitle("Statistiche")
+        SectionTitle(tr("Statistiche"))
         RunStatsCard(progress, onOpenRun = { onNavigate(Route.Workout(it)) })
 
         // 3. Confronti tra corse e volume per tipo
         Spacer(Modifier.height(24.dp))
-        SectionTitle("Confronti")
+        SectionTitle(tr("Confronti"))
         CompareCard(progress)
         Spacer(Modifier.height(14.dp))
         KindVolumeCard(progress)
 
         // 4. Le scarpe: km verso il limite
         Spacer(Modifier.height(24.dp))
-        SectionTitle("Scarpe")
+        SectionTitle(tr("Scarpe"))
         ShoesSummaryCard(data, onNavigate)
 
         // 5. L'elenco completo, in una pagina a parte
         Spacer(Modifier.height(24.dp))
         LinkCard(
             Icons.AutoMirrored.Rounded.List,
-            "Tutte le corse",
-            "${runs.size} corse · dal ${DateUtils.shortLabel(LocalDate.parse(runs.last().date)).substringAfter(' ')}",
+            tr("Tutte le corse"),
+            tr("%d corse · dal %s", runs.size, DateUtils.shortLabel(LocalDate.parse(runs.last().date)).substringAfter(' ')),
             onClick = { onNavigate(Route.WorkoutList) }
         )
     }
@@ -191,7 +199,7 @@ fun WorkoutListScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
     // Elenco lazy: si disegnano solo le righe a schermo, anche con centinaia di corse
     UnicumLazyScreen(selectedItem = Route.Allenamenti, onNavigate = onNavigate) {
         item(key = "header") {
-            Column { PageHeader("Tutte le corse", if (data == null) "" else "${shown.size} corse", onBack) }
+            Column { PageHeader(tr("Tutte le corse"), if (data == null) "" else tr("%d corse", shown.size), onBack) }
         }
         if (data == null) return@UnicumLazyScreen
         months.forEach { (month, list) ->
@@ -201,7 +209,7 @@ fun WorkoutListScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
                     val km = list.sumOf { it.distanceM ?: 0.0 }
                     Row(verticalAlignment = Alignment.Bottom) {
                         Text(
-                            month.month.getDisplayName(TextStyle.FULL_STANDALONE, Locale.ITALIAN).replaceFirstChar { it.uppercase() } +
+                            month.month.getDisplayName(TextStyle.FULL_STANDALONE, I18n.locale).replaceFirstChar { it.uppercase() } +
                                 if (month.year != DateUtils.today().year) " ${month.year}" else "",
                             color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f)
                         )
@@ -242,7 +250,7 @@ private fun WorkoutRow(w: WorkoutDetail, feedback: WorkoutFeedback?, onClick: ()
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
                 Text(
-                    listOfNotNull(w.type, feedback?.kind).joinToString(" · "),
+                    listOfNotNull(tr(w.type), feedback?.kind).joinToString(" · "),
                     color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold, maxLines = 1
                 )
                 Text(
@@ -255,16 +263,16 @@ private fun WorkoutRow(w: WorkoutDetail, feedback: WorkoutFeedback?, onClick: ()
         Spacer(Modifier.height(10.dp))
         Row(Modifier.fillMaxWidth()) {
             SmallStat(if (w.distanceM != null) WorkoutAnalysis.formatKm(w.distanceM) else "–", "km", Modifier.weight(1f))
-            SmallStat(WorkoutAnalysis.formatDuration(w.movingSeconds), "durata", Modifier.weight(1f))
-            SmallStat(WorkoutAnalysis.formatPace(WorkoutAnalysis.averagePace(w)), "ritmo", Modifier.weight(1f))
+            SmallStat(WorkoutAnalysis.formatDuration(w.movingSeconds), tr("durata"), Modifier.weight(1f))
+            SmallStat(WorkoutAnalysis.formatPace(WorkoutAnalysis.averagePace(w)), tr("ritmo"), Modifier.weight(1f))
             SmallStat(w.avgHr?.toString() ?: "–", "bpm", Modifier.weight(1f))
         }
         val pace = WorkoutAnalysis.averagePace(w)
         val extra = listOfNotNull(
-            w.maxHr?.let { "FC max $it" },
-            if (w.avgHr != null && pace != null) "${"%,d".format((w.avgHr * pace / 60.0).roundToInt()).replace(',', '.')} battiti/km" else null,
-            WorkoutAnalysis.averageCadence(w)?.let { "cadenza $it spm" },
-            w.vo2max?.let { "VO₂ max ${"%.1f".format(it)}" },
+            w.maxHr?.let { tr("FC max %d", it) },
+            if (w.avgHr != null && pace != null) tr("%s battiti/km", lfmt("%,d", (w.avgHr * pace / 60.0).roundToInt())) else null,
+            WorkoutAnalysis.averageCadence(w)?.let { tr("cadenza %d spm", it) },
+            w.vo2max?.let { "VO₂ max ${lfmt("%.1f", it)}" },
             feedback?.rpe?.let { "RPE $it/10" }
         )
         if (extra.isNotEmpty()) {
@@ -291,9 +299,9 @@ private fun SmallStat(value: String, label: String, modifier: Modifier = Modifie
 }
 
 internal fun workoutIcon(type: String): ImageVector = when (type) {
-    "Corsa" -> Icons.AutoMirrored.Rounded.DirectionsRun
-    "Ciclismo" -> Icons.AutoMirrored.Rounded.DirectionsBike
-    "Nuoto" -> Icons.Rounded.Pool
-    "Escursionismo" -> Icons.Rounded.Hiking
+    tk("Corsa") -> Icons.AutoMirrored.Rounded.DirectionsRun
+    tk("Ciclismo") -> Icons.AutoMirrored.Rounded.DirectionsBike
+    tk("Nuoto") -> Icons.Rounded.Pool
+    tk("Escursionismo") -> Icons.Rounded.Hiking
     else -> Icons.Rounded.FitnessCenter
 }

@@ -1,0 +1,425 @@
+# Traduzioni di UNICUM (vedi common.txt per il formato).
+
+# Peso e composizione
+
+it: 30 giorni
+en: 30 days
+es: 30 días
+fr: 30 jours
+de: 30 Tage
+pt: 30 dias
+
+it: 3 mesi
+en: 3 months
+es: 3 meses
+fr: 3 mois
+de: 3 Monate
+pt: 3 meses
+
+it: 1 anno
+en: 1 year
+es: 1 año
+fr: 1 an
+de: 1 Jahr
+pt: 1 ano
+
+it: Massa grassa
+en: Fat mass
+es: Masa grasa
+fr: Masse grasse
+de: Fettmasse
+pt: Massa gorda
+
+it: Grasso corporeo
+en: Body fat
+es: Grasa corporal
+fr: Masse grasse (%)
+de: Körperfett
+pt: Gordura corporal
+
+it: Nessuna misura
+en: No readings
+es: Ninguna medida
+fr: Aucune mesure
+de: Keine Messungen
+pt: Nenhuma medição
+
+it: Pesati con una bilancia che scrive in Health Connect (anche tramite la sua app) e concedi i permessi di peso e grasso corporeo.
+en: Weigh yourself with a scale that writes to Health Connect (also through its app) and grant the weight and body fat permissions.
+es: Pésate con una báscula que escriba en Health Connect (también a través de su app) y concede los permisos de peso y grasa corporal.
+fr: Pèse-toi avec une balance qui écrit dans Health Connect (aussi via son app) et accorde les autorisations de poids et de masse grasse.
+de: Wiege dich mit einer Waage, die in Health Connect schreibt (auch über ihre App), und erteile die Berechtigungen für Gewicht und Körperfett.
+pt: Pese-se com uma balança que grava no Health Connect (também pelo app dela) e conceda as permissões de peso e gordura corporal.
+
+it: Ultima misura
+en: Latest reading
+es: Última medida
+fr: Dernière mesure
+de: Letzte Messung
+pt: Última medição
+
+it: Min %s  ·  Max %s  ·  Media %s
+en: Min %s  ·  Max %s  ·  Avg %s
+es: Mín %s  ·  Máx %s  ·  Media %s
+fr: Min %s  ·  Max %s  ·  Moy. %s
+de: Min %s  ·  Max %s  ·  Ø %s
+pt: Mín %s  ·  Máx %s  ·  Média %s
+
+it: Tendenza: %s in %s
+en: Trend: %s over %s
+es: Tendencia: %s en %s
+fr: Tendance : %s sur %s
+de: Trend: %s in %s
+pt: Tendência: %s em %s
+
+it: Deficit teorico e peso reale
+en: Theoretical deficit vs real weight
+es: Déficit teórico y peso real
+fr: Déficit théorique et poids réel
+de: Theoretisches Defizit und echtes Gewicht
+pt: Déficit teórico e peso real
+
+it: Previsto dal deficit: %s kg · reale (tendenza): %s kg in %d giorni.
+en: Predicted by deficit: %s kg · actual (trend): %s kg in %d days.
+es: Previsto por el déficit: %s kg · real (tendencia): %s kg en %d días.
+fr: Prévu par le déficit : %s kg · réel (tendance) : %s kg en %d jours.
+de: Laut Defizit: %s kg · tatsächlich (Trend): %s kg in %d Tagen.
+pt: Previsto pelo déficit: %s kg · real (tendência): %s kg em %d dias.
+
+it: Pasti registrati solo in %d giorni su %d: nei giorni mancanti la previsione resta ferma, quindi il confronto è parziale.
+en: Meals logged on only %d of %d days: on missing days the prediction stays flat, so the comparison is partial.
+es: Comidas registradas solo en %d de %d días: en los días que faltan la previsión no cambia, así que la comparación es parcial.
+fr: Repas notés seulement %d jours sur %d : les jours manquants, la prévision reste figée, donc la comparaison est partielle.
+de: Mahlzeiten nur an %d von %d Tagen eingetragen: An fehlenden Tagen bleibt die Prognose gleich, der Vergleich ist also unvollständig.
+pt: Refeições registradas em apenas %d de %d dias: nos dias faltantes a previsão fica parada, então a comparação é parcial.
+
+it: Calcolato su %d giorni con i pasti registrati (7.700 kcal ≈ 1 kg). Le differenze vengono da acqua, stime del consumo e pasti non registrati.
+en: Calculated over %d days with logged meals (7,700 kcal ≈ 1 kg). Differences come from water, burn estimates and unlogged meals.
+es: Calculado sobre %d días con comidas registradas (7.700 kcal ≈ 1 kg). Las diferencias vienen del agua, las estimaciones del gasto y comidas no registradas.
+fr: Calculé sur %d jours avec repas notés (7 700 kcal ≈ 1 kg). Les écarts viennent de l'eau, des estimations de dépense et des repas non notés.
+de: Berechnet über %d Tage mit eingetragenen Mahlzeiten (7.700 kcal ≈ 1 kg). Abweichungen kommen von Wasser, geschätztem Verbrauch und nicht eingetragenen Mahlzeiten.
+pt: Calculado em %d dias com refeições registradas (7.700 kcal ≈ 1 kg). As diferenças vêm de água, estimativas de gasto e refeições não registradas.
+
+it: %s vs precedente
+en: %s vs previous
+es: %s vs anterior
+fr: %s vs précédente
+de: %s vs vorherige
+pt: %s vs anterior
+
+it: Tocca il grafico per leggere ogni misura
+en: Tap the chart to read each reading
+es: Toca el gráfico para leer cada medida
+fr: Touche le graphique pour lire chaque mesure
+de: Tippe auf das Diagramm, um jede Messung zu lesen
+pt: Toque no gráfico para ler cada medição
+
+it: tendenza (media di 7 giorni)
+en: trend (7-day average)
+es: tendencia (media de 7 días)
+fr: tendance (moyenne sur 7 jours)
+de: Trend (7-Tage-Schnitt)
+pt: tendência (média de 7 dias)
+
+it: tendenza
+en: trend
+es: tendencia
+fr: tendance
+de: Trend
+pt: tendência
+
+it: previsto dal deficit
+en: predicted by deficit
+es: previsto por el déficit
+fr: prévu par le déficit
+de: laut Defizit
+pt: previsto pelo déficit
+
+# Statistiche
+
+it: Settimana per settimana
+en: Week by week
+es: Semana a semana
+fr: Semaine par semaine
+de: Woche für Woche
+pt: Semana a semana
+
+it: Settimana in corso
+en: This week
+es: Semana actual
+fr: Semaine en cours
+de: Aktuelle Woche
+pt: Semana atual
+
+it: Racconto della settimana
+en: Week story
+es: Resumen de la semana
+fr: Récit de la semaine
+de: Wochenrückblick
+pt: Resumo da semana
+
+it: Deficit calorico
+en: Calorie deficit
+es: Déficit calórico
+fr: Déficit calorique
+de: Kaloriendefizit
+pt: Déficit calórico
+
+it: Medio al giorno
+en: Daily average
+es: Medio al día
+fr: Moyen par jour
+de: Ø pro Tag
+pt: Média diária
+
+it: Totale settimana
+en: Week total
+es: Total semana
+fr: Total semaine
+de: Wochensumme
+pt: Total da semana
+
+it: Peso stimato
+en: Estimated weight
+es: Peso estimado
+fr: Poids estimé
+de: Geschätztes Gewicht
+pt: Peso estimado
+
+it: Obiettivo: %d kcal al giorno.
+en: Goal: %d kcal per day.
+es: Objetivo: %d kcal al día.
+fr: Objectif : %d kcal par jour.
+de: Ziel: %d kcal pro Tag.
+pt: Meta: %d kcal por dia.
+
+it: Peso stimato: 7.700 kcal di deficit ≈ 1 kg di grasso; la bilancia varia anche per acqua e digestione.
+en: Estimated weight: 7,700 kcal of deficit ≈ 1 kg of fat; the scale also varies with water and digestion.
+es: Peso estimado: 7.700 kcal de déficit ≈ 1 kg de grasa; la báscula varía también por agua y digestión.
+fr: Poids estimé : 7 700 kcal de déficit ≈ 1 kg de graisse ; la balance varie aussi avec l'eau et la digestion.
+de: Geschätztes Gewicht: 7.700 kcal Defizit ≈ 1 kg Fett; die Waage schwankt auch durch Wasser und Verdauung.
+pt: Peso estimado: 7.700 kcal de déficit ≈ 1 kg de gordura; a balança varia também com água e digestão.
+
+it: Il valore di oggi è parziale: il basale matura nell'arco della giornata.
+en: Today's value is partial: resting burn builds up through the day.
+es: El valor de hoy es parcial: el basal se acumula a lo largo del día.
+fr: La valeur du jour est partielle : la dépense de base s'accumule au fil de la journée.
+de: Der heutige Wert ist vorläufig: Der Grundumsatz baut sich über den Tag auf.
+pt: O valor de hoje é parcial: o basal se acumula ao longo do dia.
+
+it: Totale
+en: Total
+es: Total
+fr: Total
+de: Gesamt
+pt: Total
+
+it: Media al giorno
+en: Daily average
+es: Media al día
+fr: Moyenne par jour
+de: Ø pro Tag
+pt: Média por dia
+
+it: Il valore di oggi è parziale: la giornata non è ancora finita.
+en: Today's value is partial: the day isn't over yet.
+es: El valor de hoy es parcial: el día aún no ha terminado.
+fr: La valeur du jour est partielle : la journée n'est pas finie.
+de: Der heutige Wert ist vorläufig: Der Tag ist noch nicht vorbei.
+pt: O valor de hoje é parcial: o dia ainda não acabou.
+
+it: Media
+en: Average
+es: Media
+fr: Moyenne
+de: Durchschnitt
+pt: Média
+
+it: Notte migliore
+en: Best night
+es: Mejor noche
+fr: Meilleure nuit
+de: Beste Nacht
+pt: Melhor noite
+
+it: Notte più breve
+en: Shortest night
+es: Noche más corta
+fr: Nuit la plus courte
+de: Kürzeste Nacht
+pt: Noite mais curta
+
+it: Nessuna notte registrata: collega Health Connect dal Profilo.
+en: No nights recorded: connect Health Connect from Profile.
+es: Ninguna noche registrada: conecta Health Connect desde el perfil.
+fr: Aucune nuit enregistrée : connecte Health Connect depuis le profil.
+de: Keine Nächte aufgezeichnet: Verbinde Health Connect im Profil.
+pt: Nenhuma noite registrada: conecte o Health Connect no perfil.
+
+it: Orari del sonno
+en: Sleep times
+es: Horarios de sueño
+fr: Horaires de sommeil
+de: Schlafzeiten
+pt: Horários de sono
+
+it: A letto in media
+en: Average bedtime
+es: A la cama de media
+fr: Coucher moyen
+de: Ø Schlafenszeit
+pt: Hora média de deitar
+
+it: Sveglia in media
+en: Average wake-up
+es: Despertar de media
+fr: Réveil moyen
+de: Ø Aufwachzeit
+pt: Hora média de acordar
+
+it: Variazione
+en: Variation
+es: Variación
+fr: Variation
+de: Schwankung
+pt: Variação
+
+it: Orari molto variabili: andare a letto alla stessa ora, anche nel weekend, aiuta il recupero.
+en: Very irregular times: going to bed at the same time, weekends included, helps recovery.
+es: Horarios muy variables: acostarse a la misma hora, también el fin de semana, ayuda a recuperarse.
+fr: Horaires très variables : se coucher à la même heure, week-end compris, aide à récupérer.
+de: Sehr unregelmäßige Zeiten: Zur gleichen Uhrzeit ins Bett, auch am Wochenende, hilft der Erholung.
+pt: Horários muito variáveis: deitar no mesmo horário, inclusive no fim de semana, ajuda a recuperação.
+
+it: In chiaro la fascia consigliata: 8 ore prima della tua sveglia media, più 15 minuti per addormentarti.
+en: The light band is the suggested window: 8 hours before your average wake-up, plus 15 minutes to fall asleep.
+es: En claro la franja recomendada: 8 horas antes de tu despertar medio, más 15 minutos para dormirte.
+fr: En clair, la plage conseillée : 8 heures avant ton réveil moyen, plus 15 minutes pour t'endormir.
+de: Hell markiert das empfohlene Fenster: 8 Stunden vor deiner Ø-Aufwachzeit plus 15 Minuten zum Einschlafen.
+pt: Em claro a faixa recomendada: 8 horas antes do seu horário médio de acordar, mais 15 minutos para adormecer.
+
+it: HRV media
+en: Average HRV
+es: HRV media
+fr: HRV moyenne
+de: Ø HRV
+pt: HRV média
+
+it: HRV migliore
+en: Best HRV
+es: Mejor HRV
+fr: Meilleure HRV
+de: Beste HRV
+pt: Melhor HRV
+
+it: Temp. media
+en: Avg temp.
+es: Temp. media
+fr: Temp. moyenne
+de: Ø Temp.
+pt: Temp. média
+
+it: Nessun dato di recupero: collega Health Connect dal Profilo.
+en: No recovery data: connect Health Connect from Profile.
+es: Sin datos de recuperación: conecta Health Connect desde el perfil.
+fr: Aucune donnée de récupération : connecte Health Connect depuis le profil.
+de: Keine Erholungsdaten: Verbinde Health Connect im Profil.
+pt: Sem dados de recuperação: conecte o Health Connect no perfil.
+
+it: HRV notturna (ms) sopra, temperatura notturna sotto: le colonne mostrano lo scarto dalla media della settimana.
+en: Night HRV (ms) above, night temperature below: bars show the difference from the week's average.
+es: HRV nocturna (ms) arriba, temperatura nocturna abajo: las columnas muestran la diferencia con la media de la semana.
+fr: HRV nocturne (ms) en haut, température nocturne en bas : les colonnes montrent l'écart à la moyenne de la semaine.
+de: Nächtliche HRV (ms) oben, Nachttemperatur unten: Die Balken zeigen die Abweichung vom Wochenschnitt.
+pt: HRV noturna (ms) em cima, temperatura noturna embaixo: as colunas mostram a diferença em relação à média da semana.
+
+it: Temperatura notturna (°C)
+en: Night temperature (°C)
+es: Temperatura nocturna (°C)
+fr: Température nocturne (°C)
+de: Nachttemperatur (°C)
+pt: Temperatura noturna (°C)
+
+it: Temperatura notturna: nessun dato dalle tue fonti.
+en: Night temperature: no data from your sources.
+es: Temperatura nocturna: sin datos de tus fuentes.
+fr: Température nocturne : aucune donnée de tes sources.
+de: Nachttemperatur: keine Daten aus deinen Quellen.
+pt: Temperatura noturna: sem dados das suas fontes.
+
+it: Cosa emerge dai tuoi dati
+en: What your data shows
+es: Lo que muestran tus datos
+fr: Ce que montrent tes données
+de: Was deine Daten zeigen
+pt: O que seus dados mostram
+
+it: Ultimi 60 giorni
+en: Last 60 days
+es: Últimos 60 días
+fr: 60 derniers jours
+de: Letzte 60 Tage
+pt: Últimos 60 dias
+
+it: Calcolo…
+en: Calculating…
+es: Calculando…
+fr: Calcul…
+de: Berechne…
+pt: Calculando…
+
+it: Ancora nessuna relazione chiara. Servono almeno %d giorni per ogni gruppo (es. con e senza allenamento) con sonno e HRV registrati.
+en: No clear pattern yet. At least %d days per group (e.g. with and without a workout) with sleep and HRV recorded are needed.
+es: Aún ninguna relación clara. Hacen falta al menos %d días por grupo (p. ej. con y sin entrenamiento) con sueño y HRV registrados.
+fr: Pas encore de relation claire. Il faut au moins %d jours par groupe (ex. avec et sans séance) avec sommeil et HRV enregistrés.
+de: Noch kein klarer Zusammenhang. Es braucht mindestens %d Tage pro Gruppe (z. B. mit und ohne Training) mit aufgezeichnetem Schlaf und HRV.
+pt: Ainda nenhuma relação clara. São necessários pelo menos %d dias por grupo (ex. com e sem treino) com sono e HRV registrados.
+
+it: Su %d giorni contro %d
+en: Based on %d days vs %d
+es: Sobre %d días frente a %d
+fr: Sur %d jours contre %d
+de: Aus %d Tagen gegenüber %d
+pt: Em %d dias contra %d
+
+it: Sono correlazioni, non cause: due cose che capitano insieme possono dipendere da altro (stress, orari, malattia).
+en: These are correlations, not causes: two things that happen together may depend on something else (stress, schedule, illness).
+es: Son correlaciones, no causas: dos cosas que pasan juntas pueden depender de otra (estrés, horarios, enfermedad).
+fr: Ce sont des corrélations, pas des causes : deux choses qui arrivent ensemble peuvent dépendre d'autre chose (stress, horaires, maladie).
+de: Das sind Zusammenhänge, keine Ursachen: Zwei Dinge, die zusammen auftreten, können von etwas anderem abhängen (Stress, Zeiten, Krankheit).
+pt: São correlações, não causas: duas coisas que acontecem juntas podem depender de outra (estresse, horários, doença).
+
+it: surplus %d kcal
+en: surplus %d kcal
+es: superávit %d kcal
+fr: surplus %d kcal
+de: Überschuss %d kcal
+pt: superávit %d kcal
+
+it: Tocca o scorri per andare avanti
+en: Tap or swipe to continue
+es: Toca o desliza para avanzar
+fr: Touche ou glisse pour continuer
+de: Tippen oder wischen, um weiterzugehen
+pt: Toque ou deslize para avançar
+
+it: Tocca per chiudere
+en: Tap to close
+es: Toca para cerrar
+fr: Touche pour fermer
+de: Zum Schließen tippen
+pt: Toque para fechar
+
+it: La tua settimana è pronta
+en: Your week is ready
+es: Tu semana está lista
+fr: Ta semaine est prête
+de: Deine Woche ist fertig
+pt: Sua semana está pronta
+
+it: %s: deficit, attività, sonno e peso in un colpo d'occhio
+en: %s: deficit, activity, sleep and weight at a glance
+es: %s: déficit, actividad, sueño y peso de un vistazo
+fr: %s : déficit, activité, sommeil et poids en un coup d'œil
+de: %s: Defizit, Aktivität, Schlaf und Gewicht auf einen Blick
+pt: %s: déficit, atividade, sono e peso num relance

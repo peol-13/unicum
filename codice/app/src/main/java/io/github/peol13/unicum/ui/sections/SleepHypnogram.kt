@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.ui.sections
 
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -85,9 +87,9 @@ internal fun SleepHypnogram(night: SleepNight, modifier: Modifier = Modifier) {
         val sel = selected
         Row(Modifier.fillMaxWidth().height(22.dp), verticalAlignment = Alignment.CenterVertically) {
             if (sel == null) {
-                Text("Fasi del sonno", color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+                Text(tr("Fasi del sonno"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.width(8.dp))
-                Text("tocca il grafico per i dettagli", color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note)
+                Text(tr("tocca il grafico per i dettagli"), color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note)
             } else {
                 Text(
                     "${sel.type.label} ${formatDuration(sel.minutes)}",

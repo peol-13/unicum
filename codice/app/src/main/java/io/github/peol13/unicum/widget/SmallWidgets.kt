@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.widget
 
+import io.github.peol13.unicum.i18n.tr
+
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
@@ -57,9 +59,9 @@ class DeficitWidgetProvider : SmallWidgetProvider() {
         val goal = UserSettings.targetDeficitKcal
         for (id in ids) {
             val views = RemoteViews(context.packageName, R.layout.widget_deficit).apply {
-                setTextViewText(R.id.wd_label, if (today.deficit >= 0) "Deficit" else "Surplus")
+                setTextViewText(R.id.wd_label, if (today.deficit >= 0) tr("Deficit") else tr("Surplus"))
                 setTextViewText(R.id.wd_value, "${UnicumWidget.fmt(kotlin.math.abs(today.deficit))} kcal")
-                setTextViewText(R.id.wd_goal, "obiettivo ${UnicumWidget.fmt(goal)}")
+                setTextViewText(R.id.wd_goal, tr("obiettivo %s", UnicumWidget.fmt(goal)))
                 setDeficitLine(context, R.id.wd_line, R.id.wd_marker, today.deficit, goal, innerWidthDp(manager, id, paddingDp = 14))
                 setOnClickPendingIntent(R.id.wd_root, UnicumWidget.openAppIntent(context, 410, null))
             }
@@ -105,20 +107,20 @@ class RecoveryWidgetProvider : SmallWidgetProvider() {
             setTextViewText(R.id.wr_percent, progress?.let { "${(it * 100).roundToInt()}%" } ?: "–")
             when {
                 saved == null || remaining == null -> {
-                    setTextViewText(R.id.wr_label, "Recupero")
+                    setTextViewText(R.id.wr_label, tr("Recupero"))
                     setTextViewText(R.id.wr_title, "–")
-                    setTextViewText(R.id.wr_sub, "nessun allenamento")
+                    setTextViewText(R.id.wr_sub, tr("nessun allenamento"))
                 }
                 remaining <= 0.0 -> {
-                    setTextViewText(R.id.wr_label, "Recupero")
-                    setTextViewText(R.id.wr_title, "Recuperato")
-                    setTextViewText(R.id.wr_sub, "sei pronto")
+                    setTextViewText(R.id.wr_label, tr("Recupero"))
+                    setTextViewText(R.id.wr_title, tr("Recuperato"))
+                    setTextViewText(R.id.wr_sub, tr("sei pronto"))
                 }
                 else -> {
                     // Testi corti: in 2x1 c'è posto per circa 15 caratteri ("domani 9:00")
-                    setTextViewText(R.id.wr_label, "Pronto tra")
+                    setTextViewText(R.id.wr_label, tr("Pronto tra"))
                     setTextViewText(R.id.wr_title, hoursText(remaining))
-                    setTextViewText(R.id.wr_sub, readyText(saved.readyAt).replace(" alle ", " "))
+                    setTextViewText(R.id.wr_sub, readyText(saved.readyAt))
                 }
             }
             setOnClickPendingIntent(R.id.wr_root, UnicumWidget.openAppIntent(context, 420, null, openTraining = true))

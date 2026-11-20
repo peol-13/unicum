@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.trp
+
+import io.github.peol13.unicum.i18n.tr
+
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -80,9 +86,9 @@ fun BackupPage() {
             }
             busy = false
             message = when {
-                !ok -> "Non sono riuscito a salvare il file."
-                includeNotion -> "Backup salvato, con il token di Notion: non condividere il file e tienilo in un posto sicuro."
-                else -> "Backup salvato. Conservalo in un posto sicuro (Drive, PC)."
+                !ok -> tr("Non sono riuscito a salvare il file.")
+                includeNotion -> tr("Backup salvato, con il token di Notion: non condividere il file e tienilo in un posto sicuro.")
+                else -> tr("Backup salvato. Conservalo in un posto sicuro (Drive, PC).")
             }
         }
     }
@@ -100,7 +106,7 @@ fun BackupPage() {
                 }.getOrNull()
             }
             if (result == null) {
-                message = "Il file non è un backup di UNICUM leggibile."
+                message = tr("Il file non è un backup di UNICUM leggibile.")
             } else {
                 pending = PendingImport(result, UnicumRepository.planImport(context, result))
             }
@@ -111,24 +117,24 @@ fun BackupPage() {
     AutoBackupCard(onMessage = { message = it })
     Spacer(Modifier.height(14.dp))
     UnicumCard {
-        CardHeader(Icons.Rounded.Save, "Esporta")
+        CardHeader(Icons.Rounded.Save, tr("Esporta"))
         Spacer(Modifier.height(6.dp))
         Text(
-            "Crea un file con pasti, allenamenti inseriti a mano, alimenti personali, pasti fissi, prodotti salvati, " +
-                "profilo e obiettivi, scarpe, sensazioni e correzioni delle corse (ripetute comprese) e promemoria. " +
-                "Sonno, passi e allenamenti di Health Connect non servono: tornano da soli con la sincronizzazione.",
+            tr("Crea un file con pasti, allenamenti inseriti a mano, alimenti personali, pasti fissi, prodotti salvati, profilo e obiettivi, scarpe, sensazioni e correzioni delle corse (ripetute comprese) e promemoria. Sonno, passi e allenamenti di Health Connect non servono: tornano da soli con la sincronizzazione."),
+                
+                
             color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp
         )
         if (NotionPlan.connected) {
             Spacer(Modifier.height(10.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
-                    Text("Includi il collegamento a Notion", color = UnicumDark, style = UnicumType.Detail)
+                    Text(tr("Includi il collegamento a Notion"), color = UnicumDark, style = UnicumType.Detail)
                     Text(
-                        if (withNotion) "Il file conterrà il token in chiaro: chi lo trova può leggere le pagine " +
-                            "condivise con l'integrazione. Non metterlo in cartelle condivise."
-                        else "Spento, il token resta fuori: sul telefono nuovo va incollato di nuovo. " +
-                            "Il backup automatico non lo include mai.",
+                        if (withNotion) tr("Il file conterrà il token in chiaro: chi lo trova può leggere le pagine condivise con l'integrazione. Non metterlo in cartelle condivise.")
+                            
+                        else tr("Spento, il token resta fuori: sul telefono nuovo va incollato di nuovo. Il backup automatico non lo include mai."),
+                            
                         color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp
                     )
                 }
@@ -145,22 +151,22 @@ fun BackupPage() {
         }
         Spacer(Modifier.height(12.dp))
         UnicumButton(
-            "Esporta i dati", enabled = !busy,
+            tr("Esporta i dati"), enabled = !busy,
             onClick = { exportLauncher.launch(BackupCodec.nameFor(UnicumRepository.today())) }
         )
     }
     Spacer(Modifier.height(14.dp))
     UnicumCard {
-        CardHeader(Icons.Rounded.Save, "Importa")
+        CardHeader(Icons.Rounded.Save, tr("Importa"))
         Spacer(Modifier.height(6.dp))
         Text(
-            "Scegli un file di backup: prima vedi cosa contiene, poi confermi. I dati si aggiungono a quelli " +
-                "che hai già, senza duplicare gli stessi pasti.",
+            tr("Scegli un file di backup: prima vedi cosa contiene, poi confermi. I dati si aggiungono a quelli che hai già, senza duplicare gli stessi pasti."),
+                
             color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp
         )
         Spacer(Modifier.height(12.dp))
         UnicumButton(
-            "Scegli il file", enabled = !busy,
+            tr("Scegli il file"), enabled = !busy,
             onClick = { importLauncher.launch(arrayOf("application/json", "application/octet-stream", "text/*")) }
         )
     }
@@ -184,10 +190,10 @@ fun BackupPage() {
                     }.getOrNull()
                     busy = false
                     message = when {
-                        waiting == null -> "Importazione non riuscita."
-                        waiting > 0 -> "Importazione completata. Sensazioni e scarpe di $waiting " +
-                            "${if (waiting == 1) "corsa" else "corse"} si assegnano dopo la sincronizzazione con Health Connect."
-                        else -> "Importazione completata."
+                        waiting == null -> tr("Importazione non riuscita.")
+                        waiting > 0 -> trp(waiting, "Importazione completata. Sensazioni e scarpe di %d corsa si assegnano dopo la sincronizzazione con Health Connect.", "Importazione completata. Sensazioni e scarpe di %d corse si assegnano dopo la sincronizzazione con Health Connect.")
+                            
+                        else -> tr("Importazione completata.")
                     }
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
@@ -211,7 +217,7 @@ private fun AutoBackupCard(onMessage: (String) -> Unit) {
     ) { uri ->
         if (uri == null) return@rememberLauncherForActivityResult
         if (!AutoBackup.setTarget(context, uri)) {
-            onMessage("Quel posto non permette il salvataggio automatico. Scegline un altro (Drive o una cartella del telefono).")
+            onMessage(tr("Quel posto non permette il salvataggio automatico. Scegline un altro (Drive o una cartella del telefono)."))
             return@rememberLauncherForActivityResult
         }
         busy = true
@@ -232,25 +238,25 @@ private fun AutoBackupCard(onMessage: (String) -> Unit) {
     }
 
     UnicumCard {
-        CardHeader(Icons.Rounded.Save, "Backup automatico")
+        CardHeader(Icons.Rounded.Save, tr("Backup automatico"))
         Spacer(Modifier.height(6.dp))
         if (!state.enabled) {
             Text(
-                "Una copia al giorno di tutto quello che c'è nell'app (come l'esportazione manuale), anche ad app chiusa. " +
-                    "Quando scegli dove salvarla, nel selettore di Android apri Drive: il file resta nel tuo Google Drive, " +
-                    "che tiene anche le versioni precedenti. Va bene anche una cartella del telefono.",
+                tr("Una copia al giorno di tutto quello che c'è nell'app (come l'esportazione manuale), anche ad app chiusa. Quando scegli dove salvarla, nel selettore di Android apri Drive: il file resta nel tuo Google Drive, che tiene anche le versioni precedenti. Va bene anche una cartella del telefono."),
+                    
+                    
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp
             )
             Spacer(Modifier.height(12.dp))
-            UnicumButton("Scegli dove salvarlo", enabled = !busy, onClick = { pickLauncher.launch(AutoBackup.SUGGESTED_NAME) })
+            UnicumButton(tr("Scegli dove salvarlo"), enabled = !busy, onClick = { pickLauncher.launch(AutoBackup.SUGGESTED_NAME) })
         } else {
-            Text("Salvato in: ${place ?: "—"}", color = UnicumDark, style = UnicumType.Detail)
+            Text(tr("Salvato in: %s", place ?: "—"), color = UnicumDark, style = UnicumType.Detail)
             val last = if (state.lastSuccessMillis > 0)
-                SimpleDateFormat("d MMM, HH:mm", Locale.ITALY).format(Date(state.lastSuccessMillis)) +
+                SimpleDateFormat(tr("d MMM, HH:mm"), I18n.locale).format(Date(state.lastSuccessMillis)) +
                     " · " + formatSize(state.lastBytes)
-            else "ancora nessuno"
+            else tr("ancora nessuno")
             Text(
-                "Ultimo backup riuscito: $last",
+                tr("Ultimo backup riuscito: %s", last),
                 color = UnicumDark.copy(alpha = .7f), style = UnicumType.Caption, modifier = Modifier.padding(top = 4.dp)
             )
             val problem = state.held ?: state.lastError
@@ -261,22 +267,22 @@ private fun AutoBackupCard(onMessage: (String) -> Unit) {
                 )
             } else if (health == AutoBackupPolicy.Health.STALE) {
                 Text(
-                    "Non c'è un backup riuscito da qualche giorno: apri l'app con la rete accesa o salva ora.",
+                    tr("Non c'è un backup riuscito da qualche giorno: apri l'app con la rete accesa o salva ora."),
                     color = UnicumDark, style = UnicumType.Caption, lineHeight = 17.sp, modifier = Modifier.padding(top = 6.dp)
                 )
             }
             Spacer(Modifier.height(12.dp))
             if (state.held != null) {
-                UnicumButton("Salva comunque", enabled = !busy, onClick = { runNow(overrideHold = true) })
+                UnicumButton(tr("Salva comunque"), enabled = !busy, onClick = { runNow(overrideHold = true) })
                 Spacer(Modifier.height(8.dp))
             }
-            UnicumButton(if (busy) "Salvo..." else "Salva ora", enabled = !busy, onClick = { runNow(overrideHold = false) })
+            UnicumButton(if (busy) tr("Salvo...") else tr("Salva ora"), enabled = !busy, onClick = { runNow(overrideHold = false) })
             Row(Modifier.fillMaxWidth()) {
                 TextButton(onClick = { pickLauncher.launch(AutoBackup.SUGGESTED_NAME) }, modifier = Modifier.weight(1f)) {
-                    Text("Cambia posto", color = UnicumPrimary)
+                    Text(tr("Cambia posto"), color = UnicumPrimary)
                 }
                 TextButton(onClick = { AutoBackup.disable(context) }, modifier = Modifier.weight(1f)) {
-                    Text("Disattiva", color = UnicumPrimary)
+                    Text(tr("Disattiva"), color = UnicumPrimary)
                 }
             }
         }
@@ -284,81 +290,81 @@ private fun AutoBackupCard(onMessage: (String) -> Unit) {
 }
 
 private fun outcomeText(r: AutoBackup.Outcome): String = when (r) {
-    is AutoBackup.Outcome.Saved -> "Backup salvato (${formatSize(r.bytes)})."
+    is AutoBackup.Outcome.Saved -> tr("Backup salvato (%s).", formatSize(r.bytes))
     is AutoBackup.Outcome.Held -> r.message
     is AutoBackup.Outcome.Failed -> r.message
-    AutoBackup.Outcome.NotConfigured -> "Scegli prima dove salvare il backup."
-    AutoBackup.Outcome.NotDue -> "Il backup di oggi è già fatto."
+    AutoBackup.Outcome.NotConfigured -> tr("Scegli prima dove salvare il backup.")
+    AutoBackup.Outcome.NotDue -> tr("Il backup di oggi è già fatto.")
 }
 
 private fun formatSize(bytes: Long): String =
-    if (bytes >= 1_000_000) String.format(Locale.ITALY, "%.1f MB", bytes / 1_000_000.0) else "${maxOf(1L, bytes / 1000)} kB"
+    if (bytes >= 1_000_000) String.format(I18n.locale, "%.1f MB", bytes / 1_000_000.0) else "${maxOf(1L, bytes / 1000)} kB"
 
 @Composable
 private fun ImportConfirmDialog(p: PendingImport, onCancel: () -> Unit, onConfirm: () -> Unit) {
     val plan = p.plan
     UnicumDialog(onCancel, spacing = 10.dp) {
-        Text("Importare il backup?", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(tr("Importare il backup?"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
         if (plan.isEmpty) {
             Text(
-                "Tutto quello che c'è nel file è già nell'app: non c'è niente da aggiungere.",
+                tr("Tutto quello che c'è nel file è già nell'app: non c'è niente da aggiungere."),
                 color = UnicumDark.copy(alpha = .75f), style = UnicumType.Body, lineHeight = 20.sp
             )
         } else {
             Text(
-                "Verranno aggiunti: " + listOfNotNull(
-                    plan.newMeals.size.takeIf { it > 0 }?.let { if (it == 1) "1 alimento nei pasti" else "$it alimenti nei pasti" },
-                    plan.newActivities.size.takeIf { it > 0 }?.let { if (it == 1) "1 allenamento" else "$it allenamenti" },
-                    plan.newFoods.size.takeIf { it > 0 }?.let { if (it == 1) "1 prodotto salvato" else "$it prodotti salvati" },
-                    plan.newRunFeedback.takeIf { it > 0 }?.let { if (it == 1) "le sensazioni di 1 corsa" else "le sensazioni di $it corse" }
-                ).ifEmpty { listOf("solo le impostazioni") }.joinToString(", ") +
-                    (if (plan.days > 0) ", su ${plan.days} ${if (plan.days == 1) "giorno" else "giorni"}." else "."),
+                tr("Verranno aggiunti: %s", listOfNotNull(
+                    plan.newMeals.size.takeIf { it > 0 }?.let { trp(it, "%d alimento nei pasti", "%d alimenti nei pasti") },
+                    plan.newActivities.size.takeIf { it > 0 }?.let { trp(it, "%d allenamento", "%d allenamenti") },
+                    plan.newFoods.size.takeIf { it > 0 }?.let { trp(it, "%d prodotto salvato", "%d prodotti salvati") },
+                    plan.newRunFeedback.takeIf { it > 0 }?.let { trp(it, "le sensazioni di %d corsa", "le sensazioni di %d corse") }
+                ).ifEmpty { listOf(tr("solo le impostazioni")) }.joinToString(", ")) +
+                    (if (plan.days > 0) ", " + trp(plan.days, "su %d giorno", "su %d giorni") + "." else "."),
                 color = UnicumDark, style = UnicumType.Body, lineHeight = 20.sp
             )
             val skipped = plan.skippedMeals + plan.skippedActivities
             if (skipped > 0) {
                 Text(
-                    "$skipped voci erano già presenti e non vengono ripetute.",
+                    tr("%d voci erano già presenti e non vengono ripetute.", skipped),
                     color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail
                 )
             }
             if (plan.hasSettings) {
                 Text(
-                    "Il profilo, gli obiettivi e le preferenze del file sostituiranno quelli attuali; " +
-                        "gli alimenti personali si uniscono.",
+                    tr("Il profilo, gli obiettivi e le preferenze del file sostituiranno quelli attuali; gli alimenti personali si uniscono."),
+                        
                     color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail, lineHeight = 18.sp
                 )
             }
             if (plan.hasGoals) {
                 Text(
-                    "Gli obiettivi di corsa del file sostituiranno quelli attuali.",
+                    tr("Gli obiettivi di corsa del file sostituiranno quelli attuali."),
                     color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail, lineHeight = 18.sp
                 )
             }
             if (plan.hasPlan) {
                 Text(
-                    "Il programma di allenamento del file sostituirà quello tenuto nell'app.",
+                    tr("Il programma di allenamento del file sostituirà quello tenuto nell'app."),
                     color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail, lineHeight = 18.sp
                 )
             }
             if (plan.hasNotion) {
                 Text(
-                    "Il file contiene il collegamento a Notion: l'app si ricollega senza reinserire il token.",
+                    tr("Il file contiene il collegamento a Notion: l'app si ricollega senza reinserire il token."),
                     color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail, lineHeight = 18.sp
                 )
             }
             if (plan.hasReminders) {
                 Text(
-                    "Anche gli orari dei promemoria vengono dal file. Su un telefono nuovo apri poi Profilo → Promemoria " +
-                        "per consentire le notifiche.",
+                    tr("Anche gli orari dei promemoria vengono dal file. Su un telefono nuovo apri poi Profilo → Promemoria per consentire le notifiche."),
+                        
                     color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail, lineHeight = 18.sp
                 )
             }
         }
         Spacer(Modifier.height(4.dp))
-        if (!plan.isEmpty) UnicumButton("Importa", onClick = onConfirm)
+        if (!plan.isEmpty) UnicumButton(tr("Importa"), onClick = onConfirm)
         TextButton(onClick = onCancel, modifier = Modifier.fillMaxWidth()) {
-            Text(if (plan.isEmpty) "Chiudi" else "Annulla", color = UnicumPrimary)
+            Text(if (plan.isEmpty) tr("Chiudi") else tr("Annulla"), color = UnicumPrimary)
         }
     }
 }

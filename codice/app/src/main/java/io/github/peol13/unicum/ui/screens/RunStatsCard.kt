@@ -1,5 +1,11 @@
 package io.github.peol13.unicum.ui.screens
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.lfmt
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,9 +46,9 @@ import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-private fun km1(v: Double) = "%.1f".format(v).replace('.', ',')
+private fun km1(v: Double) = lfmt("%.1f", v)
 private fun monthName(d: LocalDate, short: Boolean = false) =
-    d.month.getDisplayName(if (short) TextStyle.SHORT_STANDALONE else TextStyle.FULL_STANDALONE, Locale.ITALIAN)
+    d.month.getDisplayName(if (short) TextStyle.SHORT_STANDALONE else TextStyle.FULL_STANDALONE, I18n.locale)
         .replace(".", "").replaceFirstChar { it.uppercase() }
 private fun dayMonth(d: LocalDate) = DateUtils.shortLabel(d).substringAfter(' ')
 
@@ -65,54 +71,54 @@ fun RunStatsCard(runs: List<RunProgress.Run>, onOpenRun: (String) -> Unit) {
         Spacer(Modifier.height(14.dp))
         Text(
             when (period) {
-                Period.WEEK -> "Questa settimana · dal ${dayMonth(window.start)}"
+                Period.WEEK -> tr("Questa settimana · dal %s", dayMonth(window.start))
                 Period.MONTH -> "${monthName(window.start)} ${window.start.year}"
-                Period.ALL -> "Dal ${dayMonth(window.start)} ${window.start.year}"
+                Period.ALL -> tr("Dal %s", "${dayMonth(window.start)} ${window.start.year}")
             },
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
         )
         Spacer(Modifier.height(6.dp))
         Row(Modifier.fillMaxWidth()) {
-            BigStat("${WorkoutAnalysis.formatKm(now.km * 1000)} km", "Distanza", Modifier.weight(1f))
-            BigStat(now.count.toString(), "Corse", Modifier.weight(1f))
-            BigStat(WorkoutAnalysis.formatDuration(now.seconds), "Tempo", Modifier.weight(1f))
+            BigStat("${WorkoutAnalysis.formatKm(now.km * 1000)} km", tr("Distanza"), Modifier.weight(1f))
+            BigStat(now.count.toString(), tr("Corse"), Modifier.weight(1f))
+            BigStat(WorkoutAnalysis.formatDuration(now.seconds), tr("Tempo"), Modifier.weight(1f))
         }
         Spacer(Modifier.height(12.dp))
         Row(Modifier.fillMaxWidth()) {
-            MiniStat(now.paceSec?.let { "${WorkoutAnalysis.formatPace(it)}/km" }, "ritmo medio", Modifier.weight(1f))
-            MiniStat(now.avgHr?.let { "$it bpm" }, "FC media", Modifier.weight(1f))
-            MiniStat(now.beatsPerKm?.let { thousandsDot(it) }, "battiti/km", Modifier.weight(1f))
-            MiniStat(now.avgCadence?.let { "$it spm" }, "cadenza", Modifier.weight(1f))
+            MiniStat(now.paceSec?.let { "${WorkoutAnalysis.formatPace(it)}/km" }, tr("ritmo medio"), Modifier.weight(1f))
+            MiniStat(now.avgHr?.let { "$it bpm" }, tr("FC media"), Modifier.weight(1f))
+            MiniStat(now.beatsPerKm?.let { thousandsDot(it) }, tr("battiti/km"), Modifier.weight(1f))
+            MiniStat(now.avgCadence?.let { "$it spm" }, tr("cadenza"), Modifier.weight(1f))
         }
 
         if (before != null) {
             Spacer(Modifier.height(16.dp))
             Text(
-                if (period == Period.WEEK) "Rispetto alla settimana scorsa" else "Rispetto a ${monthName(prevWindow!!.start).lowercase()}",
+                if (period == Period.WEEK) tr("Rispetto alla settimana scorsa") else tr("Rispetto a %s", monthName(prevWindow!!.start).lowercase(I18n.locale)),
                 color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold
             )
             Spacer(Modifier.height(6.dp))
-            CompareHeader("Prima", "Ora")
-            CompareLine("Distanza", "${km1(before.km)} km", "${km1(now.km)} km", deltaKm(now.km - before.km, before.count > 0))
-            CompareLine("Corse", before.count.toString(), now.count.toString(), deltaInt(now.count - before.count, before.count > 0))
+            CompareHeader(tr("Prima"), tr("Ora"))
+            CompareLine(tr("Distanza"), "${km1(before.km)} km", "${km1(now.km)} km", deltaKm(now.km - before.km, before.count > 0))
+            CompareLine(tr("Corse"), before.count.toString(), now.count.toString(), deltaInt(now.count - before.count, before.count > 0))
             CompareLine(
-                "Tempo", WorkoutAnalysis.formatDuration(before.seconds), WorkoutAnalysis.formatDuration(now.seconds),
+                tr("Tempo"), WorkoutAnalysis.formatDuration(before.seconds), WorkoutAnalysis.formatDuration(now.seconds),
                 deltaInt((now.seconds - before.seconds) / 60, before.count > 0)?.let { Delta(it.text + "′", it.good) }
             )
             CompareLine(
-                "Ritmo", before.paceSec?.let(WorkoutAnalysis::formatPace), now.paceSec?.let(WorkoutAnalysis::formatPace),
+                tr("Ritmo"), before.paceSec?.let(WorkoutAnalysis::formatPace), now.paceSec?.let(WorkoutAnalysis::formatPace),
                 deltaOf(before.paceSec, now.paceSec) { d -> "${if (d < 0) "−" else "+"}${abs(d)}″" to (d < 0) }
             )
             CompareLine(
-                "FC media", before.avgHr?.toString(), now.avgHr?.toString(),
+                tr("FC media"), before.avgHr?.toString(), now.avgHr?.toString(),
                 deltaOf(before.avgHr, now.avgHr) { d -> "${if (d < 0) "−" else "+"}${abs(d)}" to null }
             )
             CompareLine(
-                "Battiti/km", before.beatsPerKm?.let(::thousandsDot), now.beatsPerKm?.let(::thousandsDot),
+                tr("Battiti/km"), before.beatsPerKm?.let(::thousandsDot), now.beatsPerKm?.let(::thousandsDot),
                 deltaOf(before.beatsPerKm, now.beatsPerKm) { d -> "${if (d < 0) "−" else "+"}${abs(d)}" to (d < 0) }
             )
             Text(
-                "Il periodo in corso non è finito: ritmo e battiti si confrontano già, i km si riempiono man mano.",
+                tr("Il periodo in corso non è finito: ritmo e battiti si confrontano già, i km si riempiono man mano."),
                 color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note, lineHeight = 15.sp, modifier = Modifier.padding(top = 6.dp)
             )
         } else {
@@ -122,9 +128,9 @@ fun RunStatsCard(runs: List<RunProgress.Run>, onOpenRun: (String) -> Unit) {
         Spacer(Modifier.height(16.dp))
         Text(
             when (period) {
-                Period.WEEK -> "Km nelle ultime 12 settimane (sotto, il lunedì)"
-                Period.MONTH -> "Km negli ultimi 6 mesi"
-                Period.ALL -> "Km mese per mese"
+                Period.WEEK -> tr("Km nelle ultime 12 settimane (sotto, il lunedì)")
+                Period.MONTH -> tr("Km negli ultimi 6 mesi")
+                Period.ALL -> tr("Km mese per mese")
             },
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
         )
@@ -156,44 +162,44 @@ private fun AllTimeRecords(
     val progress = remember(runs) { RunStats.firstVsLast(runs) }
 
     Spacer(Modifier.height(16.dp))
-    Text("Record", color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+    Text(tr("Record"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
     Spacer(Modifier.height(4.dp))
     all.longest?.let { r ->
-        RecordLine("Corsa più lunga", "${km1(r.km!!)} km", dayMonth(r.date)) { onOpenRun(r.id) }
+        RecordLine(tr("Corsa più lunga"), "${km1(r.km!!)} km", dayMonth(r.date)) { onOpenRun(r.id) }
     }
     all.fastest?.let { r ->
-        RecordLine("Ritmo migliore (≥ 2 km)", "${WorkoutAnalysis.formatPace(r.paceSec)}/km", dayMonth(r.date)) { onOpenRun(r.id) }
+        RecordLine(tr("Ritmo migliore (≥ 2 km)"), "${WorkoutAnalysis.formatPace(r.paceSec)}/km", dayMonth(r.date)) { onOpenRun(r.id) }
     }
     best5k?.let { (r, s) ->
-        RecordLine("5 km più veloce", WorkoutAnalysis.formatDuration(s), dayMonth(r.date)) { onOpenRun(r.id) }
+        RecordLine(tr("5 km più veloce"), WorkoutAnalysis.formatDuration(s), dayMonth(r.date)) { onOpenRun(r.id) }
     }
-    bestWeek?.let { RecordLine("Settimana con più km", "${km1(it.totals.km)} km", "dal ${dayMonth(it.start)}", null) }
-    bestMonth?.let { RecordLine("Mese con più km", "${km1(it.totals.km)} km", monthName(it.start).lowercase(), null) }
-    RecordLine("Media a settimana", "${km1(RunStats.kmPerWeek(runs, start, today))} km", null, null)
+    bestWeek?.let { RecordLine(tr("Settimana con più km"), "${km1(it.totals.km)} km", tr("dal %s", dayMonth(it.start)), null) }
+    bestMonth?.let { RecordLine(tr("Mese con più km"), "${km1(it.totals.km)} km", monthName(it.start).lowercase(I18n.locale), null) }
+    RecordLine(tr("Media a settimana"), "${km1(RunStats.kmPerWeek(runs, start, today))} km", null, null)
 
     progress?.let { (first, last) ->
         Spacer(Modifier.height(16.dp))
-        Text("Le prime 4 corse e le ultime 4", color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+        Text(tr("Le prime 4 corse e le ultime 4"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
         Spacer(Modifier.height(6.dp))
-        CompareHeader("Inizio", "Ora")
-        CompareLine("Distanza media", "${km1(first.km / first.count)} km", "${km1(last.km / last.count)} km",
+        CompareHeader(tr("Inizio"), tr("Ora"))
+        CompareLine(tr("Distanza media"), "${km1(first.km / first.count)} km", "${km1(last.km / last.count)} km",
             deltaKm(last.km / last.count - first.km / first.count, true))
         CompareLine(
-            "Ritmo", first.paceSec?.let(WorkoutAnalysis::formatPace), last.paceSec?.let(WorkoutAnalysis::formatPace),
+            tr("Ritmo"), first.paceSec?.let(WorkoutAnalysis::formatPace), last.paceSec?.let(WorkoutAnalysis::formatPace),
             deltaOf(first.paceSec, last.paceSec) { d -> "${if (d < 0) "−" else "+"}${abs(d)}″" to (d < 0) }
         )
         CompareLine(
-            "FC media", first.avgHr?.toString(), last.avgHr?.toString(),
+            tr("FC media"), first.avgHr?.toString(), last.avgHr?.toString(),
             deltaOf(first.avgHr, last.avgHr) { d -> "${if (d < 0) "−" else "+"}${abs(d)}" to null }
         )
         CompareLine(
-            "Battiti/km", first.beatsPerKm?.let(::thousandsDot), last.beatsPerKm?.let(::thousandsDot),
+            tr("Battiti/km"), first.beatsPerKm?.let(::thousandsDot), last.beatsPerKm?.let(::thousandsDot),
             deltaOf(first.beatsPerKm, last.beatsPerKm) { d -> "${if (d < 0) "−" else "+"}${abs(d)}" to (d < 0) }
         )
     }
 }
 
-private fun thousandsDot(v: Int) = "%,d".format(v).replace(',', '.')
+private fun thousandsDot(v: Int) = lfmt("%,d", v)
 
 /** Differenza con il colore: true = meglio (teal), false = peggio (sabbia), null = neutra. */
 private class Delta(val text: String, val good: Boolean?)
@@ -223,7 +229,7 @@ private fun CompareHeader(a: String, b: String) {
     val c = UnicumDark.copy(alpha = .45f)
     Row(Modifier.fillMaxWidth()) {
         Text("", modifier = Modifier.weight(1.4f))
-        listOf(a, b, "Diff.").forEach {
+        listOf(a, b, tr("Diff.")).forEach {
             Text(it.uppercase(), color = c, style = UnicumType.Micro, fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.weight(1f), textAlign = TextAlign.End, maxLines = 1)
         }

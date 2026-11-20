@@ -1,18 +1,25 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.tr
+
 /** Le card che si possono mettere nella Home. */
-enum class HomeCard(val label: String, val description: String) {
-    BANNER("Messaggio del giorno", "Stato del giorno e consigli"),
-    CALORIE("Calorie", "Anello, deficit e macronutrienti"),
-    CALORIE_COMPATTA("Calorie in breve", "Calorie e linea del deficit in una riga"),
-    ATTIVITA("Attività", "Minuti, passi e ultimi 7 giorni"),
-    SONNO("Sonno", "Durata, efficienza e fasi della notte"),
-    ATTIVITA_SONNO("Attività e sonno", "Due card piccole affiancate"),
-    RECUPERO_SONNO("Recupero e sonno", "HRV e anello del sonno affiancati"),
-    RECUPERO_ATTIVITA("Recupero e attività", "HRV e attività affiancati"),
-    PASTI("Pasti", "Calorie di colazione, pranzo e cena"),
-    ALLENAMENTI("Allenamenti", "Gli allenamenti del giorno"),
-    PESO("Peso e composizione", "Ultima misura e tendenza")
+enum class HomeCard(private val labelIt: String, private val descriptionIt: String) {
+    BANNER(tk("Messaggio del giorno"), tk("Stato del giorno e consigli")),
+    CALORIE(tk("Calorie"), tk("Anello, deficit e macronutrienti")),
+    CALORIE_COMPATTA(tk("Calorie in breve"), tk("Calorie e linea del deficit in una riga")),
+    ATTIVITA(tk("Attività"), tk("Minuti, passi e ultimi 7 giorni")),
+    SONNO(tk("Sonno"), tk("Durata, efficienza e fasi della notte")),
+    ATTIVITA_SONNO(tk("Attività e sonno"), tk("Due card piccole affiancate")),
+    RECUPERO_SONNO(tk("Recupero e sonno"), tk("HRV e anello del sonno affiancati")),
+    RECUPERO_ATTIVITA(tk("Recupero e attività"), tk("HRV e attività affiancati")),
+    PASTI(tk("Pasti"), tk("Calorie di colazione, pranzo e cena")),
+    ALLENAMENTI(tk("Allenamenti"), tk("Gli allenamenti del giorno")),
+    PESO(tk("Peso e composizione"), tk("Ultima misura e tendenza"));
+
+    val label: String get() = tr(labelIt)
+    val description: String get() = tr(descriptionIt)
 }
 
 /**

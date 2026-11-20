@@ -1,5 +1,7 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -31,7 +33,7 @@ object MealReminders {
     val types = MealTime.TYPES
 
     /** Nome mostrato per ogni tipo ("Altro" = spuntino). */
-    fun label(type: String) = if (type == "Altro") "Spuntino" else type
+    fun label(type: String) = if (type == "Altro") tr("Spuntino") else MealTime.label(type)
 
     private fun default(type: String): Int = when (type) {
         "Colazione" -> 8 * 60 + 30
@@ -79,15 +81,15 @@ object MealReminders {
     fun notify(context: Context, type: String) {
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         nm.createNotificationChannel(
-            NotificationChannel(CHANNEL, "Promemoria pasti", NotificationManager.IMPORTANCE_DEFAULT)
+            NotificationChannel(CHANNEL, tr("Promemoria pasti"), NotificationManager.IMPORTANCE_DEFAULT)
         )
         // Toccandola si apre la registrazione di quel pasto
         val open = UnicumWidget.openAppIntent(context, 100 + types.indexOf(type), type)
         val text = when (type) {
-            "Colazione" -> "Hai fatto colazione? Registrala in UNICUM."
-            "Pranzo" -> "È ora di pranzo: ricordati di registrare cosa mangi."
-            "Cena" -> "Hai già cenato? Registra la cena in UNICUM."
-            else -> "Hai fatto uno spuntino? Registralo in UNICUM."
+            "Colazione" -> tr("Hai fatto colazione? Registrala in UNICUM.")
+            "Pranzo" -> tr("È ora di pranzo: ricordati di registrare cosa mangi.")
+            "Cena" -> tr("Hai già cenato? Registra la cena in UNICUM.")
+            else -> tr("Hai fatto uno spuntino? Registralo in UNICUM.")
         }
         val n = NotificationCompat.Builder(context, CHANNEL)
             .setSmallIcon(R.drawable.ic_launcher_monochrome)

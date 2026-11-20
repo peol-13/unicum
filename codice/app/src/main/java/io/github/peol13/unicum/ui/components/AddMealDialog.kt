@@ -1,5 +1,13 @@
 package io.github.peol13.unicum.ui.components
 
+import io.github.peol13.unicum.i18n.I18n
+
+import io.github.peol13.unicum.i18n.tk
+
+import io.github.peol13.unicum.i18n.trp
+
+import io.github.peol13.unicum.i18n.tr
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -178,9 +186,9 @@ fun AddMealDialog(
         typeFoods.ifEmpty { recentNames.mapNotNull { n -> UserSettings.findFood(n) ?: recentCached.firstOrNull { it.name == n } } }
     }
     val recentsLabel = when {
-        typeFoods.isEmpty() -> "Usati di recente"
-        MealTime.isOther(mealType) -> "Già mangiati negli spuntini"
-        else -> "Già mangiati a ${mealType.trim().lowercase()}"
+        typeFoods.isEmpty() -> tr("Usati di recente")
+        MealTime.isOther(mealType) -> tr("Già mangiati negli spuntini")
+        else -> tr("Già mangiati a %s", MealTime.label(mealType).lowercase(I18n.locale))
     }
 
     // Codice a barre: fotocamera aperta, ricerca in corso, prodotto trovato (o messaggio d'errore)
@@ -190,7 +198,7 @@ fun AddMealDialog(
 
     fun lookupBarcode(code: String) {
         scanning = false
-        scanMessage = "Cerco il prodotto $code…"
+        scanMessage = tr("Cerco il prodotto %s…", code)
         scannedFood = null
         scope.launch {
             val local = UnicumRepository.cachedFoodByBarcode(context, code)
@@ -202,7 +210,7 @@ fun AddMealDialog(
             OpenFoodFacts.byBarcode(code).fold(
                 onSuccess = { food ->
                     if (food == null) {
-                        scanMessage = "Prodotto $code non trovato o senza valori nutrizionali. Puoi crearlo a mano."
+                        scanMessage = tr("Prodotto %s non trovato o senza valori nutrizionali. Puoi crearlo a mano.", code)
                     } else {
                         scannedFood = food; scanMessage = null
                         selectedFood = food; selectedKey = "s_" + code; gramsText = "100"
@@ -321,12 +329,12 @@ fun AddMealDialog(
     }
     if (confirmClose) {
         UnicumDialog(onDismiss = { confirmClose = false }) {
-            Text("Pasto non salvato", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+            Text(tr("Pasto non salvato"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
             Text(
-                "Hai ${staged.size} ${if (staged.size == 1) "alimento" else "alimenti"} ($totalKcal kcal) nel pasto. Cosa ne facciamo?",
+                tr("%s (%d kcal) nel pasto. Cosa ne facciamo?", trp(staged.size, "Hai %d alimento", "Hai %d alimenti"), totalKcal),
                 color = UnicumDark.copy(alpha = .7f), style = UnicumType.Body
             )
-            UnicumButton("Salva pasto", onClick = { confirmClose = false; saveMeal() })
+            UnicumButton(tr("Salva pasto"), onClick = { confirmClose = false; saveMeal() })
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -341,10 +349,10 @@ fun AddMealDialog(
                     .padding(vertical = 14.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Scarta pasto", color = DeleteRed, style = UnicumType.Body, fontWeight = FontWeight.Medium)
+                Text(tr("Scarta pasto"), color = DeleteRed, style = UnicumType.Body, fontWeight = FontWeight.Medium)
             }
             TextButton(onClick = { confirmClose = false }, modifier = Modifier.fillMaxWidth()) {
-                Text("Continua a modificare", color = UnicumDark.copy(alpha = .7f))
+                Text(tr("Continua a modificare"), color = UnicumDark.copy(alpha = .7f))
             }
         }
     }
@@ -362,9 +370,9 @@ fun AddMealDialog(
     }
     deletingTemplate?.let { m ->
         UnicumDialog(onDismiss = { deletingTemplate = null }) {
-            Text("Eliminare “${m.name}”?", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+            Text(tr("Eliminare “%s”?", m.name), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
             Text(
-                "Il pasto fisso non sarà più proposto. I pasti già registrati restano.",
+                tr("Il pasto fisso non sarà più proposto. I pasti già registrati restano."),
                 color = UnicumDark.copy(alpha = .7f), style = UnicumType.Body
             )
             Box(
@@ -380,10 +388,10 @@ fun AddMealDialog(
                     .padding(vertical = 14.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Elimina", color = DeleteRed, style = UnicumType.Body, fontWeight = FontWeight.Medium)
+                Text(tr("Elimina"), color = DeleteRed, style = UnicumType.Body, fontWeight = FontWeight.Medium)
             }
             TextButton(onClick = { deletingTemplate = null }, modifier = Modifier.fillMaxWidth()) {
-                Text("Annulla", color = UnicumDark.copy(alpha = .7f))
+                Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
             }
         }
     }
@@ -402,15 +410,15 @@ fun AddMealDialog(
                     IconBadge(Icons.Rounded.Restaurant, size = 42.dp)
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) {
-                        Text("Registra pasto", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold, maxLines = 1)
+                        Text(tr("Registra pasto"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold, maxLines = 1)
                         Text(
-                            if (isToday) "Oggi" else DateUtils.parse(date).let { "${it.dayOfMonth}/${it.monthValue}" },
+                            if (isToday) tr("Oggi") else DateUtils.parse(date).let { "${it.dayOfMonth}/${it.monthValue}" },
                             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail
                         )
                     }
                     MealTimePill(minute, { minute = it; minuteTouched = true })
                     IconButton(onClick = ::requestClose) {
-                        Icon(Icons.Rounded.Close, "Chiudi", tint = UnicumDark)
+                        Icon(Icons.Rounded.Close, tr("Chiudi"), tint = UnicumDark)
                     }
                 }
 
@@ -447,17 +455,17 @@ fun AddMealDialog(
                             selectedKey = null
                             online = OnlineState.Idle
                         },
-                        placeholder = { Text("Cerca un alimento", maxLines = 1) },
+                        placeholder = { Text(tr("Cerca un alimento"), maxLines = 1) },
                         leadingIcon = { Icon(Icons.Rounded.Search, null, tint = UnicumPrimary) },
                         trailingIcon = {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 if (query.isNotEmpty()) {
                                     IconButton(onClick = { query = ""; selectedFood = null; selectedKey = null; online = OnlineState.Idle }) {
-                                        Icon(Icons.Rounded.Close, "Cancella", tint = UnicumDark.copy(alpha = .6f))
+                                        Icon(Icons.Rounded.Close, tr("Cancella"), tint = UnicumDark.copy(alpha = .6f))
                                     }
                                 }
                                 IconButton(onClick = { scanning = true }) {
-                                    Icon(Icons.Rounded.QrCodeScanner, "Scansiona codice a barre", tint = UnicumPrimary)
+                                    Icon(Icons.Rounded.QrCodeScanner, tr("Scansiona codice a barre"), tint = UnicumPrimary)
                                 }
                             }
                         },
@@ -470,13 +478,13 @@ fun AddMealDialog(
                     Spacer(Modifier.height(10.dp))
 
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        item { UnicumChip("Tutti", category == null, { category = null; selectedFood = null; selectedKey = null }, compact = true) }
+                        item { UnicumChip(tr("Tutti"), category == null, { category = null; selectedFood = null; selectedKey = null }, compact = true) }
                         items(
                             FoodCatalog.categories +
-                                (if (customFoods.isNotEmpty()) listOf("Personalizzati") else emptyList()) +
+                                (if (customFoods.isNotEmpty()) listOf(tk("Personalizzati")) else emptyList()) +
                                 (if (cachedFoods.isNotEmpty() || category == OpenFoodFacts.CATEGORY) listOf(OpenFoodFacts.CATEGORY) else emptyList())
                         ) { cat ->
-                            UnicumChip(cat, category == cat, { category = cat; selectedFood = null; selectedKey = null }, compact = true)
+                            UnicumChip(tr(cat), category == cat, { category = cat; selectedFood = null; selectedKey = null }, compact = true)
                         }
                     }
 
@@ -494,13 +502,13 @@ fun AddMealDialog(
                         }
                         scannedFood?.let { f ->
                             item(key = "scan_food") {
-                                ListLabel("Prodotto scansionato")
+                                ListLabel(tr("Prodotto scansionato"))
                                 Spacer(Modifier.height(4.dp))
                                 FoodItem(f, "s_" + (f.barcode ?: f.name))
                             }
                         }
                         if (shownTemplates.isNotEmpty()) {
-                            item(key = "t_head") { ListLabel("Pasti salvati") }
+                            item(key = "t_head") { ListLabel(tr("Pasti salvati")) }
                             items(shownTemplates, key = { "t_" + it.name }) { m ->
                                 SavedMealRow(m, onAdd = { loadTemplate(m) }, onDelete = { deletingTemplate = m })
                             }
@@ -510,7 +518,7 @@ fun AddMealDialog(
                             items(recents, key = { "r_" + it.name }) { food -> FoodItem(food, "r_" + food.name) }
                         }
                         if (showRecents || shownTemplates.isNotEmpty()) {
-                            item { ListLabel(if (query.isBlank()) "Tutti gli alimenti" else "Alimenti") }
+                            item { ListLabel(if (query.isBlank()) tr("Tutti gli alimenti") else tr("Alimenti")) }
                         }
 
                         items(results, key = { it.name }) { food -> FoodItem(food, "a_" + food.name) }
@@ -518,7 +526,7 @@ fun AddMealDialog(
                         if (results.isEmpty()) {
                             item {
                                 Text(
-                                    "Nessun alimento trovato per “${query.trim()}”.",
+                                    tr("Nessun alimento trovato per “%s”.", query.trim()),
                                     color = UnicumDark.copy(alpha = .6f),
                                     style = UnicumType.Detail,
                                     modifier = Modifier.padding(vertical = 8.dp)
@@ -543,7 +551,7 @@ fun AddMealDialog(
                                 Icon(Icons.Rounded.Add, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
                                 Spacer(Modifier.width(6.dp))
                                 Text(
-                                    if (query.isBlank()) "Crea un nuovo alimento" else "Crea “${query.trim()}”",
+                                    if (query.isBlank()) tr("Crea un nuovo alimento") else tr("Crea “%s”", query.trim()),
                                     color = UnicumPrimary,
                                     fontWeight = FontWeight.SemiBold
                                 )
@@ -564,9 +572,9 @@ fun AddMealDialog(
                         onGrams = { i, g -> staged[i] = staged[i].copy(grams = g) },
                         onRemove = { staged.removeAt(it) },
                         templateLabel = when {
-                            savedAs != null && savedAs.items == current -> "Pasto fisso “${savedAs.name}”"
-                            savedAs != null -> "Aggiorna il pasto fisso “${savedAs.name}”"
-                            else -> "Salva come pasto fisso"
+                            savedAs != null && savedAs.items == current -> tr("Pasto fisso “%s”", savedAs.name)
+                            savedAs != null -> tr("Aggiorna il pasto fisso “%s”", savedAs.name)
+                            else -> tr("Salva come pasto fisso")
                         },
                         templateSaved = savedAs != null && savedAs.items == current,
                         onSaveTemplate = { savingTemplate = true }
@@ -575,8 +583,8 @@ fun AddMealDialog(
                 }
 
                 UnicumButton(
-                    text = if (staged.isEmpty()) "Aggiungi almeno un alimento"
-                    else "Salva ${staged.size} ${if (staged.size == 1) "alimento" else "alimenti"} · $totalKcal kcal",
+                    text = if (staged.isEmpty()) tr("Aggiungi almeno un alimento")
+                    else trp(staged.size, "Salva %d alimento", "Salva %d alimenti") + " · $totalKcal kcal",
                     enabled = staged.isNotEmpty(),
                     onClick = ::saveMeal
                 )
@@ -606,14 +614,14 @@ private fun StagedList(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                "NEL PASTO", color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note,
+                tr("NEL PASTO"), color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note,
                 fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f)
             )
             val meals = staged.map { it.meal }
             Text(
-                "P ${fmtGrams(meals.sumOf { it.protein.toDouble() }.toFloat())}  " +
-                    "C ${fmtGrams(meals.sumOf { it.carbohydrates.toDouble() }.toFloat())}  " +
-                    "G ${fmtGrams(meals.sumOf { it.fats.toDouble() }.toFloat())}",
+                "${tr("P")} ${fmtGrams(meals.sumOf { it.protein.toDouble() }.toFloat())}  " +
+                    "${tr("C")} ${fmtGrams(meals.sumOf { it.carbohydrates.toDouble() }.toFloat())}  " +
+                    "${tr("G")} ${fmtGrams(meals.sumOf { it.fats.toDouble() }.toFloat())}",
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
             )
         }
@@ -632,7 +640,7 @@ private fun StagedList(
                     StepButton(add = true, size = 30.dp) { onGrams(i, item.grams + 10) }
                     Spacer(Modifier.width(4.dp))
                     IconButton(onClick = { onRemove(i) }, modifier = Modifier.size(32.dp)) {
-                        Icon(Icons.Rounded.Close, "Rimuovi", tint = DeleteRed, modifier = Modifier.size(16.dp))
+                        Icon(Icons.Rounded.Close, tr("Rimuovi"), tint = DeleteRed, modifier = Modifier.size(16.dp))
                     }
                 }
             }
@@ -684,9 +692,9 @@ private fun SavedMealRow(meal: SavedMeal, onAdd: () -> Unit, onDelete: () -> Uni
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, maxLines = 2, overflow = TextOverflow.Ellipsis
             )
             Text(
-                "P ${fmtGrams(portions.sumOf { it.protein.toDouble() }.toFloat())} · " +
-                    "C ${fmtGrams(portions.sumOf { it.carbohydrates.toDouble() }.toFloat())} · " +
-                    "G ${fmtGrams(portions.sumOf { it.fats.toDouble() }.toFloat())}",
+                "${tr("P")} ${fmtGrams(portions.sumOf { it.protein.toDouble() }.toFloat())} · " +
+                    "${tr("C")} ${fmtGrams(portions.sumOf { it.carbohydrates.toDouble() }.toFloat())} · " +
+                    "${tr("G")} ${fmtGrams(portions.sumOf { it.fats.toDouble() }.toFloat())}",
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
             )
         }
@@ -703,7 +711,7 @@ private fun SavedMealRow(meal: SavedMeal, onAdd: () -> Unit, onDelete: () -> Uni
             Icon(Icons.Rounded.Add, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
         }
         IconButton(onClick = onDelete, modifier = Modifier.size(36.dp)) {
-            Icon(Icons.Rounded.DeleteOutline, "Elimina pasto fisso", tint = UnicumDark.copy(alpha = .4f), modifier = Modifier.size(18.dp))
+            Icon(Icons.Rounded.DeleteOutline, tr("Elimina pasto fisso"), tint = UnicumDark.copy(alpha = .4f), modifier = Modifier.size(18.dp))
         }
     }
 }
@@ -714,28 +722,28 @@ private fun SaveTemplateDialog(initialName: String, onDismiss: () -> Unit, onSav
     var name by remember { mutableStateOf(initialName) }
     val exists = UserSettings.savedMeals.any { it.name.equals(name.trim(), true) }
     UnicumDialog(onDismiss = onDismiss) {
-        Text("Pasto fisso", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(tr("Pasto fisso"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
         Text(
-            "Lo ritrovi in cima alla ricerca quando registri un pasto: un tocco e gli alimenti entrano nel pasto, " +
-                "poi puoi cambiare grammi o aggiungere altro.",
+            tr("Lo ritrovi in cima alla ricerca quando registri un pasto: un tocco e gli alimenti entrano nel pasto, poi puoi cambiare grammi o aggiungere altro."),
+                
             color = UnicumDark.copy(alpha = .7f), style = UnicumType.Detail
         )
         OutlinedTextField(
             textStyle = unicumFieldTextStyle(),
             value = name, onValueChange = { name = it.take(40) },
-            label = { Text("Nome (es. Colazione)") }, singleLine = true,
+            label = { Text(tr("Nome (es. Colazione)")) }, singleLine = true,
             shape = RoundedCornerShape(14.dp), colors = unicumFieldColors(),
             modifier = Modifier.fillMaxWidth()
         )
         if (exists) {
             Text(
-                "Esiste già un pasto fisso con questo nome: verrà aggiornato.",
+                tr("Esiste già un pasto fisso con questo nome: verrà aggiornato."),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
             )
         }
-        UnicumButton(if (exists) "Aggiorna" else "Salva", onClick = { onSave(name.trim()) }, enabled = name.isNotBlank())
+        UnicumButton(if (exists) tr("Aggiorna") else tr("Salva"), onClick = { onSave(name.trim()) }, enabled = name.isNotBlank())
         TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
-            Text("Annulla", color = UnicumDark.copy(alpha = .7f))
+            Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
         }
     }
 }
@@ -780,8 +788,8 @@ private fun FoodRow(
                 Text(food.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
                 Spacer(Modifier.height(2.dp))
                 Text(
-                    "P ${fmtGrams(food.proteinPer100g)} · C ${fmtGrams(food.carbsPer100g)} · G ${fmtGrams(food.fatsPer100g)}" +
-                        (food.fiberPer100g?.let { " · F ${fmtGrams(it)}" } ?: "") + "  per 100 g",
+                    "${tr("P")} ${fmtGrams(food.proteinPer100g)} · ${tr("C")} ${fmtGrams(food.carbsPer100g)} · ${tr("G")} ${fmtGrams(food.fatsPer100g)}" +
+                        (food.fiberPer100g?.let { " · ${tr("F")} ${fmtGrams(it)}" } ?: "") + "  " + tr("per 100 g"),
                     color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
                 )
             }
@@ -814,7 +822,7 @@ private fun FoodRow(
                 val portion = food.portion(grams)
                 NutritionSummary(portion.calories, portion.protein, portion.carbohydrates, portion.fats)
                 Spacer(Modifier.height(10.dp))
-                UnicumButton("Aggiungi al pasto", onClick = onAdd, enabled = grams > 0)
+                UnicumButton(tr("Aggiungi al pasto"), onClick = onAdd, enabled = grams > 0)
             }
         }
     }
@@ -843,47 +851,47 @@ private fun CreateFoodForm(
     val valid = name.isNotBlank() && finalKcal > 0
 
     Column(modifier.fillMaxWidth().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text("Nuovo alimento", color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
-        Text("Valori per 100 g, come sull'etichetta.", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+        Text(tr("Nuovo alimento"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(tr("Valori per 100 g, come sull'etichetta."), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
 
         OutlinedTextField(
             textStyle = unicumFieldTextStyle(),
             value = name, onValueChange = { name = it },
-            label = { Text("Nome") }, singleLine = true,
+            label = { Text(tr("Nome")) }, singleLine = true,
             shape = RoundedCornerShape(14.dp), colors = unicumFieldColors(),
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
             textStyle = unicumFieldTextStyle(),
             value = kcal, onValueChange = { kcal = it.filter(Char::isDigit).take(4) },
-            label = { Text("Calorie (kcal / 100 g)") }, singleLine = true,
+            label = { Text(tr("Calorie (kcal / 100 g)")) }, singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             shape = RoundedCornerShape(14.dp), colors = unicumFieldColors(),
             modifier = Modifier.fillMaxWidth()
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            DecimalField("Proteine", protein, { protein = it }, Modifier.weight(1f))
-            DecimalField("Carbo", carbs, { carbs = it }, Modifier.weight(1f))
-            DecimalField("Grassi", fats, { fats = it }, Modifier.weight(1f))
+            DecimalField(tr("Proteine"), protein, { protein = it }, Modifier.weight(1f))
+            DecimalField(tr("Carbo"), carbs, { carbs = it }, Modifier.weight(1f))
+            DecimalField(tr("Grassi"), fats, { fats = it }, Modifier.weight(1f))
         }
         Text(
-            "Le calorie si calcolano dai macro se lasci vuoto il campo kcal.",
+            tr("Le calorie si calcolano dai macro se lasci vuoto il campo kcal."),
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            DecimalField("Fibre", fiber, { fiber = it }, Modifier.weight(1f))
-            DecimalField("Zuccheri", sugars, { sugars = it }, Modifier.weight(1f))
-            DecimalField("Sale", salt, { salt = it }, Modifier.weight(1f))
+            DecimalField(tr("Fibre"), fiber, { fiber = it }, Modifier.weight(1f))
+            DecimalField(tr("Zuccheri"), sugars, { sugars = it }, Modifier.weight(1f))
+            DecimalField(tr("Sale"), salt, { salt = it }, Modifier.weight(1f))
         }
         Text(
-            "Fibre, zuccheri e sale sono facoltativi: se li scrivi, entrano nei totali del giorno.",
+            tr("Fibre, zuccheri e sale sono facoltativi: se li scrivi, entrano nei totali del giorno."),
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
         )
 
         Spacer(Modifier.height(8.dp))
 
         UnicumButton(
-            "Salva alimento",
+            tr("Salva alimento"),
             enabled = valid,
             onClick = {
                 onCreated(
@@ -893,7 +901,7 @@ private fun CreateFoodForm(
                         proteinPer100g = protein.toFloatOrNull() ?: 0f,
                         carbsPer100g = carbs.toFloatOrNull() ?: 0f,
                         fatsPer100g = fats.toFloatOrNull() ?: 0f,
-                        category = "Personalizzati",
+                        category = tk("Personalizzati"),
                         fiberPer100g = fiber.toFloatOrNull(),
                         sugarsPer100g = sugars.toFloatOrNull(),
                         saltPer100g = salt.toFloatOrNull()
@@ -902,7 +910,7 @@ private fun CreateFoodForm(
             }
         )
         TextButton(onClick = onCancel, modifier = Modifier.fillMaxWidth()) {
-            Text("Annulla", color = UnicumDark.copy(alpha = .7f))
+            Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
         }
     }
 }
@@ -942,24 +950,24 @@ private fun OnlineSearchHeader(query: String, state: OnlineState, onSearch: () -
                 Icon(Icons.Rounded.Search, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
                 Spacer(Modifier.width(6.dp))
                 Text(
-                    "Cerca “$query” online (marche e prodotti)",
+                    tr("Cerca “%s” online (marche e prodotti)", query),
                     color = UnicumPrimary, fontWeight = FontWeight.SemiBold, style = UnicumType.Detail
                 )
             }
             OnlineState.Loading -> Text(
-                "Cerco su Open Food Facts…",
+                tr("Cerco su Open Food Facts…"),
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail,
                 modifier = Modifier.padding(vertical = 10.dp)
             )
             is OnlineState.Error -> {
                 Text(state.message, color = DeleteRed, style = UnicumType.Caption, modifier = Modifier.padding(top = 6.dp))
-                TextButton(onClick = onSearch) { Text("Riprova", color = UnicumPrimary, fontWeight = FontWeight.SemiBold) }
+                TextButton(onClick = onSearch) { Text(tr("Riprova"), color = UnicumPrimary, fontWeight = FontWeight.SemiBold) }
             }
             is OnlineState.Done -> {
-                ListLabel("Da Open Food Facts")
+                ListLabel(tr("Da Open Food Facts"))
                 Text(
-                    if (state.foods.isEmpty()) "Nessun prodotto trovato online per “$query”."
-                    else "Valori per 100 g, inseriti dagli utenti: controlla l'etichetta se sono importanti. Fonte: Open Food Facts (ODbL).",
+                    if (state.foods.isEmpty()) tr("Nessun prodotto trovato online per “%s”.", query)
+                    else tr("Valori per 100 g, inseriti dagli utenti: controlla l'etichetta se sono importanti. Fonte: Open Food Facts (ODbL)."),
                     color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )

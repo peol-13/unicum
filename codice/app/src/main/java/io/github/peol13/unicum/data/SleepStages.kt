@@ -1,11 +1,17 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.tk
+
 /** Fase del sonno, dalla più "alta" (sveglio) alla più profonda, come nel grafico a gradini. */
-enum class SleepStageType(val code: Char, val label: String) {
-    SVEGLIO('A', "Sveglio"),
+enum class SleepStageType(val code: Char, private val labelIt: String) {
+    SVEGLIO('A', tk("Sveglio")),
     REM('R', "REM"),
-    LEGGERO('L', "Leggero"),
-    PROFONDO('D', "Profondo");
+    LEGGERO('L', tk("Leggero")),
+    PROFONDO('D', tk("Profondo"));
+
+    val label: String get() = tr(labelIt)
 
     companion object {
         fun fromCode(c: Char): SleepStageType? = entries.firstOrNull { it.code == c }

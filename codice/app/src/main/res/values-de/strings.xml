@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UNICUM</string>
+    <string name="widget_description">Verbleibende Kalorien, Defizit und schnelles Eintragen einer Mahlzeit</string>
+    <string name="widget_deficit_description">Heutiges Kaloriendefizit mit der grünen, gelben und roten Linie</string>
+    <string name="widget_recovery_description">Erholung in Prozent und Zeit bis du bereit bist</string>
+    <string name="widget_label_calories">Kalorien</string>
+    <string name="widget_label_deficit">Defizit</string>
+    <string name="widget_label_recovery">Erholung</string>
+</resources>

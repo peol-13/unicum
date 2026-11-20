@@ -1,5 +1,9 @@
 package io.github.peol13.unicum.data
 
+import io.github.peol13.unicum.i18n.tr
+
+import io.github.peol13.unicum.i18n.tk
+
 import io.github.peol13.unicum.data.RunProgress.Run
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -11,7 +15,11 @@ import kotlin.math.roundToInt
  */
 object RunStats {
 
-    enum class Period(val label: String) { WEEK("Settimana"), MONTH("Mese"), ALL("Sempre") }
+    enum class Period(private val labelIt: String) {
+    WEEK(tk("Settimana")), MONTH(tk("Mese")), ALL(tk("Sempre"));
+
+    val label: String get() = tr(labelIt)
+}
 
     /** Le corse più corte di così non contano per il ritmo migliore (un allungo non è un record). */
     private const val MIN_KM_RECORD = 2.0
