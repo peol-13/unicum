@@ -7,6 +7,7 @@ import io.github.peol13.unicum.i18n.lfmt
 import io.github.peol13.unicum.i18n.tk
 
 import io.github.peol13.unicum.i18n.tr
+import io.github.peol13.unicum.i18n.trp
 
 import io.github.peol13.unicum.ui.Route
 
@@ -44,6 +45,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.peol13.unicum.UnicumAppState
 import io.github.peol13.unicum.data.DateUtils
+import io.github.peol13.unicum.data.Exercise
+import io.github.peol13.unicum.data.Sport
+import io.github.peol13.unicum.data.StrengthStats
+import io.github.peol13.unicum.data.TrainingPlan
+import io.github.peol13.unicum.data.runKindLabel
 import io.github.peol13.unicum.data.NotionPlan
 import io.github.peol13.unicum.data.LocalPlan
 import io.github.peol13.unicum.data.RunFeedback
@@ -73,38 +79,60 @@ import java.util.Locale
 import kotlin.math.roundToInt
 
 /** La sezione mostra solo le corse (gli altri sport restano in Attività e nel Diario). */
-private const val RUN = "Corsa"
-
-internal class RunList(val runs: List<WorkoutDetail>, val feedback: Map<String, WorkoutFeedback>)
 
 /**
- * Corse salvate, senza doppioni e con le correzioni a mano (durata e distanza senza riscaldamento o cammino).
- * Tipo, RPE e nota arrivano dal Registro corse di Notion quando ci sono; le ripetute dal programma (vedi [RunFeedback]).
+ * Gli allenamenti seguiti dalla sezione: [runs] = corse (con le correzioni a mano), [strength] = pesi e corpo libero,
+ * [all] = tutti, dal più recente. [feedback] = sensazioni di ognuno; [exercises] = esercizi delle sedute di forza
+ * (quelli corretti a mano, altrimenti quelli del programma).
+ */
+internal class RunList(
+    val runs: List<WorkoutDetail>,
+    val feedback: Map<String, WorkoutFeedback>,
+    val strength: List<WorkoutDetail> = emptyList(),
+    val exercises: Map<String, List<Exercise>> = emptyMap()
+) {
+    val all: List<WorkoutDetail> = (runs + strength).sortedByDescending { it.startMillis }
+
+    /** Allenamento registrato per giorno e famiglia di sport ([NotionPlan.doneKey]), per segnare le sedute fatte. */
+    val doneByKey: Map<String, WorkoutDetail> =
+        all.groupBy { NotionPlan.doneKey(it.date, Sport.ofWorkout(it.type)!!.family) }.mapValues { it.value.first() }
+}
+
+/**
+ * Allenamenti salvati (corse e forza), senza doppioni; le corse con le correzioni a mano (durata e distanza senza
+ * riscaldamento o cammino). Tipo, RPE e nota arrivano dal Registro di Notion quando ci sono; ripetute ed esercizi
+ * dal programma (vedi [RunFeedback]).
  */
 @Composable
 internal fun rememberRunList(): RunList? {
     val context = LocalContext.current
     val data by produceState<RunList?>(null, UnicumAppState.health, NotionPlan.log, NotionPlan.runs, LocalPlan.data) {
         // Doppioni, registro di Notion e ripetute dal programma: conti da non fare sul thread dell'interfaccia
-        val (runs, feedback) = withContext(Dispatchers.Default) {
-            val runs = WorkoutAnalysis.dedupe(UnicumRepository.loadWorkoutSummaries(context)).filter { it.type == RUN }
-            runs to RunFeedback.load(context, runs).mapValues { it.value.feedback }
+        val (followed, effective) = withContext(Dispatchers.Default) {
+            val followed = WorkoutAnalysis.dedupe(UnicumRepository.loadWorkoutSummaries(context)).filter { Sport.ofWorkout(it.type) != null }
+            followed to RunFeedback.load(context, followed)
         }
+        val feedback = effective.mapValues { it.value.feedback }
+        val (runs, strength) = followed.partition { Sport.ofWorkout(it.type) == Sport.RUN }
         // Le corse nuove vanno alla scarpa predefinita (se non ne è stata scelta un'altra)
         Shoes.autoAssign(runs)
-        value = RunList(runs.map { it.corrected(feedback[it.externalId]) }, feedback)
+        value = RunList(
+            runs.map { it.corrected(feedback[it.externalId]) }, feedback, strength,
+            strength.associate { w -> w.externalId to (feedback[w.externalId]?.exercises ?: effective[w.externalId]?.planned?.exercises.orEmpty()) }
+        )
     }
     return data
 }
 
-/** Scheda aperta (0 = Corse fatte, 1 = Programma): resta la stessa tornando da una corsa o dall'elenco. */
+/** Scheda aperta (0 = Fatti, 1 = Programma): resta la stessa tornando da un allenamento o dall'elenco. */
 private val tabState = mutableStateOf(0)
 
 /**
- * Sezione Allenamenti (solo corsa) in due schede.
- * - **Corse fatte**: ultima corsa, statistiche per settimana / mese / da sempre con i confronti,
- *   corse a confronto, km per settimana divisi per tipo, scarpe ([ShoesScreen]), elenco completo ([WorkoutListScreen]).
- * - **Programma**: le sedute del programma (Notion, PDF o scritte a mano) e le stime di 5 e 7 km.
+ * Sezione Allenamenti (corsa, pesi e corpo libero, vedi [Sport]) in due schede.
+ * - **Fatti**: ultimo allenamento; per la corsa statistiche per settimana / mese / da sempre con i confronti,
+ *   km per settimana divisi per tipo e scarpe ([ShoesScreen]); per la forza sedute, tempo e costanza
+ *   ([StrengthStatsCard]); elenco completo ([WorkoutListScreen]).
+ * - **Programma**: tutte le sedute del programma (Notion, PDF o scritte a mano) e le stime di 5 e 7 km.
  */
 @Composable
 fun AllenamentiScreen(onNavigate: (Route) -> Unit) {
@@ -122,21 +150,19 @@ fun AllenamentiScreen(onNavigate: (Route) -> Unit) {
         onRefresh = { UnicumAppState.refresh(context) },
         isRefreshing = UnicumAppState.refreshing
     ) {
-        ScreenTitle(tr("Allenamenti"), if (tab == 0) tr("Le tue corse") else tr("Cosa ti aspetta"))
+        ScreenTitle(tr("Allenamenti"), if (tab == 0) tr("I tuoi allenamenti") else tr("Cosa ti aspetta"))
         Spacer(Modifier.height(12.dp))
         // Recupero dopo corse e allenamenti avviati a mano, visibile in entrambe le schede
         recovery?.let {
             RecoveryCard(it)
             Spacer(Modifier.height(14.dp))
         }
-        UnicumSegmented(listOf(tr("Corse fatte"), tr("Programma")), tab, { tab = it }, height = 38.dp)
+        UnicumSegmented(listOf(tr("Fatti"), tr("Programma")), tab, { tab = it }, height = 38.dp)
         Spacer(Modifier.height(18.dp))
 
         if (tab == 1) {
-            // Una corsa per giorno (la più recente), per segnare come fatte le sedute del programma
-            val runsByDate = remember(runs) { runs.groupBy { it.date }.mapValues { it.value.first() } }
-            SectionTitle(tr("Corse programmate"))
-            PlannedRunsSection(runsByDate, onNavigate)
+            SectionTitle(tr("Sedute in programma"))
+            PlannedRunsSection(data?.doneByKey.orEmpty(), onNavigate)
             if (data == null || runs.isEmpty()) return@UnicumScreen
             Spacer(Modifier.height(24.dp))
             SectionTitle(tr("Stime"))
@@ -148,58 +174,85 @@ fun AllenamentiScreen(onNavigate: (Route) -> Unit) {
         }
 
         if (data == null) return@UnicumScreen
-        if (runs.isEmpty()) {
+        val all = data.all
+        if (all.isEmpty()) {
             HealthEmptyState(
-                tr("Nessuna corsa"),
-                tr("Le corse registrate dall'orologio (Samsung Health, Garmin, Health Sync…) arrivano da Health Connect: sincronizza dal Profilo.")
+                tr("Nessun allenamento"),
+                tr("Gli allenamenti registrati dall'orologio (Samsung Health, Garmin, Health Sync…) arrivano da Health Connect: sincronizza dal Profilo.")
             )
             return@UnicumScreen
         }
 
-        // 1. L'ultima uscita, da aprire subito
-        SectionTitle(tr("Ultima corsa"))
-        val last = runs.first()
-        WorkoutRow(last, data.feedback[last.externalId], onClick = { onNavigate(Route.Workout(last.externalId)) })
+        // 1. L'ultimo allenamento, da aprire subito
+        SectionTitle(tr("Ultimo allenamento"))
+        val last = all.first()
+        WorkoutRow(last, data.feedback[last.externalId], data.exercises[last.externalId], onClick = { onNavigate(Route.Workout(last.externalId)) })
 
-        // 2. I numeri: settimana, mese, da sempre
-        Spacer(Modifier.height(24.dp))
-        SectionTitle(tr("Statistiche"))
-        RunStatsCard(progress, onOpenRun = { onNavigate(Route.Workout(it)) })
+        // 2. Corsa: i numeri (settimana, mese, da sempre), confronti e volume per tipo, scarpe
+        if (runs.isNotEmpty()) {
+            Spacer(Modifier.height(24.dp))
+            SectionTitle(tr("Corsa"))
+            RunStatsCard(progress, onOpenRun = { onNavigate(Route.Workout(it)) })
+            Spacer(Modifier.height(14.dp))
+            CompareCard(progress)
+            Spacer(Modifier.height(14.dp))
+            KindVolumeCard(progress)
+            Spacer(Modifier.height(24.dp))
+            SectionTitle(tr("Scarpe"))
+            ShoesSummaryCard(data, onNavigate)
+        }
 
-        // 3. Confronti tra corse e volume per tipo
-        Spacer(Modifier.height(24.dp))
-        SectionTitle(tr("Confronti"))
-        CompareCard(progress)
-        Spacer(Modifier.height(14.dp))
-        KindVolumeCard(progress)
+        // 3. Pesi e corpo libero: sedute, tempo e costanza rispetto al programma
+        if (data.strength.isNotEmpty()) {
+            Spacer(Modifier.height(24.dp))
+            SectionTitle(tr("Forza"))
+            val adherence = remember(data, TrainingPlan.runs) {
+                StrengthStats.adherence(TrainingPlan.runs, data.doneByKey.keys, DateUtils.today())
+            }
+            StrengthStatsCard(data.strength, adherence)
+        }
 
-        // 4. Le scarpe: km verso il limite
-        Spacer(Modifier.height(24.dp))
-        SectionTitle(tr("Scarpe"))
-        ShoesSummaryCard(data, onNavigate)
-
-        // 5. L'elenco completo, in una pagina a parte
+        // 4. L'elenco completo, in una pagina a parte
         Spacer(Modifier.height(24.dp))
         LinkCard(
             Icons.AutoMirrored.Rounded.List,
-            tr("Tutte le corse"),
-            tr("%d corse · dal %s", runs.size, DateUtils.shortLabel(LocalDate.parse(runs.last().date)).substringAfter(' ')),
+            tr("Tutti gli allenamenti"),
+            tr("%d allenamenti · dal %s", all.size, DateUtils.shortLabel(LocalDate.parse(all.last().date)).substringAfter(' ')),
             onClick = { onNavigate(Route.WorkoutList) }
         )
     }
 }
 
-/** Elenco completo delle corse, diviso per mese; ogni riga apre la pagina della corsa. */
+/** Filtro dell'elenco completo (null = tutti): resta lo stesso tornando da un allenamento. */
+private val listFilter = mutableStateOf<Sport.Family?>(null)
+
+/** Elenco completo degli allenamenti, diviso per mese (filtrabile per sport); ogni riga apre la sua pagina. */
 @Composable
 fun WorkoutListScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
     val data = rememberRunList()
-    val shown = data?.runs.orEmpty()
+    var filter by listFilter
+    val both = data != null && data.runs.isNotEmpty() && data.strength.isNotEmpty()
+    val shown = when {
+        data == null -> emptyList()
+        !both || filter == null -> data.all
+        filter == Sport.Family.RUN -> data.runs
+        else -> data.strength
+    }
     val months = remember(shown) { shown.groupBy { YearMonth.from(LocalDate.parse(it.date)) }.toList() }
-    // Elenco lazy: si disegnano solo le righe a schermo, anche con centinaia di corse
+    // Elenco lazy: si disegnano solo le righe a schermo, anche con centinaia di allenamenti
     UnicumLazyScreen(selectedItem = Route.Allenamenti, onNavigate = onNavigate) {
         item(key = "header") {
-            Column { PageHeader(tr("Tutte le corse"), if (data == null) "" else tr("%d corse", shown.size), onBack) }
+            Column {
+                PageHeader(tr("Tutti gli allenamenti"), if (data == null) "" else trp(shown.size, "%d allenamento", "%d allenamenti"), onBack)
+                if (both) {
+                    Spacer(Modifier.height(14.dp))
+                    val options = listOf(null, Sport.Family.RUN, Sport.Family.STRENGTH)
+                    UnicumSegmented(
+                        listOf(tr("Tutti"), tr("Corsa"), tr("Forza")), options.indexOf(filter), { filter = options[it] }, height = 36.dp
+                    )
+                }
+            }
         }
         if (data == null) return@UnicumLazyScreen
         months.forEach { (month, list) ->
@@ -214,7 +267,7 @@ fun WorkoutListScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
                             color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f)
                         )
                         Text(
-                            "${list.size} · ${WorkoutAnalysis.formatKm(km)} km",
+                            listOfNotNull("${list.size}", km.takeIf { it > 0 }?.let { "${WorkoutAnalysis.formatKm(it)} km" }).joinToString(" · "),
                             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
                         )
                     }
@@ -223,7 +276,7 @@ fun WorkoutListScreen(onNavigate: (Route) -> Unit, onBack: () -> Unit) {
             }
             items(list, key = { it.externalId }) { w ->
                 Column {
-                    WorkoutRow(w, data.feedback[w.externalId], onClick = { onNavigate(Route.Workout(w.externalId)) })
+                    WorkoutRow(w, data.feedback[w.externalId], data.exercises[w.externalId], onClick = { onNavigate(Route.Workout(w.externalId)) })
                     Spacer(Modifier.height(10.dp))
                 }
             }
@@ -241,16 +294,17 @@ private fun SectionTitle(text: String) {
 
 /** Una riga dell'elenco con le stesse colonne del registro corse: km, durata, ritmo, FC, VO₂ max, RPE. */
 @Composable
-private fun WorkoutRow(w: WorkoutDetail, feedback: WorkoutFeedback?, onClick: () -> Unit) {
+private fun WorkoutRow(w: WorkoutDetail, feedback: WorkoutFeedback?, exercises: List<Exercise>?, onClick: () -> Unit) {
     val date = LocalDate.parse(w.date)
     val time = java.time.Instant.ofEpochMilli(w.startMillis).atZone(java.time.ZoneId.systemDefault()).toLocalTime()
+    val isRun = Sport.ofWorkout(w.type) == Sport.RUN
     UnicumCard(onClick = onClick, padding = 14.dp) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconBadge(workoutIcon(w.type), size = 40.dp)
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
                 Text(
-                    listOfNotNull(tr(w.type), feedback?.kind).joinToString(" · "),
+                    listOfNotNull(tr(w.type), feedback?.kind?.let(::runKindLabel)).joinToString(" · "),
                     color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold, maxLines = 1
                 )
                 Text(
@@ -261,6 +315,24 @@ private fun WorkoutRow(w: WorkoutDetail, feedback: WorkoutFeedback?, onClick: ()
             Icon(Icons.Rounded.ChevronRight, null, tint = UnicumDark.copy(alpha = .4f), modifier = Modifier.size(20.dp))
         }
         Spacer(Modifier.height(10.dp))
+        if (!isRun) {
+            // Forza: dall'orologio durata, calorie e battito; gli esercizi dal programma o corretti a mano
+            Row(Modifier.fillMaxWidth()) {
+                SmallStat(WorkoutAnalysis.formatDuration(w.movingSeconds), tr("durata"), Modifier.weight(1f))
+                SmallStat(w.kcal?.roundToInt()?.toString() ?: "–", "kcal", Modifier.weight(1f))
+                SmallStat(w.avgHr?.toString() ?: "–", "bpm", Modifier.weight(1f))
+                SmallStat(exercises?.size?.takeIf { it > 0 }?.toString() ?: "–", tr("esercizi"), Modifier.weight(1f))
+            }
+            val extra = listOfNotNull(
+                exercises?.takeIf { it.isNotEmpty() }?.joinToString(", ") { it.name },
+                feedback?.rpe?.let { "RPE $it/10" }
+            )
+            if (extra.isNotEmpty()) {
+                Spacer(Modifier.height(6.dp))
+                Text(extra.joinToString(" · "), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, maxLines = 2)
+            }
+            return@UnicumCard
+        }
         Row(Modifier.fillMaxWidth()) {
             SmallStat(if (w.distanceM != null) WorkoutAnalysis.formatKm(w.distanceM) else "–", "km", Modifier.weight(1f))
             SmallStat(WorkoutAnalysis.formatDuration(w.movingSeconds), tr("durata"), Modifier.weight(1f))
@@ -298,8 +370,7 @@ private fun SmallStat(value: String, label: String, modifier: Modifier = Modifie
     }
 }
 
-internal fun workoutIcon(type: String): ImageVector = when (type) {
-    tk("Corsa") -> Icons.AutoMirrored.Rounded.DirectionsRun
+internal fun workoutIcon(type: String): ImageVector = Sport.ofWorkout(type)?.let(::sportIcon) ?: when (type) {
     tk("Ciclismo") -> Icons.AutoMirrored.Rounded.DirectionsBike
     tk("Nuoto") -> Icons.Rounded.Pool
     tk("Escursionismo") -> Icons.Rounded.Hiking

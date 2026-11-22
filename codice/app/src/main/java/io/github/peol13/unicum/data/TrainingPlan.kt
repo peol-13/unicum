@@ -107,6 +107,9 @@ object TrainingPlan {
         get() = if (NotionPlan.connected) NotionPlan.kindNames
         else (WorkoutFeedback.RUN_KINDS + LocalPlan.runs.mapNotNull { it.kind }).distinct()
 
+    /** I tipi di seduta di uno sport: "Forza" non va tra i tipi di una corsa, "Facile" non va tra quelli dei pesi. */
+    fun kindNamesFor(family: Sport.Family): List<String> = kindNames.filter { Sport.infer(it).family == family }
+
     fun kindColor(name: String): String? = if (NotionPlan.connected) NotionPlan.kindColor(name) else null
 
     /** Il programma è nell'app (si può modificare qui). */

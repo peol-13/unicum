@@ -4,15 +4,17 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 
 /**
- * Ricava le sedute di un programma di corsa dal testo di un PDF (righe già in ordine di lettura). Logica pura, con
- * test. Non pretende di capire ogni impaginazione: trova le sedute e quello che riesce, poi l'utente controlla e
+ * Ricava le sedute di un programma di allenamento dal testo di un PDF (righe già in ordine di lettura). Logica pura,
+ * con test. Non pretende di capire ogni impaginazione: trova le sedute e quello che riesce, poi l'utente controlla e
  * corregge nell'anteprima. Riconosce:
  * - sedute con la **data** in testa alla riga (`17/11`, `17.11.2026`, `lun 17 nov`, `Lunedì 17 novembre`);
  * - sedute **relative**: intestazione `Settimana 2` / `Week 2` e poi il giorno (`Lunedì`, `Mar`, `Day 3`):
  *   la data si calcola dal primo giorno del programma, che sceglie l'utente;
  * - le righe successive senza data né giorno continuano la seduta di sopra;
- * - giorni di riposo e allenamenti che non sono corsa (palestra, bici…) vengono saltati e contati.
- * Da ogni seduta: tipo (tra quelli dell'app, più Soglia e Medio), km, minuti, ritmo, RPE; il testo intero
+ * - sedute di **forza** (palestra, pesi, corpo libero): diventano sedute di [Sport.WEIGHTS] / [Sport.BODYWEIGHT]
+ *   e il testo dà gli esercizi ([StrengthStructure]);
+ * - giorni di riposo e altri sport (bici, nuoto, yoga…) vengono saltati e contati.
+ * Da ogni seduta di corsa: tipo (tra quelli dell'app, più Soglia e Medio), km, minuti, ritmo, RPE; il testo intero
  * diventa la "Struttura", così le ripetute si leggono come quelle di Notion ([PlanStructure]).
  */
 object PlanPdfParser {
@@ -27,7 +29,8 @@ object PlanPdfParser {
         val minutes: Int? = null,
         val pace: String? = null,
         val rpe: Int? = null,
-        val text: String
+        val text: String,
+        val sport: Sport = Sport.RUN
     ) {
         /** Giorni dal primo giorno del programma (solo per le sedute relative). */
         val offset: Int? get() = if (date == null && day != null) ((week ?: 1) - 1) * 7 + (day - 1) else null
@@ -37,7 +40,7 @@ object PlanPdfParser {
         val drafts: List<Draft>,
         /** Giorni di riposo saltati. */
         val restDays: Int,
-        /** Allenamenti che non sono corsa (palestra, bici, nuoto…) saltati. */
+        /** Allenamenti di altri sport (bici, nuoto, yoga…) saltati. */
         val otherActivities: Int
     ) {
         /** Almeno una seduta senza data: serve il primo giorno del programma. */
@@ -156,6 +159,7 @@ object PlanPdfParser {
             val text = o.text.toString().trim().trim('-', '–', '|', ':').trim()
             when {
                 isRest(text) -> { rest++; null }
+                isStrength(text) -> strength(o.head, text)
                 isOtherSport(text) -> { other++; null }
                 else -> analyze(o.head, text)
             }
@@ -179,8 +183,30 @@ object PlanPdfParser {
     private fun hasRunWords(text: String) = runWords.containsMatchIn(text)
 
     private fun isOtherSport(text: String): Boolean =
-        Regex("""\b(palestra|forza|pesi|bici|bike|cyclette|nuoto|swim|yoga|pilates|stretching|mobilit[aà]|core|crossfit|cross training)\b""", RegexOption.IGNORE_CASE)
+        Regex("""\b(bici|bike|cyclette|nuoto|swim|yoga|pilates|stretching|mobilit[aà]|core|crossfit|cross training)\b""", RegexOption.IGNORE_CASE)
             .containsMatchIn(text) && !hasRunWords(text)
+
+    private val strengthWords = Regex(
+        """\b(palestra|pesi|forza|gym|weights?|strength|corpo libero|calisthenics?|circuito|panca|squat|stacc\w*|trazioni|piegamenti|push.?ups?|pull.?ups?|plank|affondi|rematore|military|bilanciere|manubri)\b""",
+        RegexOption.IGNORE_CASE
+    )
+    /** Parole solo della corsa (non "4x8", che nella forza sono serie × ripetizioni, né "riscaldamento"). */
+    private val onlyRunWords = Regex(
+        """\b(corsa|corri\w*|run|running|jog\w*|km|ripetut\w*|lungo|lunga|progressiv\w*|fartlek|soglia|easy)\b|\d[:'’′]\d{2}\s*/\s*km""",
+        RegexOption.IGNORE_CASE
+    )
+
+    /** Una seduta di forza: parole della palestra e nessuna parola solo della corsa ("corsa 5 km + core" resta corsa). */
+    private fun isStrength(text: String): Boolean = strengthWords.containsMatchIn(text) && !onlyRunWords.containsMatchIn(text)
+
+    private fun strength(h: Head, text: String): Draft {
+        val sport = Sport.infer(text).takeIf { it.isStrength } ?: Sport.WEIGHTS
+        val minutes = hoursRe.find(text)?.let { m -> m.groupValues[1].toInt() * 60 + (m.groupValues[2].toIntOrNull() ?: 0) }
+            ?: Regex("""\b(?:durata|totale|tot\.?)\s*:?\s*(\d{2,3})\s*(?:min(?:uti)?\b|'|′|’)""", RegexOption.IGNORE_CASE)
+                .find(text)?.groupValues?.get(1)?.toInt()
+        val rpe = rpeRe.find(text)?.let { m -> (m.groupValues[2].toIntOrNull() ?: m.groupValues[1].toInt()) }?.takeIf { it in 1..10 }
+        return Draft(h.date, h.week, h.day, null, null, minutes?.takeIf { it in 10..300 }, null, rpe, text, sport)
+    }
 
     // ------------------------------------------------------------------
     // Una seduta
@@ -241,9 +267,9 @@ object PlanPdfParser {
     fun shortKm(km: Double): String =
         if (kotlin.math.abs(km - Math.round(km)) < 1e-6) "${Math.round(km)}" else "%.1f".format(io.github.peol13.unicum.i18n.I18n.locale, km)
 
-    /** Il nome breve di una seduta: tipo e obiettivo ("Facile 6 km", "Intervalli"). */
-    fun nameOf(kind: String?, km: Double?, minutes: Int?): String {
-        val k = kind ?: "Corsa"
+    /** Il nome breve di una seduta: tipo e obiettivo ("Facile 6 km", "Intervalli", "Pesi 45′"). */
+    fun nameOf(kind: String?, km: Double?, minutes: Int?, sport: Sport = Sport.RUN): String {
+        val k = kind ?: sport.key
         return when {
             km != null -> "$k ${shortKm(km)} km"
             minutes != null -> "$k $minutes′"
@@ -259,7 +285,8 @@ object PlanPdfParser {
         val date = d.date ?: d.offset?.let { off -> start?.plusDays(off.toLong()) }
         PlannedRun(
             id = "",
-            name = nameOf(d.kind, d.km, d.minutes),
+            name = if (d.sport.isStrength) strengthName(d.text, d.sport) else nameOf(d.kind, d.km, d.minutes),
+            sport = d.sport.key.takeIf { d.sport != Sport.RUN },
             date = date?.toString(),
             kind = d.kind,
             status = LocalPlan.STATUS_TODO,
@@ -271,6 +298,10 @@ object PlanPdfParser {
             week = d.week
         )
     }
+
+    /** "Palestra - gambe: squat 4x8…" → "Palestra - gambe"; senza un titolo prima dei due punti, lo sport. */
+    internal fun strengthName(text: String, sport: Sport): String =
+        text.substringBefore(':', "").trim().takeIf { it.length in 3..40 && it.any(Char::isLetter) } ?: sport.key
 
     /** Il primo giorno proposto per un programma senza date: oggi se è lunedì, altrimenti il prossimo lunedì. */
     fun nextMonday(d: LocalDate): LocalDate = d.with(java.time.temporal.TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))

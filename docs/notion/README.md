@@ -26,11 +26,22 @@ Una riga per ogni seduta programmata.
 | `Struttura` | Testo | Per Intervalli e Progressivo divide la corsa in pezzi, vedi sotto |
 | `Focus` | Testo | Facoltativo |
 | `Settimana` | Numero | Facoltativo (settimana del ciclo) |
+| `Sport` | Selezione | Facoltativo: `Corsa`, `Pesi` o `Corpo libero`. Se manca, l'app lo capisce dal Tipo o dal nome ("Forza", "Palestra", "Corpo libero"); altrimenti è una corsa |
 
-**Struttura**: l'app riconosce due forme (durate in `'` minuti, `''` secondi, `km` o `m`):
+**Struttura della corsa**: l'app riconosce due forme (durate in `'` minuti, `''` secondi, `km` o `m`):
 
 - ripetute: `10' di corsa facile + 5×(3' a 5:50 + 2' lento) + 5' defaticamento`
 - progressivo: `15' progressivi: 5' a 7:10, 5' a 6:50, 5' a 6:30`
+
+**Struttura di Pesi e Corpo libero**: gli esercizi, uno per riga oppure separati da `;`. Per le sedute di forza
+`Obiettivo km` e `Ritmo target` restano vuoti.
+
+- serie × ripetizioni e carico: `Panca piana 4x8 @ 60 kg`, `Rematore 3x8-10 40 kg`, `Trazioni 3xmax`
+- a tempo: `Plank 3x45''`; recupero: `rec 90''` o `rec 2'`
+- circuito: `Circuito 3 giri: 10 piegamenti, 20 squat, 30'' plank` (i giri diventano le serie)
+
+Quando l'orologio registra la seduta, nella pagina dell'allenamento gli esercizi arrivano da qui; se hai fatto
+qualcosa di diverso (più kg, meno ripetizioni) li correggi nell'app.
 
 ## 2. "Registro corse" (facoltativo)
 

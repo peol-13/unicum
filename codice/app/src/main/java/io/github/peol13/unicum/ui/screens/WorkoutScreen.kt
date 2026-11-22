@@ -59,6 +59,8 @@ import io.github.peol13.unicum.data.TrainingPlan
 import io.github.peol13.unicum.data.PlanStructure
 import io.github.peol13.unicum.data.PlannedRun
 import io.github.peol13.unicum.data.RunFeedback
+import io.github.peol13.unicum.data.Sport
+import io.github.peol13.unicum.data.runKindLabel
 import io.github.peol13.unicum.ui.components.UnicumSegmented
 import io.github.peol13.unicum.data.RoutePoint
 import io.github.peol13.unicum.data.RouteStatus
@@ -102,6 +104,8 @@ import kotlin.math.roundToInt
  * Pagina di un allenamento: mappa del percorso (se la fonte la condivide), numeri principali, parziali
  * per km, grafici di ritmo, battito (con le zone), cadenza e altitudine, e le sensazioni dell'utente
  * (sforzo percepito, tipo di seduta, nota). Toccando un grafico gli altri e la mappa mostrano lo stesso istante.
+ * Per pesi e corpo libero ([Sport.isStrength]) niente percorso, ritmo e parziali: durata, calorie e battito
+ * dall'orologio e la card degli esercizi (dal programma, correggibili: Health Connect non ha carichi né ripetizioni).
  */
 @Composable
 fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () -> Unit) {
@@ -115,7 +119,7 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
     var notion by remember { mutableStateOf<RunFeedback.Effective?>(null) }
     LaunchedEffect(externalId, NotionPlan.log, NotionPlan.runs, LocalPlan.data) {
         val summary = UnicumRepository.loadWorkoutSummary(context, externalId)
-        if (summary != null && summary.type == "Corsa") notion = RunFeedback.load(context, listOf(summary))[externalId]
+        if (summary != null && Sport.ofWorkout(summary.type) != null) notion = RunFeedback.load(context, listOf(summary))[externalId]
     }
     LaunchedEffect(externalId) {
         val raw = UnicumRepository.loadWorkoutDetail(context, externalId)
@@ -152,6 +156,7 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
 
     var correcting by remember { mutableStateOf(false) }
     var editingIntervals by remember { mutableStateOf(false) }
+    var editingExercises by remember { mutableStateOf(false) }
     fun saveFeedback(f: WorkoutFeedback) {
         feedback = f
         scope.launch { UnicumRepository.saveWorkoutFeedback(context, externalId, f) }
@@ -161,6 +166,13 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         if (editingIntervals) IntervalsDialog(raw, feedback.intervals, onDismiss = { editingIntervals = false }) { plan ->
             editingIntervals = false
             saveFeedback(feedback.copy(intervals = plan?.let { WorkoutAnalysis.withWorkHr(raw, it) }))
+        }
+        if (editingExercises) {
+            val planned = notion?.planned?.exercises.orEmpty()
+            ExercisesDialog(feedback.exercises ?: planned, planned, feedback.exercises != null, onDismiss = { editingExercises = false }) { list ->
+                editingExercises = false
+                saveFeedback(feedback.copy(exercises = list))
+            }
         }
     }
 
@@ -179,36 +191,78 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         // Tipo, RPE e nota: quelli del Registro di Notion vincono su quelli scritti qui
         val shown = RunFeedback.merge(feedback, notion?.logged, notion?.planned)
         val start = Instant.ofEpochMilli(d.startMillis).atZone(ZoneId.systemDefault())
+        val sport = Sport.ofWorkout(d.type)
+        val isRun = sport == Sport.RUN
+        val strength = sport?.isStrength == true
         PageHeader(
-            listOfNotNull(d.type, shown.kind).joinToString(" · "),
+            listOfNotNull(tr(d.type), shown.kind?.let(::runKindLabel)).joinToString(" · "),
             "${DateUtils.relativeLabel(LocalDate.parse(d.date))} · ${"%02d:%02d".format(start.hour, start.minute)} · ${SourceInfo.label(d.source)}",
             onBack
         )
         Spacer(Modifier.height(16.dp))
 
-        // ---------- mappa
+        // ---------- mappa (in palestra non c'è un percorso: niente avviso se manca)
         when {
             d.route.size >= 2 -> UnicumCard(padding = 8.dp) { RouteMap(d.route, selectedT) }
             d.routeStatus == RouteStatus.CONSENT -> EmptyState(
                 tr("Percorso da autorizzare"), tr("Health Connect chiede il permesso per mostrare il percorso GPS di questo allenamento."),
                 action = tr("Mostra percorso"), onAction = { routeLauncher.launch(d.externalId) }
             )
+            strength -> Unit
             else -> EmptyState(
                 tr("Percorso non disponibile"),
                 tr("%s non ha condiviso il percorso GPS con Health Connect. Gli altri dati ci sono.", SourceInfo.label(d.source))
             )
         }
-        Spacer(Modifier.height(14.dp))
+        if (!strength || d.route.size >= 2 || d.routeStatus == RouteStatus.CONSENT) Spacer(Modifier.height(14.dp))
+
+        if (strength) {
+            StrengthSummaryCard(d)
+            Spacer(Modifier.height(14.dp))
+            val planned = notion?.planned
+            val exercises = feedback.exercises ?: planned?.exercises.orEmpty()
+            ChartCard(
+                sportIcon(sport!!), tr("Esercizi"),
+                action = tr("Modifica"), onAction = { editingExercises = true }
+            ) {
+                when {
+                    exercises.isNotEmpty() -> {
+                        Text(
+                            if (feedback.exercises != null) tr("Come li hai fatti (modificati a mano)")
+                            else tr("Dal programma («%s»): tocca Modifica se hai fatto qualcosa di diverso.", planned?.name ?: ""),
+                            color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        ExerciseList(exercises, planned = if (feedback.exercises != null) planned?.exercises.orEmpty() else emptyList())
+                    }
+                    planned?.structure != null -> {
+                        Text(planned.structure, color = UnicumDark, style = UnicumType.Detail, lineHeight = 19.sp)
+                        Spacer(Modifier.height(8.dp))
+                        Text(
+                            tr("Esercizi non riconosciuti nel testo del programma: tocca Modifica per scriverli."),
+                            color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
+                        )
+                    }
+                    else -> Text(
+                        tr("Nessuna seduta di forza nel programma per questo giorno: tocca Modifica per scrivere gli esercizi fatti."),
+                        color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
+                    )
+                }
+            }
+            Spacer(Modifier.height(14.dp))
+        }
 
         // Con una correzione a mano i parziali (calcolati su tutta la registrazione) non sarebbero affidabili
-        val splits = remember(d, feedback.isCorrected) { if (feedback.isCorrected) emptyList() else WorkoutAnalysis.splits(d) }
-        SummaryCard(d, splits)
-        Spacer(Modifier.height(8.dp))
+        val splits = remember(d, feedback.isCorrected) { if (feedback.isCorrected || strength) emptyList() else WorkoutAnalysis.splits(d) }
+        if (!strength) {
+            SummaryCard(d, splits)
+            Spacer(Modifier.height(8.dp))
+        }
         // Il tratto corso si cerca una volta sola, non a ogni ridisegno (es. mentre si tocca un grafico)
         val runSegment = remember(raw, d.movingSeconds, d.distanceM, feedback.isCorrected) {
             if (feedback.isCorrected) WorkoutAnalysis.findSegment(raw, d.movingSeconds, d.distanceM ?: 0.0) else null
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        if (!strength) Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 if (feedback.isCorrected)
                     tr("Corretta a mano (registrata: %s, %s km).", WorkoutAnalysis.formatDuration(raw.movingSeconds), WorkoutAnalysis.formatKm(raw.distanceM)) +
@@ -221,13 +275,12 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
             Spacer(Modifier.width(8.dp))
             UnicumChip(tr("Correggi"), false, { correcting = true }, compact = true)
         }
-        Spacer(Modifier.height(14.dp))
+        if (!strength) Spacer(Modifier.height(14.dp))
 
         // Ripetute scritte dall'utente o, se mancano, ricavate dal programma di Notion: sulla registrazione
         // intera (come i giri dell'orologio), non su quella corretta
         val intervalPlan = feedback.intervals ?: notion?.autoPlan
         val segments = remember(raw, intervalPlan) { intervalPlan?.let { WorkoutAnalysis.intervals(raw, it) }.orEmpty() }
-        val isRun = d.type == "Corsa"
         if (splits.isNotEmpty() || segments.isNotEmpty() || isRun) {
             SplitsCard(
                 splits, segments, canEditIntervals = isRun, suggestIntervals = shown.kind in PlanStructure.STRUCTURED_KINDS,
@@ -289,10 +342,14 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         }
 
         // Fatica misurata dal battito (sulla registrazione intera) e recupero stimato con il fattore personale
-        val effort = remember(raw, recovery?.maxHr) { recovery?.let { TrainingLoad.effort(raw, it.maxHr) } }
+        // Pesi e corpo libero: con l'RPE il carico (e quindi il recupero) non resta quello del solo battito
+        val strengthRpe = (notion?.logged?.rpe ?: feedback.rpe).takeIf { strength }
+        val effort = remember(raw, recovery?.maxHr, strengthRpe) {
+            recovery?.let { TrainingLoad.withSessionRpe(TrainingLoad.effort(raw, it.maxHr), strengthRpe, raw.movingSeconds / 60.0) }
+        }
         val counts = remember(raw) { TrainingLoad.countsForRecovery(raw) }
         val recoveryHours = effort?.takeIf { counts }?.let { RecoveryEstimate.modelHours(it) * (recovery?.result?.personalFactor ?: 1.0) }
-        FeedbackCard(feedback, notion?.logged, notion?.planned, isRun = d.type == "Corsa", effort = effort,
+        FeedbackCard(feedback, notion?.logged, notion?.planned, isRun = isRun, effort = effort,
             recoveryHours = recoveryHours, countsForRecovery = counts, onChange = ::saveFeedback)
         if (isRun) {
             Spacer(Modifier.height(14.dp))
@@ -300,7 +357,7 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         }
         Spacer(Modifier.height(14.dp))
 
-        val missing = listOfNotNull(
+        val missing = if (strength) emptyList() else listOfNotNull(
             tr("percorso GPS").takeIf { d.route.size < 2 },
             tr("cadenza").takeIf { d.cadence.isEmpty() && d.steps == null },
             tr("dislivello").takeIf { d.elevationGainM == null && altitude.isEmpty() }
@@ -509,11 +566,45 @@ private fun Header(text: String, modifier: Modifier, align: TextAlign = TextAlig
 }
 
 @Composable
-private fun ChartCard(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, content: @Composable () -> Unit) {
+private fun ChartCard(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    title: String,
+    action: String? = null,
+    onAction: () -> Unit = {},
+    content: @Composable () -> Unit
+) {
     UnicumCard {
-        CardHeader(icon, title)
+        CardHeader(icon, title, action = action, onAction = onAction)
         Spacer(Modifier.height(12.dp))
         content()
+    }
+}
+
+/** Numeri di una seduta di forza dall'orologio: durata in grande, poi calorie e battito. */
+@Composable
+private fun StrengthSummaryCard(d: WorkoutDetail) {
+    UnicumCard {
+        Text(WorkoutAnalysis.formatDuration(d.movingSeconds), color = UnicumDark, style = UnicumType.Hero, fontWeight = FontWeight.SemiBold)
+        Text(tr("Durata"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
+        Spacer(Modifier.height(12.dp))
+        val tiles = listOf(
+            (d.kcal?.let { "${it.roundToInt()} kcal" } ?: "–") to tr("Calorie"),
+            (d.avgHr?.let { "$it bpm" } ?: "–") to tr("FC media"),
+            (d.maxHr?.let { "$it bpm" } ?: "–") to tr("FC max")
+        ) + listOfNotNull(
+            (WorkoutAnalysis.formatDuration(d.durationSeconds) to tr("Tempo totale")).takeIf { d.durationSeconds - d.movingSeconds >= 30 }
+        )
+        tiles.chunked(3).forEach { row ->
+            Row(Modifier.fillMaxWidth().padding(vertical = 6.dp)) {
+                row.forEach { (v, l) -> BigStat(v, l, Modifier.weight(1f)) }
+                repeat(3 - row.size) { Spacer(Modifier.weight(1f)) }
+            }
+        }
+        // Il nome del dispositivo è lungo ("Galaxy Watch7"): su una riga sua, non in una casella
+        d.device?.let {
+            Spacer(Modifier.height(4.dp))
+            Text(tr("Dispositivo: %s.", it), color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note)
+        }
     }
 }
 
@@ -749,7 +840,7 @@ private fun FeedbackCard(
     val kindLocked = logged?.kind != null
     val kindFromPlan = !kindLocked && feedback.kind == null && planned?.kind != null
     // I tag come sono ora in Notion; un tipo già scelto che in Notion non c'è più resta visibile
-    val kinds = (TrainingPlan.kindNames + listOfNotNull(kind)).distinct()
+    val kinds = (TrainingPlan.kindNamesFor(io.github.peol13.unicum.data.Sport.Family.RUN) + listOfNotNull(kind)).distinct()
     val haptics = rememberHaptics()
     var note by remember(feedback.note) { mutableStateOf(feedback.note.orEmpty()) }
     // La nota si salva poco dopo che smetti di scrivere

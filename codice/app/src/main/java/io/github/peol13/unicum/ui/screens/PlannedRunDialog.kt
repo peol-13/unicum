@@ -1,6 +1,7 @@
 package io.github.peol13.unicum.ui.screens
 
 import io.github.peol13.unicum.i18n.tr
+import io.github.peol13.unicum.i18n.trp
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -37,6 +38,9 @@ import io.github.peol13.unicum.data.DateUtils
 import io.github.peol13.unicum.data.LocalPlan
 import io.github.peol13.unicum.data.PlanPdfParser
 import io.github.peol13.unicum.data.PlannedRun
+import io.github.peol13.unicum.data.Sport
+import io.github.peol13.unicum.data.StrengthStructure
+import io.github.peol13.unicum.data.runKindLabel
 import io.github.peol13.unicum.data.TrainingPlan
 import io.github.peol13.unicum.data.WorkoutAnalysis
 import io.github.peol13.unicum.ui.components.DeleteRed
@@ -53,8 +57,10 @@ import java.time.LocalDate
 private fun kmInput(km: Double?) = km?.let { PlanPdfParser.shortKm(it) }.orEmpty()
 
 /**
- * Crea o modifica una seduta del programma tenuto nell'app. Il nome, se non lo si scrive, si ricava da tipo e
- * obiettivo. [onDelete] = null per una seduta nuova. Non salva da solo: passa la seduta a [onSave].
+ * Crea o modifica una seduta del programma tenuto nell'app, di ogni sport ([Sport]): per la corsa obiettivo, ritmo
+ * e struttura; per pesi e corpo libero gli esercizi (letti con [StrengthStructure], con l'anteprima). Il nome, se
+ * non lo si scrive, si ricava da tipo o sport e obiettivo. [onDelete] = null per una seduta nuova. Non salva da
+ * solo: passa la seduta a [onSave].
  */
 @Composable
 fun PlannedRunDialog(
@@ -66,9 +72,12 @@ fun PlannedRunDialog(
     val today = DateUtils.today()
     var date by remember { mutableStateOf(initial?.localDate ?: today) }
     var noDate by remember { mutableStateOf(initial != null && initial.localDate == null) }
+    var sport by remember { mutableStateOf(initial?.sportKind ?: Sport.RUN) }
     var kind by remember { mutableStateOf(initial?.kind) }
     var name by remember { mutableStateOf(initial?.name.orEmpty()) }
-    var nameTouched by remember { mutableStateOf(initial != null && initial.name != PlanPdfParser.nameOf(initial.kind, initial.km, initial.minutes)) }
+    var nameTouched by remember {
+        mutableStateOf(initial != null && initial.name != PlanPdfParser.nameOf(initial.kind, initial.km, initial.minutes, initial.sportKind))
+    }
     var kmText by remember { mutableStateOf(kmInput(initial?.km)) }
     var minText by remember { mutableStateOf(initial?.minutes?.toString().orEmpty()) }
     var pace by remember { mutableStateOf(initial?.pace.orEmpty()) }
@@ -77,10 +86,11 @@ fun PlannedRunDialog(
     var status by remember { mutableStateOf(initial?.status ?: LocalPlan.STATUS_TODO) }
     var picking by remember { mutableStateOf(false) }
 
-    val km = kmText.replace(',', '.').toDoubleOrNull()?.takeIf { it in 0.1..200.0 }
+    val strength = sport.isStrength
+    val km = kmText.replace(',', '.').toDoubleOrNull()?.takeIf { it in 0.1..200.0 }?.takeIf { !strength }
     val minutes = minText.toIntOrNull()?.takeIf { it in 1..600 }
-    val autoName = PlanPdfParser.nameOf(kind, km, minutes)
-    val kmOk = kmText.isBlank() || km != null
+    val autoName = PlanPdfParser.nameOf(kind, km, minutes, sport)
+    val kmOk = strength || kmText.isBlank() || km != null
     val minOk = minText.isBlank() || minutes != null
 
     if (picking) {
@@ -107,15 +117,29 @@ fun PlannedRunDialog(
             }
         }
 
-        Text(tr("Tipo"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+        Text(tr("Sport"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            (TrainingPlan.kindNames + listOfNotNull(kind)).distinct().forEach { k ->
-                UnicumChip(k, kind == k, { kind = if (kind == k) null else k }, compact = true)
+            Sport.entries.forEach { s ->
+                UnicumChip(s.label, sport == s, {
+                    // Il tipo di una corsa non vale per i pesi (e viceversa)
+                    if (sport.family != s.family) kind = null
+                    sport = s
+                }, compact = true)
+            }
+        }
+
+        val kinds = (TrainingPlan.kindNamesFor(sport.family) + listOfNotNull(kind)).distinct()
+        if (kinds.isNotEmpty()) {
+            Text(tr("Tipo"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+            Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                kinds.forEach { k ->
+                    UnicumChip(runKindLabel(k), kind == k, { kind = if (kind == k) null else k }, compact = true)
+                }
             }
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            OutlinedTextField(
+            if (!strength) OutlinedTextField(
                 value = kmText, onValueChange = { kmText = it.filter { c -> c.isDigit() || c == ',' || c == '.' }.take(5) },
                 label = { Text(tr("Obiettivo")) }, suffix = { Text("km") }, singleLine = true, isError = !kmOk,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
@@ -128,7 +152,7 @@ fun PlannedRunDialog(
                 colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f)
             )
         }
-        OutlinedTextField(
+        if (!strength) OutlinedTextField(
             value = pace, onValueChange = { pace = it.take(40) },
             label = { Text(tr("Ritmo (es. 6:30/km)")) }, singleLine = true,
             colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()
@@ -140,12 +164,28 @@ fun PlannedRunDialog(
         }
 
         OutlinedTextField(
-            value = structure, onValueChange = { structure = it.take(600) },
-            label = { Text(tr("Struttura")) },
-            placeholder = { Text(tr("es. 10' facile + 5×(3' a 5:50 + 2' lento) + 5' defaticamento")) },
-            minLines = 2, maxLines = 6,
+            value = structure, onValueChange = { structure = it.take(if (strength) 1200 else 600) },
+            label = { Text(if (strength) tr("Esercizi") else tr("Struttura")) },
+            placeholder = {
+                Text(
+                    if (strength) listOf(tr("Uno per riga, es."), tr("Panca piana 4x8 @ 60 kg"), tr("Trazioni 3xmax rec 90''"), tr("Plank 3x45''")).joinToString("\n")
+                    else tr("es. 10' facile + 5×(3' a 5:50 + 2' lento) + 5' defaticamento")
+                )
+            },
+            minLines = if (strength) 4 else 2, maxLines = if (strength) 12 else 6,
             colors = unicumFieldColors(), shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()
         )
+        // Anteprima: come l'app ha capito gli esercizi
+        val exercises = remember(structure, strength) { if (strength) StrengthStructure.parse(structure) else emptyList() }
+        if (exercises.isNotEmpty()) {
+            Text(trp(exercises.size, "%d esercizio riconosciuto", "%d esercizi riconosciuti"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
+            ExerciseList(exercises)
+        } else if (strength && structure.isNotBlank()) {
+            Text(
+                tr("Nessun esercizio riconosciuto: scrivi serie × ripetizioni, es. Squat 4x8 70 kg. Il testo resta comunque nella seduta."),
+                color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
+            )
+        }
         OutlinedTextField(
             value = if (nameTouched) name else autoName, onValueChange = { name = it.take(60); nameTouched = it.isNotBlank() },
             label = { Text(tr("Nome")) }, singleLine = true,
@@ -159,7 +199,7 @@ fun PlannedRunDialog(
                 UnicumChip(tr("Saltata"), status == LocalPlan.STATUS_SKIPPED, { status = LocalPlan.STATUS_SKIPPED }, compact = true)
             }
             Text(
-                tr("Se nel giorno c'è una corsa registrata è già fatta da sola: \"Fatta\" serve per le corse senza orologio."),
+                tr("Se nel giorno c'è un allenamento registrato dello stesso sport è già fatta da sola: \"Fatta\" serve per gli allenamenti senza orologio."),
                 color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
             )
         }
@@ -176,10 +216,12 @@ fun PlannedRunDialog(
                         // Una seduta spostata nel futuro torna "da fare"
                         status = if (noDate || date.isAfter(today)) LocalPlan.STATUS_TODO else status,
                         km = km, minutes = minutes,
-                        pace = pace.trim().ifEmpty { null },
+                        pace = pace.trim().ifEmpty { null }?.takeIf { !strength },
                         rpe = rpe,
                         structure = structure.trim().ifEmpty { null },
-                        week = initial?.week
+                        week = initial?.week,
+                        // Le corse restano senza sport scritto, come nei programmi salvati prima
+                        sport = sport.key.takeIf { sport != Sport.RUN }
                     )
                 )
             }

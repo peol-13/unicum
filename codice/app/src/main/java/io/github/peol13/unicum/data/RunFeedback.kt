@@ -4,7 +4,7 @@ import android.content.Context
 import kotlin.math.abs
 
 /**
- * Quello che si sa di una corsa oltre ai numeri di Health Connect, da tre fonti (il programma è quello di
+ * Quello che si sa di un allenamento (corsa o forza) oltre ai numeri di Health Connect, da tre fonti (il programma è quello di
  * [TrainingPlan]: Notion, oppure importato da PDF / scritto nell'app, e allora il registro non c'è):
  * - **Registro corse** di Notion: tipo, RPE e nota. Se ci sono, **vincono** su quelli scritti nell'app.
  * - **Programma corse** di Notion: per le sedute a intervalli o progressive la struttura divide la corsa
@@ -31,6 +31,17 @@ object RunFeedback {
      */
     fun matchLog(runs: List<WorkoutDetail>, log: List<LoggedRun>): Map<String, LoggedRun> {
         val out = mutableMapOf<String, LoggedRun>()
+        // Corse con le righe di corsa, allenamenti di forza con le righe di forza (dal tipo o dal nome)
+        runs.groupBy { familyOf(it) }.forEach { (family, list) ->
+            out += matchLogSameSport(list, log.filter { Sport.infer(it.kind, it.name).family == family })
+        }
+        return out
+    }
+
+    private fun familyOf(w: WorkoutDetail): Sport.Family = (Sport.ofWorkout(w.type) ?: Sport.RUN).family
+
+    private fun matchLogSameSport(runs: List<WorkoutDetail>, log: List<LoggedRun>): Map<String, LoggedRun> {
+        val out = mutableMapOf<String, LoggedRun>()
         val byDay = runs.groupBy { it.date }
         log.filter { it.date != null }.groupBy { it.date!! }.forEach { (day, entries) ->
             val free = byDay[day].orEmpty().toMutableList()
@@ -42,9 +53,10 @@ object RunFeedback {
         return out
     }
 
-    /** La seduta del programma: quella collegata nel registro oppure quella dello stesso giorno. */
+    /** La seduta del programma: quella collegata nel registro oppure quella dello stesso giorno e dello stesso sport. */
     fun plannedFor(run: WorkoutDetail, logged: LoggedRun?, plan: List<PlannedRun>): PlannedRun? =
-        logged?.plannedId?.let { id -> plan.firstOrNull { sameId(it.id, id) } } ?: plan.firstOrNull { it.date == run.date }
+        logged?.plannedId?.let { id -> plan.firstOrNull { sameId(it.id, id) } }
+            ?: plan.firstOrNull { it.date == run.date && it.family == familyOf(run) }
 
     /**
      * Tipo, RPE e nota del registro sopra quelli dell'app; il resto (correzioni, ripetute) resta dell'app.

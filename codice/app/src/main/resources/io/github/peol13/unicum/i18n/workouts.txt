@@ -2,13 +2,6 @@
 
 # Allenamenti
 
-it: Le tue corse
-en: Your runs
-es: Tus carreras
-fr: Tes courses
-de: Deine Läufe
-pt: Suas corridas
-
 it: Cosa ti aspetta
 en: What's ahead
 es: Lo que te espera
@@ -16,26 +9,12 @@ fr: Ce qui t'attend
 de: Was dich erwartet
 pt: O que vem por aí
 
-it: Corse fatte
-en: Completed runs
-es: Carreras hechas
-fr: Courses faites
-de: Absolvierte Läufe
-pt: Corridas feitas
-
 it: Programma
 en: Plan
 es: Plan
 fr: Programme
 de: Plan
 pt: Plano
-
-it: Corse programmate
-en: Planned runs
-es: Carreras planificadas
-fr: Courses prévues
-de: Geplante Läufe
-pt: Corridas planejadas
 
 it: Stime
 en: Estimates
@@ -51,54 +30,12 @@ fr: Objectifs
 de: Ziele
 pt: Metas
 
-it: Nessuna corsa
-en: No runs
-es: Ninguna carrera
-fr: Aucune course
-de: Keine Läufe
-pt: Nenhuma corrida
-
-it: Le corse registrate dall'orologio (Samsung Health, Garmin, Health Sync…) arrivano da Health Connect: sincronizza dal Profilo.
-en: Runs recorded by your watch (Samsung Health, Garmin, Health Sync…) come from Health Connect: sync from Profile.
-es: Las carreras grabadas por el reloj (Samsung Health, Garmin, Health Sync…) llegan desde Health Connect: sincroniza desde el perfil.
-fr: Les courses enregistrées par la montre (Samsung Health, Garmin, Health Sync…) arrivent via Health Connect : synchronise depuis le profil.
-de: Von der Uhr aufgezeichnete Läufe (Samsung Health, Garmin, Health Sync…) kommen über Health Connect: Synchronisiere im Profil.
-pt: As corridas gravadas pelo relógio (Samsung Health, Garmin, Health Sync…) chegam pelo Health Connect: sincronize no perfil.
-
-it: Ultima corsa
-en: Latest run
-es: Última carrera
-fr: Dernière course
-de: Letzter Lauf
-pt: Última corrida
-
-it: Confronti
-en: Comparisons
-es: Comparaciones
-fr: Comparaisons
-de: Vergleiche
-pt: Comparações
-
 it: Scarpe
 en: Shoes
 es: Zapatillas
 fr: Chaussures
 de: Schuhe
 pt: Tênis
-
-it: Tutte le corse
-en: All runs
-es: Todas las carreras
-fr: Toutes les courses
-de: Alle Läufe
-pt: Todas as corridas
-
-it: %d corse · dal %s
-en: %d runs · since %s
-es: %d carreras · desde el %s
-fr: %d courses · depuis le %s
-de: %d Läufe · seit %s
-pt: %d corridas · desde %s
 
 it: %d corse
 en: %d runs
@@ -419,13 +356,6 @@ fr: Sautée
 de: Ausgelassen
 pt: Pulada
 
-it: Se nel giorno c'è una corsa registrata è già fatta da sola: "Fatta" serve per le corse senza orologio.
-en: If a run is recorded that day it's marked done on its own: "Done" is for runs without a watch.
-es: Si ese día hay una carrera registrada, ya está hecha sola: "Hecha" sirve para carreras sin reloj.
-fr: S'il y a une course enregistrée ce jour-là, elle est faite automatiquement : "Faite" sert aux courses sans montre.
-de: Wenn an dem Tag ein Lauf aufgezeichnet ist, ist sie automatisch erledigt: "Erledigt" ist für Läufe ohne Uhr.
-pt: Se no dia há uma corrida registrada, ela já fica feita sozinha: "Feita" serve para corridas sem relógio.
-
 it: Elimina seduta
 en: Delete session
 es: Eliminar sesión
@@ -448,13 +378,6 @@ es: Desde un PDF, escrito a mano o desde Notion
 fr: Depuis un PDF, écrit à la main ou depuis Notion
 de: Aus einem PDF, von Hand oder aus Notion
 pt: De um PDF, escrito à mão ou do Notion
-
-it: Nessuna corsa in programma
-en: No runs planned
-es: Ninguna carrera planificada
-fr: Aucune course prévue
-de: Keine Läufe geplant
-pt: Nenhuma corrida planejada
 
 it: Aggiungi le prossime sedute o importa un nuovo PDF.
 en: Add upcoming sessions or import a new PDF.
@@ -519,40 +442,12 @@ fr: 2 dernières semaines : %d séances faites sur %d
 de: Letzte 2 Wochen: %d von %d Einheiten erledigt
 pt: Últimas 2 semanas: %d de %d sessões feitas
 
-it: Piano e corse fatte
-en: Plan vs completed runs
-es: Plan y carreras hechas
-fr: Programme et courses faites
-de: Plan und absolvierte Läufe
-pt: Plano e corridas feitas
-
 it: Piano %s → fatta %s
 en: Plan %s → done %s
 es: Plan %s → hecha %s
 fr: Prévu %s → fait %s
 de: Plan %s → gelaufen %s
 pt: Plano %s → feita %s
-
-it: Segnata come fatta (corsa non registrata)
-en: Marked as done (run not recorded)
-es: Marcada como hecha (carrera no registrada)
-fr: Marquée comme faite (course non enregistrée)
-de: Als erledigt markiert (Lauf nicht aufgezeichnet)
-pt: Marcada como feita (corrida não registrada)
-
-it: Completata in Notion, corsa non trovata nell'app
-en: Completed in Notion, run not found in the app
-es: Completada en Notion, carrera no encontrada en la app
-fr: Terminée dans Notion, course introuvable dans l'app
-de: In Notion erledigt, Lauf nicht in der App gefunden
-pt: Concluída no Notion, corrida não encontrada no app
-
-it: Nessuna corsa registrata
-en: No run recorded
-es: Ninguna carrera registrada
-fr: Aucune course enregistrée
-de: Kein Lauf aufgezeichnet
-pt: Nenhuma corrida registrada
 
 it: Dal PDF «%s»
 en: From PDF “%s”
@@ -880,13 +775,6 @@ fr: importé le %s
 de: importiert am %s
 pt: importado em %s
 
-it: Tipo, RPE e nota di ogni corsa fatta si scrivono nella sua pagina; se mancano, il tipo è quello della seduta.
-en: Type, RPE and notes for each completed run are written on its page; if missing, the type is the session's.
-es: Tipo, RPE y nota de cada carrera hecha se escriben en su página; si faltan, el tipo es el de la sesión.
-fr: Type, RPE et note de chaque course faite s'écrivent sur sa page ; s'ils manquent, le type est celui de la séance.
-de: Typ, RPE und Notiz jedes Laufs trägst du auf seiner Seite ein; fehlt der Typ, gilt der der Einheit.
-pt: Tipo, RPE e nota de cada corrida feita se escrevem na página dela; se faltarem, o tipo é o da sessão.
-
 it: Lettura del PDF…
 en: Reading the PDF…
 es: Leyendo el PDF…
@@ -943,13 +831,6 @@ fr: Supprimer le programme ?
 de: Plan löschen?
 pt: Apagar o plano?
 
-it: Le %d sedute dell'app vengono tolte. Le corse fatte e le loro sensazioni restano.
-en: The app's %d sessions will be removed. Completed runs and their feelings stay.
-es: Se quitan las %d sesiones de la app. Las carreras hechas y sus sensaciones se quedan.
-fr: Les %d séances de l'app seront retirées. Les courses faites et leurs ressentis restent.
-de: Die %d Einheiten der App werden entfernt. Absolvierte Läufe und ihr Gefühl bleiben.
-pt: As %d sessões do app serão removidas. As corridas feitas e suas sensações permanecem.
-
 it: Senza data
 en: No date
 es: Sin fecha
@@ -984,13 +865,6 @@ es: La app busca las sesiones por la fecha (p. ej. 17/11, lun 17 nov) o por el d
 fr: L'app cherche les séances par date (ex. 17/11, lun 17 nov) ou par jour de la semaine sous "Semaine 1", au début de chaque ligne. Tu peux ajouter des séances à la main.
 de: Die App findet Einheiten am Datum (z. B. 17/11, Mo 17 Nov) oder am Wochentag unter "Woche 1", jeweils am Zeilenanfang. Du kannst Einheiten von Hand hinzufügen.
 pt: O app procura as sessões pela data (ex. 17/11, seg 17 nov) ou pelo dia da semana sob "Semana 1", no início de cada linha. Você pode adicionar sessões à mão.
-
-it: Controlla le sedute: tocca una riga per correggere giorno, tipo, km o struttura.
-en: Check the sessions: tap a row to fix day, type, km or structure.
-es: Revisa las sesiones: toca una fila para corregir día, tipo, km o estructura.
-fr: Vérifie les séances : touche une ligne pour corriger jour, type, km ou structure.
-de: Prüfe die Einheiten: Tippe auf eine Zeile, um Tag, Typ, km oder Aufbau zu korrigieren.
-pt: Confira as sessões: toque em uma linha para corrigir dia, tipo, km ou estrutura.
 
 it: Quando inizia?
 en: When does it start?
@@ -1075,20 +949,6 @@ es: %d días de descanso
 fr: %d jours de repos
 de: %d Ruhetage
 pt: %d dias de descanso
-
-it: %d allenamento non di corsa
-en: %d non-running workout
-es: %d entrenamiento que no es carrera
-fr: %d séance hors course
-de: %d Training ohne Laufen
-pt: %d treino que não é corrida
-
-it: %d allenamenti non di corsa
-en: %d non-running workouts
-es: %d entrenamientos que no son carrera
-fr: %d séances hors course
-de: %d Trainings ohne Laufen
-pt: %d treinos que não são corrida
 
 # Pagina della corsa
 
@@ -2935,3 +2795,397 @@ es: No
 fr: Non
 de: Nein
 pt: Não
+
+# Sport diversi dalla corsa (pesi, corpo libero) e testi comuni a tutti gli allenamenti
+
+it: Pesi
+en: Weights
+es: Pesas
+fr: Musculation
+de: Krafttraining
+pt: Musculação
+
+it: Corpo libero
+en: Bodyweight
+es: Peso corporal
+fr: Poids du corps
+de: Eigengewicht
+pt: Peso corporal
+
+it: I tuoi allenamenti
+en: Your workouts
+es: Tus entrenos
+fr: Tes séances
+de: Dein Training
+pt: Seus treinos
+
+it: Fatti
+en: Done
+es: Hechos
+fr: Faits
+de: Erledigt
+pt: Feitos
+
+it: Sedute in programma
+en: Planned sessions
+es: Sesiones previstas
+fr: Séances prévues
+de: Geplante Einheiten
+pt: Sessões previstas
+
+it: Nessun allenamento
+en: No workouts
+es: Ningún entreno
+fr: Aucune séance
+de: Kein Training
+pt: Nenhum treino
+
+it: Gli allenamenti registrati dall'orologio (Samsung Health, Garmin, Health Sync…) arrivano da Health Connect: sincronizza dal Profilo.
+en: Workouts recorded by your watch (Samsung Health, Garmin, Health Sync…) come from Health Connect: sync from Profile.
+es: Los entrenos registrados por el reloj (Samsung Health, Garmin, Health Sync…) llegan de Health Connect: sincroniza desde el Perfil.
+fr: Les séances enregistrées par la montre (Samsung Health, Garmin, Health Sync…) arrivent de Health Connect : synchronise depuis le Profil.
+de: Von der Uhr aufgezeichnete Trainings (Samsung Health, Garmin, Health Sync…) kommen aus Health Connect: synchronisiere im Profil.
+pt: Os treinos registrados pelo relógio (Samsung Health, Garmin, Health Sync…) vêm do Health Connect: sincronize pelo Perfil.
+
+it: Ultimo allenamento
+en: Latest workout
+es: Último entreno
+fr: Dernière séance
+de: Letztes Training
+pt: Último treino
+
+it: Forza
+en: Strength
+es: Fuerza
+fr: Renforcement
+de: Kraft
+pt: Força
+
+it: Tutti gli allenamenti
+en: All workouts
+es: Todos los entrenos
+fr: Toutes les séances
+de: Alle Trainings
+pt: Todos os treinos
+
+it: %d allenamenti · dal %s
+en: %d workouts · since %s
+es: %d entrenos · desde el %s
+fr: %d séances · depuis le %s
+de: %d Trainings · seit %s
+pt: %d treinos · desde %s
+
+it: esercizi
+en: exercises
+es: ejercicios
+fr: exercices
+de: Übungen
+pt: exercícios
+
+it: Sport
+en: Sport
+es: Deporte
+fr: Sport
+de: Sportart
+pt: Esporte
+
+it: Esercizi
+en: Exercises
+es: Ejercicios
+fr: Exercices
+de: Übungen
+pt: Exercícios
+
+it: Uno per riga, es.
+en: One per line, e.g.
+es: Uno por línea, p. ej.
+fr: Un par ligne, ex.
+de: Eine pro Zeile, z. B.
+pt: Um por linha, ex.
+
+it: Panca piana 4x8 @ 60 kg
+en: Bench press 4x8 @ 60 kg
+es: Press de banca 4x8 @ 60 kg
+fr: Développé couché 4x8 @ 60 kg
+de: Bankdrücken 4x8 @ 60 kg
+pt: Supino reto 4x8 @ 60 kg
+
+it: Trazioni 3xmax rec 90''
+en: Pull-ups 3xmax rest 90''
+es: Dominadas 3xmax rec 90''
+fr: Tractions 3xmax récup 90''
+de: Klimmzüge 3xmax Pause 90''
+pt: Barra fixa 3xmax desc 90''
+
+it: Plank 3x45''
+en: Plank 3x45''
+es: Plancha 3x45''
+fr: Gainage 3x45''
+de: Plank 3x45''
+pt: Prancha 3x45''
+
+it: Nessun esercizio riconosciuto: scrivi serie × ripetizioni, es. Squat 4x8 70 kg. Il testo resta comunque nella seduta.
+en: No exercises recognised: write sets × reps, e.g. Squat 4x8 70 kg. The text stays in the session anyway.
+es: Ningún ejercicio reconocido: escribe series × repeticiones, p. ej. Sentadilla 4x8 70 kg. El texto se queda en la sesión.
+fr: Aucun exercice reconnu : écris séries × répétitions, ex. Squat 4x8 70 kg. Le texte reste quand même dans la séance.
+de: Keine Übung erkannt: schreibe Sätze × Wiederholungen, z. B. Kniebeuge 4x8 70 kg. Der Text bleibt trotzdem in der Einheit.
+pt: Nenhum exercício reconhecido: escreva séries × repetições, ex. Agachamento 4x8 70 kg. O texto fica na sessão mesmo assim.
+
+it: Se nel giorno c'è un allenamento registrato dello stesso sport è già fatta da sola: "Fatta" serve per gli allenamenti senza orologio.
+en: If a workout of the same sport is recorded that day it's already done: "Done" is for workouts without a watch.
+es: Si ese día hay un entreno registrado del mismo deporte ya está hecha: "Hecha" sirve para los entrenos sin reloj.
+fr: Si une séance du même sport est enregistrée ce jour-là, elle est déjà faite : « Faite » sert aux séances sans montre.
+de: Wenn an dem Tag ein Training derselben Sportart aufgezeichnet ist, ist sie schon erledigt: „Erledigt“ ist für Trainings ohne Uhr.
+pt: Se nesse dia há um treino registrado do mesmo esporte ela já está feita: "Feita" serve para treinos sem relógio.
+
+it: %d esercizio riconosciuto
+en: %d exercise recognised
+es: %d ejercicio reconocido
+fr: %d exercice reconnu
+de: %d Übung erkannt
+pt: %d exercício reconhecido
+
+it: %d esercizi riconosciuti
+en: %d exercises recognised
+es: %d ejercicios reconocidos
+fr: %d exercices reconnus
+de: %d Übungen erkannt
+pt: %d exercícios reconhecidos
+
+it: Nessuna seduta in programma
+en: No sessions planned
+es: Ninguna sesión prevista
+fr: Aucune séance prévue
+de: Keine Einheit geplant
+pt: Nenhuma sessão prevista
+
+it: Testo della seduta
+en: Session text
+es: Texto de la sesión
+fr: Texte de la séance
+de: Text der Einheit
+pt: Texto da sessão
+
+it: Fatta · esercizi fatti
+en: Done · exercises done
+es: Hecha · ejercicios hechos
+fr: Faite · exercices faits
+de: Erledigt · gemachte Übungen
+pt: Feita · exercícios feitos
+
+it: Piano e allenamenti fatti
+en: Plan and workouts done
+es: Plan y entrenos hechos
+fr: Programme et séances faites
+de: Plan und erledigte Trainings
+pt: Plano e treinos feitos
+
+it: Segnata come fatta · tocca per gli esercizi fatti
+en: Marked as done · tap for the exercises done
+es: Marcada como hecha · toca para los ejercicios hechos
+fr: Marquée comme faite · touche pour les exercices faits
+de: Als erledigt markiert · tippe für die gemachten Übungen
+pt: Marcada como feita · toque para os exercícios feitos
+
+it: Segnata come fatta (allenamento non registrato)
+en: Marked as done (workout not recorded)
+es: Marcada como hecha (entreno no registrado)
+fr: Marquée comme faite (séance non enregistrée)
+de: Als erledigt markiert (Training nicht aufgezeichnet)
+pt: Marcada como feita (treino não registrado)
+
+it: Completata in Notion, allenamento non trovato nell'app
+en: Completed in Notion, workout not found in the app
+es: Completada en Notion, entreno no encontrado en la app
+fr: Terminée dans Notion, séance introuvable dans l'app
+de: In Notion erledigt, Training nicht in der App gefunden
+pt: Concluída no Notion, treino não encontrado no app
+
+it: Nessun allenamento registrato
+en: No workout recorded
+es: Ningún entreno registrado
+fr: Aucune séance enregistrée
+de: Kein Training aufgezeichnet
+pt: Nenhum treino registrado
+
+it: %d esercizio
+en: %d exercise
+es: %d ejercicio
+fr: %d exercice
+de: %d Übung
+pt: %d exercício
+
+it: %d esercizi
+en: %d exercises
+es: %d ejercicios
+fr: %d exercices
+de: %d Übungen
+pt: %d exercícios
+
+it: recupero %s
+en: rest %s
+es: descanso %s
+fr: récup %s
+de: Pause %s
+pt: descanso %s
+
+it: programma: %s
+en: plan: %s
+es: plan: %s
+fr: programme : %s
+de: Plan: %s
+pt: plano: %s
+
+it: Esercizi fatti
+en: Exercises done
+es: Ejercicios hechos
+fr: Exercices faits
+de: Gemachte Übungen
+pt: Exercícios feitos
+
+it: Cambia quello che hai fatto in modo diverso dal programma. Ripetizioni o tempo: 8, 8-10, max, 45''. Kg vuoto = corpo libero.
+en: Change what you did differently from the plan. Reps or time: 8, 8-10, max, 45''. Empty kg = bodyweight.
+es: Cambia lo que hiciste distinto del plan. Repeticiones o tiempo: 8, 8-10, max, 45''. Kg vacío = peso corporal.
+fr: Modifie ce que tu as fait autrement que prévu. Répétitions ou temps : 8, 8-10, max, 45''. Kg vide = poids du corps.
+de: Ändere, was du anders als geplant gemacht hast. Wiederholungen oder Zeit: 8, 8-10, max, 45''. Kg leer = Eigengewicht.
+pt: Mude o que você fez diferente do plano. Repetições ou tempo: 8, 8-10, max, 45''. Kg vazio = peso corporal.
+
+it: Esercizio
+en: Exercise
+es: Ejercicio
+fr: Exercice
+de: Übung
+pt: Exercício
+
+it: Togli
+en: Remove
+es: Quitar
+fr: Retirer
+de: Entfernen
+pt: Remover
+
+it: Serie
+en: Sets
+es: Series
+fr: Séries
+de: Sätze
+pt: Séries
+
+it: Rip.
+en: Reps
+es: Rep.
+fr: Rép.
+de: Wdh.
+pt: Rep.
+
+it: Aggiungi esercizio
+en: Add exercise
+es: Añadir ejercicio
+fr: Ajouter un exercice
+de: Übung hinzufügen
+pt: Adicionar exercício
+
+it: Torna agli esercizi del programma
+en: Back to the plan's exercises
+es: Volver a los ejercicios del plan
+fr: Revenir aux exercices du programme
+de: Zurück zu den Übungen des Plans
+pt: Voltar aos exercícios do plano
+
+it: Sedute
+en: Sessions
+es: Sesiones
+fr: Séances
+de: Einheiten
+pt: Sessões
+
+it: FC media %d bpm
+en: Avg HR %d bpm
+es: FC media %d lpm
+fr: FC moyenne %d bpm
+de: Ø HF %d bpm
+pt: FC média %d bpm
+
+it: Programma: %d di %d sedute fatte nelle ultime 4 settimane
+en: Plan: %d of %d sessions done in the last 4 weeks
+es: Plan: %d de %d sesiones hechas en las últimas 4 semanas
+fr: Programme : %d séances faites sur %d ces 4 dernières semaines
+de: Plan: %d von %d Einheiten in den letzten 4 Wochen erledigt
+pt: Plano: %d de %d sessões feitas nas últimas 4 semanas
+
+it: Serie, ripetizioni e carichi non arrivano dall'orologio: li trovi nella pagina di ogni seduta.
+en: Sets, reps and loads don't come from the watch: you'll find them on each session's page.
+es: Series, repeticiones y cargas no llegan del reloj: los encuentras en la página de cada sesión.
+fr: Séries, répétitions et charges ne viennent pas de la montre : tu les trouves sur la page de chaque séance.
+de: Sätze, Wiederholungen und Gewichte kommen nicht von der Uhr: du findest sie auf der Seite jeder Einheit.
+pt: Séries, repetições e cargas não vêm do relógio: você as encontra na página de cada sessão.
+
+it: Le sedute compaiono in Allenamenti → Programma e gli allenamenti fatti si riconoscono dal giorno e dallo sport.
+en: Sessions appear in Workouts → Plan, and completed workouts are matched by day and sport.
+es: Las sesiones aparecen en Entrenos → Plan y los entrenos hechos se reconocen por el día y el deporte.
+fr: Les séances apparaissent dans Séances → Programme et les séances faites sont reconnues par le jour et le sport.
+de: Die Einheiten erscheinen unter Training → Plan, erledigte Trainings werden an Tag und Sportart erkannt.
+pt: As sessões aparecem em Treinos → Plano e os treinos feitos são reconhecidos pelo dia e pelo esporte.
+
+it: RPE, nota ed esercizi fatti si scrivono nella pagina di ogni allenamento; il tipo, se manca, è quello della seduta.
+en: RPE, note and exercises done go on each workout's page; if the type is missing, the session's type is used.
+es: RPE, nota y ejercicios hechos se escriben en la página de cada entreno; si falta el tipo, se usa el de la sesión.
+fr: RPE, note et exercices faits s'écrivent sur la page de chaque séance ; si le type manque, c'est celui de la séance prévue.
+de: RPE, Notiz und gemachte Übungen trägst du auf der Seite jedes Trainings ein; fehlt der Typ, gilt der der Einheit.
+pt: RPE, nota e exercícios feitos se escrevem na página de cada treino; se faltar o tipo, vale o da sessão.
+
+it: Le %d sedute dell'app vengono tolte. Gli allenamenti fatti e le loro sensazioni restano.
+en: The app's %d sessions will be removed. Completed workouts and their feedback stay.
+es: Se quitan las %d sesiones de la app. Los entrenos hechos y sus sensaciones se quedan.
+fr: Les %d séances de l'app seront retirées. Les séances faites et leurs ressentis restent.
+de: Die %d Einheiten der App werden entfernt. Erledigte Trainings und ihr Feedback bleiben.
+pt: As %d sessões do app serão removidas. Os treinos feitos e suas sensações ficam.
+
+it: Controlla le sedute: tocca una riga per correggere giorno, sport, obiettivo, struttura o esercizi.
+en: Check the sessions: tap a row to fix day, sport, target, structure or exercises.
+es: Revisa las sesiones: toca una fila para corregir día, deporte, objetivo, estructura o ejercicios.
+fr: Vérifie les séances : touche une ligne pour corriger le jour, le sport, l'objectif, la structure ou les exercices.
+de: Prüfe die Einheiten: tippe auf eine Zeile, um Tag, Sportart, Ziel, Aufbau oder Übungen zu korrigieren.
+pt: Confira as sessões: toque numa linha para corrigir dia, esporte, objetivo, estrutura ou exercícios.
+
+it: %d allenamento di altri sport
+en: %d workout of other sports
+es: %d entreno de otros deportes
+fr: %d séance d'autres sports
+de: %d Training anderer Sportarten
+pt: %d treino de outros esportes
+
+it: %d allenamenti di altri sport
+en: %d workouts of other sports
+es: %d entrenos de otros deportes
+fr: %d séances d'autres sports
+de: %d Trainings anderer Sportarten
+pt: %d treinos de outros esportes
+
+it: Come li hai fatti (modificati a mano)
+en: As you did them (edited by hand)
+es: Como los hiciste (editados a mano)
+fr: Comme tu les as faits (modifiés à la main)
+de: Wie du sie gemacht hast (von Hand geändert)
+pt: Como você os fez (editados à mão)
+
+it: Dal programma («%s»): tocca Modifica se hai fatto qualcosa di diverso.
+en: From the plan («%s»): tap Edit if you did something different.
+es: Del plan («%s»): toca Editar si hiciste algo distinto.
+fr: Du programme (« %s ») : touche Modifier si tu as fait autrement.
+de: Aus dem Plan („%s“): tippe auf Bearbeiten, wenn du etwas anders gemacht hast.
+pt: Do plano («%s»): toque Editar se fez algo diferente.
+
+it: Esercizi non riconosciuti nel testo del programma: tocca Modifica per scriverli.
+en: Exercises not recognised in the plan text: tap Edit to write them.
+es: Ejercicios no reconocidos en el texto del plan: toca Editar para escribirlos.
+fr: Exercices non reconnus dans le texte du programme : touche Modifier pour les écrire.
+de: Übungen im Plantext nicht erkannt: tippe auf Bearbeiten, um sie einzutragen.
+pt: Exercícios não reconhecidos no texto do plano: toque Editar para escrevê-los.
+
+it: Nessuna seduta di forza nel programma per questo giorno: tocca Modifica per scrivere gli esercizi fatti.
+en: No strength session in the plan for this day: tap Edit to write the exercises you did.
+es: Ninguna sesión de fuerza en el plan para este día: toca Editar para escribir los ejercicios hechos.
+fr: Aucune séance de renforcement prévue ce jour-là : touche Modifier pour écrire les exercices faits.
+de: Keine Krafteinheit im Plan für diesen Tag: tippe auf Bearbeiten, um die gemachten Übungen einzutragen.
+pt: Nenhuma sessão de força no plano para este dia: toque Editar para escrever os exercícios feitos.

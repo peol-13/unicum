@@ -93,6 +93,24 @@ object TrainingLoad {
         return Effort(raw.roundToInt().coerceIn(1, 10), raw, load, hardMinutes, fromSeries)
     }
 
+    /**
+     * Pesi e corpo libero: il battito sottostima la fatica (serie brevi e recuperi lunghi). Con l'RPE della seduta il
+     * carico è almeno minuti × la zona di Edwards che corrisponde a quell'RPE sulla stessa scala [PTS] (l'idea del
+     * "session RPE" di Foster portata sulle zone). Fatica misurata e punteggio restano quelli del battito: l'RPE si
+     * confronta con loro. Senza RPE o senza battito non cambia nulla.
+     */
+    fun withSessionRpe(e: Effort?, rpe: Int?, minutes: Double): Effort? {
+        if (e == null || rpe == null || rpe !in 1..10 || minutes <= 0) return e
+        return e.copy(load = maxOf(e.load, minutes * zone(fractionFor(rpe.toDouble()))))
+    }
+
+    /** Il contrario di [cr10]: la % della FC massima che corrisponde a un valore della scala. */
+    internal fun fractionFor(value: Double): Double {
+        if (value <= PTS.first().second) return PTS.first().first * value / PTS.first().second
+        PTS.zipWithNext { (x0, y0), (x1, y1) -> if (value <= y1) return x0 + (x1 - x0) * (value - y0) / (y1 - y0) }
+        return 1.0
+    }
+
     /** Buco massimo nel battito (secondi) di una sessione avviata a mano sull'orologio. */
     private const val MAX_MANUAL_GAP_S = 60
 

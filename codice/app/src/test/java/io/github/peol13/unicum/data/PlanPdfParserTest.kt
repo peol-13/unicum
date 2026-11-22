@@ -27,9 +27,9 @@ class PlanPdfParserTest {
             today
         )
         assertEquals(1, r.restDays)
-        assertEquals(1, r.otherActivities)
+        assertEquals("la palestra ora è una seduta", 0, r.otherActivities)
         assertFalse(r.needsStart)
-        assertEquals(3, r.drafts.size)
+        assertEquals(4, r.drafts.size)
 
         val easy = r.drafts[0]
         assertEquals(LocalDate.of(2026, 11, 16), easy.date)
@@ -47,7 +47,12 @@ class PlanPdfParserTest {
         // La struttura si legge come quella di Notion
         assertEquals(12, PlanStructure.parse(reps.text)!!.size)
 
-        val long = r.drafts[2]
+        val gym = r.drafts[2]
+        assertEquals(Sport.WEIGHTS, gym.sport)
+        assertEquals(LocalDate.of(2026, 11, 19), gym.date)
+        assertNull(gym.kind)
+
+        val long = r.drafts[3]
         assertEquals(LocalDate.of(2026, 11, 21), long.date)
         assertEquals("Lungo facile", long.kind)
         assertEquals(12.0, long.km!!, 1e-9)
@@ -163,5 +168,36 @@ class PlanPdfParserTest {
         val d = PlanPdfParser.parse(listOf("Settimana 2: Giovedì progressivo 40'"), today).drafts.single()
         assertEquals(10, d.offset)
         assertEquals("Progressivo", d.kind)
+    }
+
+    @Test
+    fun strengthSessionsKeepTheirExercises() {
+        val r = PlanPdfParser.parse(
+            listOf(
+                "Lun 16/11 Palestra - parte alta: Panca piana 4x8 @ 60 kg",
+                "Trazioni 3x6, rec 90''",
+                "Mer 18/11 Corpo libero: circuito 3 giri: 10 piegamenti, 20 squat, 30'' plank",
+                "Ven 20/11 Corsa facile 5 km + core 10'",
+                "Sab 21/11 Bici 1h"
+            ),
+            today
+        )
+        assertEquals(1, r.otherActivities)
+        assertEquals(3, r.drafts.size)
+        val runs = PlanPdfParser.toRuns(r.drafts, null)
+
+        val gym = runs[0]
+        assertEquals(Sport.WEIGHTS, gym.sportKind)
+        assertEquals("Palestra - parte alta", gym.name)
+        assertEquals(listOf("Panca piana", "Trazioni"), gym.exercises.map { it.name })
+        assertEquals(90, gym.exercises[1].restS)
+
+        val body = runs[1]
+        assertEquals(Sport.BODYWEIGHT, body.sportKind)
+        assertEquals(3, body.exercises.size)
+
+        assertEquals("corsa + core resta una corsa", Sport.RUN, runs[2].sportKind)
+        assertNull(runs[2].sport)
+        assertTrue(runs[2].exercises.isEmpty())
     }
 }

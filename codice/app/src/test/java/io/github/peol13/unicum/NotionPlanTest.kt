@@ -2,8 +2,10 @@ package io.github.peol13.unicum
 
 import io.github.peol13.unicum.data.NotionPlan
 import io.github.peol13.unicum.data.PlannedRun
+import io.github.peol13.unicum.data.Sport
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -77,7 +79,39 @@ class NotionPlanTest {
         )
         assertEquals(listOf("oggi", "prima", "dopo"), NotionPlan.upcoming(plan, today).map { it.id })
         assertEquals(listOf("fatta", "saltata"), NotionPlan.recent(plan, today).map { it.id })
-        assertTrue(NotionPlan.isDone(run("x", "2026-11-04", "Da fare"), setOf("2026-11-04")))
+        val runDone = setOf(NotionPlan.doneKey("2026-11-04", Sport.Family.RUN))
+        assertTrue(NotionPlan.isDone(run("x", "2026-11-04", "Da fare"), runDone))
+        // Una corsa registrata non rende fatta la seduta di pesi dello stesso giorno
+        val gym = PlannedRun("g", "Pesi", "2026-11-04", null, "Da fare", sport = Sport.WEIGHTS.key)
+        assertFalse(NotionPlan.isDone(gym, runDone))
+        assertTrue(NotionPlan.isDone(gym, setOf(NotionPlan.doneKey("2026-11-04", Sport.Family.STRENGTH))))
+    }
+
+    @Test
+    fun strengthSessionsFromSportOrKind() {
+        val pages = """
+            {"results":[
+              {"object":"page","id":"a","properties":{
+                "Allenamento":{"type":"title","title":[{"plain_text":"Parte alta"}]},
+                "Sport":{"type":"select","select":{"name":"Pesi"}},
+                "Struttura":{"type":"rich_text","rich_text":[{"plain_text":"Panca 4x8 @ 60 kg\nTrazioni 3xmax"}]}
+              }},
+              {"object":"page","id":"b","properties":{
+                "Allenamento":{"type":"title","title":[{"plain_text":"Circuito"}]},
+                "Tipo":{"type":"select","select":{"name":"Corpo libero"}}
+              }},
+              {"object":"page","id":"c","properties":{
+                "Allenamento":{"type":"title","title":[{"plain_text":"Facile"}]},
+                "Tipo":{"type":"select","select":{"name":"Facile"}}
+              }}
+            ]}
+        """.trimIndent()
+        val (gym, body, easy) = NotionPlan.parseResults(JSONObject(pages))
+        assertEquals(Sport.WEIGHTS, gym.sportKind)
+        assertEquals(listOf("Panca", "Trazioni"), gym.exercises.map { it.name })
+        assertEquals(Sport.BODYWEIGHT, body.sportKind)
+        assertEquals(Sport.RUN, easy.sportKind)
+        assertTrue(easy.exercises.isEmpty())
     }
 
     @Test

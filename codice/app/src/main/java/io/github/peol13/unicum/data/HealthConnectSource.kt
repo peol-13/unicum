@@ -562,7 +562,8 @@ object HealthConnectSource {
         ExerciseSessionRecord.EXERCISE_TYPE_SWIMMING_POOL,
         ExerciseSessionRecord.EXERCISE_TYPE_SWIMMING_OPEN_WATER -> "Nuoto"
         ExerciseSessionRecord.EXERCISE_TYPE_STRENGTH_TRAINING,
-        ExerciseSessionRecord.EXERCISE_TYPE_WEIGHTLIFTING -> "Palestra"
+        ExerciseSessionRecord.EXERCISE_TYPE_WEIGHTLIFTING -> Sport.GYM_WORKOUT
+        ExerciseSessionRecord.EXERCISE_TYPE_CALISTHENICS -> Sport.BODYWEIGHT.key
         ExerciseSessionRecord.EXERCISE_TYPE_YOGA -> "Yoga"
         ExerciseSessionRecord.EXERCISE_TYPE_HIKING -> tk("Escursionismo")
         ExerciseSessionRecord.EXERCISE_TYPE_SOCCER -> "Calcio"

@@ -39,5 +39,7 @@ data class WorkoutFeedbackEntity(
     val avgHr: Int? = null,
     val maxHr: Int? = null,
     /** Struttura delle ripetute scritta dall'utente, [io.github.peol13.unicum.data.IntervalPlan] in JSON (v9). */
-    val intervals: String? = null
+    val intervals: String? = null,
+    /** Esercizi fatti in una seduta di forza, lista di [io.github.peol13.unicum.data.Exercise] in JSON (v11). */
+    val exercises: String? = null
 )

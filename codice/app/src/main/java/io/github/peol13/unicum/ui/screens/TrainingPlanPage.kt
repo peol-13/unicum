@@ -95,7 +95,7 @@ fun TrainingPlanPage() {
         CardHeader(Icons.Rounded.CalendarMonth, tr("Da dove arriva il programma"))
         Spacer(Modifier.height(4.dp))
         Text(
-            tr("Le sedute compaiono in Allenamenti → Programma e le corse fatte si riconoscono dal giorno."),
+            tr("Le sedute compaiono in Allenamenti → Programma e gli allenamenti fatti si riconoscono dal giorno e dallo sport."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
         Spacer(Modifier.height(12.dp))
@@ -181,7 +181,7 @@ internal fun LocalPlanPage() {
         )
         Spacer(Modifier.height(6.dp))
         Text(
-            tr("Tipo, RPE e nota di ogni corsa fatta si scrivono nella sua pagina; se mancano, il tipo è quello della seduta."),
+            tr("RPE, nota ed esercizi fatti si scrivono nella pagina di ogni allenamento; il tipo, se manca, è quello della seduta."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
         Spacer(Modifier.height(14.dp))
@@ -239,7 +239,7 @@ internal fun LocalPlanPage() {
         UnicumDialog({ confirmClear = false }) {
             Text(tr("Cancellare il programma?"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
             Text(
-                tr("Le %d sedute dell'app vengono tolte. Le corse fatte e le loro sensazioni restano.", LocalPlan.runs.size),
+                tr("Le %d sedute dell'app vengono tolte. Gli allenamenti fatti e le loro sensazioni restano.", LocalPlan.runs.size),
                 color = UnicumDark.copy(alpha = .7f), style = UnicumType.Detail, lineHeight = 18.sp
             )
             UnicumButton(tr("Cancella"), onClick = { LocalPlan.clear(); confirmClear = false })
@@ -255,7 +255,7 @@ private fun PlanRunRow(r: PlannedRun, today: LocalDate, onClick: () -> Unit) {
         Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).clickable { onClick() }.padding(vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        KindDot(r.kind)
+        SessionMark(r)
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
             Text(r.name, color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium, maxLines = 1)
@@ -292,7 +292,7 @@ private fun ImportPreviewSection(p: ImportPreview, onChange: (ImportPreview) -> 
             if (r.drafts.isEmpty()) tr("Nessuna seduta trovata.")
             else trp(r.drafts.size, "Trovata %d seduta", "Trovate %d sedute") + listOfNotNull(
                 r.restDays.takeIf { it > 0 }?.let { trp(it, "%d giorno di riposo", "%d giorni di riposo") },
-                r.otherActivities.takeIf { it > 0 }?.let { trp(it, "%d allenamento non di corsa", "%d allenamenti non di corsa") }
+                r.otherActivities.takeIf { it > 0 }?.let { trp(it, "%d allenamento di altri sport", "%d allenamenti di altri sport") }
             ).joinToString(" " + tr("e") + " ").let { if (it.isEmpty()) "." else " " + tr("(saltati %s).", it) },
             color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium
         )
@@ -308,7 +308,7 @@ private fun ImportPreviewSection(p: ImportPreview, onChange: (ImportPreview) -> 
         }
         Spacer(Modifier.height(4.dp))
         Text(
-            tr("Controlla le sedute: tocca una riga per correggere giorno, tipo, km o struttura."),
+            tr("Controlla le sedute: tocca una riga per correggere giorno, sport, obiettivo, struttura o esercizi."),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 16.sp
         )
     }

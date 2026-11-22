@@ -21,7 +21,11 @@ import java.net.URL
 import java.net.UnknownHostException
 import java.time.LocalDate
 
-/** Una seduta del programma di allenamento: dal database Notion "Programma corse", da un PDF o scritta nell'app. */
+/**
+ * Una seduta del programma di allenamento (corsa o forza, vedi [Sport]): dal database Notion del programma, da un
+ * PDF o scritta nell'app. Per la corsa contano km, minuti, ritmo e [structure] (ripetute); per la forza
+ * [structure] contiene gli esercizi ([exercises]).
+ */
 @Serializable
 data class PlannedRun(
     val id: String,
@@ -37,9 +41,15 @@ data class PlannedRun(
     val structure: String? = null,
     val focus: String? = null,
     val week: Int? = null,
-    val url: String? = null
+    val url: String? = null,
+    /** [Sport.key] della seduta; null (programmi salvati prima) = corsa. */
+    val sport: String? = null
 ) {
     val localDate: LocalDate? get() = date?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+    val sportKind: Sport get() = Sport.of(sport) ?: Sport.RUN
+    val family: Sport.Family get() = sportKind.family
+    /** Gli esercizi di una seduta di forza (vuoto per la corsa o se il testo non si riconosce). */
+    val exercises: List<Exercise> get() = if (sportKind.isStrength) StrengthStructure.parse(structure) else emptyList()
     val isClosed: Boolean get() = status == "Completata" || status == "Saltata"
 }
 
@@ -369,11 +379,16 @@ object NotionPlan {
 
     private fun parsePage(page: JSONObject): PlannedRun? {
         val p = page.optJSONObject("properties") ?: return null
+        val title = text(p.optJSONObject("Allenamento"), "title")
+        val kind = p.optJSONObject("Tipo")?.optJSONObject("select")?.optString("name")?.takeIf { it.isNotEmpty() }
+        // "Sport" (facoltativo) se c'è e si riconosce, altrimenti dal tipo o dal nome ("Forza", "Corpo libero")
+        val sport = Sport.of(p.optJSONObject("Sport")?.optJSONObject("select")?.optString("name")) ?: Sport.infer(kind, title)
         return PlannedRun(
             id = page.optString("id"),
-            name = text(p.optJSONObject("Allenamento"), "title") ?: "Corsa",
+            name = title ?: sport.key,
             date = date(p.optJSONObject("Data")),
-            kind = p.optJSONObject("Tipo")?.optJSONObject("select")?.optString("name")?.takeIf { it.isNotEmpty() },
+            kind = kind,
+            sport = sport.key,
             status = p.optJSONObject("Stato")?.optJSONObject("status")?.optString("name")?.takeIf { it.isNotEmpty() },
             km = number(p.optJSONObject("Obiettivo km")),
             minutes = number(p.optJSONObject("Durata min"))?.let { Math.round(it).toInt() },
@@ -416,6 +431,12 @@ object NotionPlan {
             d.isBefore(today) && !d.isBefore(today.minusDays(days))
         }.sortedByDescending { it.date }
 
-    /** true se nel giorno della seduta c'è una corsa registrata (o Notion la segna completata). */
-    fun isDone(r: PlannedRun, runDates: Set<String>): Boolean = r.status == "Completata" || r.date in runDates
+    /**
+     * true se nel giorno della seduta c'è un allenamento registrato dello stesso tipo (corsa o forza) o se è
+     * segnata completata. [doneKeys] = chiavi [doneKey] degli allenamenti registrati.
+     */
+    fun isDone(r: PlannedRun, doneKeys: Set<String>): Boolean = r.status == "Completata" || doneKey(r.date, r.family) in doneKeys
+
+    /** Giorno e famiglia di sport: una seduta di pesi non diventa "fatta" per una corsa dello stesso giorno. */
+    fun doneKey(date: String?, family: Sport.Family): String = "$date|$family"
 }

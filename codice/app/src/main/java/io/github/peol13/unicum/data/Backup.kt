@@ -251,7 +251,9 @@ object BackupCodec {
     fun resolve(p: BackupPending, local: List<BackupSession>): Resolved {
         val byId = p.sessions.associateBy { it.id }
         val localIds = local.mapTo(HashSet()) { it.id }
-        fun target(id: String): String? = if (id in localIds) id else byId[id]?.let { matchSession(it, local) }
+        // Esercizi di una seduta senza allenamento registrato: legati alla seduta del programma, non a una sessione
+        fun target(id: String): String? =
+            if (id in localIds || WorkoutFeedback.isPlanKey(id)) id else byId[id]?.let { matchSession(it, local) }
         val feedback = mutableMapOf<String, WorkoutFeedback>()
         val leftFeedback = mutableListOf<BackupRunFeedback>()
         p.runFeedback.forEach { e -> target(e.id)?.let { feedback[it] = e.feedback } ?: leftFeedback.add(e) }
@@ -275,7 +277,8 @@ object BackupCodec {
             note = local.note ?: incoming.note,
             distanceM = correction.distanceM, movingSeconds = correction.movingSeconds,
             avgHr = correction.avgHr, maxHr = correction.maxHr,
-            intervals = local.intervals ?: incoming.intervals
+            intervals = local.intervals ?: incoming.intervals,
+            exercises = local.exercises ?: incoming.exercises
         )
     }
 

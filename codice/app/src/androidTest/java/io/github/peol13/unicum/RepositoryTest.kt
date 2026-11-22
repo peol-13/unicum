@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.github.peol13.unicum.data.Activity
+import io.github.peol13.unicum.data.Exercise
+import io.github.peol13.unicum.data.WorkoutFeedback
 import io.github.peol13.unicum.data.Food
 import io.github.peol13.unicum.data.Meal
 import io.github.peol13.unicum.data.UnicumRepository
@@ -55,6 +57,26 @@ class RepositoryTest {
     fun ripulisciAmbiente() {
         if (::context.isInitialized) pulisci()
         TestSafety.release(db)
+    }
+
+    // ==============================
+    // ESERCIZI DELLE SEDUTE DI FORZA (v11)
+    // ==============================
+
+    @Test
+    fun gli_esercizi_fatti_si_salvano_e_tornano_insieme_alle_sensazioni() = runBlocking {
+        val esercizi = listOf(Exercise("Panca piana", 4, "8", kg = 62.5), Exercise("Plank", 3, seconds = 45, restS = 60))
+        UnicumRepository.saveWorkoutFeedback(context, "sessione-1", WorkoutFeedback(rpe = 7, exercises = esercizi))
+        // Seduta fatta senza orologio: legata alla seduta del programma
+        UnicumRepository.saveWorkoutFeedback(context, WorkoutFeedback.planKey("local-x"), WorkoutFeedback(exercises = emptyList()))
+        UnicumRepository.saveWorkoutFeedback(context, "corsa-1", WorkoutFeedback(rpe = 4))
+
+        val letti = UnicumRepository.loadWorkoutFeedback(context)
+
+        assertEquals(esercizi, letti["sessione-1"]!!.exercises)
+        assertEquals(7, letti["sessione-1"]!!.rpe)
+        assertEquals("lista vuota ≠ esercizi del programma", emptyList<Exercise>(), letti[WorkoutFeedback.planKey("local-x")]!!.exercises)
+        assertEquals("senza esercizi resta null (= quelli del programma)", null, letti["corsa-1"]!!.exercises)
     }
 
     // ==============================

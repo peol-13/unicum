@@ -25,6 +25,22 @@ class TrainingLoadTest {
     }
 
     @Test
+    fun sessionRpeRaisesTheLoadOfStrength() {
+        assertEquals(.84, TrainingLoad.fractionFor(5.0), 1e-9)
+        assertEquals(.90, TrainingLoad.fractionFor(6.5), 1e-9)
+        // 50' di pesi con battito basso (60%: zona 2, carico 100): con RPE 7 (92%, zona 5) il carico sale a 250
+        val hr = TrainingLoad.effort(workout(50, 120), 200)!!
+        assertEquals(100.0, hr.load, 1.0)
+        val withRpe = TrainingLoad.withSessionRpe(hr, 7, 50.0)!!
+        assertEquals(250.0, withRpe.load, 1e-9)
+        assertEquals("il punteggio resta quello del battito", hr.score, withRpe.score)
+        // RPE basso: resta il carico del battito; senza RPE o senza battito non cambia nulla
+        assertEquals(hr.load, TrainingLoad.withSessionRpe(hr, 1, 50.0)!!.load, 1e-9)
+        assertEquals(hr, TrainingLoad.withSessionRpe(hr, null, 50.0))
+        assertNull(TrainingLoad.withSessionRpe(null, 7, 50.0))
+    }
+
+    @Test
     fun effortFromHeartRateSeries() {
         // 30' fissi all'84% della FC max: zona 4 (Edwards), CR10 = 5
         val e = TrainingLoad.effort(workout(30, 168), 200)!!

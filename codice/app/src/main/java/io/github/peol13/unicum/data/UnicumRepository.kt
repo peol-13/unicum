@@ -532,7 +532,8 @@ object UnicumRepository {
         dao(context).allWorkoutFeedback().associate {
             it.key to WorkoutFeedback(
                 it.rpe, WorkoutFeedback.normalizeKind(it.kind), it.note, it.distanceM, it.movingSeconds, it.avgHr, it.maxHr,
-                intervals = it.intervals?.let { j -> runCatching { workoutJson.decodeFromString(IntervalPlan.serializer(), j) }.getOrNull() }
+                intervals = it.intervals?.let { j -> runCatching { workoutJson.decodeFromString(IntervalPlan.serializer(), j) }.getOrNull() },
+                exercises = it.exercises?.let { j -> runCatching { workoutJson.decodeFromString(exerciseList, j) }.getOrNull() }
             )
         }
     }
@@ -542,10 +543,13 @@ object UnicumRepository {
             io.github.peol13.unicum.data.db.WorkoutFeedbackEntity(
                 key, feedback.rpe, feedback.kind, feedback.note?.takeIf { it.isNotBlank() }, feedback.distanceM, feedback.movingSeconds,
                 feedback.avgHr, feedback.maxHr,
-                feedback.intervals?.let { workoutJson.encodeToString(IntervalPlan.serializer(), it) }
+                feedback.intervals?.let { workoutJson.encodeToString(IntervalPlan.serializer(), it) },
+                feedback.exercises?.let { workoutJson.encodeToString(exerciseList, it) }
             )
         )
     }
+
+    private val exerciseList = kotlinx.serialization.builtins.ListSerializer(Exercise.serializer())
 
     /**
      * Metriche raggruppate per tipo e giorno (tipo -> data -> valore); con più fonti vince la preferita.

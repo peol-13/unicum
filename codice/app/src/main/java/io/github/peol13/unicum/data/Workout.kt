@@ -145,11 +145,25 @@ data class WorkoutFeedback(
     val avgHr: Int? = null,
     val maxHr: Int? = null,
     /** Struttura delle ripetute scritta dall'utente (i giri dell'orologio non arrivano in Health Connect). */
-    val intervals: IntervalPlan? = null
+    val intervals: IntervalPlan? = null,
+    /**
+     * Esercizi di una seduta di forza come sono stati fatti davvero (null = quelli del programma, che si seguono
+     * se il programma cambia). Health Connect non ha né carichi né ripetizioni.
+     */
+    val exercises: List<Exercise>? = null
 ) {
     val isCorrected: Boolean get() = distanceM != null || movingSeconds != null
 
     companion object {
+        private const val PLAN_PREFIX = "plan:"
+
+        /**
+         * Chiave delle sensazioni di una seduta del programma senza allenamento registrato (fatta senza orologio):
+         * gli esercizi fatti si salvano sulla seduta invece che su una sessione di Health Connect.
+         */
+        fun planKey(plannedId: String): String = PLAN_PREFIX + plannedId
+        fun isPlanKey(key: String): Boolean = key.startsWith(PLAN_PREFIX)
+
         /** Tipi di seduta della corsa: gli stessi del "Registro corse" su Notion. */
         val RUN_KINDS = listOf(tk("Facile"), tk("Lungo facile"), tk("Progressivo"), tk("Intervalli"), tk("Test"), tk("Libera"))
 

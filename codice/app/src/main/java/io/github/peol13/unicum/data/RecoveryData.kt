@@ -28,13 +28,18 @@ object RecoveryData {
      */
     private val sessionCache = java.util.concurrent.ConcurrentHashMap<String, java.util.Optional<RecoveryEstimate.Session>>()
 
-    private suspend fun session(context: Context, s: WorkoutDetail, maxHr: Int, all: List<WorkoutDetail>): RecoveryEstimate.Session? {
-        val key = "${s.externalId}|$maxHr|${s.endMillis}|${s.movingSeconds}|${s.avgHr}|${s.modifiedMillis}"
+    private suspend fun session(
+        context: Context, s: WorkoutDetail, maxHr: Int, all: List<WorkoutDetail>, feedback: Map<String, WorkoutFeedback>
+    ): RecoveryEstimate.Session? {
+        // Pesi e corpo libero: con l'RPE il carico non resta quello (basso) del solo battito
+        val rpe = feedback[s.externalId]?.rpe?.takeIf { Sport.ofWorkout(s.type)?.isStrength == true }
+        val key = "${s.externalId}|$maxHr|${s.endMillis}|${s.movingSeconds}|${s.avgHr}|${s.modifiedMillis}|$rpe"
         sessionCache[key]?.let { return it.orElse(null) }
         val d = UnicumRepository.loadWorkoutDetail(context, s.externalId, all) ?: s
         // Solo corse e allenamenti avviati a mano: quelli riconosciuti in automatico non contano
         val session = if (!TrainingLoad.countsForRecovery(d)) null
-        else TrainingLoad.effort(d, maxHr)?.let { RecoveryEstimate.Session(s.externalId, s.type, LocalDate.parse(s.date), d.endMillis, it) }
+        else TrainingLoad.withSessionRpe(TrainingLoad.effort(d, maxHr), rpe, d.movingSeconds / 60.0)
+            ?.let { RecoveryEstimate.Session(s.externalId, s.type, LocalDate.parse(s.date), d.endMillis, it) }
         if (sessionCache.size > 500) sessionCache.clear()
         sessionCache[key] = java.util.Optional.ofNullable(session)
         return session
@@ -49,7 +54,8 @@ object RecoveryData {
         // Non più indietro dei giorni di sonno e HRV che si leggono: senza quelli un allenamento non dice niente
         val oldest = today.minusDays(HEALTH_DAYS.toLong())
         val from = HrvData.reliableFrom?.let { maxOf(minOf(it.minusDays(7), today.minusDays(6)), oldest) } ?: oldest
-        val sessions = summaries.filter { !LocalDate.parse(it.date).isBefore(from) }.mapNotNull { session(context, it, maxHr, all) }
+        val feedback = UnicumRepository.loadWorkoutFeedback(context)
+        val sessions = summaries.filter { !LocalDate.parse(it.date).isBefore(from) }.mapNotNull { session(context, it, maxHr, all, feedback) }
 
         val health = UnicumRepository.loadHealth(context, days = HEALTH_DAYS)
         fun series(type: String) = health.metrics[type].orEmpty().mapKeys { LocalDate.parse(it.key) }

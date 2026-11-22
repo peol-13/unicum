@@ -37,6 +37,11 @@ class NotionExamplesTest {
         rows.filter { it["Tipo"] in PlanStructure.STRUCTURED_KINDS }.forEach {
             assertNotNull("Struttura non leggibile: ${it["Struttura"]}", PlanStructure.parse(it["Struttura"]))
         }
+        // "Sport" è facoltativa, ma l'esempio la usa: ogni valore si riconosce e le sedute di forza hanno esercizi
+        rows.forEach { assertNotNull("Sport non riconosciuto: ${it["Sport"]}", Sport.of(it["Sport"])) }
+        val strength = rows.filter { Sport.of(it["Sport"])!!.isStrength }
+        assertTrue(strength.isNotEmpty())
+        strength.forEach { assertTrue("Esercizi non leggibili: ${it["Struttura"]}", StrengthStructure.parse(it["Struttura"]).isNotEmpty()) }
     }
 
     @Test
