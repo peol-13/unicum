@@ -92,6 +92,7 @@ fun DashboardScreen(onNavigate: (Route) -> Unit) {
     ) {
         DashboardHeader()
         Spacer(Modifier.height(14.dp))
+        UpdateBanner()
         if (UnicumAppState.isToday) WeekStoryTeaser(onOpen = { onNavigate(Route.WeekStory(lastCompletedWeek())) })
 
         // Le card nell'ordine scelto (o quello della modalità); tenendone premuta una si apre la modifica

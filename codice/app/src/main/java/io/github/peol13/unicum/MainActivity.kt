@@ -63,6 +63,7 @@ class MainActivity : ComponentActivity() {
         MealReminders.scheduleAll(applicationContext)
         AutoBackup.init(applicationContext)
         UsageStats.init(applicationContext)
+        io.github.peol13.unicum.data.UpdateCheck.init(applicationContext)
         BackgroundSync.schedule(applicationContext)
         handleIntent(intent)
 
@@ -75,6 +76,8 @@ class MainActivity : ComponentActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // Statistiche anonime (solo se l'utente ha detto sì): riepilogo dei giorni passati, max una volta al giorno
                 launch { UsageStats.sendIfDue(usageFeatures()) }
+                // Nuova versione su GitHub? Max una volta al giorno; il banner compare nella Home
+                launch { io.github.peol13.unicum.data.UpdateCheck.checkIfDue() }
                 UnicumAppState.followToday(applicationContext)
                 UnicumAppState.reloadFromDatabase(applicationContext)
                 UnicumAppState.autoSync(applicationContext)

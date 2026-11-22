@@ -640,3 +640,19 @@ es: toca el gráfico para ver detalles
 fr: touche le graphique pour les détails
 de: für Details auf das Diagramm tippen
 pt: toque no gráfico para ver detalhes
+
+# Avviso di nuova versione
+
+it: È uscita UNICUM %s
+en: UNICUM %s is out
+es: Ya está disponible UNICUM %s
+fr: UNICUM %s est disponible
+de: UNICUM %s ist da
+pt: Saiu o UNICUM %s
+
+it: Tocca per scaricarla e installala sopra: i tuoi dati restano.
+en: Tap to download it and install it over this one: your data stays.
+es: Toca para descargarla e instálala encima: tus datos se conservan.
+fr: Touche pour la télécharger et installe-la par-dessus : tes données restent.
+de: Tippe zum Herunterladen und installiere sie darüber: Deine Daten bleiben erhalten.
+pt: Toque para baixar e instale por cima: seus dados continuam.
