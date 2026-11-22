@@ -69,6 +69,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -102,8 +104,12 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
     var page by rememberSaveable { mutableStateOf<String?>(null) }
     BackHandler(enabled = page != null) { page = null }
     LaunchedEffect(page) { page?.let { io.github.peol13.unicum.data.UsageStats.screen("Profilo/$it") } }
+    // Ogni sotto-pagina parte dall'alto (prima ereditava lo scorrimento del menu: "Aspetto" si apriva già sul Tema);
+    // il menu ricorda dov'era, così tornando indietro si ritrova la voce toccata
+    val menuScroll = rememberScrollState()
+    val pageScroll = remember(page) { ScrollState(0) }
 
-    UnicumScreen(selectedItem = Route.Profilo, onNavigate = onNavigate) {
+    UnicumScreen(selectedItem = Route.Profilo, onNavigate = onNavigate, scrollState = if (page == null) menuScroll else pageScroll) {
         when (page) {
             "dati" -> {
                 PageHeader(tr("Profilo e alimentazione"), tr("Dati personali, obiettivo calorico e macro"), onBack = { page = null })

@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -166,6 +167,8 @@ fun UnicumScreen(
     isRefreshing: Boolean = false,
     /** Se presente, uno swipe orizzontale cambia giorno: -1 = precedente, +1 = successivo; false se non si può. */
     onSwipeDay: ((Int) -> Boolean)? = null,
+    /** Posizione dello scorrimento: chi mostra più pagine nella stessa schermata ne passa una per pagina. */
+    scrollState: ScrollState = rememberScrollState(),
     content: @Composable ColumnScope.() -> Unit
 ) {
     val haptics = rememberHaptics()
@@ -180,7 +183,7 @@ fun UnicumScreen(
                     .fillMaxSize()
                     .background(UnicumBackground)
                     .then(if (onSwipeDay != null) Modifier.daySwipe(onSwipeDay) else Modifier)
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(scrollState)
                     .padding(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 96.dp)
             ) {
                 // Le card possono aprire altre schermate (es. il Profilo dagli stati vuoti)
