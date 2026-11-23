@@ -104,6 +104,7 @@ import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import io.github.peol13.unicum.i18n.lnum
+import androidx.compose.ui.draw.shadow
 
 /** Un alimento già aggiunto al pasto che si sta registrando, con la quantità ancora modificabile. */
 private data class StagedFood(val food: Food, val grams: Int) {
@@ -548,9 +549,11 @@ fun AddMealDialog(
 
                     Spacer(Modifier.height(10.dp))
 
+                    // La lista e, sopra il suo fondo, l'avviso "Aggiunto": l'avviso non toglie spazio alla lista
+                    Box(Modifier.weight(1f)) {
                     LazyColumn(
                         state = listState,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 8.dp)
                     ) {
@@ -620,20 +623,25 @@ fun AddMealDialog(
                             }
                         }
                     }
-                }
-
-                // Appena aggiunto con il +: si può correggere la quantità
-                val added = lastAdded?.takeIf { it in staged.indices }
-                androidx.compose.animation.AnimatedVisibility(visible = added != null) {
-                    val item = added?.let { staged.getOrNull(it) }
-                    if (item != null) {
-                        AddedToast(
-                            text = tr("Aggiunto: %s · %d g", io.github.peol13.unicum.data.FoodNames.label(item.food.name), item.grams),
-                            onEdit = {
-                                editing = QuantityTarget(item.food, item.grams, added)
-                                lastAdded = null
-                            }
-                        )
+                    // Appena aggiunto con il +: si può correggere la quantità
+                    val added = lastAdded?.takeIf { it in staged.indices }
+                    androidx.compose.animation.AnimatedVisibility(
+                        visible = added != null,
+                        modifier = Modifier.align(Alignment.BottomCenter),
+                        enter = androidx.compose.animation.fadeIn() + androidx.compose.animation.slideInVertically { it / 2 },
+                        exit = androidx.compose.animation.fadeOut()
+                    ) {
+                        val item = added?.let { staged.getOrNull(it) }
+                        if (item != null) {
+                            AddedToast(
+                                text = tr("Aggiunto: %s · %d g", io.github.peol13.unicum.data.FoodNames.label(item.food.name), item.grams),
+                                onEdit = {
+                                    editing = QuantityTarget(item.food, item.grams, added)
+                                    lastAdded = null
+                                }
+                            )
+                        }
+                    }
                     }
                 }
 
@@ -679,8 +687,9 @@ private fun MealTypePill(label: String, onClick: () -> Unit) {
 private fun AddedToast(text: String, onEdit: () -> Unit) {
     Row(
         Modifier
-            .padding(top = 6.dp)
+            .padding(bottom = 6.dp)
             .fillMaxWidth()
+            .shadow(6.dp, RoundedCornerShape(16.dp))
             .clip(RoundedCornerShape(16.dp))
             .background(UnicumDark)
             .padding(start = 14.dp, end = 4.dp),

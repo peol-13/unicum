@@ -296,13 +296,6 @@ fr: Le fichier contient la connexion à Notion : l'app se reconnecte sans ressai
 de: Die Datei enthält die Notion-Verbindung: Die App verbindet sich ohne erneute Token-Eingabe.
 pt: O arquivo contém a conexão com o Notion: o app se reconecta sem digitar o token de novo.
 
-it: Anche gli orari dei promemoria vengono dal file. Su un telefono nuovo apri poi Profilo → Promemoria per consentire le notifiche.
-en: Reminder times also come from the file. On a new phone, then open Profile → Reminders to allow notifications.
-es: También los horarios de los recordatorios vienen del archivo. En un teléfono nuevo abre luego Perfil → Recordatorios para permitir las notificaciones.
-fr: Les horaires des rappels viennent aussi du fichier. Sur un nouveau téléphone, ouvre ensuite Profil → Rappels pour autoriser les notifications.
-de: Auch die Erinnerungszeiten kommen aus der Datei. Öffne auf einem neuen Telefon danach Profil → Erinnerungen, um Benachrichtigungen zu erlauben.
-pt: Os horários dos lembretes também vêm do arquivo. Em um telefone novo, abra depois Perfil → Lembretes para permitir as notificações.
-
 it: %d alimento nei pasti
 en: %d food in meals
 es: %d alimento en las comidas
@@ -344,20 +337,6 @@ es: %d productos guardados
 fr: %d produits enregistrés
 de: %d gespeicherte Produkte
 pt: %d produtos salvos
-
-it: le sensazioni di %d corsa
-en: feelings for %d run
-es: las sensaciones de %d carrera
-fr: les ressentis de %d course
-de: das Gefühl von %d Lauf
-pt: as sensações de %d corrida
-
-it: le sensazioni di %d corse
-en: feelings for %d runs
-es: las sensaciones de %d carreras
-fr: les ressentis de %d courses
-de: das Gefühl von %d Läufen
-pt: as sensações de %d corridas
 
 it: su %d giorno
 en: over %d day
@@ -817,3 +796,24 @@ es: Toca el número para escribirlo, o usa − y +.
 fr: Touche le nombre pour l'écrire, ou utilise − et +.
 de: Tippe auf die Zahl, um sie einzugeben, oder nutze − und +.
 pt: Toque no número para digitá-lo, ou use − e +.
+
+it: le sensazioni di %d allenamento
+en: feelings for %d workout
+es: las sensaciones de %d entreno
+fr: les sensations de %d séance
+de: das Empfinden zu %d Training
+pt: as sensações de %d treino
+
+it: le sensazioni di %d allenamenti
+en: feelings for %d workouts
+es: las sensaciones de %d entrenos
+fr: les sensations de %d séances
+de: das Empfinden zu %d Trainings
+pt: as sensações de %d treinos
+
+it: Anche gli orari dei promemoria vengono dal file. Su un telefono nuovo apri poi Profilo → Notifiche per consentire le notifiche.
+en: Reminder times also come from the file. On a new phone, then open Profile → Notifications to allow notifications.
+es: Las horas de los recordatorios también vienen del archivo. En un teléfono nuevo abre luego Perfil → Notificaciones para permitir las notificaciones.
+fr: Les heures des rappels viennent aussi du fichier. Sur un nouveau téléphone, ouvre ensuite Profil → Notifications pour autoriser les notifications.
+de: Auch die Erinnerungszeiten kommen aus der Datei. Öffne auf einem neuen Handy danach Profil → Benachrichtigungen, um Benachrichtigungen zu erlauben.
+pt: Os horários dos lembretes também vêm do arquivo. Num celular novo, abra depois Perfil → Notificações para permitir as notificações.

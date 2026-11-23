@@ -317,7 +317,7 @@ private fun ImportConfirmDialog(p: PendingImport, onCancel: () -> Unit, onConfir
                     plan.newMeals.size.takeIf { it > 0 }?.let { trp(it, "%d alimento nei pasti", "%d alimenti nei pasti") },
                     plan.newActivities.size.takeIf { it > 0 }?.let { trp(it, "%d allenamento", "%d allenamenti") },
                     plan.newFoods.size.takeIf { it > 0 }?.let { trp(it, "%d prodotto salvato", "%d prodotti salvati") },
-                    plan.newRunFeedback.takeIf { it > 0 }?.let { trp(it, "le sensazioni di %d corsa", "le sensazioni di %d corse") }
+                    plan.newRunFeedback.takeIf { it > 0 }?.let { trp(it, "le sensazioni di %d allenamento", "le sensazioni di %d allenamenti") }
                 ).ifEmpty { listOf(tr("solo le impostazioni")) }.joinToString(", ")) +
                     (if (plan.days > 0) ", " + trp(plan.days, "su %d giorno", "su %d giorni") + "." else "."),
                 color = UnicumDark, style = UnicumType.Body, lineHeight = 20.sp
@@ -356,7 +356,7 @@ private fun ImportConfirmDialog(p: PendingImport, onCancel: () -> Unit, onConfir
             }
             if (plan.hasReminders) {
                 Text(
-                    tr("Anche gli orari dei promemoria vengono dal file. Su un telefono nuovo apri poi Profilo → Promemoria per consentire le notifiche."),
+                    tr("Anche gli orari dei promemoria vengono dal file. Su un telefono nuovo apri poi Profilo → Notifiche per consentire le notifiche."),
                         
                     color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail, lineHeight = 18.sp
                 )
