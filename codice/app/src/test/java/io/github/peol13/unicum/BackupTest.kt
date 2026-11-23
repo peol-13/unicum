@@ -215,4 +215,24 @@ class BackupTest {
         assertEquals(listOf("Mio", "Altro"), merged.map { it.name })
         assertEquals(100, merged[0].caloriesPer100g)
     }
+
+    @Test
+    fun keepsNotionUnitsAndWeeklySummary() {
+        // Backup automatico (1.1.0): collegamento a Notion, unità di misura e notifica del lunedì restano nel file
+        val file = BackupFile(
+            settings = BackupSettings(unitSystem = "IMPERIAL", completeDays = listOf("2026-11-20")),
+            reminders = BackupReminders(weeklySummary = false),
+            notion = BackupNotion("ntn_token", "db-programma", "db-registro")
+        )
+        val back = BackupCodec.decode(BackupCodec.encode(file))!!
+        assertEquals("ntn_token", back.notion?.token)
+        assertEquals("db-registro", back.notion?.logDatabase)
+        assertEquals("IMPERIAL", back.settings?.unitSystem)
+        assertEquals(listOf("2026-11-20"), back.settings?.completeDays)
+        assertFalse(back.reminders!!.weeklySummary)
+        // File delle versioni precedenti: i campi nuovi prendono il valore di base
+        val old = BackupCodec.decode("""{"app":"unicum","version":1,"settings":{"age":30},"reminders":{"recoveryAlerts":false}}""")!!
+        assertEquals(null, old.settings?.unitSystem)
+        assertTrue(old.reminders!!.weeklySummary)
+    }
 }

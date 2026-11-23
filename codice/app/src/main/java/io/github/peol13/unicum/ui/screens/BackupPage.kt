@@ -134,7 +134,7 @@ fun BackupPage() {
                     Text(
                         if (withNotion) tr("Il file conterrà il token in chiaro: chi lo trova può leggere le pagine condivise con l'integrazione. Non metterlo in cartelle condivise.")
                             
-                        else tr("Spento, il token resta fuori: sul telefono nuovo va incollato di nuovo. Il backup automatico non lo include mai."),
+                        else tr("Spento, il token resta fuori da questo file: sul telefono nuovo va incollato di nuovo (il backup automatico lo include, se l'hai lasciato acceso)."),
                             
                         color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp
                     )
@@ -276,6 +276,27 @@ private fun AutoBackupCard(onMessage: (String) -> Unit) {
             if (state.held != null) {
                 UnicumButton(tr("Salva comunque"), enabled = !busy, onClick = { runNow(overrideHold = true) })
                 Spacer(Modifier.height(8.dp))
+            }
+            // Collegamento a Notion nel file: su un telefono nuovo l'app si ricollega da sola
+            if (NotionPlan.connected) {
+                Row(Modifier.fillMaxWidth().padding(bottom = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(tr("Includi il collegamento a Notion"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+                        Text(
+                            tr("Token e database nel file: su un telefono nuovo l'app si ricollega da sola. Il token legge solo le pagine condivise con l'integrazione: tieni il file in un posto solo tuo."),
+                            color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 16.sp
+                        )
+                    }
+                    Spacer(Modifier.width(10.dp))
+                    androidx.compose.material3.Switch(
+                        checked = state.includeNotion,
+                        onCheckedChange = { AutoBackup.setIncludeNotion(context, it) },
+                        colors = androidx.compose.material3.SwitchDefaults.colors(
+                            checkedThumbColor = io.github.peol13.unicum.ui.theme.UnicumOnPrimary, checkedTrackColor = UnicumPrimary,
+                            uncheckedTrackColor = io.github.peol13.unicum.ui.theme.UnicumAccent.copy(alpha = .3f)
+                        )
+                    )
+                }
             }
             UnicumButton(if (busy) tr("Salvo...") else tr("Salva ora"), enabled = !busy, onClick = { runNow(overrideHold = false) })
             Row(Modifier.fillMaxWidth()) {

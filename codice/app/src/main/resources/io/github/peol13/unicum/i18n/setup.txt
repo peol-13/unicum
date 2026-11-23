@@ -58,13 +58,6 @@ fr: Le fichier contiendra le jeton en clair : qui le trouve peut lire les pages 
 de: Die Datei enthält den Token im Klartext: Wer sie findet, kann die mit der Integration geteilten Seiten lesen. Leg sie nicht in geteilte Ordner.
 pt: O arquivo terá o token em texto puro: quem o encontrar pode ler as páginas compartilhadas com a integração. Não o coloque em pastas compartilhadas.
 
-it: Spento, il token resta fuori: sul telefono nuovo va incollato di nuovo. Il backup automatico non lo include mai.
-en: Off, the token stays out: on a new phone you'll paste it again. The automatic backup never includes it.
-es: Desactivado, el token queda fuera: en el teléfono nuevo hay que pegarlo otra vez. La copia automática nunca lo incluye.
-fr: Désactivé, le jeton reste en dehors : sur un nouveau téléphone il faudra le recoller. La sauvegarde automatique ne l'inclut jamais.
-de: Aus, der Token bleibt draußen: Auf dem neuen Telefon musst du ihn erneut einfügen. Die automatische Sicherung enthält ihn nie.
-pt: Desligado, o token fica de fora: no telefone novo será preciso colá-lo de novo. O backup automático nunca o inclui.
-
 it: Esporta i dati
 en: Export data
 es: Exportar los datos
@@ -817,3 +810,17 @@ es: Las horas de los recordatorios también vienen del archivo. En un teléfono 
 fr: Les heures des rappels viennent aussi du fichier. Sur un nouveau téléphone, ouvre ensuite Profil → Notifications pour autoriser les notifications.
 de: Auch die Erinnerungszeiten kommen aus der Datei. Öffne auf einem neuen Handy danach Profil → Benachrichtigungen, um Benachrichtigungen zu erlauben.
 pt: Os horários dos lembretes também vêm do arquivo. Num celular novo, abra depois Perfil → Notificações para permitir as notificações.
+
+it: Spento, il token resta fuori da questo file: sul telefono nuovo va incollato di nuovo (il backup automatico lo include, se l'hai lasciato acceso).
+en: Off, the token stays out of this file: on a new phone you'll paste it again (the automatic backup includes it, if you left that on).
+es: Apagado, el token queda fuera de este archivo: en el teléfono nuevo habrá que pegarlo otra vez (la copia automática lo incluye, si la dejaste activada).
+fr: Désactivé, le jeton reste hors de ce fichier : sur le nouveau téléphone il faudra le recoller (la sauvegarde automatique l'inclut, si tu l'as laissée activée).
+de: Aus, das Token bleibt außerhalb dieser Datei: Auf dem neuen Handy musst du es neu einfügen (das automatische Backup enthält es, wenn du das eingeschaltet lässt).
+pt: Desligado, o token fica fora deste arquivo: no celular novo será preciso colá-lo de novo (o backup automático o inclui, se você deixou ligado).
+
+it: Token e database nel file: su un telefono nuovo l'app si ricollega da sola. Il token legge solo le pagine condivise con l'integrazione: tieni il file in un posto solo tuo.
+en: Token and databases in the file: on a new phone the app reconnects by itself. The token can only read pages shared with the integration: keep the file somewhere only you can access.
+es: Token y bases de datos en el archivo: en un teléfono nuevo la app se vuelve a conectar sola. El token solo lee las páginas compartidas con la integración: guarda el archivo en un sitio solo tuyo.
+fr: Jeton et bases de données dans le fichier : sur un nouveau téléphone l'appli se reconnecte toute seule. Le jeton ne lit que les pages partagées avec l'intégration : garde le fichier dans un endroit rien qu'à toi.
+de: Token und Datenbanken in der Datei: Auf einem neuen Handy verbindet sich die App von selbst. Das Token liest nur die mit der Integration geteilten Seiten: Bewahre die Datei an einem Ort auf, auf den nur du zugreifst.
+pt: Token e bases de dados no arquivo: num celular novo o app se reconecta sozinho. O token só lê as páginas compartilhadas com a integração: guarde o arquivo num lugar só seu.

@@ -10,8 +10,8 @@ import kotlinx.serialization.json.Json
  * Esportazione/importazione dei dati creati nell'app (pasti, allenamenti manuali, prodotti salvati,
  * profilo e alimenti personali, scarpe, sensazioni e correzioni delle corse, promemoria, obiettivi di corsa). Sonno, metriche e
  * allenamenti letti da Health Connect non ci sono: tornano con la sincronizzazione. Logica pura, senza Android.
- * Il token di Notion entra solo se chi esporta a mano lo sceglie ([BackupNotion]): il file può finire su Drive
- * o sul PC, quindi di base resta fuori e il backup automatico non lo include mai.
+ * Il token di Notion ([BackupNotion]) entra nell'esportazione a mano solo se lo si sceglie (il file si manda in giro);
+ * nel backup automatico c'è di base, perché il file sta in un posto scelto dall'utente (si spegne dalla pagina del backup).
  */
 @Serializable
 data class BackupMeal(
@@ -93,7 +93,9 @@ data class BackupSettings(
     /** HRV confrontabile dal (yyyy-MM-dd) scelto a mano; null = automatico. */
     val hrvFrom: String? = null,
     /** Giorni segnati come "giornata completa" (yyyy-MM-dd); si uniscono a quelli presenti. */
-    val completeDays: List<String> = emptyList()
+    val completeDays: List<String> = emptyList(),
+    /** Unità di misura (nome di [UnitSystem]); null = file vecchio, resta quella del telefono. */
+    val unitSystem: String? = null
 )
 
 /**
@@ -109,7 +111,12 @@ data class BackupRunFeedback(val id: String, val feedback: WorkoutFeedback)
 
 /** Orari dei promemoria dei pasti (tipo → minuto del giorno, -1 = spento) e avvisi sul recupero. */
 @Serializable
-data class BackupReminders(val minutes: Map<String, Int> = emptyMap(), val recoveryAlerts: Boolean = true)
+data class BackupReminders(
+    val minutes: Map<String, Int> = emptyMap(),
+    val recoveryAlerts: Boolean = true,
+    /** Notifica del lunedì con il riepilogo della settimana (1.1.0). */
+    val weeklySummary: Boolean = true
+)
 
 /**
  * Sensazioni e scarpe di corse che su questo telefono non ci sono ancora (backup importato prima della
@@ -151,7 +158,7 @@ data class BackupFile(
     val runGoals: RunGoals? = null,
     /** Programma di allenamento tenuto nell'app (importato da PDF o scritto a mano). */
     val localPlan: LocalPlanData? = null,
-    /** Collegamento a Notion: solo se chi esporta a mano lo sceglie (mai nel backup automatico). */
+    /** Collegamento a Notion: nell'esportazione a mano se scelto, nel backup automatico se acceso (di base sì). */
     val notion: BackupNotion? = null
 ) {
     /** Quello che va assegnato alle sessioni di Health Connect (sensazioni e scarpe). */

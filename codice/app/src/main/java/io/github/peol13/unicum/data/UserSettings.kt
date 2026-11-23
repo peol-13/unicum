@@ -493,7 +493,7 @@ object UserSettings {
         proteinPct = proteinPct, carbsPct = carbsPct, fatsPct = fatsPct,
         themeMode = themeMode.name, dashboardMode = dashboardMode.name, homeLayout = homeLayout?.let { HomeLayout.encode(it) },
         customFoods = customFoods, recentFoods = recentFoodNames, savedMeals = savedMeals,
-        hrvFrom = hrvFromManual?.toString(), completeDays = completeDays.sorted()
+        hrvFrom = hrvFromManual?.toString(), completeDays = completeDays.sorted(), unitSystem = unitSystem.name
     )
 
     /** Ripristina profilo e preferenze dal backup; alimenti personali e recenti si uniscono a quelli presenti. */
@@ -510,6 +510,7 @@ object UserSettings {
         runCatching { DashboardMode.valueOf(s.dashboardMode) }.getOrNull()?.let { chooseDashboardMode(it) }
         HomeLayout.decode(s.homeLayout)?.let { saveHomeLayout(it) }
         s.hrvFrom?.let(::parseIsoDate)?.let { chooseHrvFrom(it) }
+        s.unitSystem?.let { runCatching { UnitSystem.valueOf(it) }.getOrNull() }?.let { chooseUnitSystem(it) }
         if (s.onboarded) completeOnboarding()
         val mergedFoods = BackupCodec.mergeCustomFoods(customFoods, s.customFoods)
         persistCustomFoods(mergedFoods.filter { f -> customFoods.none { it.name.equals(f.name, true) } })

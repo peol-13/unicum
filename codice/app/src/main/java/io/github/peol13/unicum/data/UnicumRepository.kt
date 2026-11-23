@@ -239,7 +239,7 @@ object UnicumRepository {
     // BACKUP
     // ==============================
 
-    /** [includeNotion]: aggiunge token e database di Notion (solo dall'esportazione a mano, se scelto). */
+    /** [includeNotion]: aggiunge token e database di Notion (esportazione a mano se scelto, backup automatico se acceso). */
     suspend fun exportBackup(context: Context, includeNotion: Boolean = false): String = withContext(Dispatchers.IO) {
         val d = dao(context)
         val notion = if (includeNotion) { NotionPlan.init(context); NotionPlan.exportConnection() } else null
@@ -270,7 +270,8 @@ object UnicumRepository {
 
     private fun exportReminders(context: Context) = BackupReminders(
         minutes = MealReminders.types.associateWith { MealReminders.minuteOf(context, it) ?: -1 },
-        recoveryAlerts = RecoveryAlertNotifier.isEnabled(context)
+        recoveryAlerts = RecoveryAlertNotifier.isEnabled(context),
+        weeklySummary = WeeklySummary.isEnabled(context)
     )
 
     private fun pendingPrefs(context: Context) = context.applicationContext.getSharedPreferences("backup_pending", Context.MODE_PRIVATE)
@@ -321,6 +322,7 @@ object UnicumRepository {
         file.reminders?.let { r ->
             r.minutes.forEach { (type, minute) -> if (type in MealReminders.types) MealReminders.set(context, type, minute.takeIf { it >= 0 }) }
             RecoveryAlertNotifier.setEnabled(context, r.recoveryAlerts)
+            WeeklySummary.setEnabled(context, r.weeklySummary)
         }
         // Sensazioni e scarpe delle corse: subito quelle già sincronizzate, le altre dopo la sincronizzazione
         if (!file.pending.isEmpty) {

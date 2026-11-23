@@ -67,7 +67,12 @@ object AutoBackup {
         val lastBytes: Long = 0L,
         val lastError: String? = null,
         /** Il backup nuovo è fermo perché ha molti meno dati dell'ultimo: serve la conferma dell'utente. */
-        val held: String? = null
+        val held: String? = null,
+        /**
+         * Nel file anche il collegamento a Notion (token e database): su un telefono nuovo l'app si ricollega da sola.
+         * Acceso di base; si spegne dalla pagina del backup.
+         */
+        val includeNotion: Boolean = true
     ) {
         val enabled: Boolean get() = uri != null
     }
@@ -95,7 +100,8 @@ object AutoBackup {
             lastSuccessMillis = prefs.getLong("last_success", 0L),
             lastBytes = prefs.getLong("last_bytes", 0L),
             lastError = prefs.getString("error", null),
-            held = prefs.getString("held", null)
+            held = prefs.getString("held", null),
+            includeNotion = prefs.getBoolean("include_notion", true)
         )
     }
 
@@ -105,7 +111,14 @@ object AutoBackup {
             .putString("uri", new.uri).putLong("set_up", new.setUpMillis)
             .putLong("last_success", new.lastSuccessMillis).putLong("last_bytes", new.lastBytes)
             .putString("error", new.lastError).putString("held", new.held)
+            .putBoolean("include_notion", new.includeNotion)
             .apply()
+    }
+
+    /** Collegamento a Notion nel backup automatico sì / no (vale dal prossimo backup). */
+    fun setIncludeNotion(context: Context, on: Boolean) {
+        init(context)
+        save(state.copy(includeNotion = on))
     }
 
     fun health(nowMillis: Long = System.currentTimeMillis()) = state.let {
@@ -167,7 +180,7 @@ object AutoBackup {
             if (!force && !AutoBackupPolicy.isDue(state.lastSuccessMillis, nowMillis)) return@withContext Outcome.NotDue
             try {
                 val resolver = context.contentResolver
-                val text = UnicumRepository.exportBackup(context)
+                val text = UnicumRepository.exportBackup(context, includeNotion = state.includeNotion)
                 val fresh = BackupCodec.decode(text) ?: error("backup non valido")
 
                 // Il file che c'è già: se ha molti più dati di questo, qualcosa è andato storto
