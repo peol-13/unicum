@@ -143,6 +143,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun AppContent() {
+    // Promemoria pasti e avvisi sul recupero partono accesi: da Android 13 serve il permesso
+    // delle notifiche, chiesto una volta sola appena si apre l'app (anche prima del setup)
+    NotificationPermissionPrompt()
+
     // Primo avvio: schermata di benvenuto con i dati personali
     if (!UserSettings.onboarded) {
         SetupScreen(onDone = {})
@@ -240,5 +244,26 @@ private fun AppContent() {
             onNavigate = ::navigate,
             onBack = { screen = Route.Home }
         )
+    }
+}
+
+/** Chiede il permesso POST_NOTIFICATIONS al primo avvio su Android 13+, se non è già concesso. Una volta sola. */
+@Composable
+private fun NotificationPermissionPrompt() {
+    if (android.os.Build.VERSION.SDK_INT < 33) return
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val launcher = androidx.activity.compose.rememberLauncherForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        // Concesso ora: riprogramma i promemoria, così partono già da oggi
+        if (granted) MealReminders.scheduleAll(context.applicationContext)
+    }
+    LaunchedEffect(Unit) {
+        if (!UserSettings.needsNotificationPrompt) return@LaunchedEffect
+        UserSettings.markNotificationPromptDone()
+        val granted = androidx.core.content.ContextCompat.checkSelfPermission(
+            context, android.Manifest.permission.POST_NOTIFICATIONS
+        ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        if (!granted) launcher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
     }
 }

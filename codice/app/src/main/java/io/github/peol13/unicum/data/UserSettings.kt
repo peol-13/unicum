@@ -353,6 +353,13 @@ object UserSettings {
         prefs.edit().putBoolean("health_history_v1", true).apply()
     }
 
+    /** true finché all'avvio non è stato chiesto il permesso delle notifiche (Android 13+): si chiede una volta sola. */
+    val needsNotificationPrompt: Boolean get() = !prefs.getBoolean("notifications_asked_v1", false)
+
+    fun markNotificationPromptDone() {
+        prefs.edit().putBoolean("notifications_asked_v1", true).apply()
+    }
+
     /** true finché non è stato letto lo storico degli allenamenti (un anno) per la sezione Allenamenti. */
     val needsWorkoutHistory: Boolean get() = !prefs.getBoolean("workout_history_v8", false)
 
