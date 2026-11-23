@@ -1,6 +1,6 @@
 # UNICUM
 
-**Your health. Unified.** An Android app that brings nutrition, activity, sleep, recovery and your running plan into one calm screen.
+**Your health. Unified.** An Android app that brings nutrition, activity, sleep, recovery and your training plan (running, weights, bodyweight) into one calm screen.
 
 *🇮🇹 [Versione italiana più sotto](#italiano)*
 
@@ -15,30 +15,32 @@
 
 <p>
   <img src="docs/screenshots/05-home.png" width="200" alt="Home: calories, deficit and macros">
+  <img src="docs/screenshots/08-log-meal.png" width="200" alt="Logging a meal: foods you usually eat, quick add and the meal bar">
+  <img src="docs/screenshots/09-strength.png" width="200" alt="Strength: loads per exercise over time">
   <img src="docs/screenshots/06-training-plan.png" width="200" alt="Training plan">
-  <img src="docs/screenshots/03-plan-source.png" width="200" alt="Onboarding: choose where your plan comes from">
   <img src="docs/screenshots/04-pdf-import.png" width="200" alt="Import a training plan from a PDF">
 </p>
 
-Your ring tracks your sleep, your watch tracks your runs, a food app tracks your meals, and your coach's plan lives in a PDF or in Notion. UNICUM reads all of them and shows **one day, one picture**: what you ate, what you burned, how you slept, how recovered you are, and what today's run should be.
+Your ring tracks your sleep, your watch tracks your runs, a food app tracks your meals, and your coach's plan lives in a PDF or in Notion. UNICUM reads all of them and shows **one day, one picture**: what you ate, what you burned, how you slept, how recovered you are, and what today's session should be.
 
-> The app is in Italian for now. English translations are welcome. See [Contributing](#contributing).
+> Available in English, Italian, Spanish, French, German and Portuguese, including the food database. Weight, height and loads in kg/cm or lb/ft.
 
 ## Features
 
-- **Nutrition**: daily calorie goal from your BMR (Mifflin-St Jeor) and activity level, macros, ~300 built-in foods, barcode scanner and online search via Open Food Facts. Meals are written back to Health Connect.
+- **Nutrition**: daily calorie goal from your BMR (Mifflin-St Jeor) and activity level, macros, ~300 built-in foods in 6 languages, barcode scanner and online search via Open Food Facts. Fast logging: the foods you usually eat at that meal come first, + adds your usual amount in one tap, saved meals, "repeat from yesterday", undo. Mark a day as complete so averages only use fully logged days. Meals are written back to Health Connect.
 - **Deficit, honestly**: your resting burn accrues through the day instead of being subtracted all at once in the morning, so the balance is real at any hour.
 - **Runs**: every run from Health Connect with splits, heart-rate zones, pace, cadence, elevation and route map. Duplicates from different apps are merged. Intervals can be split from the plan's structure.
+- **Weights and bodyweight**: duration, calories and heart rate from your watch; exercises, sets, reps and loads from your plan (or as you actually did them), with each exercise's loads over time.
 - **Training plan** from three sources:
   - **Notion**: reads your plan database and, optionally, your run log. See [`docs/notion/`](docs/notion/) for the exact schema and importable CSV examples.
   - **PDF**: imports sessions from your coach's or app's PDF (dates or "week + day", type, km, minutes, pace, RPE), with an editable preview.
   - **By hand**: add future sessions yourself.
 
-  A planned session is marked done automatically when a run is recorded on the same day.
+  A planned session is marked done automatically when a workout of the same sport is recorded on the same day.
 - **Recovery**: an estimate based on nightly HRV, sleep and measured training load. It detects by itself when your HRV changes scale (for example, a new device) and ignores the old values.
 - **Goals and estimates**: 5/7/10 km time estimates from heart rate and your best efforts (Riegel), short- and long-term running goals with projections.
 - **Shoes**: mileage per pair, with a default pair assigned automatically.
-- **Widgets, reminders, light and dark theme, local backup and restore.**
+- **Widgets, meal reminders, a Monday summary of your week, light and dark theme, local backup and restore.**
 
 ## Privacy
 
@@ -47,13 +49,15 @@ There is no account and no server. Your data stays on your phone, in a local dat
 - **Health Connect**, on the device: read access, plus writing your meals;
 - **Notion API**, only if you connect it, with a read-only integration token you create;
 - **Open Food Facts**, for food search and barcodes;
-- **OpenStreetMap tiles**, for route maps.
+- **OpenStreetMap tiles**, for route maps;
+- **GitHub**, at most once a day, to check whether a new version is out;
+- **Google Forms**, only if you agree to send anonymous usage statistics (which screens you open, never your data).
 
 ## Install
 
 1. Download the latest APK from [Releases](../../releases).
 2. Install [Health Connect](https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata). It is built into Android 14 and later.
-3. Open UNICUM, answer a few questions, then connect Health Connect from **Profilo**.
+3. Open UNICUM, answer a few questions and connect Health Connect (you can also do it later from **Profile**).
 
 Your watch or ring app (Samsung Health, Garmin via Health Sync, Fitbit, Oura, Ultrahuman, …) must share its data with Health Connect.
 
@@ -116,22 +120,23 @@ The name **UNICUM** and its logo are not covered by the license. A modified vers
 <a name="italiano"></a>
 ## 🇮🇹 Italiano
 
-**UNICUM** riunisce in una sola schermata alimentazione, attività, sonno, recupero e il tuo programma di corsa.
+**UNICUM** riunisce in una sola schermata alimentazione, attività, sonno, recupero e il tuo programma di allenamento (corsa, pesi, corpo libero).
 
 L'anello registra il sonno, l'orologio le corse, un'app i pasti, e il programma dell'allenatore sta in un PDF o su Notion. UNICUM li legge tutti e ti mostra la giornata in un colpo d'occhio: cosa hai mangiato, quanto hai consumato, come hai dormito, quanto sei recuperato e che corsa ti aspetta oggi.
 
 **Cosa fa**
-- **Calorie e macro**: obiettivo fisso calcolato dal metabolismo basale e dal livello di attività; alimenti già pronti, codice a barre e Open Food Facts.
+- **Calorie e macro**: obiettivo fisso calcolato dal metabolismo basale e dal livello di attività; alimenti già pronti, codice a barre e Open Food Facts. Inserimento veloce: prima quello che mangi di solito in quel pasto, il + aggiunge la quantità abituale, pasti salvati, "Ripeti da ieri", annulla. Giornate complete per medie affidabili.
 - **Deficit reale**: il consumo a riposo matura durante la giornata.
 - **Corse da Health Connect**: parziali, zone di frequenza cardiaca, ritmo, mappa. Le copie arrivate da app diverse vengono unite.
+- **Pesi e corpo libero**: durata, calorie e battito dall'orologio; esercizi, serie, ripetizioni e carichi dal programma (o come li hai fatti), con i kg di ogni esercizio nel tempo.
 - **Programma di allenamento**:
   - da **Notion**: schema in [`docs/notion/`](docs/notion/);
   - da **PDF**;
   - **scritto a mano**.
 
-  Una seduta si segna fatta da sola quando c'è una corsa nello stesso giorno.
+  Una seduta si segna fatta da sola quando c'è un allenamento dello stesso sport nello stesso giorno.
 - **Recupero stimato**: da HRV notturna, sonno e carico misurato degli allenamenti.
-- **Stime 5/7/10 km, obiettivi di corsa, scarpe, widget, tema scuro, backup.**
+- **Stime 5/7/10 km, obiettivi di corsa, scarpe, widget, riepilogo del lunedì, tema scuro, backup. In 6 lingue, con kg/cm o lb/ft.**
 
 **🧪 Cerco tester.** Per ora la prova funziona così: scarichi l'APK dalle [Releases](../../releases/latest), usi l'app e mi scrivi com'è andata, [qui su GitHub](../../issues/new/choose) oppure [in privato con un modulo](https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform). Se trovi un problema o un PDF che l'app non legge, è il messaggio più utile.
 
@@ -143,7 +148,7 @@ L'anello registra il sonno, l'orologio le corse, un'app i pasti, e il programma 
 1. Scarica l'APK da [Releases](../../releases).
 2. Installa Health Connect (su Android 14 e successivi è già presente).
 3. Apri l'app e rispondi alle domande del primo avvio.
-4. Collega Health Connect dal Profilo.
+4. Collega Health Connect nel primo avvio (o dopo, dal Profilo).
 
 **Compilare**: vedi la sezione [Build](#build) qui sopra.
 
