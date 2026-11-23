@@ -204,7 +204,8 @@ private fun AppContent() {
             }
         )
     }
-    if (!UnicumAppState.onboardedThisSession) UsageStatsConsentDialog()
+    // Una richiesta alla volta: dopo il primo avvio e mentre c'è la finestra delle novità aspetta
+    if (!UnicumAppState.onboardedThisSession && !io.github.peol13.unicum.ui.screens.whatsNewPending()) UsageStatsConsentDialog()
 
     // Il tasto Indietro riporta alla Home da qualsiasi schermata; dalla Home chiude l'app
     BackHandler(enabled = screen != Route.Home) {

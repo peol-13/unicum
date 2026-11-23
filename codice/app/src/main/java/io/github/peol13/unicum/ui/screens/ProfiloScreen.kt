@@ -97,11 +97,15 @@ import io.github.peol13.unicum.ui.theme.UnicumAccent
 import io.github.peol13.unicum.ui.theme.UnicumDark
 import io.github.peol13.unicum.ui.theme.UnicumPrimary
 import io.github.peol13.unicum.ui.theme.UnicumType
+import androidx.compose.material.icons.rounded.Forum
+import androidx.compose.material.icons.rounded.Info
 
 @Composable
 fun ProfiloScreen(onNavigate: (Route) -> Unit) {
     // null = menu principale, altrimenti la sotto-pagina aperta
     var page by rememberSaveable { mutableStateOf<String?>(null) }
+    var whatsNew by remember { mutableStateOf(false) }
+    if (whatsNew) WhatsNewDialog(onDismiss = { whatsNew = false })
     BackHandler(enabled = page != null) { page = null }
     LaunchedEffect(page) { page?.let { io.github.peol13.unicum.data.UsageStats.screen("Profilo/$it") } }
     // Ogni sotto-pagina parte dall'alto (prima ereditava lo scorrimento del menu: "Aspetto" si apriva già sul Tema);
@@ -140,6 +144,16 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
                 PageHeader(tr("Backup dei dati"), tr("Automatico, esporta e importa"), onBack = { page = null })
                 Spacer(Modifier.height(14.dp))
                 BackupPage()
+            }
+            "parere" -> {
+                PageHeader(tr("Invia un parere"), tr("Problemi, idee, com'è andata"), onBack = { page = null })
+                Spacer(Modifier.height(14.dp))
+                FeedbackPage()
+            }
+            "info" -> {
+                PageHeader(tr("Informazioni"), tr("Versione, privacy, licenza e crediti"), onBack = { page = null })
+                Spacer(Modifier.height(14.dp))
+                AboutPage(onWhatsNew = { whatsNew = true })
             }
             "statistiche" -> {
                 PageHeader(tr("Statistiche anonime"), tr("Facoltative: cosa viene inviato"), onBack = { page = null })
@@ -196,6 +210,14 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
                         Icons.Rounded.BarChart, tr("Statistiche anonime"), usageStatsSummary
                     ) { page = "statistiche" }
                 }
+                MenuSection(tr("Aiuto"))
+                ProfileMenuRow(
+                    Icons.Rounded.Forum, tr("Invia un parere"), tr("Un problema, un'idea o com'è andata: in privato o su GitHub")
+                ) { page = "parere" }
+                Spacer(Modifier.height(10.dp))
+                ProfileMenuRow(
+                    Icons.Rounded.Info, tr("Informazioni"), tr("Novità, privacy, licenza e crediti")
+                ) { page = "info" }
                 Spacer(Modifier.height(18.dp))
                 Text(
                     "UNICUM ${io.github.peol13.unicum.BuildConfig.VERSION_NAME} · Your health. Unified.",

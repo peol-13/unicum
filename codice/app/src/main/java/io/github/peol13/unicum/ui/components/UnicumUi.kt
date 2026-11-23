@@ -191,6 +191,22 @@ fun UnicumScreen(
                 CompositionLocalProvider(LocalNavigate provides onNavigate) { content() }
             }
         }
+        // Velo sul contenuto quando il menu del + è aperto: un tocco lo chiude
+        val scrim: @Composable () -> Unit = {
+            androidx.compose.animation.AnimatedVisibility(
+                FabMenu.open,
+                enter = androidx.compose.animation.fadeIn(),
+                exit = androidx.compose.animation.fadeOut()
+            ) {
+                Box(
+                    Modifier.fillMaxSize().background(UnicumBackground.copy(alpha = .82f))
+                        .clickable(
+                            interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() },
+                            indication = null
+                        ) { FabMenu.open = false }
+                )
+            }
+        }
         if (onRefresh != null) {
             val pullState = rememberPullToRefreshState()
             PullToRefreshBox(
@@ -208,10 +224,10 @@ fun UnicumScreen(
                         color = UnicumPrimary
                     )
                 },
-                content = { body() }
+                content = { body(); scrim() }
             )
         } else {
-            Box(Modifier.fillMaxSize().padding(innerPadding)) { body() }
+            Box(Modifier.fillMaxSize().padding(innerPadding)) { body(); scrim() }
         }
     }
 }

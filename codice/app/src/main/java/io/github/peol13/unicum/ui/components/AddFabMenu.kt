@@ -34,10 +34,18 @@ import io.github.peol13.unicum.ui.theme.UnicumDark
 import io.github.peol13.unicum.ui.theme.UnicumSurface
 import io.github.peol13.unicum.ui.theme.UnicumType
 
+/** Menu del + aperto: [UnicumScreen] stende un velo sul contenuto, così le voci non si confondono col testo sotto. */
+object FabMenu {
+    var open by mutableStateOf(false)
+}
+
 /** Pulsante + che apre un piccolo menu: aggiungi un pasto o un allenamento. */
 @Composable
 fun AddFabMenu(onAddMeal: () -> Unit, onAddActivity: () -> Unit) {
-    var open by remember { mutableStateOf(false) }
+    var open by FabMenu::open
+    // Si chiude da solo lasciando la schermata, e con Indietro
+    androidx.compose.runtime.DisposableEffect(Unit) { onDispose { FabMenu.open = false } }
+    androidx.activity.compose.BackHandler(enabled = open) { open = false }
     Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(10.dp)) {
         if (open) {
             AddMenuItem(Icons.Rounded.Restaurant, tr("Aggiungi pasto")) {

@@ -161,6 +161,15 @@ object UserSettings {
     var weekStorySeen by mutableStateOf<String?>(null)
         private set
 
+    /** Ultima versione di cui si è vista la finestra delle novità (null = mai: chi aggiorna da 1.0.x la vede). */
+    var whatsNewSeen by mutableStateOf<String?>(null)
+        private set
+
+    fun markWhatsNewSeen(version: String) {
+        whatsNewSeen = version
+        prefs.edit().putString("whats_new_seen", version).apply()
+    }
+
     /** La card "Primi passi" della Home è stata nascosta a mano. */
     var firstStepsHidden by mutableStateOf(false)
         private set
@@ -250,6 +259,7 @@ object UserSettings {
         }.getOrDefault(emptyList())
         weekStorySeen = prefs.getString("week_story_seen", null)
         firstStepsHidden = prefs.getBoolean("first_steps_hidden", false)
+        whatsNewSeen = prefs.getString("whats_new_seen", null)
         homeLayout = HomeLayout.decode(prefs.getString("home_layout", null))
         hrvFromManual = prefs.getString("hrv_from_manual", null)?.let(::parseIsoDate)
         hrvFromAuto = prefs.getString("hrv_from_auto", null)?.let(::parseIsoDate)

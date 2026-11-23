@@ -104,6 +104,7 @@ fun DashboardScreen(onNavigate: (Route) -> Unit) {
         DashboardHeader()
         Spacer(Modifier.height(14.dp))
         UpdateBanner()
+        WhatsNewOnUpdate()
         if (UnicumAppState.isToday) FirstStepsCard(onAddMeal = { adding.addMeal() })
         if (UnicumAppState.isToday) WeekStoryTeaser(onOpen = { onNavigate(Route.WeekStory(lastCompletedWeek())) })
 

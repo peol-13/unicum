@@ -656,3 +656,271 @@ es: Desactivadas · ayuda a saber qué mejorar
 fr: Désactivées · aide à savoir quoi améliorer
 de: Aus · hilf herauszufinden, was besser werden soll
 pt: Desativadas · ajude a entender o que melhorar
+
+# Aiuto, informazioni e novità (1.1.0)
+
+it: Aiuto
+en: Help
+es: Ayuda
+fr: Aide
+de: Hilfe
+pt: Ajuda
+
+it: Invia un parere
+en: Send feedback
+es: Enviar una opinión
+fr: Envoyer un avis
+de: Feedback senden
+pt: Enviar uma opinião
+
+it: Un problema, un'idea o com'è andata: in privato o su GitHub
+en: A problem, an idea or how it went: privately or on GitHub
+es: Un problema, una idea o cómo te fue: en privado o en GitHub
+fr: Un problème, une idée ou comment ça s'est passé : en privé ou sur GitHub
+de: Ein Problem, eine Idee oder wie es lief: privat oder auf GitHub
+pt: Um problema, uma ideia ou como foi: em privado ou no GitHub
+
+it: Problemi, idee, com'è andata
+en: Problems, ideas, how it went
+es: Problemas, ideas, cómo te fue
+fr: Problèmes, idées, comment ça s'est passé
+de: Probleme, Ideen, wie es lief
+pt: Problemas, ideias, como foi
+
+it: Informazioni
+en: About
+es: Información
+fr: À propos
+de: Info
+pt: Sobre
+
+it: Novità, privacy, licenza e crediti
+en: What's new, privacy, license and credits
+es: Novedades, privacidad, licencia y créditos
+fr: Nouveautés, confidentialité, licence et crédits
+de: Neuigkeiten, Datenschutz, Lizenz und Credits
+pt: Novidades, privacidade, licença e créditos
+
+it: Versione, privacy, licenza e crediti
+en: Version, privacy, license and credits
+es: Versión, privacidad, licencia y créditos
+fr: Version, confidentialité, licence et crédits
+de: Version, Datenschutz, Lizenz und Credits
+pt: Versão, privacidade, licença e créditos
+
+it: Un problema, un PDF che non legge, un'idea o solo com'è andata: leggo tutto.
+en: A problem, a PDF it can't read, an idea or just how it went: I read everything.
+es: Un problema, un PDF que no lee, una idea o solo cómo te fue: lo leo todo.
+fr: Un problème, un PDF qu'elle ne lit pas, une idée ou juste comment ça s'est passé : je lis tout.
+de: Ein Problem, ein PDF, das sie nicht liest, eine Idee oder einfach wie es lief: Ich lese alles.
+pt: Um problema, um PDF que não lê, uma ideia ou só como foi: eu leio tudo.
+
+it: In privato
+en: Privately
+es: En privado
+fr: En privé
+de: Privat
+pt: Em privado
+
+it: Un modulo di un minuto, senza account. Arriva direttamente all'autore.
+en: A one-minute form, no account needed. It goes straight to the developer.
+es: Un formulario de un minuto, sin cuenta. Llega directamente al autor.
+fr: Un formulaire d'une minute, sans compte. Il arrive directement à l'auteur.
+de: Ein Formular für eine Minute, ohne Konto. Es geht direkt an den Entwickler.
+pt: Um formulário de um minuto, sem conta. Vai direto para o autor.
+
+it: Su GitHub, in pubblico
+en: On GitHub, publicly
+es: En GitHub, en público
+fr: Sur GitHub, en public
+de: Auf GitHub, öffentlich
+pt: No GitHub, em público
+
+it: Gli altri possono leggere e commentare. Serve un account GitHub, gratuito.
+en: Others can read and comment. You need a free GitHub account.
+es: Otros pueden leer y comentar. Necesitas una cuenta de GitHub, gratuita.
+fr: Les autres peuvent lire et commenter. Il faut un compte GitHub, gratuit.
+de: Andere können lesen und kommentieren. Du brauchst ein kostenloses GitHub-Konto.
+pt: Outras pessoas podem ler e comentar. É preciso uma conta GitHub, gratuita.
+
+it: Se segnali un problema, scrivi anche questa riga: %s
+en: If you're reporting a problem, include this line too: %s
+es: Si informas de un problema, escribe también esta línea: %s
+fr: Si tu signales un problème, ajoute aussi cette ligne : %s
+de: Wenn du ein Problem meldest, schreib auch diese Zeile dazu: %s
+pt: Se relatar um problema, escreva também esta linha: %s
+
+it: App open source: i tuoi dati restano sul telefono. Licenza GPL-3.0 o successiva.
+en: Open-source app: your data stays on your phone. License GPL-3.0 or later.
+es: App de código abierto: tus datos se quedan en el teléfono. Licencia GPL-3.0 o posterior.
+fr: Appli open source : tes données restent sur le téléphone. Licence GPL-3.0 ou ultérieure.
+de: Open-Source-App: Deine Daten bleiben auf dem Handy. Lizenz GPL-3.0 oder später.
+pt: App de código aberto: seus dados ficam no celular. Licença GPL-3.0 ou posterior.
+
+it: Novità di questa versione
+en: What's new in this version
+es: Novedades de esta versión
+fr: Nouveautés de cette version
+de: Neu in dieser Version
+pt: Novidades desta versão
+
+it: Cosa è cambiato e le versioni precedenti
+en: What changed, and earlier versions
+es: Qué ha cambiado y las versiones anteriores
+fr: Ce qui a changé et les versions précédentes
+de: Was sich geändert hat und frühere Versionen
+pt: O que mudou e as versões anteriores
+
+it: Codice sorgente
+en: Source code
+es: Código fuente
+fr: Code source
+de: Quellcode
+pt: Código-fonte
+
+it: Informativa sulla privacy
+en: Privacy policy
+es: Política de privacidad
+fr: Politique de confidentialité
+de: Datenschutzerklärung
+pt: Política de privacidade
+
+it: Cosa legge l'app e a chi si collega
+en: What the app reads and what it connects to
+es: Qué lee la app y a qué se conecta
+fr: Ce que l'appli lit et à quoi elle se connecte
+de: Was die App liest und womit sie sich verbindet
+pt: O que o app lê e a que se conecta
+
+it: Crediti
+en: Credits
+es: Créditos
+fr: Crédits
+de: Credits
+pt: Créditos
+
+it: Prodotti con marca e codici a barre · dati ODbL, © i contributori di Open Food Facts
+en: Branded products and barcodes · ODbL data, © Open Food Facts contributors
+es: Productos de marca y códigos de barras · datos ODbL, © colaboradores de Open Food Facts
+fr: Produits de marque et codes-barres · données ODbL, © contributeurs d'Open Food Facts
+de: Markenprodukte und Barcodes · ODbL-Daten, © Open-Food-Facts-Mitwirkende
+pt: Produtos de marca e códigos de barras · dados ODbL, © colaboradores do Open Food Facts
+
+it: Mappe dei percorsi · © i contributori di OpenStreetMap (ODbL)
+en: Route maps · © OpenStreetMap contributors (ODbL)
+es: Mapas de los recorridos · © colaboradores de OpenStreetMap (ODbL)
+fr: Cartes des parcours · © contributeurs d'OpenStreetMap (ODbL)
+de: Streckenkarten · © OpenStreetMap-Mitwirkende (ODbL)
+pt: Mapas dos percursos · © colaboradores do OpenStreetMap (ODbL)
+
+it: Dati di salute dalle app del telefono · Google
+en: Health data from the apps on your phone · Google
+es: Datos de salud de las apps del teléfono · Google
+fr: Données de santé des applis du téléphone · Google
+de: Gesundheitsdaten aus den Apps auf dem Handy · Google
+pt: Dados de saúde dos apps do celular · Google
+
+it: Lettura dei codici a barre sul telefono · termini di Google
+en: On-device barcode reading · Google terms
+es: Lectura de códigos de barras en el teléfono · términos de Google
+fr: Lecture des codes-barres sur le téléphone · conditions de Google
+de: Barcode-Erkennung auf dem Gerät · Google-Bedingungen
+pt: Leitura de códigos de barras no celular · termos do Google
+
+it: Novità di UNICUM %s
+en: What's new in UNICUM %s
+es: Novedades de UNICUM %s
+fr: Nouveautés de UNICUM %s
+de: Neu in UNICUM %s
+pt: Novidades do UNICUM %s
+
+it: Tutte le versioni
+en: All versions
+es: Todas las versiones
+fr: Toutes les versions
+de: Alle Versionen
+pt: Todas as versões
+
+it: Pesi e corpo libero negli Allenamenti: sedute con esercizi, serie e carichi, e i kg di ogni esercizio nel tempo.
+en: Weights and bodyweight in Workouts: sessions with exercises, sets and loads, and each exercise's kg over time.
+es: Pesas y peso corporal en Entrenos: sesiones con ejercicios, series y cargas, y los kg de cada ejercicio en el tiempo.
+fr: Musculation et poids du corps dans Séances : séances avec exercices, séries et charges, et les kg de chaque exercice dans le temps.
+de: Gewichte und Eigengewicht im Training: Einheiten mit Übungen, Sätzen und Lasten, und die kg jeder Übung im Zeitverlauf.
+pt: Pesos e peso corporal em Treinos: sessões com exercícios, séries e cargas, e os kg de cada exercício ao longo do tempo.
+
+it: Registrare un pasto è più veloce: il + aggiunge al volo, la quantità si sceglie in un foglio a parte e il pasto sta in una barra in basso.
+en: Logging a meal is faster: + adds instantly, the amount is chosen in a separate sheet and the meal sits in a bar at the bottom.
+es: Registrar una comida es más rápido: el + añade al instante, la cantidad se elige en una hoja aparte y la comida está en una barra abajo.
+fr: Enregistrer un repas est plus rapide : le + ajoute tout de suite, la quantité se choisit dans une feuille à part et le repas est dans une barre en bas.
+de: Mahlzeiten eintragen geht schneller: + fügt sofort hinzu, die Menge wählst du in einem eigenen Blatt und die Mahlzeit steht in einer Leiste unten.
+pt: Registrar uma refeição é mais rápido: o + adiciona na hora, a quantidade se escolhe numa folha à parte e a refeição fica numa barra embaixo.
+
+it: Ripeti un pasto di un altro giorno tenendolo premuto nel Diario, e "Ripristina" dopo un'eliminazione.
+en: Repeat a meal from another day by long-pressing it in the Diary, and "Undo" after deleting.
+es: Repite una comida de otro día manteniéndola pulsada en el Diario, y "Deshacer" tras eliminar.
+fr: Répète un repas d'un autre jour en appuyant longuement dessus dans le Journal, et « Annuler » après une suppression.
+de: Wiederhole eine Mahlzeit eines anderen Tages per langem Drücken im Tagebuch, und „Rückgängig“ nach dem Löschen.
+pt: Repita uma refeição de outro dia pressionando-a no Diário, e "Desfazer" depois de excluir.
+
+it: Primo avvio più chiaro: lingua, collegamento a Health Connect e card "Primi passi" nella Home.
+en: Clearer first start: language, Health Connect connection and a "Getting started" card on Home.
+es: Primer inicio más claro: idioma, conexión con Health Connect y tarjeta "Primeros pasos" en Inicio.
+fr: Premier lancement plus clair : langue, connexion à Health Connect et carte « Premiers pas » sur l'accueil.
+de: Klarerer Start: Sprache, Verbindung mit Health Connect und die Karte „Erste Schritte“ auf dem Start.
+pt: Primeiro uso mais claro: idioma, conexão com o Health Connect e cartão "Primeiros passos" no Início.
+
+it: Alimenti e porzioni tradotti, e unità imperiali (lb, mi, ft) per chi le usa.
+en: Foods and portions translated, and imperial units (lb, mi, ft) for those who use them.
+es: Alimentos y porciones traducidos, y unidades imperiales (lb, mi, ft) para quien las usa.
+fr: Aliments et portions traduits, et unités impériales (lb, mi, ft) pour qui les utilise.
+de: Lebensmittel und Portionen übersetzt, und imperiale Einheiten (lb, mi, ft) für alle, die sie nutzen.
+pt: Alimentos e porções traduzidos, e unidades imperiais (lb, mi, ft) para quem as usa.
+
+it: Giornate complete: le medie e il peso stimato contano solo i giorni registrati per intero.
+en: Complete days: averages and estimated weight only count fully logged days.
+es: Días completos: las medias y el peso estimado solo cuentan los días registrados por completo.
+fr: Journées complètes : les moyennes et le poids estimé ne comptent que les jours entièrement enregistrés.
+de: Vollständige Tage: Durchschnitte und geschätztes Gewicht zählen nur komplett eingetragene Tage.
+pt: Dias completos: as médias e o peso estimado contam só os dias registrados por inteiro.
+
+it: Il lunedì una notifica con il riepilogo della settimana appena finita.
+en: On Mondays, a notification with the summary of the week that just ended.
+es: Los lunes, una notificación con el resumen de la semana que acaba de terminar.
+fr: Le lundi, une notification avec le résumé de la semaine qui vient de finir.
+de: Montags eine Benachrichtigung mit der Zusammenfassung der gerade beendeten Woche.
+pt: Às segundas, uma notificação com o resumo da semana que acabou.
+
+it: Un avviso nella Home quando esce una nuova versione.
+en: A notice on Home when a new version is out.
+es: Un aviso en Inicio cuando sale una nueva versión.
+fr: Un avis sur l'accueil quand une nouvelle version sort.
+de: Ein Hinweis auf dem Start, wenn eine neue Version erscheint.
+pt: Um aviso no Início quando sai uma nova versão.
+
+it: L'app parla inglese, spagnolo, francese, tedesco e portoghese.
+en: The app speaks English, Spanish, French, German and Portuguese.
+es: La app habla inglés, español, francés, alemán y portugués.
+fr: L'appli parle anglais, espagnol, français, allemand et portugais.
+de: Die App spricht Englisch, Spanisch, Französisch, Deutsch und Portugiesisch.
+pt: O app fala inglês, espanhol, francês, alemão e português.
+
+it: Più stabile in molte schermate.
+en: More stable on many screens.
+es: Más estable en muchas pantallas.
+fr: Plus stable sur de nombreux écrans.
+de: Stabiler auf vielen Bildschirmen.
+pt: Mais estável em muitas telas.
+
+it: Statistiche d'uso anonime, solo se dici sì.
+en: Anonymous usage statistics, only if you say yes.
+es: Estadísticas de uso anónimas, solo si dices que sí.
+fr: Statistiques d'usage anonymes, seulement si tu dis oui.
+de: Anonyme Nutzungsstatistiken, nur wenn du zustimmst.
+pt: Estatísticas de uso anônimas, só se você disser sim.
+
+it: Import dei PDF più preciso.
+en: More accurate PDF import.
+es: Importación de PDF más precisa.
+fr: Import des PDF plus précis.
+de: Genauerer PDF-Import.
+pt: Importação de PDF mais precisa.
