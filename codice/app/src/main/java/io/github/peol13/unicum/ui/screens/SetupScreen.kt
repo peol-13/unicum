@@ -93,6 +93,7 @@ import io.github.peol13.unicum.data.MealReminders
 import io.github.peol13.unicum.i18n.AppLanguage
 import io.github.peol13.unicum.i18n.I18n
 import io.github.peol13.unicum.ui.components.UnicumChip
+import androidx.compose.runtime.remember
 
 /** Da dove arriva il programma di allenamento, scelto al primo avvio. */
 private enum class PlanChoice { NOTION, PDF, NONE }
@@ -260,12 +261,28 @@ private fun StepContent(step: Step, form: PersonalFormState) {
 
         Step.WEIGHT -> {
             Question(tr("Quanto pesi?"), tr("Puoi aggiornarlo quando vuoi: se hai una bilancia collegata arriva da sola."))
-            BigNumberInput(form.weight, "kg", 30..250, 1) { form.weight = it }
+            val imperial = io.github.peol13.unicum.data.Units.imperial
+            var text by remember(imperial) { mutableStateOf(form.weight.toIntOrNull()?.let { io.github.peol13.unicum.data.Units.weightField(it, imperial).toString() } ?: form.weight) }
+            BigNumberInput(text, io.github.peol13.unicum.data.Units.weightUnit(imperial), if (imperial) 66..551 else 30..250, 1) {
+                text = it
+                form.weight = it.toIntOrNull()?.let { v -> io.github.peol13.unicum.data.Units.weightFromField(v, imperial).toString() } ?: it
+            }
         }
 
         Step.HEIGHT -> {
             Question(tr("Quanto sei alto?"), null)
-            BigNumberInput(form.height, "cm", 120..230, 1) { form.height = it }
+            val imperial = io.github.peol13.unicum.data.Units.imperial
+            var text by remember(imperial) { mutableStateOf(form.height.toIntOrNull()?.let { io.github.peol13.unicum.data.Units.heightField(it, imperial).toString() } ?: form.height) }
+            BigNumberInput(text, io.github.peol13.unicum.data.Units.heightUnit(imperial), if (imperial) 47..91 else 120..230, 1) {
+                text = it
+                form.height = it.toIntOrNull()?.let { v -> io.github.peol13.unicum.data.Units.heightFromField(v, imperial).toString() } ?: it
+            }
+            if (imperial) form.height.toIntOrNull()?.let {
+                Text(
+                    io.github.peol13.unicum.data.Units.height(it), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Heading,
+                    textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                )
+            }
         }
 
         Step.ACTIVITY -> {
@@ -426,6 +443,14 @@ private fun Welcome() {
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         AppLanguage.entries.forEach { lang ->
             UnicumChip(lang.nativeName, I18n.language == lang, { I18n.choose(context, lang.code) }, compact = true)
+        }
+    }
+    Spacer(Modifier.height(14.dp))
+    Text(tr("Unità di misura"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+    Spacer(Modifier.height(8.dp))
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        io.github.peol13.unicum.data.UnitSystem.entries.forEach { s ->
+            UnicumChip(s.label, UserSettings.unitSystem == s, { UserSettings.chooseUnitSystem(s) }, compact = true)
         }
     }
 }

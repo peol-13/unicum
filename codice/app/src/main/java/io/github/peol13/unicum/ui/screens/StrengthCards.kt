@@ -126,13 +126,13 @@ private class ExerciseInput(e: Exercise) {
     var name by mutableStateOf(e.name)
     var sets by mutableStateOf(e.sets?.toString().orEmpty())
     var amount by mutableStateOf(StrengthStructure.amountText(e))
-    var kg by mutableStateOf(StrengthStructure.kgText(e.kg)?.removeSuffix(" kg").orEmpty())
+    var kg by mutableStateOf(StrengthStructure.kgText(e.kg)?.removeSuffix(" " + io.github.peol13.unicum.data.Units.weightUnit()).orEmpty())
     val restS = e.restS
 
     fun toExercise(): Exercise? {
         val n = name.trim().takeIf { it.isNotEmpty() } ?: return null
         val (reps, seconds) = StrengthStructure.parseAmount(amount)
-        return Exercise(n, sets.toIntOrNull()?.takeIf { it in 1..50 }, reps, seconds, StrengthStructure.parseKg(kg), restS)
+        return Exercise(n, sets.toIntOrNull()?.takeIf { it in 1..50 }, reps, seconds, StrengthStructure.parseKg(kg)?.let { io.github.peol13.unicum.data.Units.toKg(it) }, restS)
     }
 }
 
@@ -182,7 +182,7 @@ internal fun ExercisesDialog(
                         )
                         OutlinedTextField(
                             value = input.kg, onValueChange = { input.kg = it.filter { c -> c.isDigit() || c == ',' || c == '.' }.take(6) },
-                            label = { Text("Kg") }, singleLine = true,
+                            label = { Text(io.github.peol13.unicum.data.Units.weightUnit()) }, singleLine = true,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                             colors = unicumFieldColors(), shape = RoundedCornerShape(14.dp), modifier = Modifier.weight(1f)
                         )

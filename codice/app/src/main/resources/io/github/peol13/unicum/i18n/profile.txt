@@ -862,13 +862,6 @@ fr: Premier lancement plus clair : langue, connexion à Health Connect et carte 
 de: Klarerer Start: Sprache, Verbindung mit Health Connect und die Karte „Erste Schritte“ auf dem Start.
 pt: Primeiro uso mais claro: idioma, conexão com o Health Connect e cartão "Primeiros passos" no Início.
 
-it: Alimenti e porzioni tradotti, e unità imperiali (lb, mi, ft) per chi le usa.
-en: Foods and portions translated, and imperial units (lb, mi, ft) for those who use them.
-es: Alimentos y porciones traducidos, y unidades imperiales (lb, mi, ft) para quien las usa.
-fr: Aliments et portions traduits, et unités impériales (lb, mi, ft) pour qui les utilise.
-de: Lebensmittel und Portionen übersetzt, und imperiale Einheiten (lb, mi, ft) für alle, die sie nutzen.
-pt: Alimentos e porções traduzidos, e unidades imperiais (lb, mi, ft) para quem as usa.
-
 it: Giornate complete: le medie e il peso stimato contano solo i giorni registrati per intero.
 en: Complete days: averages and estimated weight only count fully logged days.
 es: Días completos: las medias y el peso estimado solo cuentan los días registrados por completo.
@@ -924,3 +917,47 @@ es: Copia una comida a otro día desde el Diario (o "Repetir de ayer"), y "Desha
 fr: Copie un repas vers un autre jour depuis le Journal (ou « Répéter d'hier »), et « Annuler » après une suppression.
 de: Kopiere eine Mahlzeit im Tagebuch auf einen anderen Tag (oder „Von gestern wiederholen“), und „Rückgängig“ nach dem Löschen.
 pt: Copie uma refeição para outro dia pelo Diário (ou "Repetir de ontem"), e "Desfazer" depois de excluir.
+
+# Unità di misura (1.1.0)
+
+it: Unità di misura
+en: Units
+es: Unidades de medida
+fr: Unités de mesure
+de: Maßeinheiten
+pt: Unidades de medida
+
+it: Metrico (kg, cm)
+en: Metric (kg, cm)
+es: Métrico (kg, cm)
+fr: Métrique (kg, cm)
+de: Metrisch (kg, cm)
+pt: Métrico (kg, cm)
+
+it: Imperiale (lb, ft)
+en: Imperial (lb, ft)
+es: Imperial (lb, ft)
+fr: Impérial (lb, ft)
+de: Imperial (lb, ft)
+pt: Imperial (lb, ft)
+
+it: Per peso, altezza e carichi della forza. Le distanze delle corse restano in km.
+en: For weight, height and strength loads. Running distances stay in km.
+es: Para el peso, la altura y las cargas de fuerza. Las distancias de carrera siguen en km.
+fr: Pour le poids, la taille et les charges de musculation. Les distances de course restent en km.
+de: Für Gewicht, Größe und Kraftlasten. Laufdistanzen bleiben in km.
+pt: Para peso, altura e cargas de força. As distâncias de corrida continuam em km.
+
+it: Alimenti e porzioni tradotti, e unità imperiali (lb, ft) per peso, altezza e carichi.
+en: Foods and portions translated, and imperial units (lb, ft) for weight, height and loads.
+es: Alimentos y porciones traducidos, y unidades imperiales (lb, ft) para peso, altura y cargas.
+fr: Aliments et portions traduits, et unités impériales (lb, ft) pour le poids, la taille et les charges.
+de: Lebensmittel und Portionen übersetzt, und imperiale Einheiten (lb, ft) für Gewicht, Größe und Lasten.
+pt: Alimentos e porções traduzidos, e unidades imperiais (lb, ft) para peso, altura e cargas.
+
+it: Previsto dal deficit: %s · reale (tendenza): %s in %d giorni.
+en: Predicted from deficit: %s · actual (trend): %s in %d days.
+es: Previsto por el déficit: %s · real (tendencia): %s en %d días.
+fr: Prévu par le déficit : %s · réel (tendance) : %s en %d jours.
+de: Aus dem Defizit erwartet: %s · tatsächlich (Trend): %s in %d Tagen.
+pt: Previsto pelo déficit: %s · real (tendência): %s em %d dias.

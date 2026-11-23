@@ -32,9 +32,10 @@ object DayEnergy {
 
     /** "−0,4 kg", "+0,2 kg"; sotto i 100 g due decimali, così piccole variazioni non sembrano zero. */
     fun weightChangeText(kg: Double): String {
-        val sign = if (kg < 0) "−" else "+"
-        val abs = kotlin.math.abs(kg)
-        return sign + String.format(I18n.locale, if (abs < 0.1) "%.2f" else "%.1f", abs) + " kg"
+        val v = Units.weightValue(kg)
+        val sign = if (v < 0) "−" else "+"
+        val abs = kotlin.math.abs(v)
+        return sign + String.format(I18n.locale, if (abs < 0.1) "%.2f" else "%.1f", abs) + " " + Units.weightUnit()
     }
 }
 

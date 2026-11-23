@@ -34,6 +34,7 @@ import io.github.peol13.unicum.ui.theme.UnicumAccent
 import io.github.peol13.unicum.ui.theme.UnicumDark
 import io.github.peol13.unicum.ui.theme.UnicumPrimary
 import io.github.peol13.unicum.ui.theme.UnicumType
+import androidx.compose.runtime.remember
 
 /**
  * Stato di un campo che di default mostra una stima ma che l'utente può sovrascrivere a mano
@@ -150,8 +151,18 @@ fun PersonalDataFields(state: PersonalFormState) {
     Spacer(Modifier.height(12.dp))
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         UnicumNumberField(tr("Età"), state.age, tr("anni"), Modifier.weight(1f)) { state.age = it }
-        UnicumNumberField(tr("Peso"), state.weight, "kg", Modifier.weight(1f)) { state.weight = it }
-        UnicumNumberField(tr("Altezza"), state.height, "cm", Modifier.weight(1f)) { state.height = it }
+        // Peso e altezza nel sistema scelto (kg/cm o lb/in); nel profilo restano salvati in kg e cm
+        val imperial = io.github.peol13.unicum.data.Units.imperial
+        var weightText by remember(imperial) { mutableStateOf(state.weight.toIntOrNull()?.let { io.github.peol13.unicum.data.Units.weightField(it, imperial).toString() } ?: state.weight) }
+        var heightText by remember(imperial) { mutableStateOf(state.height.toIntOrNull()?.let { io.github.peol13.unicum.data.Units.heightField(it, imperial).toString() } ?: state.height) }
+        UnicumNumberField(tr("Peso"), weightText, io.github.peol13.unicum.data.Units.weightUnit(imperial), Modifier.weight(1f)) {
+            weightText = it
+            state.weight = it.toIntOrNull()?.let { v -> io.github.peol13.unicum.data.Units.weightFromField(v, imperial).toString() } ?: it
+        }
+        UnicumNumberField(tr("Altezza"), heightText, io.github.peol13.unicum.data.Units.heightUnit(imperial), Modifier.weight(1f)) {
+            heightText = it
+            state.height = it.toIntOrNull()?.let { v -> io.github.peol13.unicum.data.Units.heightFromField(v, imperial).toString() } ?: it
+        }
     }
 
     Spacer(Modifier.height(18.dp))

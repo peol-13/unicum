@@ -140,7 +140,7 @@ object WeekStory {
 
     private fun fmt(v: Int) = String.format(I18n.locale, "%,d", v)
     private fun duration(m: Int) = "${m / 60} h ${"%02d".format(m % 60)}"
-    private fun kg(v: Double) = String.format(I18n.locale, "%.1f kg", v)
+    private fun kg(v: Double) = Units.weight(v)
     private fun kg1(v: Double) = String.format(I18n.locale, "%.1f", v)
     private fun kgSigned(v: Double) = (if (v >= 0) "+" else "−") + kg1(abs(v))
 }

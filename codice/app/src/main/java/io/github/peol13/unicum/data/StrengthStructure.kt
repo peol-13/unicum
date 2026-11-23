@@ -186,9 +186,7 @@ object StrengthStructure {
     }
 
     /** "60 kg", "62,5 kg" (null = corpo libero). */
-    fun kgText(kg: Double?): String? = kg?.let {
-        if (kotlin.math.abs(it - Math.round(it)) < 1e-6) "${Math.round(it)} kg" else "%.1f kg".format(I18n.locale, it)
-    }
+    fun kgText(kg: Double?): String? = kg?.let { Units.load(it) }
 
     /** Il testo di ripetizioni o tempo per un campo da modificare ("8", "8-10", "45″"). */
     fun amountText(e: Exercise): String = e.reps ?: e.seconds?.let(::durationText).orEmpty()

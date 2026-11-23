@@ -133,6 +133,15 @@ object UserSettings {
     var themeMode by mutableStateOf(ThemeMode.SISTEMA)
         private set
 
+    /** Peso, altezza e carichi in kg/cm o lb/ft (di base dal paese del telefono). */
+    var unitSystem by mutableStateOf(UnitSystem.METRIC)
+        private set
+
+    fun chooseUnitSystem(system: UnitSystem) {
+        unitSystem = system
+        prefs.edit().putString("unit_system", system.name).apply()
+    }
+
     var dashboardMode by mutableStateOf(DashboardMode.NUTRIZIONE)
         private set
 
@@ -264,6 +273,8 @@ object UserSettings {
         themeMode = runCatching {
             ThemeMode.valueOf(prefs.getString("theme_mode", null) ?: "")
         }.getOrDefault(ThemeMode.SISTEMA)
+        unitSystem = runCatching { UnitSystem.valueOf(prefs.getString("unit_system", null) ?: "") }
+            .getOrDefault(UnitSystem.fromLocale())
         dashboardMode = runCatching {
             DashboardMode.valueOf(prefs.getString("dashboard_mode", null) ?: "")
         }.getOrDefault(DashboardMode.NUTRIZIONE)

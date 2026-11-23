@@ -79,13 +79,6 @@ fr: Déficit théorique et poids réel
 de: Theoretisches Defizit und echtes Gewicht
 pt: Déficit teórico e peso real
 
-it: Previsto dal deficit: %s kg · reale (tendenza): %s kg in %d giorni.
-en: Predicted by deficit: %s kg · actual (trend): %s kg in %d days.
-es: Previsto por el déficit: %s kg · real (tendencia): %s kg en %d días.
-fr: Prévu par le déficit : %s kg · réel (tendance) : %s kg en %d jours.
-de: Laut Defizit: %s kg · tatsächlich (Trend): %s kg in %d Tagen.
-pt: Previsto pelo déficit: %s kg · real (tendência): %s kg em %d dias.
-
 it: Pasti registrati solo in %d giorni su %d: nei giorni mancanti la previsione resta ferma, quindi il confronto è parziale.
 en: Meals logged on only %d of %d days: on missing days the prediction stays flat, so the comparison is partial.
 es: Comidas registradas solo en %d de %d días: en los días que faltan la previsión no cambia, así que la comparación es parcial.

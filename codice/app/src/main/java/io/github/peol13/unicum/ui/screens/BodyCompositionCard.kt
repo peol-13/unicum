@@ -71,12 +71,16 @@ import io.github.peol13.unicum.ui.theme.UnicumType
 /** Periodi del grafico (giorni) quando la card è espansa. */
 private val RANGES get() = listOf(30 to tr("30 giorni"), 90 to tr("3 mesi"), 365 to tr("1 anno"))
 
-private enum class BodyMetric(private val labelIt: String, val unit: String) {
-    PESO(tk("Peso"), "kg"),
-    MASSA_GRASSA(tk("Massa grassa"), "kg"),
-    GRASSO(tk("Grasso corporeo"), "%");
+private enum class BodyMetric(private val labelIt: String, private val isWeight: Boolean) {
+    PESO(tk("Peso"), true),
+    MASSA_GRASSA(tk("Massa grassa"), true),
+    GRASSO(tk("Grasso corporeo"), false);
 
     val label: String get() = tr(labelIt)
+    /** kg o lb (scelta in Profilo → Aspetto), % per il grasso. */
+    val unit: String get() = if (isWeight) io.github.peol13.unicum.data.Units.weightUnit() else "%"
+    /** Dal valore salvato (kg o %) a quello mostrato. */
+    fun shown(v: Double): Double = if (isWeight) io.github.peol13.unicum.data.Units.weightValue(v) else v
 }
 
 /**
@@ -110,11 +114,13 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
     }
 
     // data -> valore della grandezza scelta; la massa grassa si ricava da peso e percentuale dello stesso giorno
-    val values: Map<String, Double> = when (metric) {
+    val raw: Map<String, Double> = when (metric) {
         BodyMetric.PESO -> weights
         BodyMetric.GRASSO -> fats
         BodyMetric.MASSA_GRASSA -> weights.mapNotNull { (d, w) -> fats[d]?.let { d to w * it / 100.0 } }.toMap()
     }
+    // Valori nell'unità scelta (kg o lb); la previsione dal deficit si calcola in kg e poi si converte
+    val values: Map<String, Double> = raw.mapValues { metric.shown(it.value) }
 
     UnicumCard(onClick = onDetails) {
         CardHeader(
@@ -174,7 +180,7 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
                     RANGES.forEach { (d, label) -> UnicumChip(label, range == d, { range = d }) }
                 }
                 Spacer(Modifier.height(14.dp))
-                val projection = if (metric == BodyMetric.PESO) projectionFrom(values, deficits) else null
+                val projection = if (metric == BodyMetric.PESO) projectionFrom(raw, deficits)?.inUnits() else null
                 LineChart(values, metric.unit, days, projection?.line)
                 projection?.let { ProjectionSummary(it) }
             }
@@ -191,7 +197,13 @@ private class Projection(
     val realChange: Double,
     val daysWithMeals: Int,
     val days: Int
-)
+) {
+    /** La stessa previsione nell'unità scelta (kg o lb). */
+    fun inUnits(): Projection {
+        fun c(v: Double) = io.github.peol13.unicum.data.Units.weightValue(v)
+        return Projection(line.mapValues { c(it.value) }, c(predictedChange), c(realChange), daysWithMeals, days)
+    }
+}
 
 /**
  * Il calo previsto parte dalla tendenza alla prima misura e scende di deficit / 7.700 kg al giorno;
@@ -227,7 +239,9 @@ private fun ProjectionSummary(p: Projection) {
     ) {
         Text(tr("Deficit teorico e peso reale"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
         Text(
-            tr("Previsto dal deficit: %s kg · reale (tendenza): %s kg in %d giorni.", signed(p.predictedChange), signed(p.realChange), p.days),
+            tr("Previsto dal deficit: %s · reale (tendenza): %s in %d giorni.",
+                signed(p.predictedChange) + " " + io.github.peol13.unicum.data.Units.weightUnit(),
+                signed(p.realChange) + " " + io.github.peol13.unicum.data.Units.weightUnit(), p.days),
                 
             color = UnicumDark.copy(alpha = .75f), style = UnicumType.Caption, lineHeight = 17.sp
         )

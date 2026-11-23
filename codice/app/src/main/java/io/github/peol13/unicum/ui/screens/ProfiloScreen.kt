@@ -99,6 +99,7 @@ import io.github.peol13.unicum.ui.theme.UnicumPrimary
 import io.github.peol13.unicum.ui.theme.UnicumType
 import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Straighten
 
 @Composable
 fun ProfiloScreen(onNavigate: (Route) -> Unit) {
@@ -292,6 +293,21 @@ private fun LanguageCard() {
 @Composable
 private fun AppearancePage(onEditHome: () -> Unit) {
     LanguageCard()
+    Spacer(Modifier.height(14.dp))
+    UnicumCard {
+        CardHeader(Icons.Rounded.Straighten, tr("Unità di misura"))
+        Spacer(Modifier.height(4.dp))
+        Text(
+            tr("Per peso, altezza e carichi della forza. Le distanze delle corse restano in km."),
+            color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
+        )
+        Spacer(Modifier.height(10.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            io.github.peol13.unicum.data.UnitSystem.entries.forEach { s ->
+                UnicumChip(s.label, UserSettings.unitSystem == s, { UserSettings.chooseUnitSystem(s) })
+            }
+        }
+    }
     Spacer(Modifier.height(14.dp))
     UnicumCard {
         CardHeader(Icons.Rounded.DarkMode, tr("Tema"))
