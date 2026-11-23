@@ -1102,3 +1102,68 @@ es: %d alimentos
 fr: %d aliments
 de: %d Lebensmittel
 pt: %d alimentos
+
+# Copia pasto (1.1.0)
+
+it: %s copiato: %s
+en: %s copied: %s
+es: %s copiado: %s
+fr: %s copié : %s
+de: %s kopiert: %s
+pt: %s copiado: %s
+
+it: Copia in un altro giorno
+en: Copy to another day
+es: Copiar a otro día
+fr: Copier vers un autre jour
+de: Auf einen anderen Tag kopieren
+pt: Copiar para outro dia
+
+it: Ripeti da ieri
+en: Repeat from yesterday
+es: Repetir de ayer
+fr: Répéter d'hier
+de: Von gestern wiederholen
+pt: Repetir de ontem
+
+it: Copia
+en: Copy
+es: Copiar
+fr: Copier
+de: Kopieren
+pt: Copiar
+
+it: Copia %s
+en: Copy %s
+es: Copiar %s
+fr: Copier %s
+de: %s kopieren
+pt: Copiar %s
+
+it: stesso pasto e stesso orario
+en: same meal and same time
+es: misma comida y misma hora
+fr: même repas et même heure
+de: gleiche Mahlzeit und Uhrzeit
+pt: mesma refeição e mesmo horário
+
+it: Copia in oggi
+en: Copy to today
+es: Copiar a hoy
+fr: Copier vers aujourd'hui
+de: Auf heute kopieren
+pt: Copiar para hoje
+
+it: Copia in ieri
+en: Copy to yesterday
+es: Copiar a ayer
+fr: Copier vers hier
+de: Auf gestern kopieren
+pt: Copiar para ontem
+
+it: Scegli un altro giorno
+en: Choose another day
+es: Elegir otro día
+fr: Choisir un autre jour
+de: Anderen Tag wählen
+pt: Escolher outro dia

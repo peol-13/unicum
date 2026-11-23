@@ -36,6 +36,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import io.github.peol13.unicum.i18n.tr
+import io.github.peol13.unicum.data.MealTime
 
 object UnicumAppState {
 
@@ -197,6 +198,30 @@ object UnicumAppState {
                 val ids = UnicumRepository.insertMeals(context, date, listOf(meal))
                 reload(context)
                 HealthConnectWriter.upsertMeals(context, UnicumRepository.mealEntities(context, ids))
+            }
+        }
+    }
+
+    /**
+     * Copia gli alimenti di un pasto in un altro giorno (stesso tipo e orario): "Ripeti da ieri" e il tasto
+     * Copia del Diario. L'avviso in basso permette di annullare.
+     */
+    fun copyMeals(context: Context, meals: List<Meal>, toDate: String) {
+        if (meals.isEmpty()) return
+        val copies = meals.map { it.copy(id = 0) }
+        scope.launch {
+            val ids = UnicumRepository.insertMeals(context, toDate, copies)
+            reload(context)
+            HealthConnectWriter.upsertMeals(context, UnicumRepository.mealEntities(context, ids))
+            val label = MealTime.label(meals.first().mealType)
+            withContext(Dispatchers.Main) {
+                undo = UndoAction(tr("%s copiato: %s", label, DateUtils.relativeLabel(DateUtils.parse(toDate)).lowercase(io.github.peol13.unicum.i18n.I18n.locale))) {
+                    scope.launch {
+                        ids.forEach { UnicumRepository.deleteMeal(context, it) }
+                        reload(context)
+                        HealthConnectWriter.deleteMeals(context, ids)
+                    }
+                }
             }
         }
     }

@@ -855,13 +855,6 @@ fr: Enregistrer un repas est plus rapide : le + ajoute tout de suite, la quantit
 de: Mahlzeiten eintragen geht schneller: + fügt sofort hinzu, die Menge wählst du in einem eigenen Blatt und die Mahlzeit steht in einer Leiste unten.
 pt: Registrar uma refeição é mais rápido: o + adiciona na hora, a quantidade se escolhe numa folha à parte e a refeição fica numa barra embaixo.
 
-it: Ripeti un pasto di un altro giorno tenendolo premuto nel Diario, e "Ripristina" dopo un'eliminazione.
-en: Repeat a meal from another day by long-pressing it in the Diary, and "Undo" after deleting.
-es: Repite una comida de otro día manteniéndola pulsada en el Diario, y "Deshacer" tras eliminar.
-fr: Répète un repas d'un autre jour en appuyant longuement dessus dans le Journal, et « Annuler » après une suppression.
-de: Wiederhole eine Mahlzeit eines anderen Tages per langem Drücken im Tagebuch, und „Rückgängig“ nach dem Löschen.
-pt: Repita uma refeição de outro dia pressionando-a no Diário, e "Desfazer" depois de excluir.
-
 it: Primo avvio più chiaro: lingua, collegamento a Health Connect e card "Primi passi" nella Home.
 en: Clearer first start: language, Health Connect connection and a "Getting started" card on Home.
 es: Primer inicio más claro: idioma, conexión con Health Connect y tarjeta "Primeros pasos" en Inicio.
@@ -924,3 +917,10 @@ es: Importación de PDF más precisa.
 fr: Import des PDF plus précis.
 de: Genauerer PDF-Import.
 pt: Importação de PDF mais precisa.
+
+it: Copia un pasto in un altro giorno dal Diario (o "Ripeti da ieri"), e "Ripristina" dopo un'eliminazione.
+en: Copy a meal to another day from the Diary (or "Repeat from yesterday"), and "Undo" after deleting.
+es: Copia una comida a otro día desde el Diario (o "Repetir de ayer"), y "Deshacer" tras eliminar.
+fr: Copie un repas vers un autre jour depuis le Journal (ou « Répéter d'hier »), et « Annuler » après une suppression.
+de: Kopiere eine Mahlzeit im Tagebuch auf einen anderen Tag (oder „Von gestern wiederholen“), und „Rückgängig“ nach dem Löschen.
+pt: Copie uma refeição para outro dia pelo Diário (ou "Repetir de ontem"), e "Desfazer" depois de excluir.

@@ -98,6 +98,9 @@ import java.util.Date
 import java.util.Locale
 import io.github.peol13.unicum.ui.theme.UnicumType
 import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.rounded.ContentCopy
+import io.github.peol13.unicum.i18n.trp
+import io.github.peol13.unicum.data.DateUtils
 
 /*
  * Sezioni condivise tra Home, pagine di dettaglio e Diario.
@@ -527,6 +530,86 @@ internal fun SoftPill(modifier: Modifier = Modifier, content: @Composable () -> 
 
 internal fun fmt(v: Int): String = io.github.peol13.unicum.i18n.lnum(v)
 
+/** In un pasto vuoto: "Ripeti da ieri" con gli alimenti dello stesso pasto del giorno prima, se ci sono. */
+@Composable
+private fun RepeatFromYesterday(type: String) {
+    val context = LocalContext.current.applicationContext
+    val date = UnicumAppState.selectedDate
+    val yesterday = remember(date) { DateUtils.parse(date).minusDays(1).toString() }
+    val previous by androidx.compose.runtime.produceState(emptyList<Meal>(), yesterday, type, UnicumAppState.dayData) {
+        value = runCatching {
+            UnicumRepository.loadMeals(context, yesterday).filter { it.mealType.equals(type, ignoreCase = true) }
+        }.getOrDefault(emptyList())
+    }
+    if (previous.isEmpty()) return
+    Spacer(Modifier.height(6.dp))
+    Row(
+        Modifier.clip(RoundedCornerShape(12.dp)).clickable { UnicumAppState.copyMeals(context, previous, date) }
+            .padding(vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(Icons.Rounded.ContentCopy, null, tint = UnicumPrimary, modifier = Modifier.size(16.dp))
+        Spacer(Modifier.width(6.dp))
+        Text(
+            tr("Ripeti da ieri") + " · " + trp(previous.size, "%d alimento", "%d alimenti") + " · ${fmt(previous.sumOf { it.calories })} kcal",
+            color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold
+        )
+    }
+}
+
+/** Dove copiare un pasto: oggi, ieri o un giorno scelto dal calendario (non nel futuro). */
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+@Composable
+private fun CopyMealDialog(type: String, meals: List<Meal>, onDismiss: () -> Unit) {
+    val context = LocalContext.current.applicationContext
+    val from = UnicumAppState.selectedDate
+    val today = DateUtils.today()
+    var picking by remember { mutableStateOf(false) }
+    fun copyTo(date: java.time.LocalDate) {
+        UnicumAppState.copyMeals(context, meals, date.toString())
+        onDismiss()
+    }
+    if (picking) {
+        val state = androidx.compose.material3.rememberDatePickerState(
+            selectableDates = object : androidx.compose.material3.SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long) =
+                    !java.time.Instant.ofEpochMilli(utcTimeMillis).atZone(java.time.ZoneOffset.UTC).toLocalDate().isAfter(today)
+            }
+        )
+        androidx.compose.material3.DatePickerDialog(
+            onDismissRequest = { picking = false },
+            confirmButton = {
+                androidx.compose.material3.TextButton(onClick = {
+                    state.selectedDateMillis?.let { copyTo(java.time.Instant.ofEpochMilli(it).atZone(java.time.ZoneOffset.UTC).toLocalDate()) }
+                }) { Text(tr("Copia"), color = UnicumPrimary) }
+            },
+            dismissButton = { androidx.compose.material3.TextButton(onClick = { picking = false }) { Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f)) } }
+        ) { androidx.compose.material3.DatePicker(state = state, showModeToggle = false) }
+        return
+    }
+    io.github.peol13.unicum.ui.components.UnicumDialog(onDismiss = onDismiss) {
+        Text(
+            tr("Copia %s", io.github.peol13.unicum.data.MealTime.label(type).lowercase(io.github.peol13.unicum.i18n.I18n.locale)),
+            color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold
+        )
+        Text(
+            trp(meals.size, "%d alimento", "%d alimenti") + " · ${fmt(meals.sumOf { it.calories })} kcal · " +
+                tr("stesso pasto e stesso orario"),
+            color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail
+        )
+        val fromDate = DateUtils.parse(from)
+        if (fromDate != today) io.github.peol13.unicum.ui.components.UnicumButton(tr("Copia in oggi"), onClick = { copyTo(today) })
+        if (fromDate != today.minusDays(1)) {
+            io.github.peol13.unicum.ui.components.UnicumButton(
+                tr("Copia in ieri"), onClick = { copyTo(today.minusDays(1)) }
+            )
+        }
+        androidx.compose.material3.TextButton(onClick = { picking = true }, modifier = Modifier.fillMaxWidth()) {
+            Text(tr("Scegli un altro giorno"), color = UnicumPrimary, fontWeight = FontWeight.SemiBold)
+        }
+    }
+}
+
 @Composable
 internal fun MealSection(
     title: String,
@@ -542,6 +625,14 @@ internal fun MealSection(
                     title = io.github.peol13.unicum.data.MealTime.label(title).let { t -> if (meals.isEmpty()) t else "$t · ${fmt(meals.sumOf { it.calories })} kcal" }
                 )
             }
+            // Copia il pasto in un altro giorno (es. la colazione di ieri anche oggi)
+            var copying by remember { mutableStateOf(false) }
+            if (meals.isNotEmpty()) {
+                IconButton(onClick = { copying = true }, modifier = Modifier.size(40.dp)) {
+                    Icon(Icons.Rounded.ContentCopy, tr("Copia in un altro giorno"), tint = UnicumPrimary, modifier = Modifier.size(18.dp))
+                }
+            }
+            if (copying) CopyMealDialog(title, meals, onDismiss = { copying = false })
             Row(
                 Modifier.clickable { onAdd() }.padding(start = 8.dp, top = 4.dp, bottom = 4.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -554,6 +645,7 @@ internal fun MealSection(
         if (meals.isEmpty()) {
             Spacer(Modifier.height(8.dp))
             Text(tr("Nessun alimento registrato."), color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption)
+            RepeatFromYesterday(title)
         } else {
             // Toccando un alimento si modificano quantità, tipo di pasto e orario
             val context = LocalContext.current.applicationContext
