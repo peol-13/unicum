@@ -107,20 +107,6 @@ fr: Touche le graphique pour lire chaque mesure
 de: Tippe auf das Diagramm, um jede Messung zu lesen
 pt: Toque no gráfico para ler cada medição
 
-it: tendenza (media di 7 giorni)
-en: trend (7-day average)
-es: tendencia (media de 7 días)
-fr: tendance (moyenne sur 7 jours)
-de: Trend (7-Tage-Schnitt)
-pt: tendência (média de 7 dias)
-
-it: tendenza
-en: trend
-es: tendencia
-fr: tendance
-de: Trend
-pt: tendência
-
 it: previsto dal deficit
 en: predicted by deficit
 es: previsto por el déficit
@@ -497,3 +483,10 @@ es: Toca para ver el relato de la semana.
 fr: Touche pour le récit de la semaine.
 de: Tippe für die Wochengeschichte.
 pt: Toque para ver o resumo da semana.
+
+it: tendenza (media di %d giorni)
+en: trend (%d-day average)
+es: tendencia (media de %d días)
+fr: tendance (moyenne sur %d jours)
+de: Trend (%d-Tage-Mittel)
+pt: tendência (média de %d dias)

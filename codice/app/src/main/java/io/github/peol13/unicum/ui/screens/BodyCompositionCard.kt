@@ -67,6 +67,10 @@ import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.floor
 import io.github.peol13.unicum.ui.theme.UnicumType
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.clipRect
 
 /** Periodi del grafico (giorni) quando la card è espansa. */
 private val RANGES get() = listOf(30 to tr("30 giorni"), 90 to tr("3 mesi"), 365 to tr("1 anno"))
@@ -168,7 +172,7 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
                 color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption
             )
             // Tendenza (media mobile di 7 giorni): dice se stai davvero scendendo, al netto dell'acqua
-            BodyTrend.trendChange(values.mapKeys { DateUtils.parse(it.key) })?.let { change ->
+            BodyTrend.trendChange(values.mapKeys { DateUtils.parse(it.key) }, trendWindow(days))?.let { change ->
                 Text(
                     tr("Tendenza: %s in %s", "${signed(change)} ${metric.unit}", RANGES.first { it.first == days }.second),
                     color = UnicumPrimary, style = UnicumType.Caption, fontWeight = FontWeight.Medium
@@ -180,7 +184,7 @@ internal fun BodyCompositionCard(onDetails: (() -> Unit)? = null) {
                     RANGES.forEach { (d, label) -> UnicumChip(label, range == d, { range = d }) }
                 }
                 Spacer(Modifier.height(14.dp))
-                val projection = if (metric == BodyMetric.PESO) projectionFrom(raw, deficits)?.inUnits() else null
+                val projection = if (metric == BodyMetric.PESO) projectionFrom(raw, deficits, trendWindow(days))?.inUnits() else null
                 LineChart(values, metric.unit, days, projection?.line)
                 projection?.let { ProjectionSummary(it) }
             }
@@ -209,9 +213,9 @@ private class Projection(
  * Il calo previsto parte dalla tendenza alla prima misura e scende di deficit / 7.700 kg al giorno;
  * null se mancano misure o giorni con i pasti registrati.
  */
-private fun projectionFrom(values: Map<String, Double>, deficits: Map<LocalDate, Int?>): Projection? {
+private fun projectionFrom(values: Map<String, Double>, deficits: Map<LocalDate, Int?>, window: Int): Projection? {
     val byDay = values.mapKeys { DateUtils.parse(it.key) }
-    val trend = BodyTrend.movingAverage(byDay)
+    val trend = BodyTrend.movingAverage(byDay, window)
     if (trend.size < 2) return null
     val first = trend.keys.first()
     val last = trend.keys.last()
@@ -262,7 +266,7 @@ private fun diffText(diff: Double): String = tr("%s vs precedente", signed(diff)
 
 private val DAY_MONTH get() = DateTimeFormatter.ofPattern(tr("d MMM"), I18n.locale)
 private val WEEKDAY_DAY_MONTH get() = DateTimeFormatter.ofPattern(tr("EEE d MMM"), I18n.locale)
-private val MONTH_YEAR get() = DateTimeFormatter.ofPattern("MMM yy", I18n.locale)
+private val MONTH_YEAR get() = DateTimeFormatter.ofPattern("MMM ''yy", I18n.locale)
 
 /**
  * Grafico del periodo: le misure sono punti tenui, la linea è la tendenza (media mobile di 7 giorni).
@@ -273,20 +277,33 @@ private val MONTH_YEAR get() = DateTimeFormatter.ofPattern("MMM yy", I18n.locale
 private fun LineChart(values: Map<String, Double>, unit: String, days: Int, projection: Map<String, Double>? = null) {
     val dayList = DateUtils.lastDays(days)
     val points = dayList.mapIndexedNotNull { i, d -> values[d]?.let { i to it } }
-    val trendByDay = BodyTrend.movingAverage(values.mapKeys { DateUtils.parse(it.key) })
+    // Su periodi lunghi la media è più larga: con 7 giorni e misure rade la "tendenza" coincideva con le misure
+    val window = trendWindow(days)
+    val trendByDay = BodyTrend.movingAverage(values.mapKeys { DateUtils.parse(it.key) }, window)
     val trend = dayList.mapIndexedNotNull { i, d -> trendByDay[DateUtils.parse(d)]?.let { i to it } }
     val projected = projection?.let { p -> dayList.mapIndexedNotNull { i, d -> p[d]?.let { i to it } } }.orEmpty()
-    val rawMin = minOf(points.minOf { it.second }, projected.minOfOrNull { it.second } ?: Double.MAX_VALUE)
-    val rawMax = maxOf(points.maxOf { it.second }, projected.maxOfOrNull { it.second } ?: -Double.MAX_VALUE)
+    // L'asse segue le misure; la previsione può allargarlo al massimo di metà dell'intervallo delle misure
+    // (su un anno accumulava tanto deficit da schiacciare le misure in una striscia), il resto si taglia
+    val dataMin = points.minOf { it.second }
+    val dataMax = points.maxOf { it.second }
+    val dataSpan = (dataMax - dataMin).coerceAtLeast(1.0)
+    val rawMin = minOf(dataMin, (projected.minOfOrNull { it.second } ?: dataMin).coerceAtLeast(dataMin - dataSpan / 2))
+    val rawMax = maxOf(dataMax, (projected.maxOfOrNull { it.second } ?: dataMax).coerceAtMost(dataMax + dataSpan / 2))
     // Margine attorno ai dati e estremi su valori tondi, così l'asse è leggibile
-    val pad = ((rawMax - rawMin) * 0.25).coerceAtLeast(0.5)
-    val lo = floor((rawMin - pad) * 2) / 2
-    val hi = ceil((rawMax + pad) * 2) / 2
-    val span = (hi - lo).coerceAtLeast(0.5)
+    // Quattro righe a valori tondi (passo 0,5 / 1 / 2 / 2,5 / 5 / 10): l'asse si legge a colpo d'occhio
+    val pad = ((rawMax - rawMin) * 0.15).coerceAtLeast(0.3)
+    val step = listOf(0.5, 1.0, 2.0, 2.5, 5.0, 10.0, 20.0).firstOrNull { s ->
+        floor((rawMin - pad) / s) * s + 3 * s >= rawMax + pad
+    } ?: 50.0
+    val lo = floor((rawMin - pad) / step) * step
+    val hi = lo + 3 * step
+    val span = hi - lo
 
     val grid = UnicumTrack
     val line = UnicumPrimary
     val dot = UnicumSecondary
+    // Previsione in un colore diverso dalla tendenza (prima erano due teal quasi uguali)
+    val forecast = UnicumDark.copy(alpha = .55f)
     val surface = UnicumSurface
     val cursor = UnicumDark.copy(alpha = .35f)
 
@@ -351,24 +368,28 @@ private fun LineChart(values: Map<String, Double>, unit: String, days: Int, proj
             fun x(i: Int) = size.width * i / (days - 1).toFloat()
             fun y(v: Double) = (size.height * (1 - (v - lo) / span)).toFloat()
             sel?.let { drawLine(cursor, Offset(x(it.first), 0f), Offset(x(it.first), size.height), strokeWidth = 1.dp.toPx()) }
-            points.forEach { (i, v) ->
-                drawCircle(dot.copy(alpha = .45f), radius = (if (days > 60) 2.5 else 4.5).dp.toPx(), center = Offset(x(i), y(v)))
-            }
-            // Peso previsto dal deficit, tratteggiato
-            val dash = PathEffect.dashPathEffect(floatArrayOf(6.dp.toPx(), 5.dp.toPx()))
-            for (k in 0 until projected.size - 1) {
-                drawLine(
-                    dot, Offset(x(projected[k].first), y(projected[k].second)),
-                    Offset(x(projected[k + 1].first), y(projected[k + 1].second)),
-                    strokeWidth = 2.dp.toPx(), cap = StrokeCap.Round, pathEffect = dash
-                )
-            }
-            for (k in 0 until trend.size - 1) {
-                drawLine(
-                    line, Offset(x(trend[k].first), y(trend[k].second)),
-                    Offset(x(trend[k + 1].first), y(trend[k + 1].second)),
-                    strokeWidth = 2.5.dp.toPx(), cap = StrokeCap.Round
-                )
+            clipRect {
+                points.forEach { (i, v) ->
+                    drawCircle(dot.copy(alpha = if (days > 60) .6f else .45f), radius = (if (days > 60) 3.0 else 4.5).dp.toPx(), center = Offset(x(i), y(v)))
+                }
+                // Peso previsto dal deficit, tratteggiato: un percorso unico, così il tratteggio continua anche quando
+                // un giorno è largo pochi pixel (disegnato a pezzi ripartiva da capo e sembrava una linea piena)
+                if (projected.size >= 2) {
+                    val path = Path()
+                    projected.forEachIndexed { k, (i, v) -> if (k == 0) path.moveTo(x(i), y(v)) else path.lineTo(x(i), y(v)) }
+                    drawPath(
+                        path, forecast,
+                        style = Stroke(
+                            width = 2.dp.toPx(), cap = StrokeCap.Butt,
+                            pathEffect = PathEffect.dashPathEffect(floatArrayOf(7.dp.toPx(), 5.dp.toPx()))
+                        )
+                    )
+                }
+                if (trend.size >= 2) {
+                    val path = Path()
+                    trend.forEachIndexed { k, (i, v) -> if (k == 0) path.moveTo(x(i), y(v)) else path.lineTo(x(i), y(v)) }
+                    drawPath(path, line, style = Stroke(width = 2.5.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round))
+                }
             }
             // Misura scelta: punto più grande, con anello
             sel?.let { (i, v) ->
@@ -382,7 +403,7 @@ private fun LineChart(values: Map<String, Double>, unit: String, days: Int, proj
             horizontalAlignment = Alignment.End
         ) {
             for (g in 0..3) {
-                Text(fmt1(hi - span * g / 3.0), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
+                Text((hi - span * g / 3.0).let { v -> if (step >= 1.0) String.format(I18n.locale, "%.0f", v) else fmt1(v) }, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
             }
         }
     }
@@ -398,10 +419,17 @@ private fun LineChart(values: Map<String, Double>, unit: String, days: Int, proj
     }
     Spacer(Modifier.height(8.dp))
     Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
-        ChartLegend(dot.copy(alpha = .45f), tr("misure"), isLine = false)
-        ChartLegend(line, if (projected.isEmpty()) tr("tendenza (media di 7 giorni)") else tr("tendenza"), isLine = true)
-        if (projected.isNotEmpty()) ChartLegend(dot, tr("previsto dal deficit"), isLine = true, dashed = true)
+        ChartLegend(dot.copy(alpha = .6f), tr("misure"), isLine = false)
+        ChartLegend(line, tr("tendenza (media di %d giorni)", window), isLine = true)
+        if (projected.isNotEmpty()) ChartLegend(forecast, tr("previsto dal deficit"), isLine = true, dashed = true)
     }
+}
+
+/** Giorni della media mobile della tendenza: 7 sul mese, 14 su 3 mesi, 30 sull'anno. */
+private fun trendWindow(days: Int): Int = when {
+    days <= 31 -> 7
+    days <= 100 -> 14
+    else -> 30
 }
 
 /** Voce della legenda del grafico: un punto o un tratto di linea, con il nome. */
