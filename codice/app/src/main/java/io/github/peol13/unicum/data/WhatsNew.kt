@@ -16,7 +16,7 @@ object WhatsNew {
                 tk("Pesi e corpo libero negli Allenamenti: sedute con esercizi, serie e carichi, e i kg di ogni esercizio nel tempo."),
                 tk("Registrare un pasto è più veloce: il + aggiunge al volo, la quantità si sceglie in un foglio a parte e il pasto sta in una barra in basso."),
                 tk("Copia un pasto in un altro giorno dal Diario (o \"Ripeti da ieri\"), e \"Ripristina\" dopo un'eliminazione."),
-                tk("Primo avvio più chiaro: lingua, collegamento a Health Connect e card \"Primi passi\" nella Home."),
+                tk("Primo avvio più chiaro: lingua, collegamento a Health Connect, una guida rapida alle funzioni principali e la card \"Primi passi\" nella Home."),
                 tk("Alimenti e porzioni tradotti, e unità imperiali (lb, ft) per peso, altezza e carichi."),
                 tk("Giornate complete: le medie e il peso stimato contano solo i giorni registrati per intero."),
                 tk("Il lunedì una notifica con il riepilogo della settimana appena finita."),

@@ -101,6 +101,7 @@ import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Straighten
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material.icons.rounded.School
 
 @Composable
 fun ProfiloScreen(onNavigate: (Route) -> Unit) {
@@ -213,6 +214,10 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
                     ) { page = "statistiche" }
                 }
                 MenuSection(tr("Aiuto"))
+                ProfileMenuRow(
+                    Icons.Rounded.School, tr("Guida rapida"), tr("Le funzioni principali in sei schede")
+                ) { UserSettings.requestTour() }
+                Spacer(Modifier.height(10.dp))
                 ProfileMenuRow(
                     Icons.Rounded.Forum, tr("Invia un parere"), tr("Un problema, un'idea o com'è andata: in privato o su GitHub")
                 ) { page = "parere" }

@@ -153,6 +153,12 @@ private fun AppContent() {
         return
     }
 
+    // Guida rapida dopo il primo avvio (o chiesta da Profilo → Aiuto)
+    if (UserSettings.tourPending) {
+        io.github.peol13.unicum.ui.screens.TourScreen(onClose = { UserSettings.finishTour() })
+        return
+    }
+
     // Chi aveva già l'app: promemoria pasti e avvisi sul recupero partono accesi, ma da Android 13 serve il
     // permesso delle notifiche, chiesto una volta sola
     NotificationPermissionPrompt()

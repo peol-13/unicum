@@ -855,13 +855,6 @@ fr: Enregistrer un repas est plus rapide : le + ajoute tout de suite, la quantit
 de: Mahlzeiten eintragen geht schneller: + fügt sofort hinzu, die Menge wählst du in einem eigenen Blatt und die Mahlzeit steht in einer Leiste unten.
 pt: Registrar uma refeição é mais rápido: o + adiciona na hora, a quantidade se escolhe numa folha à parte e a refeição fica numa barra embaixo.
 
-it: Primo avvio più chiaro: lingua, collegamento a Health Connect e card "Primi passi" nella Home.
-en: Clearer first start: language, Health Connect connection and a "Getting started" card on Home.
-es: Primer inicio más claro: idioma, conexión con Health Connect y tarjeta "Primeros pasos" en Inicio.
-fr: Premier lancement plus clair : langue, connexion à Health Connect et carte « Premiers pas » sur l'accueil.
-de: Klarerer Start: Sprache, Verbindung mit Health Connect und die Karte „Erste Schritte“ auf dem Start.
-pt: Primeiro uso mais claro: idioma, conexão com o Health Connect e cartão "Primeiros passos" no Início.
-
 it: Giornate complete: le medie e il peso stimato contano solo i giorni registrati per intero.
 en: Complete days: averages and estimated weight only count fully logged days.
 es: Días completos: las medias y el peso estimado solo cuentan los días registrados por completo.
@@ -975,3 +968,10 @@ es: Abrir los ajustes de Health Connect
 fr: Ouvrir les paramètres de Health Connect
 de: Health-Connect-Einstellungen öffnen
 pt: Abrir as configurações do Health Connect
+
+it: Primo avvio più chiaro: lingua, collegamento a Health Connect, una guida rapida alle funzioni principali e la card "Primi passi" nella Home.
+en: Clearer first start: language, Health Connect connection, a quick guide to the main features and a "Getting started" card on Home.
+es: Primer inicio más claro: idioma, conexión con Health Connect, una guía rápida de las funciones principales y la tarjeta "Primeros pasos" en Inicio.
+fr: Premier lancement plus clair : langue, connexion à Health Connect, un guide rapide des fonctions principales et la carte « Premiers pas » sur l'accueil.
+de: Klarerer Start: Sprache, Verbindung mit Health Connect, eine Kurzanleitung zu den wichtigsten Funktionen und die Karte „Erste Schritte“ auf dem Start.
+pt: Primeiro uso mais claro: idioma, conexão com o Health Connect, um guia rápido das funções principais e o cartão "Primeiros passos" no Início.

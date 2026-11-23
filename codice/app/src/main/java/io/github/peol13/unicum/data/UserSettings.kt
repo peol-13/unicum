@@ -196,6 +196,20 @@ object UserSettings {
         prefs.edit().putStringSet("complete_days", completeDays).apply()
     }
 
+    /** Da mostrare la guida rapida (dopo il primo avvio, o chiesta dal Profilo). */
+    var tourPending by mutableStateOf(false)
+        private set
+
+    fun requestTour() {
+        tourPending = true
+        prefs.edit().putBoolean("tour_pending", true).apply()
+    }
+
+    fun finishTour() {
+        tourPending = false
+        prefs.edit().putBoolean("tour_pending", false).apply()
+    }
+
     /** La card "Primi passi" della Home è stata nascosta a mano. */
     var firstStepsHidden by mutableStateOf(false)
         private set
@@ -287,6 +301,7 @@ object UserSettings {
         }.getOrDefault(emptyList())
         weekStorySeen = prefs.getString("week_story_seen", null)
         firstStepsHidden = prefs.getBoolean("first_steps_hidden", false)
+        tourPending = prefs.getBoolean("tour_pending", false)
         whatsNewSeen = prefs.getString("whats_new_seen", null)
         completeDays = prefs.getStringSet("complete_days", emptySet())?.toSet() ?: emptySet()
         homeLayout = HomeLayout.decode(prefs.getString("home_layout", null))

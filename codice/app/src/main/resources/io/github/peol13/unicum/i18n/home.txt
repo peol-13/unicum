@@ -721,3 +721,194 @@ es: + Comida
 fr: + Repas
 de: + Mahlzeit
 pt: + Refeição
+
+# Guida rapida (1.1.0)
+
+it: Guida rapida
+en: Quick guide
+es: Guía rápida
+fr: Guide rapide
+de: Kurzanleitung
+pt: Guia rápido
+
+it: Le funzioni principali in sei schede
+en: The main features in six cards
+es: Las funciones principales en seis fichas
+fr: Les fonctions principales en six fiches
+de: Die wichtigsten Funktionen in sechs Karten
+pt: As funções principais em seis fichas
+
+it: Salta
+en: Skip
+es: Saltar
+fr: Passer
+de: Überspringen
+pt: Pular
+
+it: Inizia a usare UNICUM
+en: Start using UNICUM
+es: Empieza a usar UNICUM
+fr: Commencer à utiliser UNICUM
+de: UNICUM verwenden
+pt: Começar a usar o UNICUM
+
+it: L'anello mostra le calorie mangiate rispetto all'obiettivo del giorno.
+en: The ring shows the calories you've eaten against the day's goal.
+es: El anillo muestra las calorías comidas frente al objetivo del día.
+fr: L'anneau montre les calories mangées par rapport à l'objectif du jour.
+de: Der Ring zeigt die gegessenen Kalorien im Verhältnis zum Tagesziel.
+pt: O anel mostra as calorias consumidas em relação à meta do dia.
+
+it: La linea colorata è il deficit: verde obiettivo raggiunto, giallo in deficit, rosso surplus. Il consumo a riposo cresce durante il giorno, così il conto è giusto a ogni ora.
+en: The colored line is your deficit: green goal reached, yellow in deficit, red surplus. Resting burn grows through the day, so the balance is right at any hour.
+es: La línea de colores es el déficit: verde objetivo alcanzado, amarillo en déficit, rojo superávit. El gasto en reposo crece durante el día, así la cuenta es correcta a cualquier hora.
+fr: La ligne colorée est le déficit : vert objectif atteint, jaune en déficit, rouge surplus. La dépense au repos augmente pendant la journée, le bilan est donc juste à toute heure.
+de: Die farbige Linie ist das Defizit: Grün Ziel erreicht, Gelb im Defizit, Rot Überschuss. Der Ruheverbrauch wächst über den Tag, so stimmt die Bilanz zu jeder Stunde.
+pt: A linha colorida é o déficit: verde meta atingida, amarelo em déficit, vermelho superávit. O gasto em repouso cresce durante o dia, então a conta está certa a qualquer hora.
+
+it: Tocca una card per i dettagli; tienila premuta per riordinare la Home.
+en: Tap a card for details; long-press it to rearrange Home.
+es: Toca una tarjeta para ver los detalles; mantenla pulsada para reordenar el Inicio.
+fr: Touche une carte pour les détails ; appuie longuement pour réorganiser l'accueil.
+de: Tippe auf eine Karte für Details; halte sie gedrückt, um den Start neu zu ordnen.
+pt: Toque num cartão para ver os detalhes; mantenha pressionado para reorganizar o Início.
+
+it: Registrare un pasto
+en: Logging a meal
+es: Registrar una comida
+fr: Enregistrer un repas
+de: Eine Mahlzeit eintragen
+pt: Registrar uma refeição
+
+it: Tocca il + in basso a destra, poi Aggiungi pasto. In cima trovi quello che mangi di solito a quel pasto.
+en: Tap + at the bottom right, then Add meal. At the top you'll find what you usually eat at that meal.
+es: Toca el + abajo a la derecha y luego Añadir comida. Arriba encuentras lo que sueles comer en esa comida.
+fr: Touche le + en bas à droite, puis Ajouter un repas. En haut, tu trouves ce que tu manges d'habitude à ce repas.
+de: Tippe unten rechts auf +, dann auf Mahlzeit hinzufügen. Oben findest du, was du zu dieser Mahlzeit meistens isst.
+pt: Toque no + embaixo à direita e depois em Adicionar refeição. No topo está o que você costuma comer nessa refeição.
+
+it: Il + di un alimento lo aggiunge subito con l'ultima quantità che hai usato (o una porzione media).
+en: A food's + adds it right away with the last amount you used (or an average portion).
+es: El + de un alimento lo añade al instante con la última cantidad que usaste (o una porción media).
+fr: Le + d'un aliment l'ajoute tout de suite avec la dernière quantité utilisée (ou une portion moyenne).
+de: Das + eines Lebensmittels fügt es sofort mit der zuletzt verwendeten Menge hinzu (oder einer Durchschnittsportion).
+pt: O + de um alimento o adiciona na hora com a última quantidade que você usou (ou uma porção média).
+
+it: Tocca il nome per scegliere porzioni o grammi.
+en: Tap the name to choose portions or grams.
+es: Toca el nombre para elegir porciones o gramos.
+fr: Touche le nom pour choisir des portions ou des grammes.
+de: Tippe auf den Namen, um Portionen oder Gramm zu wählen.
+pt: Toque no nome para escolher porções ou gramas.
+
+it: Il pasto sta nella barra in basso: toccala per correggere, Salva per registrare. Il codice a barre è accanto alla ricerca.
+en: The meal sits in the bar at the bottom: tap it to make changes, Save to log it. The barcode scanner is next to the search.
+es: La comida está en la barra de abajo: tócala para corregir y Guardar para registrar. El código de barras está junto a la búsqueda.
+fr: Le repas est dans la barre en bas : touche-la pour corriger, Enregistrer pour l'ajouter. Le code-barres est à côté de la recherche.
+de: Die Mahlzeit steht in der Leiste unten: Tippe darauf zum Korrigieren, auf Speichern zum Eintragen. Der Barcode-Scanner ist neben der Suche.
+pt: A refeição fica na barra embaixo: toque nela para corrigir e em Salvar para registrar. O código de barras está ao lado da busca.
+
+it: La card Sonno mostra durata, orari e fasi della notte: tocca il grafico per leggere ogni fase.
+en: The Sleep card shows the night's duration, times and stages: tap the chart to read each stage.
+es: La tarjeta Sueño muestra la duración, los horarios y las fases de la noche: toca el gráfico para ver cada fase.
+fr: La carte Sommeil montre la durée, les horaires et les phases de la nuit : touche le graphique pour lire chaque phase.
+de: Die Schlaf-Karte zeigt Dauer, Uhrzeiten und Phasen der Nacht: Tippe auf das Diagramm, um jede Phase zu sehen.
+pt: O cartão Sono mostra a duração, os horários e as fases da noite: toque no gráfico para ver cada fase.
+
+it: Il recupero confronta l'HRV della notte con la tua media; in Allenamenti c'è la stima di quando sei di nuovo pronto.
+en: Recovery compares last night's HRV with your average; in Workouts you'll find when you're ready again.
+es: La recuperación compara la HRV de la noche con tu media; en Entrenos está la estimación de cuándo vuelves a estar listo.
+fr: La récupération compare la VFC de la nuit à ta moyenne ; dans Séances, tu trouves quand tu seras de nouveau prêt.
+de: Die Erholung vergleicht die HRV der Nacht mit deinem Durchschnitt; im Training siehst du, wann du wieder bereit bist.
+pt: A recuperação compara a VFC da noite com a sua média; em Treinos está a estimativa de quando você estará pronto de novo.
+
+it: Arrivano da anello e orologio tramite Health Connect: senza, queste card restano vuote.
+en: They come from your ring and watch through Health Connect: without it, these cards stay empty.
+es: Llegan del anillo y del reloj a través de Health Connect: sin él, estas tarjetas quedan vacías.
+fr: Elles viennent de la bague et de la montre via Health Connect : sans lui, ces cartes restent vides.
+de: Sie kommen über Health Connect von Ring und Uhr: Ohne bleiben diese Karten leer.
+pt: Vêm do anel e do relógio pelo Health Connect: sem ele, esses cartões ficam vazios.
+
+it: Corse, pesi e corpo libero arrivano dall'orologio, con mappa, parziali e battito.
+en: Runs, weights and bodyweight come from your watch, with map, splits and heart rate.
+es: Carreras, pesas y peso corporal llegan del reloj, con mapa, parciales y pulso.
+fr: Courses, musculation et poids du corps arrivent de la montre, avec carte, temps intermédiaires et fréquence cardiaque.
+de: Läufe, Gewichte und Eigengewicht kommen von der Uhr, mit Karte, Zwischenzeiten und Puls.
+pt: Corridas, pesos e peso corporal chegam do relógio, com mapa, parciais e batimentos.
+
+it: Nella scheda Programma metti il tuo piano (PDF, Notion o a mano): le sedute fatte si segnano da sole.
+en: In the Plan tab add your plan (PDF, Notion or by hand): completed sessions are marked by themselves.
+es: En la pestaña Plan pon tu plan (PDF, Notion o a mano): las sesiones hechas se marcan solas.
+fr: Dans l'onglet Programme, ajoute ton plan (PDF, Notion ou à la main) : les séances faites se cochent toutes seules.
+de: Im Tab Plan trägst du deinen Plan ein (PDF, Notion oder von Hand): Erledigte Einheiten werden automatisch abgehakt.
+pt: Na aba Plano coloque o seu plano (PDF, Notion ou à mão): as sessões feitas são marcadas sozinhas.
+
+it: Per i pesi gli esercizi vengono dal programma: se hai fatto altro, li correggi nella pagina della seduta.
+en: For weights, exercises come from your plan: if you did something different, edit them on the session's page.
+es: Para las pesas, los ejercicios vienen del plan: si hiciste otra cosa, los corriges en la página de la sesión.
+fr: Pour la musculation, les exercices viennent du programme : si tu as fait autre chose, corrige-les sur la page de la séance.
+de: Bei Gewichten kommen die Übungen aus dem Plan: Hast du etwas anderes gemacht, korrigierst du sie auf der Seite der Einheit.
+pt: Nos pesos, os exercícios vêm do plano: se fez outra coisa, corrija na página da sessão.
+
+it: Tutta la giornata nel dettaglio: calorie, pasti, attività, sonno e recupero.
+en: The whole day in detail: calories, meals, activity, sleep and recovery.
+es: Todo el día en detalle: calorías, comidas, actividad, sueño y recuperación.
+fr: Toute la journée en détail : calories, repas, activité, sommeil et récupération.
+de: Der ganze Tag im Detail: Kalorien, Mahlzeiten, Aktivität, Schlaf und Erholung.
+pt: O dia inteiro em detalhe: calorias, refeições, atividade, sono e recuperação.
+
+it: Tocca un alimento per cambiare quantità o orario; copia un pasto in un altro giorno o ripeti quello di ieri.
+en: Tap a food to change amount or time; copy a meal to another day or repeat yesterday's.
+es: Toca un alimento para cambiar cantidad u hora; copia una comida a otro día o repite la de ayer.
+fr: Touche un aliment pour changer la quantité ou l'heure ; copie un repas vers un autre jour ou répète celui d'hier.
+de: Tippe auf ein Lebensmittel, um Menge oder Uhrzeit zu ändern; kopiere eine Mahlzeit auf einen anderen Tag oder wiederhole die von gestern.
+pt: Toque num alimento para mudar quantidade ou horário; copie uma refeição para outro dia ou repita a de ontem.
+
+it: Segna la giornata come completa quando hai registrato tutto. Scorri o usa le frecce per gli altri giorni.
+en: Mark the day as complete when you've logged everything. Swipe or use the arrows for other days.
+es: Marca el día como completo cuando lo hayas registrado todo. Desliza o usa las flechas para otros días.
+fr: Coche la journée comme complète quand tu as tout enregistré. Fais glisser ou utilise les flèches pour les autres jours.
+de: Markiere den Tag als vollständig, wenn du alles eingetragen hast. Wische oder nutze die Pfeile für andere Tage.
+pt: Marque o dia como completo quando tiver registrado tudo. Deslize ou use as setas para outros dias.
+
+it: La settimana da lunedì a domenica: deficit medio e peso stimato, attività, sonno e recupero.
+en: The week from Monday to Sunday: average deficit and estimated weight, activity, sleep and recovery.
+es: La semana de lunes a domingo: déficit medio y peso estimado, actividad, sueño y recuperación.
+fr: La semaine du lundi au dimanche : déficit moyen et poids estimé, activité, sommeil et récupération.
+de: Die Woche von Montag bis Sonntag: Durchschnittsdefizit und geschätztes Gewicht, Aktivität, Schlaf und Erholung.
+pt: A semana de segunda a domingo: déficit médio e peso estimado, atividade, sono e recuperação.
+
+it: Le frecce portano alle settimane precedenti; il lunedì trovi il racconto della settimana appena finita.
+en: The arrows take you to previous weeks; on Mondays you'll find the story of the week that just ended.
+es: Las flechas llevan a las semanas anteriores; los lunes encuentras el relato de la semana que acaba de terminar.
+fr: Les flèches mènent aux semaines précédentes ; le lundi, tu trouves le récit de la semaine qui vient de finir.
+de: Die Pfeile führen zu früheren Wochen; montags findest du die Geschichte der gerade beendeten Woche.
+pt: As setas levam às semanas anteriores; às segundas você encontra o resumo da semana que acabou.
+
+it: Le correlazioni ti dicono, per esempio, come dormi dopo gli allenamenti.
+en: Correlations tell you, for example, how you sleep after workouts.
+es: Las correlaciones te dicen, por ejemplo, cómo duermes después de entrenar.
+fr: Les corrélations te disent, par exemple, comment tu dors après l'entraînement.
+de: Die Zusammenhänge zeigen dir zum Beispiel, wie du nach dem Training schläfst.
+pt: As correlações mostram, por exemplo, como você dorme depois dos treinos.
+
+it: Tocca il nome: porzioni o grammi
+en: Tap the name: portions or grams
+es: Toca el nombre: porciones o gramos
+fr: Touche le nom : portions ou grammes
+de: Tippe auf den Namen: Portionen oder Gramm
+pt: Toque no nome: porções ou gramas
+
+it: aggiunge l'ultima quantità che hai usato
+en: adds the last amount you used
+es: añade la última cantidad que usaste
+fr: ajoute la dernière quantité utilisée
+de: fügt die zuletzt verwendete Menge hinzu
+pt: adiciona a última quantidade que você usou
+
+it: 2 alimenti · 310 kcal
+en: 2 foods · 310 kcal
+es: 2 alimentos · 310 kcal
+fr: 2 aliments · 310 kcal
+de: 2 Lebensmittel · 310 kcal
+pt: 2 alimentos · 310 kcal

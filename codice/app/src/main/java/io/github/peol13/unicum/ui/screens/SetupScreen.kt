@@ -137,6 +137,8 @@ fun SetupScreen(onDone: () -> Unit) {
         UserSettings.chooseDashboardMode(SetupDraft.mode)
         UserSettings.completeOnboarding()
         UnicumAppState.markOnboardedNow()
+        // Subito dopo, la guida rapida alle funzioni principali (una volta; si riapre dal Profilo)
+        UserSettings.requestTour()
         onDone()
     }
 
