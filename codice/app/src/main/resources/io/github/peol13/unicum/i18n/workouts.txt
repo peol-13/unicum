@@ -3212,3 +3212,10 @@ es: Desde la primera
 fr: Depuis la première
 de: Seit der ersten
 pt: Desde a primeira
+
+it: Dal Registro di Notion
+en: From your Notion log
+es: Del Registro de Notion
+fr: Depuis le Journal Notion
+de: Aus dem Notion-Protokoll
+pt: Do Registro do Notion

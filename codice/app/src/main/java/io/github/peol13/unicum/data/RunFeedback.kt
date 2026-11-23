@@ -67,7 +67,9 @@ object RunFeedback {
         return base.copy(
             kind = logged?.kind ?: base.kind ?: planned?.kind,
             rpe = logged?.rpe ?: base.rpe,
-            note = logged?.note ?: base.note
+            note = logged?.note ?: base.note,
+            // Esercizi scritti nel Registro di Notion (sedute di forza): vincono su quelli corretti nell'app
+            exercises = logged?.exercises?.takeIf { it.isNotEmpty() } ?: base.exercises
         )
     }
 

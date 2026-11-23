@@ -45,8 +45,8 @@ qualcosa di diverso (più kg, meno ripetizioni) li correggi nell'app.
 
 ## 2. "Registro corse" (facoltativo)
 
-Una riga per ogni corsa fatta, con le sensazioni. Quando c'è, **tipo, RPE e nota di Notion vincono** su quelli
-scritti nell'app; i numeri della corsa (distanza, tempo, battito) arrivano sempre da Health Connect.
+Una riga per ogni allenamento fatto, con le sensazioni. Quando c'è, **tipo, RPE, nota ed esercizi di Notion vincono**
+su quelli scritti nell'app; i numeri (distanza, tempo, battito) arrivano sempre da Health Connect.
 
 | Proprietà | Tipo in Notion | Note |
 |---|---|---|
@@ -57,6 +57,7 @@ scritti nell'app; i numeri della corsa (distanza, tempo, battito) arrivano sempr
 | `Note` | Testo | |
 | `Distanza km` | Numero | Serve solo se nello stesso giorno ci sono più corse |
 | `Sessione pianificata` | Relazione → Programma corse | Facoltativa: collega la corsa alla seduta |
+| `Esercizi` | Testo | Facoltativa, per le sedute di forza: come le hai fatte davvero, nello stesso formato della `Struttura` (`Panca 4x8 @ 62,5 kg`). Se manca valgono gli esercizi del programma |
 
 Se non incolli il link del registro, l'app lo cerca da sola tra i database condivisi con l'integrazione
 (nome con "Registro" o "log", oppure con i campi `RPE` e `Sessione pianificata`).

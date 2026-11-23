@@ -68,8 +68,13 @@ data class LoggedRun(
     val note: String? = null,
     val km: Double? = null,
     val plannedId: String? = null,
-    val url: String? = null
-)
+    val url: String? = null,
+    /** Testo della proprietà facoltativa "Esercizi" (sedute di forza: come le hai fatte davvero). */
+    val exercisesText: String? = null
+) {
+    /** Gli esercizi scritti nel Registro, letti come la Struttura del programma (vuoto = non scritti). */
+    val exercises: List<Exercise> get() = exercisesText?.let { StrengthStructure.parse(it) }.orEmpty()
+}
 
 /** Un database Notion da cui legge l'app: id, nome come è scritto in Notion e link per aprirlo (null = non ancora letti). */
 @Serializable
@@ -370,7 +375,8 @@ object NotionPlan {
             km = number(p.optJSONObject("Distanza km")),
             plannedId = p.optJSONObject("Sessione pianificata")?.optJSONArray("relation")
                 ?.takeIf { it.length() > 0 }?.getJSONObject(0)?.optString("id")?.takeIf { it.isNotEmpty() },
-            url = page.optString("url").takeIf { it.isNotEmpty() }
+            url = page.optString("url").takeIf { it.isNotEmpty() },
+            exercisesText = text(p.optJSONObject("Esercizi"), "rich_text")
         )
     }
 

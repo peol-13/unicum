@@ -221,14 +221,17 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
             Spacer(Modifier.height(14.dp))
             val planned = notion?.planned
             val exercises = feedback.exercises ?: planned?.exercises.orEmpty()
+            // Scritti nel Registro di Notion: si leggono da lì (come tipo, RPE e nota), senza Modifica
+            val fromNotion = notion?.logged?.exercises?.isNotEmpty() == true
             ChartCard(
                 sportIcon(sport!!), tr("Esercizi"),
-                action = tr("Modifica"), onAction = { editingExercises = true }
+                action = if (fromNotion) null else tr("Modifica"), onAction = { editingExercises = true }
             ) {
                 when {
                     exercises.isNotEmpty() -> {
                         Text(
-                            if (feedback.exercises != null) tr("Come li hai fatti (modificati a mano)")
+                            if (fromNotion) tr("Dal Registro di Notion")
+                            else if (feedback.exercises != null) tr("Come li hai fatti (modificati a mano)")
                             else tr("Dal programma («%s»): tocca Modifica se hai fatto qualcosa di diverso.", planned?.name ?: ""),
                             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
                         )

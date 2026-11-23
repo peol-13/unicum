@@ -47,7 +47,14 @@ class NotionExamplesTest {
     @Test
     fun logExampleHasTheColumnsTheAppReads() {
         val rows = csv("registro-corse.csv")
-        val columns = listOf("Corsa", "Data", "Tipo", "RPE", "Note", "Distanza km", "Sessione pianificata")
+        val columns = listOf("Corsa", "Data", "Tipo", "RPE", "Note", "Distanza km", "Sessione pianificata", "Esercizi")
         assertTrue(rows.isNotEmpty() && rows.all { it.keys.containsAll(columns) })
+        // "Esercizi" (facoltativa) si legge come la Struttura del programma
+        val withExercises = rows.filter { !it["Esercizi"].isNullOrBlank() }
+        assertTrue(withExercises.isNotEmpty())
+        withExercises.forEach { r ->
+            val log = LoggedRun("x", r["Corsa"]!!, r["Data"], exercisesText = r["Esercizi"])
+            assertTrue("Esercizi non leggibili: ${r["Esercizi"]}", log.exercises.size == 3)
+        }
     }
 }
