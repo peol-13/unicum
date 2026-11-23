@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Widget UNICUM: anello delle calorie, calorie rimaste, linea del deficit e "+ Pasto" -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -44,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="Rimangono"
+                tools:text="Rimangono"
                 android:textColor="@color/widget_text_muted"
                 android:textSize="12sp" />
 
@@ -53,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_semibold"
-                android:text="– kcal"
+                tools:text="– kcal"
                 android:textColor="@color/widget_primary"
                 android:textSize="22sp" />
 
@@ -77,7 +78,7 @@
             android:paddingTop="8dp"
             android:paddingEnd="14dp"
             android:paddingBottom="8dp"
-            android:text="+ Pasto"
+            tools:text="+ Pasto"
             android:textColor="@color/widget_on_primary"
             android:textSize="13sp" />
     </LinearLayout>

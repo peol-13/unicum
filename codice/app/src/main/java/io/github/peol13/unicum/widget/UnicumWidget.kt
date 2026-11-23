@@ -127,6 +127,7 @@ object UnicumWidget {
             setRing(context, R.id.widget_ring_track, R.id.widget_ring, eaten / goal.coerceAtLeast(1).toFloat())
             setDeficitLine(context, R.id.widget_deficit_line, R.id.widget_deficit_marker, deficit, UserSettings.targetDeficitKcal)
             setOnClickPendingIntent(R.id.widget_root, openAppIntent(context, 400, null))
+            setTextViewText(R.id.widget_add, tr("+ Pasto"))
             setOnClickPendingIntent(R.id.widget_add, openAppIntent(context, 401, ""))
         }
         manager.updateAppWidget(ids, views)

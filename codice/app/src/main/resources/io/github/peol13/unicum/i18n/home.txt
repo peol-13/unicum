@@ -714,3 +714,10 @@ es: Busca un alimento o escanea el código de barras
 fr: Cherche un aliment ou scanne son code-barres
 de: Suche ein Lebensmittel oder scanne den Barcode
 pt: Procure um alimento ou escaneie o código de barras
+
+it: + Pasto
+en: + Meal
+es: + Comida
+fr: + Repas
+de: + Mahlzeit
+pt: + Refeição
