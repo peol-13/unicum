@@ -105,6 +105,9 @@ import io.github.peol13.unicum.ui.theme.UnicumDark
 import io.github.peol13.unicum.ui.theme.UnicumPrimary
 import io.github.peol13.unicum.ui.theme.UnicumSecondary
 import io.github.peol13.unicum.ui.theme.UnicumType
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.contentDescription
 
 /*
  * Componenti condivisi: tutte le schermate li usano così card, titoli, pulsanti e
@@ -350,7 +353,8 @@ fun ScreenTitle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.weight(1f)) {
-            Text(title, color = UnicumDark, style = UnicumType.Screen, fontWeight = FontWeight.SemiBold)
+            // Titolo della schermata: per TalkBack è un'intestazione (si salta da una all'altra)
+            Text(title, color = UnicumDark, style = UnicumType.Screen, fontWeight = FontWeight.SemiBold, modifier = Modifier.semantics { heading() })
             Text(subtitle, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Body)
         }
         trailing()
@@ -683,7 +687,7 @@ fun UnicumFab(onClick: () -> Unit, expanded: Boolean = false) {
         Box(contentAlignment = Alignment.Center) {
             Icon(
                 if (expanded) Icons.Rounded.Close else Icons.Rounded.Add,
-                null, tint = UnicumOnPrimary, modifier = Modifier.size(28.dp)
+                if (expanded) tr("Chiudi") else tr("Aggiungi"), tint = UnicumOnPrimary, modifier = Modifier.size(28.dp)
             )
         }
     }
@@ -865,7 +869,10 @@ fun DeficitLine(deficit: Int, goalDeficit: Int, modifier: Modifier = Modifier) {
     val normalized = animatedFraction(((balance - minimum) / (maximum - minimum)).coerceIn(0f, 1f))
     val markerColor = UnicumDark
     // zone: [-2g, -g] verde · [-g, 0] giallo · [0, +g] rosso
-    Column(modifier.fillMaxWidth()) {
+    // Per TalkBack la linea colorata diventa una frase
+    val description = if (deficit >= 0) tr("Deficit di %,d kcal, obiettivo %,d kcal", deficit, goalDeficit)
+    else tr("Surplus di %,d kcal, obiettivo di deficit %,d kcal", -deficit, goalDeficit)
+    Column(modifier.fillMaxWidth().semantics(mergeDescendants = true) { contentDescription = description }) {
         Canvas(Modifier.fillMaxWidth().height(9.dp)) {
             val x = normalized * size.width
             val path = Path().apply {

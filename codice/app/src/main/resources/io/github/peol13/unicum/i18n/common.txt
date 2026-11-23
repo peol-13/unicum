@@ -400,3 +400,19 @@ es: Deshacer
 fr: Annuler
 de: Rückgängig
 pt: Desfazer
+
+# Accessibilità (1.1.0)
+
+it: Deficit di %,d kcal, obiettivo %,d kcal
+en: Deficit of %,d kcal, goal %,d kcal
+es: Déficit de %,d kcal, objetivo %,d kcal
+fr: Déficit de %,d kcal, objectif %,d kcal
+de: Defizit von %,d kcal, Ziel %,d kcal
+pt: Déficit de %,d kcal, meta %,d kcal
+
+it: Surplus di %,d kcal, obiettivo di deficit %,d kcal
+en: Surplus of %,d kcal, deficit goal %,d kcal
+es: Superávit de %,d kcal, objetivo de déficit %,d kcal
+fr: Surplus de %,d kcal, objectif de déficit %,d kcal
+de: Überschuss von %,d kcal, Defizitziel %,d kcal
+pt: Superávit de %,d kcal, meta de déficit %,d kcal

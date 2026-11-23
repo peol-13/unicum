@@ -103,6 +103,9 @@ import io.github.peol13.unicum.i18n.trp
 import io.github.peol13.unicum.data.DateUtils
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.heading
+import androidx.compose.foundation.layout.heightIn
 
 /*
  * Sezioni condivise tra Home, pagine di dettaglio e Diario.
@@ -635,8 +638,9 @@ internal fun MealSection(
                 }
             }
             if (copying) CopyMealDialog(title, meals, onDismiss = { copying = false })
+            // Area di tocco di almeno 48 dp (prima era bassa quanto il testo)
             Row(
-                Modifier.clickable { onAdd() }.padding(start = 8.dp, top = 4.dp, bottom = 4.dp),
+                Modifier.heightIn(min = 48.dp).clip(RoundedCornerShape(12.dp)).clickable { onAdd() }.padding(start = 8.dp, end = 4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(Icons.Rounded.Add, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
@@ -1033,7 +1037,7 @@ internal fun SectionHeader(title: String, summary: String? = null, first: Boolea
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom
         ) {
-            Text(title, color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold)
+            Text(title, color = UnicumDark, style = UnicumType.Section, fontWeight = FontWeight.SemiBold, modifier = Modifier.semantics { heading() })
             if (summary != null) {
                 Text(summary, color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.Medium)
             }
