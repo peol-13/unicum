@@ -3189,3 +3189,26 @@ es: Ninguna sesión de fuerza en el plan para este día: toca Editar para escrib
 fr: Aucune séance de renforcement prévue ce jour-là : touche Modifier pour écrire les exercices faits.
 de: Keine Krafteinheit im Plan für diesen Tag: tippe auf Bearbeiten, um die gemachten Übungen einzutragen.
 pt: Nenhuma sessão de força no plano para este dia: toque Editar para escrever os exercícios feitos.
+
+# Carichi per esercizio (1.1.0)
+
+it: Carichi per esercizio
+en: Loads per exercise
+es: Cargas por ejercicio
+fr: Charges par exercice
+de: Lasten pro Übung
+pt: Cargas por exercício
+
+it: Ultima
+en: Latest
+es: Última
+fr: Dernière
+de: Zuletzt
+pt: Última
+
+it: Dalla prima
+en: Since first
+es: Desde la primera
+fr: Depuis la première
+de: Seit der ersten
+pt: Desde a primeira

@@ -61,6 +61,8 @@ import io.github.peol13.unicum.ui.theme.UnicumPrimary
 import io.github.peol13.unicum.ui.theme.UnicumType
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
+import io.github.peol13.unicum.i18n.trp
+import androidx.compose.ui.text.drawText
 
 /*
  * Pezzi della sezione Allenamenti per gli sport diversi dalla corsa (pesi e corpo libero): icone, elenco degli
@@ -252,5 +254,78 @@ internal fun StrengthStatsCard(workouts: List<WorkoutDetail>, adherence: Pair<In
             tr("Serie, ripetizioni e carichi non arrivano dall'orologio: li trovi nella pagina di ogni seduta."),
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
         )
+    }
+}
+
+/**
+ * Progressione dei carichi: si sceglie un esercizio e si vedono i kg seduta per seduta (il più alto di ogni
+ * seduta), con il primo, l'ultimo e la differenza. Gli esercizi sono quelli scritti nella pagina di ogni seduta
+ * (o, se non li hai cambiati, quelli del programma).
+ */
+@Composable
+internal fun LoadProgressCard(loads: List<StrengthStats.ExerciseLoads>) {
+    if (loads.isEmpty()) return
+    var selected by rememberSaveable { mutableStateOf(0) }
+    val e = loads[selected.coerceIn(loads.indices)]
+    UnicumCard {
+        Text(tr("Carichi per esercizio"), color = UnicumDark, style = UnicumType.Card, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(10.dp))
+        androidx.compose.foundation.lazy.LazyRow(horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(6.dp)) {
+            items(loads.size) { i ->
+                io.github.peol13.unicum.ui.components.UnicumChip(loads[i].name, i == selected, { selected = i }, compact = true)
+            }
+        }
+        Spacer(Modifier.height(14.dp))
+        val diff = e.last - e.first
+        Row(Modifier.fillMaxWidth()) {
+            BigStat(StrengthStructure.kgText(e.last) ?: "–", tr("Ultima"), Modifier.weight(1f))
+            BigStat(StrengthStructure.kgText(e.best) ?: "–", tr("Migliore"), Modifier.weight(1f))
+            BigStat(
+                when {
+                    kotlin.math.abs(diff) < 1e-6 -> "="
+                    diff > 0 -> "+" + StrengthStructure.kgText(diff)
+                    else -> "−" + StrengthStructure.kgText(-diff)
+                },
+                tr("Dalla prima"), Modifier.weight(1f)
+            )
+        }
+        Spacer(Modifier.height(12.dp))
+        LoadChart(e.points)
+        Spacer(Modifier.height(6.dp))
+        Text(
+            trp(e.points.size, "%d seduta", "%d sedute") + " · " + tr("dal %s", DateUtils.shortLabel(e.points.first().date)),
+            color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
+        )
+    }
+}
+
+/** Linea dei carichi nel tempo (punti alla data vera), con i kg minimo e massimo a sinistra. */
+@Composable
+private fun LoadChart(points: List<StrengthStats.LoadPoint>) {
+    val line = UnicumPrimary
+    val track = io.github.peol13.unicum.ui.theme.UnicumTrack
+    val label = UnicumDark.copy(alpha = .5f)
+    val measurer = androidx.compose.ui.text.rememberTextMeasurer()
+    val style = UnicumType.Micro.copy(color = label)
+    androidx.compose.foundation.Canvas(Modifier.fillMaxWidth().height(120.dp)) {
+        val minKg = points.minOf { it.kg }
+        val maxKg = points.maxOf { it.kg }
+        val span = (maxKg - minKg).takeIf { it > 0 } ?: 1.0
+        val t0 = points.first().date.toEpochDay()
+        val days = (points.last().date.toEpochDay() - t0).coerceAtLeast(1)
+        val left = 44.dp.toPx()
+        val top = 8.dp.toPx()
+        val bottom = size.height - 8.dp.toPx()
+        fun x(p: StrengthStats.LoadPoint) = left + (size.width - left - 8.dp.toPx()) * (p.date.toEpochDay() - t0) / days.toFloat()
+        fun y(kg: Double) = (bottom - (bottom - top) * ((kg - minKg) / span)).toFloat()
+        listOf(maxKg, minKg).distinct().forEach { kg ->
+            drawLine(track, androidx.compose.ui.geometry.Offset(left, y(kg)), androidx.compose.ui.geometry.Offset(size.width, y(kg)), 1.dp.toPx())
+            val t = measurer.measure(StrengthStructure.kgText(kg) ?: "", style)
+            drawText(t, topLeft = androidx.compose.ui.geometry.Offset(0f, y(kg) - t.size.height / 2f))
+        }
+        val path = androidx.compose.ui.graphics.Path()
+        points.forEachIndexed { i, p -> if (i == 0) path.moveTo(x(p), y(p.kg)) else path.lineTo(x(p), y(p.kg)) }
+        drawPath(path, line, style = androidx.compose.ui.graphics.drawscope.Stroke(2.5.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round))
+        points.forEach { p -> drawCircle(line, 4.dp.toPx(), androidx.compose.ui.geometry.Offset(x(p), y(p.kg))) }
     }
 }

@@ -44,4 +44,21 @@ class StrengthStatsTest {
         assertEquals(2 to 3, StrengthStats.adherence(plan, done, today))
         assertNull(StrengthStats.adherence(plan.filter { it.sportKind == Sport.RUN }, done, today))
     }
+
+    @Test
+    fun loadProgressPerExercise() {
+        val w = listOf(gym("2026-11-18", 60, null, null), gym("2026-11-10", 60, null, null), gym("2026-11-03", 60, null, null))
+        val ex = mapOf(
+            "2026-11-03" to listOf(Exercise("Panca piana", 4, "8", kg = 55.0), Exercise("Squat", 3, "10", kg = 70.0), Exercise("Trazioni", 3, "max")),
+            "2026-11-10" to listOf(Exercise("panca  piana", 4, "8", kg = 57.5), Exercise("Panca piana", 1, "5", kg = 60.0)),
+            "2026-11-18" to listOf(Exercise("Panca Piana", 4, "8", kg = 60.0), Exercise("Squat", 3, "10", kg = 75.0))
+        )
+        val loads = StrengthStats.loadProgress(w, ex)
+        assertEquals(listOf("Panca Piana", "Squat"), loads.map { it.name })
+        val panca = loads.first()
+        assertEquals("il più alto di ogni seduta, in ordine di data", listOf(55.0, 60.0, 60.0), panca.points.map { it.kg })
+        assertEquals(5.0, panca.last - panca.first, 1e-9)
+        assertEquals("corpo libero senza kg escluso; una seduta sola non basta", 2, loads.size)
+        assertEquals(1, StrengthStats.loadProgress(w, ex, minSessions = 3).size)
+    }
 }

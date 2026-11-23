@@ -210,6 +210,11 @@ fun AllenamentiScreen(onNavigate: (Route) -> Unit) {
                 StrengthStats.adherence(TrainingPlan.runs, data.doneByKey.keys, DateUtils.today())
             }
             StrengthStatsCard(data.strength, adherence)
+            val loads = remember(data) { StrengthStats.loadProgress(data.strength, data.exercises) }
+            if (loads.isNotEmpty()) {
+                Spacer(Modifier.height(14.dp))
+                LoadProgressCard(loads)
+            }
         }
 
         // 4. L'elenco completo, in una pagina a parte
