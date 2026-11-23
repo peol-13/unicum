@@ -725,13 +725,6 @@ fr: Écran principal : %s
 de: Startansicht: %s
 pt: Tela principal: %s
 
-it: Poi collega Health Connect dal Profilo: da lì arrivano passi, allenamenti, sonno e recupero.
-en: Then connect Health Connect from Profile: that's where steps, workouts, sleep and recovery come from.
-es: Luego conecta Health Connect desde el perfil: de ahí llegan pasos, entrenamientos, sueño y recuperación.
-fr: Ensuite connecte Health Connect depuis le profil : c'est de là que viennent pas, séances, sommeil et récupération.
-de: Verbinde dann Health Connect im Profil: Von dort kommen Schritte, Training, Schlaf und Erholung.
-pt: Depois conecte o Health Connect no perfil: de lá vêm passos, treinos, sono e recuperação.
-
 it: Scelta
 en: Selected
 es: Elegida
@@ -780,3 +773,47 @@ es: Sin plan: las próximas sesiones se añaden en Entrenos → Plan
 fr: Pas de programme : les prochaines séances s'ajoutent dans Séances → Programme
 de: Kein Plan: Künftige Einheiten fügst du unter Training → Plan hinzu
 pt: Sem plano: as próximas sessões se adicionam em Treinos → Plano
+
+# Primo avvio (1.1.0)
+
+it: Collega le tue app
+en: Connect your apps
+es: Conecta tus apps
+fr: Connecte tes applis
+de: Verbinde deine Apps
+pt: Conecte seus apps
+
+it: Passi, allenamenti, sonno, HRV e peso arrivano da orologio, anello e bilancia tramite Health Connect. UNICUM li legge soltanto: non scrive niente, tranne i pasti che registri.
+en: Steps, workouts, sleep, HRV and weight come from your watch, ring and scale through Health Connect. UNICUM only reads them: it writes nothing, except the meals you log.
+es: Pasos, entrenos, sueño, HRV y peso llegan del reloj, el anillo y la báscula a través de Health Connect. UNICUM solo los lee: no escribe nada, salvo las comidas que registras.
+fr: Pas, séances, sommeil, VFC et poids arrivent de la montre, de la bague et de la balance via Health Connect. UNICUM les lit seulement : il n'écrit rien, sauf les repas que tu enregistres.
+de: Schritte, Training, Schlaf, HRV und Gewicht kommen über Health Connect von Uhr, Ring und Waage. UNICUM liest sie nur: Es schreibt nichts, außer den Mahlzeiten, die du einträgst.
+pt: Passos, treinos, sono, VFC e peso chegam do relógio, do anel e da balança pelo Health Connect. O UNICUM só os lê: não escreve nada, exceto as refeições que você registra.
+
+it: Puoi farlo anche dopo dal Profilo.
+en: You can also do it later from Profile.
+es: También puedes hacerlo después desde Perfil.
+fr: Tu peux aussi le faire plus tard depuis Profil.
+de: Du kannst das auch später im Profil machen.
+pt: Você também pode fazer isso depois pelo Perfil.
+
+it: Health Connect si collega quando vuoi dal Profilo.
+en: You can connect Health Connect from Profile whenever you like.
+es: Health Connect se conecta cuando quieras desde Perfil.
+fr: Tu peux connecter Health Connect quand tu veux depuis Profil.
+de: Health Connect kannst du jederzeit im Profil verbinden.
+pt: O Health Connect pode ser conectado quando quiser pelo Perfil.
+
+it: Android ti chiederà il permesso delle notifiche: servono ai promemoria dei pasti e all'avviso sul recupero.
+en: Android will ask for notification permission: it's for meal reminders and the recovery alert.
+es: Android te pedirá permiso para las notificaciones: sirven para los recordatorios de comidas y el aviso de recuperación.
+fr: Android va te demander l'autorisation des notifications : elles servent aux rappels des repas et à l'alerte de récupération.
+de: Android fragt nach der Erlaubnis für Benachrichtigungen: Sie dienen den Mahlzeiten-Erinnerungen und dem Erholungshinweis.
+pt: O Android vai pedir permissão para notificações: servem para os lembretes das refeições e o aviso de recuperação.
+
+it: Tocca il numero per scriverlo, o usa − e +.
+en: Tap the number to type it, or use − and +.
+es: Toca el número para escribirlo, o usa − y +.
+fr: Touche le nombre pour l'écrire, ou utilise − et +.
+de: Tippe auf die Zahl, um sie einzugeben, oder nutze − und +.
+pt: Toque no número para digitá-lo, ou use − e +.

@@ -143,15 +143,15 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun AppContent() {
-    // Promemoria pasti e avvisi sul recupero partono accesi: da Android 13 serve il permesso
-    // delle notifiche, chiesto una volta sola appena si apre l'app (anche prima del setup)
-    NotificationPermissionPrompt()
-
-    // Primo avvio: schermata di benvenuto con i dati personali
+    // Primo avvio: schermata di benvenuto con i dati personali (alla fine chiede anche il permesso delle notifiche)
     if (!UserSettings.onboarded) {
         SetupScreen(onDone = {})
         return
     }
+
+    // Chi aveva già l'app: promemoria pasti e avvisi sul recupero partono accesi, ma da Android 13 serve il
+    // permesso delle notifiche, chiesto una volta sola
+    NotificationPermissionPrompt()
 
     // Salvata: resta la stessa anche se Android ricrea l'Activity (rotazione, tema del telefono)
     var screen by rememberSaveable(stateSaver = Route.Saver) { mutableStateOf<Route>(Route.Home) }
@@ -204,7 +204,7 @@ private fun AppContent() {
             }
         )
     }
-    UsageStatsConsentDialog()
+    if (!UnicumAppState.onboardedThisSession) UsageStatsConsentDialog()
 
     // Il tasto Indietro riporta alla Home da qualsiasi schermata; dalla Home chiude l'app
     BackHandler(enabled = screen != Route.Home) {

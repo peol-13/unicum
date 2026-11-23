@@ -150,7 +150,7 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
                 ScreenTitle(tr("Profilo"), tr("Fonti dati, obiettivi e preferenze"))
                 Spacer(Modifier.height(16.dp))
                 // Fonti dati: Health Connect in evidenza (stato e "Sincronizza ora"), poi il programma
-                SyncCard()
+                HealthConnectCard()
 
                 MenuSection(tr("Tu"))
                 ProfileMenuRow(
@@ -404,9 +404,9 @@ private fun backupSummary(): String {
     }
 }
 
-/** Collegamento a Health Connect: permessi, sincronizzazione manuale e stato. */
+/** Collegamento a Health Connect: permessi, sincronizzazione manuale e stato (Profilo e primo avvio). */
 @Composable
-private fun SyncCard() {
+internal fun HealthConnectCard() {
     val context = LocalContext.current
     var status by remember { mutableStateOf<HealthConnectSource.Status?>(null) }
     val scope = rememberCoroutineScope()

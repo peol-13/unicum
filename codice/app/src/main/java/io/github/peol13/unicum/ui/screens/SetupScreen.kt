@@ -82,6 +82,17 @@ import io.github.peol13.unicum.ui.theme.UnicumDark
 import io.github.peol13.unicum.ui.theme.UnicumPrimary
 import io.github.peol13.unicum.ui.theme.UnicumSurface
 import io.github.peol13.unicum.ui.theme.UnicumType
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.material.icons.rounded.Language
+import androidx.compose.ui.platform.LocalContext
+import io.github.peol13.unicum.UnicumAppState
+import io.github.peol13.unicum.data.MealReminders
+import io.github.peol13.unicum.i18n.AppLanguage
+import io.github.peol13.unicum.i18n.I18n
+import io.github.peol13.unicum.ui.components.UnicumChip
 
 /** Da dove arriva il programma di allenamento, scelto al primo avvio. */
 private enum class PlanChoice { NOTION, PDF, NONE }
@@ -95,10 +106,12 @@ private object SetupDraft {
     var mode by mutableStateOf(DashboardMode.NUTRIZIONE)
     var plan by mutableStateOf<PlanChoice?>(null)
     var macrosOpen by mutableStateOf(false)
+    /** Il sesso va scelto: nessuna risposta già segnata, così non si va avanti per sbaglio con quella sbagliata. */
+    var sexChosen by mutableStateOf(false)
 }
 
 /** I passi del primo avvio, uno per schermata; [PLAN_SETUP] c'è solo se si sceglie Notion o PDF. */
-private enum class Step { WELCOME, SEX, AGE, WEIGHT, HEIGHT, ACTIVITY, GOAL, NEEDS, HOME, PLAN, PLAN_SETUP, DONE }
+private enum class Step { WELCOME, SEX, AGE, WEIGHT, HEIGHT, ACTIVITY, GOAL, NEEDS, HOME, HEALTH, PLAN, PLAN_SETUP, DONE }
 
 /**
  * Primo avvio, in stile app moderna: una domanda per schermata (sesso, età, peso, altezza, attività, obiettivo),
@@ -122,7 +135,22 @@ fun SetupScreen(onDone: () -> Unit) {
         form.save()
         UserSettings.chooseDashboardMode(SetupDraft.mode)
         UserSettings.completeOnboarding()
+        UnicumAppState.markOnboardedNow()
         onDone()
+    }
+
+    // Promemoria dei pasti e avviso sul recupero: su Android 13+ il permesso delle notifiche si chiede qui,
+    // alla fine, dopo averlo spiegato nel riepilogo (prima compariva sopra il benvenuto)
+    val context = LocalContext.current
+    val notificationLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) MealReminders.scheduleAll(context.applicationContext)
+        finish()
+    }
+    fun finishAskingNotifications() {
+        if (needsNotificationPermission(context)) {
+            UserSettings.markNotificationPromptDone()
+            notificationLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        } else finish()
     }
 
     BackHandler(enabled = index > 0) { go(-1) }
@@ -134,6 +162,7 @@ fun SetupScreen(onDone: () -> Unit) {
         Step.GOAL -> form.deficitValue in 0..1500
         Step.NEEDS -> form.isValid
         Step.PLAN -> SetupDraft.plan != null
+        Step.SEX -> SetupDraft.sexChosen
         else -> true
     }
 
@@ -193,11 +222,12 @@ fun SetupScreen(onDone: () -> Unit) {
                         else -> tr("Avanti")
                     },
                     enabled = canContinue,
-                    onClick = { if (step == Step.DONE) finish() else go(1) }
+                    onClick = { if (step == Step.DONE) finishAskingNotifications() else go(1) }
                 )
-                if (step == Step.PLAN_SETUP) {
+                if (step == Step.PLAN_SETUP || step == Step.HEALTH) {
                     Text(
-                        tr("Puoi anche farlo dopo da Profilo → Programma di allenamento."),
+                        if (step == Step.HEALTH) tr("Puoi farlo anche dopo dal Profilo.")
+                        else tr("Puoi anche farlo dopo da Profilo → Programma di allenamento."),
                         color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                     )
@@ -214,9 +244,13 @@ private fun StepContent(step: Step, form: PersonalFormState) {
 
         Step.SEX -> {
             Question(tr("Partiamo da te"), tr("Serve a stimare quante calorie consumi a riposo."))
-            BigOption(Icons.Rounded.Male, tr("Uomo"), null, form.male) { form.male = true }
+            BigOption(Icons.Rounded.Male, tr("Uomo"), null, SetupDraft.sexChosen && form.male) {
+                form.male = true; SetupDraft.sexChosen = true
+            }
             Spacer(Modifier.height(10.dp))
-            BigOption(Icons.Rounded.Female, tr("Donna"), null, !form.male) { form.male = false }
+            BigOption(Icons.Rounded.Female, tr("Donna"), null, SetupDraft.sexChosen && !form.male) {
+                form.male = false; SetupDraft.sexChosen = true
+            }
         }
 
         Step.AGE -> {
@@ -312,6 +346,14 @@ private fun StepContent(step: Step, form: PersonalFormState) {
             }
         }
 
+        Step.HEALTH -> {
+            Question(
+                tr("Collega le tue app"),
+                tr("Passi, allenamenti, sonno, HRV e peso arrivano da orologio, anello e bilancia tramite Health Connect. UNICUM li legge soltanto: non scrive niente, tranne i pasti che registri.")
+            )
+            HealthConnectCard()
+        }
+
         Step.PLAN -> {
             Question(tr("Hai un programma di allenamento?"), tr("Le sedute compaiono in Allenamenti → Programma e gli allenamenti fatti si riconoscono dal giorno e dallo sport."))
             BigOption(Icons.Rounded.ViewKanban, tr("Da Notion"), tr("Leggo il tuo database del programma (e il registro, se c'è)"),
@@ -339,6 +381,7 @@ private fun StepContent(step: Step, form: PersonalFormState) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun Welcome() {
     Spacer(Modifier.height(32.dp))
@@ -371,6 +414,20 @@ private fun Welcome() {
         tr("Qualche domanda per partire: ci vuole un minuto e puoi cambiare tutto dal Profilo. I tuoi dati restano sul telefono."),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail, lineHeight = 19.sp
     )
+    // La lingua si sceglie subito, prima delle domande
+    Spacer(Modifier.height(24.dp))
+    val context = LocalContext.current
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(Icons.Rounded.Language, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.width(6.dp))
+        Text(tr("Lingua"), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+    }
+    Spacer(Modifier.height(8.dp))
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        AppLanguage.entries.forEach { lang ->
+            UnicumChip(lang.nativeName, I18n.language == lang, { I18n.choose(context, lang.code) }, compact = true)
+        }
+    }
 }
 
 @Composable
@@ -401,11 +458,23 @@ private fun Done(form: PersonalFormState) {
         }
     }
     Spacer(Modifier.height(18.dp))
+    val context = LocalContext.current
     Text(
-        tr("Poi collega Health Connect dal Profilo: da lì arrivano passi, allenamenti, sonno e recupero."),
+        listOfNotNull(
+            if (UserSettings.lastSyncMillis == 0L) tr("Health Connect si collega quando vuoi dal Profilo.") else null,
+            if (needsNotificationPermission(context))
+                tr("Android ti chiederà il permesso delle notifiche: servono ai promemoria dei pasti e all'avviso sul recupero.")
+            else null
+        ).joinToString(" "),
         color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail, lineHeight = 19.sp
     )
 }
+
+/** Su Android 13+ le notifiche vanno chieste, una volta sola, se non sono già concesse. */
+private fun needsNotificationPermission(context: android.content.Context): Boolean =
+    android.os.Build.VERSION.SDK_INT >= 33 && UserSettings.needsNotificationPrompt &&
+        androidx.core.content.ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) !=
+        android.content.pm.PackageManager.PERMISSION_GRANTED
 
 /** Titolo grande della domanda e, sotto, una spiegazione breve. */
 @Composable
@@ -471,11 +540,19 @@ private fun BigNumberInput(value: String, unit: String, range: IntRange, step: I
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.width(150.dp)
             )
+            // Linea sotto il numero: si capisce che si può toccare e scrivere
+            Box(Modifier.width(110.dp).height(2.dp).clip(RoundedCornerShape(1.dp)).background(UnicumPrimary.copy(alpha = .45f)))
+            Spacer(Modifier.height(4.dp))
             Text(unit, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Heading)
         }
         Spacer(Modifier.width(20.dp))
         StepButton(Icons.Rounded.Add, tr("Più")) { onChange(((n ?: range.first) + step).coerceIn(range).toString()) }
     }
+    Text(
+        tr("Tocca il numero per scriverlo, o usa − e +."),
+        color = UnicumDark.copy(alpha = .45f), style = UnicumType.Caption, textAlign = TextAlign.Center,
+        modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+    )
     if (!ok && value.isNotEmpty()) {
         Text(
             tr("Valore tra %d e %d %s.", range.first, range.last, unit),

@@ -161,6 +161,17 @@ object UnicumAppState {
         }
     }
 
+    /**
+     * Il primo avvio è finito in questa sessione: le richieste non indispensabili (statistiche anonime)
+     * aspettano la prossima apertura, così chi ha appena risposto a dieci domande non ne trova un'altra.
+     */
+    var onboardedThisSession by mutableStateOf(false)
+        private set
+
+    fun markOnboardedNow() {
+        onboardedThisSession = true
+    }
+
     /** Un'eliminazione appena fatta: l'avviso in basso la mostra con "Annulla" per qualche secondo. */
     class UndoAction(val message: String, val undo: () -> Unit)
 
