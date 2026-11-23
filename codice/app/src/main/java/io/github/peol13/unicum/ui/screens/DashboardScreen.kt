@@ -63,6 +63,17 @@ import io.github.peol13.unicum.ui.theme.UnicumDark
 import io.github.peol13.unicum.ui.theme.UnicumPrimary
 import io.github.peol13.unicum.ui.sections.*
 import io.github.peol13.unicum.ui.theme.UnicumType
+import io.github.peol13.unicum.data.HealthConnectSource
+import io.github.peol13.unicum.ui.components.UnicumCard
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import kotlinx.coroutines.launch
+import io.github.peol13.unicum.ui.theme.UnicumAccent
 
 @Composable
 fun DashboardScreen(onNavigate: (Route) -> Unit) {
@@ -93,6 +104,7 @@ fun DashboardScreen(onNavigate: (Route) -> Unit) {
         DashboardHeader()
         Spacer(Modifier.height(14.dp))
         UpdateBanner()
+        if (UnicumAppState.isToday) FirstStepsCard(onAddMeal = { adding.addMeal() })
         if (UnicumAppState.isToday) WeekStoryTeaser(onOpen = { onNavigate(Route.WeekStory(lastCompletedWeek())) })
 
         // Le card nell'ordine scelto (o quello della modalità); tenendone premuta una si apre la modifica
@@ -146,6 +158,99 @@ private fun HomeCardContent(card: HomeCard, stats: DayStats, weekMinutes: List<I
         HomeCard.PASTI -> MealsCard(data.meals, onDetails = { onNavigate(Route.Detail(DetailTopic.PASTI)) })
         HomeCard.ALLENAMENTI -> WorkoutsCard(data.activities, onAll = { onNavigate(Route.Detail(DetailTopic.ATTIVITA)) })
         HomeCard.PESO -> BodyCompositionCard(onDetails = { onNavigate(Route.Detail(DetailTopic.PESO)) })
+    }
+}
+
+/**
+ * "Primi passi" per chi ha appena installato l'app: al posto di tante card vuote dice cosa serve per riempirle
+ * (collegare Health Connect, registrare il primo pasto). Sparisce da sola quando è tutto fatto, o con "Nascondi".
+ */
+@Composable
+private fun FirstStepsCard(onAddMeal: () -> Unit) {
+    if (UserSettings.firstStepsHidden) return
+    val context = LocalContext.current
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    var status by remember { mutableStateOf<HealthConnectSource.Status?>(null) }
+    LaunchedEffect(UnicumAppState.lastSyncResult) { status = HealthConnectSource.status(context) }
+    val launcher = androidx.activity.compose.rememberLauncherForActivityResult(
+        androidx.health.connect.client.PermissionController.createRequestPermissionResultContract()
+    ) { granted ->
+        scope.launch { status = HealthConnectSource.status(context) }
+        if (granted.isNotEmpty()) UnicumAppState.sync(context, days = 30)
+    }
+    val s = status ?: return
+    val connected = s is HealthConnectSource.Status.Available && s.anyGranted
+    val hasMeals = UserSettings.recentFoodNames.isNotEmpty() || UnicumAppState.dayData.meals.isNotEmpty()
+    if (connected && hasMeals) return
+
+    UnicumCard {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                tr("Primi passi"), color = UnicumDark, style = UnicumType.Card, fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.weight(1f)
+            )
+            TextButton(onClick = { UserSettings.hideFirstSteps() }) {
+                Text(tr("Nascondi"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail)
+            }
+        }
+        Text(
+            tr("Le card si riempiono da sole quando colleghi le tue app e registri cosa mangi."),
+            color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption
+        )
+        Spacer(Modifier.height(10.dp))
+        FirstStep(tr("Profilo e obiettivo calorico"), null, done = true, action = null, onAction = {})
+        FirstStep(
+            tr("Collega Health Connect"),
+            tr("Passi, allenamenti, sonno, recupero e peso da orologio, anello e bilancia"),
+            done = connected,
+            action = when (s) {
+                is HealthConnectSource.Status.Available -> tr("Collega")
+                else -> tr("Installa")
+            },
+            onAction = {
+                when (s) {
+                    is HealthConnectSource.Status.Available -> launcher.launch(s.wanted)
+                    else -> runCatching {
+                        context.startActivity(
+                            android.content.Intent(
+                                android.content.Intent.ACTION_VIEW,
+                                android.net.Uri.parse("market://details?id=com.google.android.apps.healthdata")
+                            ).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                    }
+                }
+            }
+        )
+        FirstStep(tr("Registra il primo pasto"), tr("Cerca un alimento o scansiona il codice a barre"), done = hasMeals, action = tr("Aggiungi"), onAction = onAddMeal)
+    }
+    Spacer(Modifier.height(12.dp))
+}
+
+@Composable
+private fun FirstStep(title: String, detail: String?, done: Boolean, action: String?, onAction: () -> Unit) {
+    Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            Modifier.size(26.dp).clip(androidx.compose.foundation.shape.CircleShape)
+                .background(if (done) UnicumPrimary else UnicumAccent.copy(alpha = .3f)),
+            contentAlignment = Alignment.Center
+        ) {
+            if (done) Icon(Icons.Rounded.Check, tr("Fatto"), tint = io.github.peol13.unicum.ui.theme.UnicumOnPrimary, modifier = Modifier.size(16.dp))
+        }
+        Spacer(Modifier.width(12.dp))
+        Column(Modifier.weight(1f)) {
+            Text(
+                title, color = UnicumDark.copy(alpha = if (done) .5f else 1f), style = UnicumType.Body,
+                fontWeight = FontWeight.Medium
+            )
+            if (detail != null && !done) Text(detail, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+        }
+        if (!done && action != null) {
+            Spacer(Modifier.width(8.dp))
+            Box(
+                Modifier.clip(RoundedCornerShape(50)).background(UnicumPrimary).clickable(onClick = onAction)
+                    .padding(horizontal = 14.dp, vertical = 8.dp)
+            ) { Text(action, color = io.github.peol13.unicum.ui.theme.UnicumOnPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold) }
+        }
     }
 }
 

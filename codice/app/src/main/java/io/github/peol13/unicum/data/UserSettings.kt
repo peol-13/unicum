@@ -161,6 +161,10 @@ object UserSettings {
     var weekStorySeen by mutableStateOf<String?>(null)
         private set
 
+    /** La card "Primi passi" della Home è stata nascosta a mano. */
+    var firstStepsHidden by mutableStateOf(false)
+        private set
+
     /** Metabolismo basale stimato con Mifflin-St Jeor (la formula più usata per adulti sani). */
     fun estimateBmr(male: Boolean, weightKg: Int, heightCm: Int, age: Int): Int =
         (10f * weightKg + 6.25f * heightCm - 5f * age + if (male) 5f else -161f).roundToInt()
@@ -245,6 +249,7 @@ object UserSettings {
             Json.decodeFromString<List<SavedMeal>>(prefs.getString("saved_meals", null) ?: "[]")
         }.getOrDefault(emptyList())
         weekStorySeen = prefs.getString("week_story_seen", null)
+        firstStepsHidden = prefs.getBoolean("first_steps_hidden", false)
         homeLayout = HomeLayout.decode(prefs.getString("home_layout", null))
         hrvFromManual = prefs.getString("hrv_from_manual", null)?.let(::parseIsoDate)
         hrvFromAuto = prefs.getString("hrv_from_auto", null)?.let(::parseIsoDate)
@@ -281,6 +286,11 @@ object UserSettings {
     fun saveHomeLayout(cards: List<HomeCard>?) {
         homeLayout = cards?.takeIf { it.isNotEmpty() }
         prefs.edit().putString("home_layout", homeLayout?.let { HomeLayout.encode(it) }).apply()
+    }
+
+    fun hideFirstSteps() {
+        firstStepsHidden = true
+        prefs.edit().putBoolean("first_steps_hidden", true).apply()
     }
 
     fun markWeekStorySeen(monday: String) {

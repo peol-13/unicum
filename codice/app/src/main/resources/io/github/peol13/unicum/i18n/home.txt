@@ -656,3 +656,61 @@ es: Toca para descargarla e instálala encima: tus datos se conservan.
 fr: Touche pour la télécharger et installe-la par-dessus : tes données restent.
 de: Tippe zum Herunterladen und installiere sie darüber: Deine Daten bleiben erhalten.
 pt: Toque para baixar e instale por cima: seus dados continuam.
+
+# Primi passi (1.1.0)
+
+it: Primi passi
+en: Getting started
+es: Primeros pasos
+fr: Premiers pas
+de: Erste Schritte
+pt: Primeiros passos
+
+it: Le card si riempiono da sole quando colleghi le tue app e registri cosa mangi.
+en: The cards fill in on their own once you connect your apps and log what you eat.
+es: Las tarjetas se llenan solas cuando conectas tus apps y registras lo que comes.
+fr: Les cartes se remplissent toutes seules quand tu connectes tes applis et enregistres ce que tu manges.
+de: Die Karten füllen sich von selbst, sobald du deine Apps verbindest und einträgst, was du isst.
+pt: Os cartões se preenchem sozinhos quando você conecta seus apps e registra o que come.
+
+it: Profilo e obiettivo calorico
+en: Profile and calorie goal
+es: Perfil y objetivo calórico
+fr: Profil et objectif calorique
+de: Profil und Kalorienziel
+pt: Perfil e meta calórica
+
+it: Passi, allenamenti, sonno, recupero e peso da orologio, anello e bilancia
+en: Steps, workouts, sleep, recovery and weight from watch, ring and scale
+es: Pasos, entrenos, sueño, recuperación y peso del reloj, el anillo y la báscula
+fr: Pas, séances, sommeil, récupération et poids depuis montre, bague et balance
+de: Schritte, Training, Schlaf, Erholung und Gewicht von Uhr, Ring und Waage
+pt: Passos, treinos, sono, recuperação e peso do relógio, anel e balança
+
+it: Collega
+en: Connect
+es: Conectar
+fr: Connecter
+de: Verbinden
+pt: Conectar
+
+it: Installa
+en: Install
+es: Instalar
+fr: Installer
+de: Installieren
+pt: Instalar
+
+it: Registra il primo pasto
+en: Log your first meal
+es: Registra tu primera comida
+fr: Enregistre ton premier repas
+de: Trage deine erste Mahlzeit ein
+pt: Registre sua primeira refeição
+
+it: Cerca un alimento o scansiona il codice a barre
+en: Search for a food or scan its barcode
+es: Busca un alimento o escanea el código de barras
+fr: Cherche un aliment ou scanne son code-barres
+de: Suche ein Lebensmittel oder scanne den Barcode
+pt: Procure um alimento ou escaneie o código de barras
