@@ -196,7 +196,7 @@ object UnicumAppState {
             HealthConnectWriter.deleteMeals(context, listOf(meal.id))
         }
         // Annulla: lo stesso alimento torna con lo stesso id (e lo stesso record in Health Connect)
-        undo = UndoAction(tr("«%s» eliminato", meal.name)) {
+        undo = UndoAction(tr("«%s» eliminato", io.github.peol13.unicum.data.FoodNames.label(meal.name))) {
             scope.launch {
                 val ids = UnicumRepository.insertMeals(context, date, listOf(meal))
                 reload(context)

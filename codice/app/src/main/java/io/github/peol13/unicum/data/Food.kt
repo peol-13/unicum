@@ -65,15 +65,25 @@ object FoodCatalog {
         val words = q.split(" ").filter { it.isNotEmpty() }
         if (words.isEmpty()) return pool
         // Ogni nome si normalizza una volta sola (la ricerca gira a ogni lettera digitata)
+        // Si cerca nel nome mostrato (lingua dell'app) e in quello italiano del catalogo: "chicken" e "pollo"
         return pool
             .map { it to normalizedName(it.name) }
             .filter { (_, n) -> words.all { n.contains(it) } }
-            .sortedWith(compareBy<Pair<Food, String>> { !it.second.startsWith(q) }.thenBy { it.first.name.length })
+            .sortedWith(compareBy<Pair<Food, String>> { !it.second.startsWith(q) }.thenBy { FoodNames.label(it.first.name).length })
             .map { it.first }
     }
 
-    // Nomi del catalogo già normalizzati; quelli personali o online si normalizzano al volo
-    private val catalogNames: Map<String, String> by lazy { defaultFoods.associate { it.name to normalize(it.name) } }
+    // Nomi del catalogo già normalizzati (nome mostrato + italiano), per lingua; personali e online al volo
+    private val catalogNamesByLanguage = java.util.concurrent.ConcurrentHashMap<io.github.peol13.unicum.i18n.AppLanguage, Map<String, String>>()
+    private val catalogNames: Map<String, String>
+        get() = io.github.peol13.unicum.i18n.I18n.language.let { lang ->
+            catalogNamesByLanguage.getOrPut(lang) {
+                defaultFoods.associate { f ->
+                    val shown = FoodNames.label(f.name, lang)
+                    f.name to normalize(if (shown == f.name) f.name else "$shown | ${f.name}")
+                }
+            }
+        }
 
     // Anche i nomi personali, online o già registrati: la ricerca gira a ogni lettera sugli stessi nomi
     private val otherNames = java.util.concurrent.ConcurrentHashMap<String, String>()

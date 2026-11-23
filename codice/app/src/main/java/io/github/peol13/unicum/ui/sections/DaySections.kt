@@ -674,7 +674,7 @@ internal fun MealSection(
                         )
                     }
                     Column(Modifier.weight(1f)) {
-                        Text(meal.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+                        Text(io.github.peol13.unicum.data.FoodNames.label(meal.name), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
                         val grams = if (meal.quantityGrams > 0) "${meal.quantityGrams} g · " else ""
                         Text(
                             "$grams${meal.calories} kcal · ${tr("P")} ${meal.protein.toInt()}  ${tr("C")} ${meal.carbohydrates.toInt()}  ${tr("G")} ${meal.fats.toInt()}",

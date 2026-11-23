@@ -325,7 +325,7 @@ fun PortionOrGramsInput(
                         if (count % 1f == 0f) count.roundToInt().toString() else lfmt("%.1f", count),
                         color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold
                     )
-                    Text("${portion.label} · ${portion.grams} g", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail)
+                    Text("${io.github.peol13.unicum.data.FoodNames.label(portion.label)} · ${portion.grams} g", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Detail)
                 }
                 StepButton(add = true) { if (count < 20f) apply(newCount = count + 0.5f) }
             }
@@ -333,7 +333,7 @@ fun PortionOrGramsInput(
                 Spacer(Modifier.height(10.dp))
                 androidx.compose.foundation.lazy.LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     items(portions.size) { i ->
-                        UnicumChip("${portions[i].label} · ${portions[i].grams} g", i == unit, { apply(newUnit = i) }, compact = true)
+                        UnicumChip("${io.github.peol13.unicum.data.FoodNames.label(portions[i].label)} · ${portions[i].grams} g", i == unit, { apply(newUnit = i) }, compact = true)
                     }
                 }
             }
@@ -410,7 +410,7 @@ fun EditMealDialog(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(tr("Modifica alimento"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
-                Text(meal.name, color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+                Text(io.github.peol13.unicum.data.FoodNames.label(meal.name), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
             }
             IconButton(onClick = onDismiss) { Icon(Icons.Rounded.Close, tr("Chiudi"), tint = UnicumDark) }
         }

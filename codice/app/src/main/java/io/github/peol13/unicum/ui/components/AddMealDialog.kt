@@ -628,7 +628,7 @@ fun AddMealDialog(
                     val item = added?.let { staged.getOrNull(it) }
                     if (item != null) {
                         AddedToast(
-                            text = tr("Aggiunto: %s · %d g", item.food.name, item.grams),
+                            text = tr("Aggiunto: %s · %d g", io.github.peol13.unicum.data.FoodNames.label(item.food.name), item.grams),
                             onEdit = {
                                 editing = QuantityTarget(item.food, item.grams, added)
                                 lastAdded = null
@@ -770,7 +770,7 @@ private fun QuantitySheet(target: QuantityTarget, onDismiss: () -> Unit, onConfi
                 IconBadge(foodCategoryIcon(food.category), size = 42.dp)
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
-                    Text(food.name, color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+                    Text(io.github.peol13.unicum.data.FoodNames.label(food.name), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
                     Text(
                         "${lnum(food.caloriesPer100g)} kcal · ${tr("P")} ${fmtGrams(food.proteinPer100g)} · " +
                             "${tr("C")} ${fmtGrams(food.carbsPer100g)} · ${tr("G")} ${fmtGrams(food.fatsPer100g)}  " + tr("per 100 g"),
@@ -837,7 +837,7 @@ private fun MealReviewSheet(
                     if (i > 0) Box(Modifier.fillMaxWidth().height(1.dp).background(UnicumAccent.copy(alpha = .3f)))
                     Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f).clip(RoundedCornerShape(10.dp)).clickable { onEdit(i) }.padding(vertical = 4.dp)) {
-                            Text(item.food.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.Medium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                            Text(io.github.peol13.unicum.data.FoodNames.label(item.food.name), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.Medium, maxLines = 2, overflow = TextOverflow.Ellipsis)
                             Text("${lnum(item.meal.calories)} kcal", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
                         }
                         StepButton(add = false, size = 34.dp) { if (item.grams > 10) onGrams(i, item.grams - 10) }
@@ -911,7 +911,7 @@ private fun SavedMealRow(meal: SavedMeal, onAdd: () -> Unit, onDelete: () -> Uni
             Text(meal.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Spacer(Modifier.height(2.dp))
             Text(
-                meal.items.joinToString(", ") { "${it.food.name} ${it.grams} g" },
+                meal.items.joinToString(", ") { "${io.github.peol13.unicum.data.FoodNames.label(it.food.name)} ${it.grams} g" },
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, maxLines = 2, overflow = TextOverflow.Ellipsis
             )
             Text(
@@ -1007,7 +1007,7 @@ private fun FoodRow(
         IconBadge(foodCategoryIcon(food.category), size = 34.dp)
         Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
-            Text(food.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+            Text(io.github.peol13.unicum.data.FoodNames.label(food.name), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(2.dp))
             if (inMealGrams != null) {
                 Text(

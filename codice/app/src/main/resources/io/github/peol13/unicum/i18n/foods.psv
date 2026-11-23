@@ -1,0 +1,420 @@
+# Nomi degli alimenti del catalogo e delle porzioni nelle altre lingue (vedi FoodNames).
+# Una riga per voce: italiano|inglese|spagnolo|francese|tedesco|portoghese. Il nome italiano è quello del catalogo.
+# FoodNamesTest controlla che ogni alimento e ogni porzione abbia tutte le lingue.
+
+# Alimenti
+Pasta secca|Dry pasta|Pasta seca|Pâtes sèches|Nudeln, trocken|Massa seca
+Pasta integrale secca|Dry wholewheat pasta|Pasta integral seca|Pâtes complètes sèches|Vollkornnudeln, trocken|Massa integral seca
+Pasta di semola cotta|Cooked durum wheat pasta|Pasta de sémola cocida|Pâtes de semoule cuites|Hartweizennudeln, gekocht|Massa de sêmola cozida
+Pasta all'uovo secca|Dry egg pasta|Pasta al huevo seca|Pâtes aux œufs sèches|Eiernudeln, trocken|Massa com ovos seca
+Spaghetti secchi|Dry spaghetti|Espaguetis secos|Spaghettis secs|Spaghetti, trocken|Espaguete seco
+Penne secche|Dry penne|Macarrones penne secos|Penne sèches|Penne, trocken|Penne seco
+Fusilli secchi|Dry fusilli|Fusilli secos|Fusilli secs|Fusilli, trocken|Fusilli seco
+Gnocchi di patate|Potato gnocchi|Ñoquis de patata|Gnocchis de pommes de terre|Kartoffelgnocchi|Nhoque de batata
+Riso bianco crudo|White rice, raw|Arroz blanco crudo|Riz blanc cru|Weißer Reis, roh|Arroz branco cru
+Riso basmati crudo|Basmati rice, raw|Arroz basmati crudo|Riz basmati cru|Basmatireis, roh|Arroz basmati cru
+Riso integrale crudo|Brown rice, raw|Arroz integral crudo|Riz complet cru|Vollkornreis, roh|Arroz integral cru
+Riso bianco cotto|Cooked white rice|Arroz blanco cocido|Riz blanc cuit|Weißer Reis, gekocht|Arroz branco cozido
+Riso integrale cotto|Cooked brown rice|Arroz integral cocido|Riz complet cuit|Vollkornreis, gekocht|Arroz integral cozido
+Couscous secco|Dry couscous|Cuscús seco|Couscous sec|Couscous, trocken|Cuscuz seco
+Quinoa cruda|Quinoa, raw|Quinoa cruda|Quinoa crue|Quinoa, roh|Quinoa crua
+Orzo perlato crudo|Pearl barley, raw|Cebada perlada cruda|Orge perlé cru|Perlgraupen, roh|Cevada perolada crua
+Farro perlato crudo|Pearled spelt, raw|Espelta perlada cruda|Épeautre perlé cru|Dinkel, geschliffen, roh|Espelta perolada crua
+Avena fiocchi|Rolled oats|Copos de avena|Flocons d'avoine|Haferflocken|Aveia em flocos
+Muesli|Muesli|Muesli|Muesli|Müsli|Muesli
+Corn flakes|Corn flakes|Copos de maíz|Corn flakes|Cornflakes|Flocos de milho
+Cereali integrali da colazione|Wholegrain breakfast cereal|Cereales integrales de desayuno|Céréales complètes du petit-déjeuner|Vollkorn-Frühstücksflocken|Cereal integral de café da manhã
+Farina 00|White flour (type 00)|Harina 00|Farine blanche (type 00)|Weizenmehl Type 405|Farinha branca (tipo 00)
+Farina integrale|Wholewheat flour|Harina integral|Farine complète|Vollkornmehl|Farinha integral
+Polenta istantanea secca|Instant polenta, dry|Polenta instantánea seca|Polenta instantanée sèche|Instant-Polenta, trocken|Polenta instantânea seca
+Polenta cotta|Cooked polenta|Polenta cocida|Polenta cuite|Polenta, gekocht|Polenta cozida
+Pane bianco|White bread|Pan blanco|Pain blanc|Weißbrot|Pão branco
+Pane integrale|Wholewheat bread|Pan integral|Pain complet|Vollkornbrot|Pão integral
+Pane di segale|Rye bread|Pan de centeno|Pain de seigle|Roggenbrot|Pão de centeio
+Pane in cassetta|Sandwich bread|Pan de molde|Pain de mie|Toastbrot|Pão de forma
+Pane tostato|Toasted bread|Pan tostado|Pain grillé|Geröstetes Brot|Pão torrado
+Pane carasau|Carasau flatbread|Pan carasau|Pain carasau|Carasau-Fladenbrot|Pão carasau
+Piadina|Piadina flatbread|Piadina|Piadina|Piadina|Piadina
+Tortillas di grano|Wheat tortillas|Tortillas de trigo|Tortillas de blé|Weizentortillas|Tortilhas de trigo
+Grissini|Breadsticks|Picos de pan (grissini)|Gressins|Grissini|Grissinis
+Crackers|Crackers|Galletas saladas|Crackers|Cracker|Bolachas salgadas
+Fette biscottate|Rusks|Biscotes|Biscottes|Zwieback|Torradas
+Gallette di riso|Rice cakes|Tortitas de arroz|Galettes de riz|Reiswaffeln|Bolachas de arroz
+Patate crude|Potatoes, raw|Patatas crudas|Pommes de terre crues|Kartoffeln, roh|Batatas cruas
+Patate bollite|Boiled potatoes|Patatas cocidas|Pommes de terre bouillies|Salzkartoffeln|Batatas cozidas
+Patate al forno|Roast potatoes|Patatas al horno|Pommes de terre au four|Ofenkartoffeln|Batatas assadas
+Patate fritte|French fries|Patatas fritas|Frites|Pommes frites|Batatas fritas
+Patate dolci|Sweet potatoes|Batatas|Patates douces|Süßkartoffeln|Batata-doce
+Mais in scatola|Canned sweetcorn|Maíz en lata|Maïs en conserve|Mais aus der Dose|Milho em lata
+Pizza margherita|Margherita pizza|Pizza margarita|Pizza margherita|Pizza Margherita|Pizza margherita
+Petto di pollo crudo|Chicken breast, raw|Pechuga de pollo cruda|Blanc de poulet cru|Hähnchenbrust, roh|Peito de frango cru
+Petto di pollo cotto|Cooked chicken breast|Pechuga de pollo cocida|Blanc de poulet cuit|Hähnchenbrust, gegart|Peito de frango cozido
+Coscia di pollo con pelle|Chicken thigh with skin|Muslo de pollo con piel|Cuisse de poulet avec peau|Hähnchenschenkel mit Haut|Coxa de frango com pele
+Petto di tacchino|Turkey breast|Pechuga de pavo|Blanc de dinde|Putenbrust|Peito de peru
+Fesa di tacchino cotta|Cooked turkey breast slices|Fiambre de pavo cocido|Blanc de dinde cuit en tranches|Putenbrust, gegart (Aufschnitt)|Peito de peru cozido fatiado
+Manzo magro|Lean beef|Ternera magra|Bœuf maigre|Mageres Rindfleisch|Carne bovina magra
+Macinato di manzo|Ground beef|Carne picada de ternera|Bœuf haché|Rinderhackfleisch|Carne moída bovina
+Bistecca di manzo|Beef steak|Filete de ternera|Steak de bœuf|Rindersteak|Bife bovino
+Filetto di manzo|Beef tenderloin|Solomillo de ternera|Filet de bœuf|Rinderfilet|Filé-mignon
+Vitello fettina|Veal cutlet|Filete de ternera lechal|Escalope de veau|Kalbsschnitzel|Bife de vitela
+Maiale lonza|Pork loin|Lomo de cerdo|Longe de porc|Schweinelende|Lombo de porco
+Salsiccia di maiale|Pork sausage|Salchicha de cerdo|Saucisse de porc|Schweinswurst|Linguiça de porco
+Prosciutto cotto|Cooked ham|Jamón cocido|Jambon cuit|Kochschinken|Presunto cozido
+Prosciutto crudo|Cured ham (prosciutto)|Jamón curado|Jambon cru|Rohschinken|Presunto cru
+Bresaola|Bresaola (air-dried beef)|Bresaola (cecina de ternera)|Bresaola (bœuf séché)|Bresaola (Trockenfleisch)|Bresaola (carne seca)
+Speck|Speck (smoked ham)|Speck (jamón ahumado)|Speck (jambon fumé)|Speck|Speck (presunto defumado)
+Mortadella|Mortadella|Mortadela|Mortadelle|Mortadella|Mortadela
+Salame|Salami|Salami|Salami|Salami|Salame
+Pancetta|Pancetta (bacon)|Panceta|Pancetta (lard)|Pancetta (Speck)|Pancetta (bacon)
+Wurstel|Frankfurter|Salchicha de Fráncfort|Saucisse de Francfort|Wiener Würstchen|Salsicha
+Agnello|Lamb|Cordero|Agneau|Lamm|Cordeiro
+Coniglio|Rabbit|Conejo|Lapin|Kaninchen|Coelho
+Uova intere|Whole eggs|Huevos enteros|Œufs entiers|Eier|Ovos inteiros
+Albume d'uovo|Egg white|Clara de huevo|Blanc d'œuf|Eiweiß|Clara de ovo
+Tuorlo d'uovo|Egg yolk|Yema de huevo|Jaune d'œuf|Eigelb|Gema de ovo
+Salmone fresco|Fresh salmon|Salmón fresco|Saumon frais|Frischer Lachs|Salmão fresco
+Salmone affumicato|Smoked salmon|Salmón ahumado|Saumon fumé|Räucherlachs|Salmão defumado
+Tonno fresco|Fresh tuna|Atún fresco|Thon frais|Frischer Thunfisch|Atum fresco
+Tonno al naturale in scatola|Canned tuna in water|Atún al natural en lata|Thon au naturel en conserve|Thunfisch im eigenen Saft|Atum ao natural em lata
+Tonno sott'olio sgocciolato|Canned tuna in oil, drained|Atún en aceite escurrido|Thon à l'huile égoutté|Thunfisch in Öl, abgetropft|Atum em óleo escorrido
+Merluzzo|Cod|Bacalao|Cabillaud|Kabeljau|Bacalhau fresco
+Nasello|Hake|Merluza|Merlu|Seehecht|Pescada
+Orata|Sea bream|Dorada|Dorade|Dorade|Dourada
+Branzino|Sea bass|Lubina|Bar|Wolfsbarsch|Robalo
+Sogliola|Sole|Lenguado|Sole|Seezunge|Linguado
+Trota|Trout|Trucha|Truite|Forelle|Truta
+Sgombro|Mackerel|Caballa|Maquereau|Makrele|Cavala
+Sardine fresche|Fresh sardines|Sardinas frescas|Sardines fraîches|Frische Sardinen|Sardinhas frescas
+Acciughe sott'olio|Anchovies in oil|Anchoas en aceite|Anchois à l'huile|Sardellen in Öl|Anchovas em óleo
+Gamberi|Shrimp|Gambas|Crevettes|Garnelen|Camarão
+Calamari|Squid|Calamares|Calmars|Tintenfisch|Lula
+Polpo|Octopus|Pulpo|Poulpe|Oktopus|Polvo
+Cozze|Mussels|Mejillones|Moules|Miesmuscheln|Mexilhões
+Vongole|Clams|Almejas|Palourdes|Venusmuscheln|Amêijoas
+Surimi|Surimi|Surimi|Surimi|Surimi|Kani
+Tofu|Tofu|Tofu|Tofu|Tofu|Tofu
+Tempeh|Tempeh|Tempeh|Tempeh|Tempeh|Tempeh
+Seitan|Seitan|Seitán|Seitan|Seitan|Seitan
+Burger vegetale|Veggie burger|Hamburguesa vegetal|Burger végétal|Veggie-Burger|Hambúrguer vegetal
+Proteine whey in polvere|Whey protein powder|Proteína whey en polvo|Protéine whey en poudre|Whey-Proteinpulver|Proteína whey em pó
+Latte intero|Whole milk|Leche entera|Lait entier|Vollmilch|Leite integral
+Latte parzialmente scremato|Semi-skimmed milk|Leche semidesnatada|Lait demi-écrémé|Fettarme Milch|Leite semidesnatado
+Latte scremato|Skimmed milk|Leche desnatada|Lait écrémé|Magermilch|Leite desnatado
+Latte di soia|Soy milk|Bebida de soja|Lait de soja|Sojadrink|Leite de soja
+Latte di mandorla|Almond milk|Bebida de almendra|Lait d'amande|Mandeldrink|Leite de amêndoa
+Latte di avena|Oat milk|Bebida de avena|Lait d'avoine|Haferdrink|Leite de aveia
+Yogurt bianco intero|Plain whole-milk yogurt|Yogur natural entero|Yaourt nature entier|Naturjoghurt, vollfett|Iogurte natural integral
+Yogurt greco 0%|Greek yogurt 0%|Yogur griego 0%|Yaourt grec 0 %|Griechischer Joghurt 0 %|Iogurte grego 0%
+Yogurt greco intero|Full-fat Greek yogurt|Yogur griego entero|Yaourt grec entier|Griechischer Joghurt, vollfett|Iogurte grego integral
+Yogurt magro|Low-fat yogurt|Yogur desnatado|Yaourt maigre|Magerjoghurt|Iogurte magro
+Yogurt alla frutta|Fruit yogurt|Yogur de frutas|Yaourt aux fruits|Fruchtjoghurt|Iogurte de frutas
+Skyr|Skyr|Skyr|Skyr|Skyr|Skyr
+Kefir|Kefir|Kéfir|Kéfir|Kefir|Kefir
+Ricotta vaccina|Cow's milk ricotta|Ricotta de vaca|Ricotta de vache|Ricotta aus Kuhmilch|Ricota de vaca
+Mozzarella|Mozzarella|Mozzarella|Mozzarella|Mozzarella|Muçarela
+Mozzarella light|Light mozzarella|Mozzarella light|Mozzarella allégée|Mozzarella light|Muçarela light
+Mozzarella di bufala|Buffalo mozzarella|Mozzarella de búfala|Mozzarella di bufala|Büffelmozzarella|Muçarela de búfala
+Burrata|Burrata|Burrata|Burrata|Burrata|Burrata
+Parmigiano reggiano|Parmigiano Reggiano|Parmigiano Reggiano|Parmigiano Reggiano|Parmigiano Reggiano|Parmigiano Reggiano
+Grana padano|Grana Padano|Grana Padano|Grana Padano|Grana Padano|Grana Padano
+Pecorino|Pecorino|Pecorino|Pecorino|Pecorino|Pecorino
+Gorgonzola|Gorgonzola|Gorgonzola|Gorgonzola|Gorgonzola|Gorgonzola
+Fontina|Fontina|Fontina|Fontina|Fontina|Fontina
+Provolone|Provolone|Provolone|Provolone|Provolone|Provolone
+Emmental|Emmental|Emmental|Emmental|Emmentaler|Emmental
+Asiago|Asiago|Asiago|Asiago|Asiago|Asiago
+Scamorza|Scamorza|Scamorza|Scamorza|Scamorza|Scamorza
+Feta|Feta|Queso feta|Feta|Feta|Queijo feta
+Philadelphia|Cream cheese (Philadelphia)|Queso crema (Philadelphia)|Fromage frais (Philadelphia)|Frischkäse (Philadelphia)|Cream cheese (Philadelphia)
+Stracchino|Stracchino (soft cheese)|Stracchino (queso fresco)|Stracchino (fromage frais)|Stracchino (Weichkäse)|Stracchino (queijo fresco)
+Fiocchi di latte|Cottage cheese|Requesón (cottage)|Cottage cheese|Hüttenkäse|Queijo cottage
+Panna da cucina|Cooking cream|Nata para cocinar|Crème de cuisson|Kochsahne|Creme de leite
+Mascarpone|Mascarpone|Mascarpone|Mascarpone|Mascarpone|Mascarpone
+Burro|Butter|Mantequilla|Beurre|Butter|Manteiga
+Mela|Apple|Manzana|Pomme|Apfel|Maçã
+Pera|Pear|Pera|Poire|Birne|Pera
+Banana|Banana|Plátano|Banane|Banane|Banana
+Arancia|Orange|Naranja|Orange|Orange|Laranja
+Mandarino|Mandarin|Mandarina|Mandarine|Mandarine|Tangerina
+Clementine|Clementines|Clementinas|Clémentines|Clementinen|Clementinas
+Pompelmo|Grapefruit|Pomelo|Pamplemousse|Grapefruit|Toranja
+Limone|Lemon|Limón|Citron|Zitrone|Limão
+Fragole|Strawberries|Fresas|Fraises|Erdbeeren|Morangos
+Mirtilli|Blueberries|Arándanos|Myrtilles|Heidelbeeren|Mirtilos
+Lamponi|Raspberries|Frambuesas|Framboises|Himbeeren|Framboesas
+More|Blackberries|Moras|Mûres|Brombeeren|Amoras
+Ciliegie|Cherries|Cerezas|Cerises|Kirschen|Cerejas
+Albicocche|Apricots|Albaricoques|Abricots|Aprikosen|Damascos
+Pesca|Peach|Melocotón|Pêche|Pfirsich|Pêssego
+Nettarine|Nectarines|Nectarinas|Nectarines|Nektarinen|Nectarinas
+Prugne|Plums|Ciruelas|Prunes|Pflaumen|Ameixas
+Uva|Grapes|Uvas|Raisin|Weintrauben|Uvas
+Anguria|Watermelon|Sandía|Pastèque|Wassermelone|Melancia
+Melone|Melon|Melón|Melon|Melone|Melão
+Kiwi|Kiwi|Kiwi|Kiwi|Kiwi|Kiwi
+Ananas|Pineapple|Piña|Ananas|Ananas|Abacaxi
+Mango|Mango|Mango|Mangue|Mango|Manga
+Papaya|Papaya|Papaya|Papaye|Papaya|Mamão
+Fichi freschi|Fresh figs|Higos frescos|Figues fraîches|Frische Feigen|Figos frescos
+Cachi|Persimmons|Caquis|Kakis|Kakis|Caquis
+Melograno|Pomegranate|Granada|Grenade|Granatapfel|Romã
+Avocado|Avocado|Aguacate|Avocat|Avocado|Abacate
+Datteri secchi|Dried dates|Dátiles secos|Dattes séchées|Getrocknete Datteln|Tâmaras secas
+Uvetta|Raisins|Pasas|Raisins secs|Rosinen|Uvas-passas
+Albicocche secche|Dried apricots|Orejones de albaricoque|Abricots secs|Getrocknete Aprikosen|Damascos secos
+Fichi secchi|Dried figs|Higos secos|Figues sèches|Getrocknete Feigen|Figos secos
+Prugne secche|Prunes|Ciruelas pasas|Pruneaux|Trockenpflaumen|Ameixas secas
+Succo di frutta|Fruit juice|Zumo de fruta|Jus de fruits|Fruchtsaft|Suco de fruta
+Spremuta d'arancia|Fresh orange juice|Zumo de naranja natural|Jus d'orange pressé|Frisch gepresster Orangensaft|Suco de laranja natural
+Insalata mista|Mixed salad|Ensalada mixta|Salade composée|Gemischter Salat|Salada mista
+Lattuga|Lettuce|Lechuga|Laitue|Kopfsalat|Alface
+Rucola|Rocket (arugula)|Rúcula|Roquette|Rucola|Rúcula
+Spinaci|Spinach|Espinacas|Épinards|Spinat|Espinafre
+Spinaci cotti|Cooked spinach|Espinacas cocidas|Épinards cuits|Spinat, gekocht|Espinafre cozido
+Bietole|Chard|Acelgas|Blettes|Mangold|Acelga
+Cavolo cappuccio|Cabbage|Repollo|Chou blanc|Weißkohl|Repolho
+Cavolfiore|Cauliflower|Coliflor|Chou-fleur|Blumenkohl|Couve-flor
+Broccoli|Broccoli|Brócoli|Brocoli|Brokkoli|Brócolis
+Zucchine|Zucchini (courgettes)|Calabacines|Courgettes|Zucchini|Abobrinha
+Melanzane|Eggplant (aubergine)|Berenjenas|Aubergines|Auberginen|Berinjela
+Peperoni|Bell peppers|Pimientos|Poivrons|Paprika|Pimentões
+Pomodori|Tomatoes|Tomates|Tomates|Tomaten|Tomates
+Pomodori pelati|Canned peeled tomatoes|Tomates pelados en lata|Tomates pelées en conserve|Geschälte Tomaten (Dose)|Tomate pelado em lata
+Passata di pomodoro|Tomato passata|Tomate triturado|Coulis de tomate|Passierte Tomaten|Polpa de tomate
+Carote|Carrots|Zanahorias|Carottes|Karotten|Cenouras
+Cipolle|Onions|Cebollas|Oignons|Zwiebeln|Cebolas
+Aglio|Garlic|Ajo|Ail|Knoblauch|Alho
+Cetrioli|Cucumbers|Pepinos|Concombres|Gurken|Pepinos
+Finocchi|Fennel|Hinojo|Fenouil|Fenchel|Erva-doce (funcho)
+Sedano|Celery|Apio|Céleri|Staudensellerie|Aipo
+Asparagi|Asparagus|Espárragos|Asperges|Spargel|Aspargos
+Carciofi|Artichokes|Alcachofas|Artichauts|Artischocken|Alcachofras
+Fagiolini|Green beans|Judías verdes|Haricots verts|Grüne Bohnen|Vagem
+Funghi champignon|Button mushrooms|Champiñones|Champignons de Paris|Champignons|Cogumelos champignon
+Funghi porcini|Porcini mushrooms|Boletus|Cèpes|Steinpilze|Cogumelos porcini
+Zucca|Pumpkin|Calabaza|Courge|Kürbis|Abóbora
+Radicchio|Radicchio|Achicoria roja|Trévise|Radicchio|Radicchio
+Barbabietola|Beetroot|Remolacha|Betterave|Rote Bete|Beterraba
+Ravanelli|Radishes|Rábanos|Radis|Radieschen|Rabanetes
+Piselli freschi|Fresh peas|Guisantes frescos|Petits pois frais|Frische Erbsen|Ervilhas frescas
+Verdure grigliate|Grilled vegetables|Verduras a la plancha|Légumes grillés|Gegrilltes Gemüse|Legumes grelhados
+Minestrone di verdure|Vegetable minestrone|Minestrone de verduras|Minestrone de légumes|Gemüse-Minestrone|Minestrone de legumes
+Fagioli borlotti cotti|Cooked borlotti beans|Alubias borlotti cocidas|Haricots borlotti cuits|Borlotti-Bohnen, gekocht|Feijão borlotti cozido
+Fagioli cannellini cotti|Cooked cannellini beans|Alubias blancas cocidas|Haricots cannellini cuits|Cannellini-Bohnen, gekocht|Feijão-branco cozido
+Fagioli neri cotti|Cooked black beans|Frijoles negros cocidos|Haricots noirs cuits|Schwarze Bohnen, gekocht|Feijão-preto cozido
+Ceci cotti|Cooked chickpeas|Garbanzos cocidos|Pois chiches cuits|Kichererbsen, gekocht|Grão-de-bico cozido
+Ceci secchi|Dried chickpeas|Garbanzos secos|Pois chiches secs|Kichererbsen, getrocknet|Grão-de-bico seco
+Lenticchie cotte|Cooked lentils|Lentejas cocidas|Lentilles cuites|Linsen, gekocht|Lentilhas cozidas
+Lenticchie secche|Dried lentils|Lentejas secas|Lentilles sèches|Linsen, getrocknet|Lentilhas secas
+Piselli in scatola|Canned peas|Guisantes en lata|Petits pois en conserve|Erbsen aus der Dose|Ervilhas em lata
+Fagioli secchi|Dried beans|Alubias secas|Haricots secs|Getrocknete Bohnen|Feijão seco
+Fave fresche|Fresh broad beans|Habas frescas|Fèves fraîches|Frische Saubohnen|Favas frescas
+Hummus|Hummus|Hummus|Houmous|Hummus|Homus
+Edamame|Edamame|Edamame|Edamame|Edamame|Edamame
+Soia gialla secca|Dried soybeans|Soja amarilla seca|Soja jaune sèche|Sojabohnen, getrocknet|Soja amarela seca
+Olio extravergine d'oliva|Extra virgin olive oil|Aceite de oliva virgen extra|Huile d'olive vierge extra|Natives Olivenöl extra|Azeite extra virgem
+Olio di semi|Seed oil|Aceite de semillas|Huile de graines|Pflanzenöl|Óleo de sementes
+Olio di cocco|Coconut oil|Aceite de coco|Huile de coco|Kokosöl|Óleo de coco
+Margarina|Margarine|Margarina|Margarine|Margarine|Margarina
+Maionese|Mayonnaise|Mayonesa|Mayonnaise|Mayonnaise|Maionese
+Mandorle|Almonds|Almendras|Amandes|Mandeln|Amêndoas
+Noci|Walnuts|Nueces|Noix|Walnüsse|Nozes
+Nocciole|Hazelnuts|Avellanas|Noisettes|Haselnüsse|Avelãs
+Anacardi|Cashews|Anacardos|Noix de cajou|Cashewkerne|Castanhas de caju
+Pistacchi|Pistachios|Pistachos|Pistaches|Pistazien|Pistaches
+Arachidi|Peanuts|Cacahuetes|Cacahuètes|Erdnüsse|Amendoins
+Noci pecan|Pecans|Nueces pecanas|Noix de pécan|Pekannüsse|Nozes-pecã
+Pinoli|Pine nuts|Piñones|Pignons de pin|Pinienkerne|Pinhões
+Semi di chia|Chia seeds|Semillas de chía|Graines de chia|Chiasamen|Sementes de chia
+Semi di lino|Flaxseeds|Semillas de lino|Graines de lin|Leinsamen|Linhaça
+Semi di zucca|Pumpkin seeds|Pipas de calabaza|Graines de courge|Kürbiskerne|Sementes de abóbora
+Semi di girasole|Sunflower seeds|Pipas de girasol|Graines de tournesol|Sonnenblumenkerne|Sementes de girassol
+Semi di sesamo|Sesame seeds|Semillas de sésamo|Graines de sésame|Sesam|Sementes de gergelim
+Burro di arachidi|Peanut butter|Crema de cacahuete|Beurre de cacahuète|Erdnussbutter|Pasta de amendoim
+Crema di nocciole|Hazelnut spread|Crema de avellanas|Pâte à tartiner aux noisettes|Haselnusscreme|Creme de avelã
+Olive verdi|Green olives|Aceitunas verdes|Olives vertes|Grüne Oliven|Azeitonas verdes
+Olive nere|Black olives|Aceitunas negras|Olives noires|Schwarze Oliven|Azeitonas pretas
+Cioccolato fondente 70%|Dark chocolate 70%|Chocolate negro 70%|Chocolat noir 70 %|Zartbitterschokolade 70 %|Chocolate amargo 70%
+Cioccolato al latte|Milk chocolate|Chocolate con leche|Chocolat au lait|Vollmilchschokolade|Chocolate ao leite
+Cioccolato bianco|White chocolate|Chocolate blanco|Chocolat blanc|Weiße Schokolade|Chocolate branco
+Nutella|Nutella|Nutella|Nutella|Nutella|Nutella
+Biscotti secchi|Plain biscuits|Galletas María|Biscuits secs|Butterkekse|Biscoitos secos
+Biscotti frollini|Shortbread cookies|Galletas de mantequilla|Sablés|Mürbeteigkekse|Biscoitos amanteigados
+Biscotti al cioccolato|Chocolate cookies|Galletas de chocolate|Biscuits au chocolat|Schokoladenkekse|Biscoitos de chocolate
+Cornetto|Croissant|Cruasán|Croissant|Croissant|Croissant
+Cornetto vuoto|Plain croissant|Cruasán sin relleno|Croissant nature|Croissant ohne Füllung|Croissant simples
+Brioche|Brioche|Brioche|Brioche|Brioche|Brioche
+Merendina|Snack cake|Bollería envasada|Gâteau individuel|Kuchenriegel|Bolinho industrializado
+Plumcake|Pound cake|Bizcocho (plumcake)|Cake (quatre-quarts)|Rührkuchen|Bolo inglês
+Torta margherita|Sponge cake|Bizcocho|Gâteau éponge|Biskuitkuchen|Pão de ló
+Crostata alla marmellata|Jam tart|Tarta de mermelada|Tarte à la confiture|Marmeladentarte|Torta de geleia
+Tiramisù|Tiramisu|Tiramisú|Tiramisu|Tiramisu|Tiramisù
+Gelato alla crema|Custard ice cream|Helado de crema|Glace à la crème|Sahneeis|Sorvete de creme
+Gelato alla frutta|Fruit ice cream (sorbet)|Helado de frutas|Glace aux fruits|Fruchteis|Sorvete de frutas
+Budino|Pudding|Natillas|Crème dessert|Pudding|Pudim
+Marmellata|Jam|Mermelada|Confiture|Marmelade|Geleia
+Miele|Honey|Miel|Miel|Honig|Mel
+Zucchero|Sugar|Azúcar|Sucre|Zucker|Açúcar
+Sciroppo d'acero|Maple syrup|Sirope de arce|Sirop d'érable|Ahornsirup|Xarope de bordo
+Caramelle|Candies|Caramelos|Bonbons|Bonbons|Balas
+Patatine in busta|Potato chips (crisps)|Patatas fritas de bolsa|Chips|Kartoffelchips|Batata chips
+Popcorn|Popcorn|Palomitas|Pop-corn|Popcorn|Pipoca
+Barretta proteica|Protein bar|Barrita de proteínas|Barre protéinée|Proteinriegel|Barra de proteína
+Barretta di cereali|Cereal bar|Barrita de cereales|Barre de céréales|Müsliriegel|Barra de cereais
+Acqua|Water|Agua|Eau|Wasser|Água
+Caffè espresso|Espresso|Café expreso|Expresso|Espresso|Café expresso
+Cappuccino|Cappuccino|Capuchino|Cappuccino|Cappuccino|Cappuccino
+Tè senza zucchero|Unsweetened tea|Té sin azúcar|Thé sans sucre|Tee ohne Zucker|Chá sem açúcar
+Coca Cola|Coca-Cola|Coca-Cola|Coca-Cola|Coca-Cola|Coca-Cola
+Coca Cola Zero|Coca-Cola Zero|Coca-Cola Zero|Coca-Cola Zero|Coca-Cola Zero|Coca-Cola Zero
+Aranciata|Orange soda|Refresco de naranja|Soda à l'orange|Orangenlimonade|Refrigerante de laranja
+Bevanda isotonica|Sports drink|Bebida isotónica|Boisson isotonique|Isotonisches Getränk|Bebida isotônica
+Birra|Beer|Cerveza|Bière|Bier|Cerveja
+Vino rosso|Red wine|Vino tinto|Vin rouge|Rotwein|Vinho tinto
+Vino bianco|White wine|Vino blanco|Vin blanc|Weißwein|Vinho branco
+Spritz|Spritz|Spritz|Spritz|Spritz|Spritz
+Superalcolici|Spirits|Licores fuertes|Spiritueux|Spirituosen|Destilados
+Ketchup|Ketchup|Kétchup|Ketchup|Ketchup|Ketchup
+Senape|Mustard|Mostaza|Moutarde|Senf|Mostarda
+Salsa di soia|Soy sauce|Salsa de soja|Sauce soja|Sojasauce|Molho de soja
+Aceto balsamico|Balsamic vinegar|Vinagre balsámico|Vinaigre balsamique|Balsamessig|Vinagre balsâmico
+Pesto alla genovese|Pesto (basil)|Pesto genovés|Pesto au basilic|Pesto Genovese|Pesto genovês
+Ragù di carne|Meat sauce (ragù)|Salsa boloñesa|Sauce bolognaise|Fleischsoße (Ragù)|Molho à bolonhesa
+Sugo al pomodoro|Tomato sauce|Salsa de tomate|Sauce tomate|Tomatensoße|Molho de tomate
+Besciamella|Béchamel sauce|Bechamel|Béchamel|Béchamelsoße|Molho bechamel
+Lasagne al forno|Baked lasagna|Lasaña al horno|Lasagnes au four|Lasagne|Lasanha ao forno
+Pizza prosciutto e funghi|Ham and mushroom pizza|Pizza de jamón y champiñones|Pizza jambon champignons|Pizza Schinken und Pilze|Pizza de presunto e cogumelos
+Pasta al pomodoro|Pasta with tomato sauce|Pasta con tomate|Pâtes à la sauce tomate|Nudeln mit Tomatensoße|Massa ao molho de tomate
+Pasta alla carbonara|Pasta carbonara|Pasta carbonara|Pâtes à la carbonara|Spaghetti Carbonara|Massa à carbonara
+Pasta al ragù|Pasta with meat sauce|Pasta a la boloñesa|Pâtes à la bolognaise|Nudeln mit Fleischsoße|Massa à bolonhesa
+Risotto ai funghi|Mushroom risotto|Risotto de setas|Risotto aux champignons|Pilzrisotto|Risoto de cogumelos
+Insalata di riso|Rice salad|Ensalada de arroz|Salade de riz|Reissalat|Salada de arroz
+Panino con prosciutto e formaggio|Ham and cheese sandwich|Bocadillo de jamón y queso|Sandwich jambon fromage|Schinken-Käse-Brötchen|Sanduíche de presunto e queijo
+Hamburger con panino|Hamburger in a bun|Hamburguesa con pan|Hamburger avec pain|Hamburger im Brötchen|Hambúrguer no pão
+Toast prosciutto e formaggio|Ham and cheese toastie|Sándwich mixto|Croque-monsieur|Schinken-Käse-Toast|Misto-quente
+Sushi nigiri|Nigiri sushi|Sushi nigiri|Sushi nigiri|Nigiri-Sushi|Sushi nigiri
+Kebab|Kebab|Kebab|Kebab|Döner Kebab|Kebab
+Frittata|Omelette|Tortilla francesa|Omelette|Omelett|Omelete
+Cotoletta impanata|Breaded cutlet|Filete empanado|Escalope panée|Paniertes Schnitzel|Bife à milanesa
+Parmigiana di melanzane|Eggplant parmigiana|Berenjenas a la parmesana|Aubergines à la parmesane|Auberginen-Parmigiana|Berinjela à parmegiana
+Zuppa di legumi|Legume soup|Sopa de legumbres|Soupe de légumineuses|Hülsenfrüchtesuppe|Sopa de leguminosas
+
+# Porzioni
+acino|grape|uva|grain|Traube|bago
+albicocca|apricot|albaricoque|abricot|Aprikose|damasco
+albicocca secca|dried apricot|orejón|abricot sec|getrocknete Aprikose|damasco seco
+albume|egg white|clara|blanc d'œuf|Eiweiß|clara
+arancia grande|large orange|naranja grande|grosse orange|große Orange|laranja grande
+arancia media|medium orange|naranja mediana|orange moyenne|mittelgroße Orange|laranja média
+avocado intero|whole avocado|aguacate entero|avocat entier|ganze Avocado|abacate inteiro
+banana grande|large banana|plátano grande|grosse banane|große Banane|banana grande
+banana media|medium banana|plátano mediano|banane moyenne|mittelgroße Banane|banana média
+banana piccola|small banana|plátano pequeño|petite banane|kleine Banane|banana pequena
+barretta|bar|barrita|barre|Riegel|barra
+bastoncino|stick|barrita|bâtonnet|Stäbchen|palito
+bicchiere|glass|vaso|verre|Glas|copo
+biscotto|biscuit|galleta|biscuit|Keks|biscoito
+bistecca|steak|filete|steak|Steak|bife
+bottiglia|bottle|botella|bouteille|Flasche|garrafa
+brick|carton|brik|brique|Tetrapack|caixinha
+brioche|brioche|brioche|brioche|Brioche|brioche
+budino|pudding cup|natillas|crème dessert|Pudding|pudim
+burger|burger|hamburguesa|burger|Burger|hambúrguer
+burrata|burrata|burrata|burrata|Burrata|burrata
+busta|bag|bolsa|sachet|Tüte|saco
+bustina|sachet|sobre|sachet|Tütchen|sachê
+cachi|persimmon|caqui|kaki|Kaki|caqui
+calice|wine glass|copa|verre à pied|Weinglas|taça
+caramella|candy|caramelo|bonbon|Bonbon|bala
+carciofo|artichoke|alcachofa|artichaut|Artischocke|alcachofra
+carota media|medium carrot|zanahoria mediana|carotte moyenne|mittelgroße Karotte|cenoura média
+cetriolo|cucumber|pepino|concombre|Gurke|pepino
+ciliegia|cherry|cereza|cerise|Kirsche|cereja
+cipolla media|medium onion|cebolla mediana|oignon moyen|mittelgroße Zwiebel|cebola média
+clementina|clementine|clementina|clémentine|Clementine|clementina
+confezione|pack|envase|paquet|Packung|embalagem
+cono medio|medium cone|cucurucho mediano|cornet moyen|mittlere Waffel|casquinha média
+cornetto|croissant|cruasán|croissant|Croissant|croissant
+coscia|thigh|muslo|cuisse|Schenkel|coxa
+cotoletta|cutlet|filete|escalope|Schnitzel|bife
+cucchiaino|teaspoon|cucharadita|cuillère à café|Teelöffel|colher de chá
+cucchiaio|tablespoon|cucharada|cuillère à soupe|Esslöffel|colher de sopa
+cucchiaio grattugiato|grated tablespoon|cucharada rallada|cuillère à soupe râpée|Esslöffel gerieben|colher de sopa ralada
+dattero|date|dátil|datte|Dattel|tâmara
+fetta|slice|rebanada|tranche|Scheibe|fatia
+fettina|thin slice|loncha|fine tranche|dünne Scheibe|fatia fina
+fico|fig|higo|figue|Feige|figo
+fico secco|dried fig|higo seco|figue sèche|getrocknete Feige|figo seco
+filetto|fillet|filete|filet|Filet|filé
+finocchio|fennel bulb|bulbo de hinojo|bulbe de fenouil|Fenchelknolle|bulbo de funcho
+foglio|sheet|hoja|feuille|Blatt|folha
+fragola|strawberry|fresa|fraise|Erdbeere|morango
+frittata di 2 uova|2-egg omelette|tortilla de 2 huevos|omelette de 2 œufs|Omelett aus 2 Eiern|omelete de 2 ovos
+galletta|rice cake|tortita|galette|Waffel|bolacha
+grappolo piccolo|small bunch|racimo pequeño|petite grappe|kleine Traube|cacho pequeno
+grissino|breadstick|pico de pan|gressin|Grissino|grissini
+hamburger|hamburger|hamburguesa|hamburger|Hamburger|hambúrguer
+kebab|kebab|kebab|kebab|Döner|kebab
+kiwi|kiwi|kiwi|kiwi|Kiwi|kiwi
+lattina|can|lata|canette|Dose|lata
+limone|lemon|limón|citron|Zitrone|limão
+manciata|handful|puñado|poignée|Handvoll|punhado
+mandarino|mandarin|mandarina|mandarine|Mandarine|tangerina
+mango|mango|mango|mangue|Mango|manga
+media|medium|mediana|moyenne|mittelgroß|média
+mela grande|large apple|manzana grande|grosse pomme|großer Apfel|maçã grande
+mela media|medium apple|manzana mediana|pomme moyenne|mittelgroßer Apfel|maçã média
+mela piccola|small apple|manzana pequeña|petite pomme|kleiner Apfel|maçã pequena
+melanzana media|medium eggplant|berenjena mediana|aubergine moyenne|mittelgroße Aubergine|berinjela média
+melograno|pomegranate|granada|grenade|Granatapfel|romã
+merendina|snack cake|pastelito|gâteau|Kuchenriegel|bolinho
+mezzo avocado|half avocado|medio aguacate|demi-avocat|halbe Avocado|meio abacate
+misurino|scoop|cacito|dosette|Messlöffel|dosador
+mozzarella|mozzarella|mozzarella|mozzarella|Mozzarella|muçarela
+nettarina media|medium nectarine|nectarina mediana|nectarine moyenne|mittelgroße Nektarine|nectarina média
+noce|walnut|nuez|noix|Walnuss|noz
+oliva|olive|aceituna|olive|Olive|azeitona
+pallina|scoop|bola|boule|Kugel|bola
+panetto|block|pastilla|plaquette|Stück|tablete
+panino|bread roll|panecillo|petit pain|Brötchen|pãozinho
+patata dolce|sweet potato|batata|patate douce|Süßkartoffel|batata-doce
+patata media|medium potato|patata mediana|pomme de terre moyenne|mittelgroße Kartoffel|batata média
+peperone medio|medium bell pepper|pimiento mediano|poivron moyen|mittelgroße Paprika|pimentão médio
+pera grande|large pear|pera grande|grosse poire|große Birne|pera grande
+pera media|medium pear|pera mediana|poire moyenne|mittelgroße Birne|pera média
+pera piccola|small pear|pera pequeña|petite poire|kleine Birne|pera pequena
+pesca media|medium peach|melocotón mediano|pêche moyenne|mittelgroßer Pfirsich|pêssego médio
+petto|breast|pechuga|blanc|Brust|peito
+pezzo|piece|trozo|morceau|Stück|pedaço
+piadina|piadina|piadina|piadina|Piadina|piadina
+piatto|plate|plato|assiette|Teller|prato
+piccola|small|pequeña|petite|klein|pequena
+pizza intera|whole pizza|pizza entera|pizza entière|ganze Pizza|pizza inteira
+plumcake|slice of pound cake|bizcocho|part de cake|Kuchenstück|bolinho
+pomodorino|cherry tomato|tomate cherry|tomate cerise|Kirschtomate|tomate-cereja
+pomodoro medio|medium tomato|tomate mediano|tomate moyenne|mittelgroße Tomate|tomate médio
+pompelmo|grapefruit|pomelo|pamplemousse|Grapefruit|toranja
+porzione|serving|ración|portion|Portion|porção
+porzione abbondante|large serving|ración abundante|grosse portion|große Portion|porção generosa
+prugna|plum|ciruela|prune|Pflaume|ameixa
+prugna secca|prune|ciruela pasa|pruneau|Trockenpflaume|ameixa seca
+quadretto|square|onza|carré|Stück|quadradinho
+sacchetto|bag|bolsita|sachet|Beutel|saquinho
+salsiccia|sausage|salchicha|saucisse|Wurst|linguiça
+scatola|can|lata|boîte|Dose|lata
+scatola sgocciolata|drained can|lata escurrida|boîte égouttée|abgetropfte Dose|lata escorrida
+scatoletta|small can|latita|petite boîte|kleine Dose|latinha
+shot|shot|chupito|shot|Schnapsglas|dose
+spicchio|clove|diente|gousse|Zehe|dente
+tavoletta|bar|tableta|tablette|Tafel|barra
+tazza|cup|taza|tasse|Tasse|xícara
+tazzina|espresso cup|tacita|petite tasse|Tässchen|xicrinha
+toast|toastie|sándwich|croque|Toast|misto
+tortilla|tortilla|tortilla|tortilla|Tortilla|tortilha
+trancio|slice|porción|part|Stück|fatia
+trota|trout|trucha|truite|Forelle|truta
+tuorlo|yolk|yema|jaune|Eigelb|gema
+uovo|egg|huevo|œuf|Ei|ovo
+vasetto|pot|tarrina|pot|Becher|potinho
+wurstel|frankfurter|salchicha|saucisse|Würstchen|salsicha
+zucchina media|medium zucchini|calabacín mediano|courgette moyenne|mittelgroße Zucchini|abobrinha média
