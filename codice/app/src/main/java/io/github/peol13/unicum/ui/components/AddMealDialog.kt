@@ -99,16 +99,29 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 import io.github.peol13.unicum.ui.theme.UnicumType
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import io.github.peol13.unicum.i18n.lnum
 
 /** Un alimento già aggiunto al pasto che si sta registrando, con la quantità ancora modificabile. */
 private data class StagedFood(val food: Food, val grams: Int) {
     val meal: Meal get() = food.portion(grams)
 }
 
+/** Il foglio della quantità: un alimento da aggiungere ([index] null) o uno già nel pasto da correggere. */
+private data class QuantityTarget(val food: Food, val grams: Int, val index: Int? = null)
+
 /**
- * Registrazione rapida di un pasto: cerchi l'alimento per nome, scegli i grammi e lo aggiungi.
- * Il database contiene centinaia di alimenti; se manca puoi crearne uno personalizzato.
- * Gli alimenti aggiunti restano modificabili (quantità) finché non salvi; l'orario vale per tutto il pasto.
+ * Registrazione di un pasto, pensata per tanti alimenti di fila:
+ * - in alto solo tipo di pasto, orario e ricerca (che si apre già pronta per scrivere);
+ * - sotto, la lista occupa tutto lo spazio: a ricerca vuota "Già mangiati a…", pasti salvati e i tuoi alimenti;
+ * - il + di una riga aggiunge subito la quantità abituale (con "Modifica" per correggerla), toccando la riga si
+ *   apre un foglio a parte per scegliere porzioni o grammi;
+ * - gli alimenti scelti stanno in una barra in basso ("3 alimenti · 812 kcal") con l'unico tasto Salva;
+ *   toccandola si apre il riepilogo del pasto, dove si correggono o tolgono.
+ * Il pasto in costruzione resta salvato come bozza finché non lo salvi o lo scarti.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -127,13 +140,10 @@ fun AddMealDialog(
     var minute by remember { mutableStateOf(draft?.minute ?: if (isToday) MealTime.now() else MealTime.typical(mealType)) }
     var minuteTouched by remember { mutableStateOf(draft?.minuteTouched ?: false) }
     var query by remember { mutableStateOf("") }
-    var category by remember { mutableStateOf<String?>(null) }
-
-    var selectedFood by remember { mutableStateOf<Food?>(null) }
-    // Lo stesso alimento può comparire in "Recenti" e nell'elenco: la chiave dice quale riga è aperta
-    var selectedKey by remember { mutableStateOf<String?>(null) }
-    var gramsText by remember { mutableStateOf("100") }
     var creating by remember { mutableStateOf(false) }
+    var choosingType by remember { mutableStateOf(false) }
+    var editing by remember { mutableStateOf<QuantityTarget?>(null) }
+    var reviewing by remember { mutableStateOf(false) }
 
     val staged = remember { mutableStateListOf<StagedFood>().also { l -> draft?.items?.forEach { l.add(StagedFood(it.food, it.grams)) } } }
     var confirmClose by remember { mutableStateOf(false) }
@@ -147,6 +157,15 @@ fun AddMealDialog(
     val scope = rememberCoroutineScope()
     var online by remember { mutableStateOf<OnlineState>(OnlineState.Idle) }
 
+    // La ricerca è pronta per scrivere appena si apre il foglio (non quando si riprende una bozza)
+    val searchFocus = remember { FocusRequester() }
+    var focusTick by remember { mutableStateOf(if (draft?.items.isNullOrEmpty()) 1 else 0) }
+    LaunchedEffect(focusTick) {
+        if (focusTick == 0) return@LaunchedEffect
+        kotlinx.coroutines.delay(250)
+        runCatching { searchFocus.requestFocus() }
+    }
+
     val customFoods = UserSettings.customFoods
     // Prodotti con marca già usati in passato (salvati in locale), ricercabili anche senza internet
     // Mentre si cercano i nuovi resta il risultato precedente: se la lista si svuotasse a ogni lettera,
@@ -156,6 +175,8 @@ fun AddMealDialog(
     // Tutti gli alimenti già registrati (anche quelli non più nel catalogo): nella ricerca vengono per primi
     val usedFoods by produceState(emptyList<Food>()) { value = UnicumRepository.usedFoods(context) }
     val usedNames = remember(usedFoods) { usedFoods.map { it.name } }
+    // L'ultima quantità registrata di ogni alimento: è quella che il + aggiunge
+    val lastGrams by produceState(emptyMap<String, Int>()) { value = UnicumRepository.lastGrams(context) }
     val recentNames = UserSettings.recentFoodNames
     val recentCached by produceState(emptyList<Food>(), recentNames) {
         value = UnicumRepository.cachedFoodsByNames(context, recentNames)
@@ -168,19 +189,19 @@ fun AddMealDialog(
     val typeNames = remember(typeFoods) { typeFoods.map { it.name } }
     // Gli alimenti già scelti in passato vengono per primi: prima quelli di questo pasto, poi tutti quelli
     // già registrati (dal più recente); a parità resta l'ordine di pertinenza della ricerca
-    val results = remember(query, category, customFoods, cachedFoods, usedFoods, recentNames, typeNames) {
+    val results = remember(query, customFoods, cachedFoods, usedFoods, recentNames, typeNames) {
         // Posizione di ogni nome nelle tre liste, calcolata una volta (non una scansione a ogni confronto)
         fun positions(names: List<String>) = HashMap<String, Int>().apply { names.forEachIndexed { i, n -> putIfAbsent(n, i) } }
         val typePos = positions(typeNames)
         val usedPos = positions(usedNames)
         val recentPos = positions(recentNames)
-        FoodCatalog.search(query, category, customFoods + cachedFoods + usedFoods).sortedBy { f ->
+        FoodCatalog.search(query, null, customFoods + cachedFoods + usedFoods).sortedBy { f ->
             typePos[f.name] ?: usedPos[f.name]?.plus(1_000) ?: recentPos[f.name]?.plus(100_000) ?: Int.MAX_VALUE
         }
     }
     // A ogni nuova ricerca (o quando arrivano i risultati) la lista riparte dall'alto
     val listState = rememberLazyListState()
-    LaunchedEffect(query, category, results.firstOrNull()?.name) { listState.scrollToItem(0) }
+    LaunchedEffect(query, results.firstOrNull()?.name) { listState.scrollToItem(0) }
     // Senza storico per questo pasto si propongono gli ultimi alimenti usati in generale
     val recents = remember(typeFoods, recentNames, customFoods, recentCached) {
         typeFoods.ifEmpty { recentNames.mapNotNull { n -> UserSettings.findFood(n) ?: recentCached.firstOrNull { it.name == n } } }
@@ -189,6 +210,52 @@ fun AddMealDialog(
         typeFoods.isEmpty() -> tr("Usati di recente")
         MealTime.isOther(mealType) -> tr("Già mangiati negli spuntini")
         else -> tr("Già mangiati a %s", MealTime.label(mealType).lowercase(I18n.locale))
+    }
+
+    // Quantità proposta: l'ultima registrata, altrimenti una porzione media, altrimenti 100 g
+    fun defaultGrams(food: Food): Int = lastGrams[food.name] ?: FoodPortions.of(food).firstOrNull()?.grams ?: 100
+    // Il + aggiunge al volo solo se la quantità ha senso (già usata o porzione nota); se no apre la scelta
+    fun canQuickAdd(food: Food): Boolean = lastGrams[food.name] != null || FoodPortions.of(food).isNotEmpty()
+
+    fun openQuantity(food: Food) {
+        editing = QuantityTarget(food, defaultGrams(food))
+    }
+
+    // Avviso "Aggiunto · Modifica" dopo un'aggiunta con il +: resta qualche secondo
+    var lastAdded by remember { mutableStateOf<Int?>(null) }
+    var addedTick by remember { mutableStateOf(0) }
+    LaunchedEffect(addedTick) {
+        if (addedTick == 0) return@LaunchedEffect
+        kotlinx.coroutines.delay(3500)
+        lastAdded = null
+    }
+
+    fun afterAdd() {
+        // Pronto per il prossimo: ricerca vuota e tastiera di nuovo sulla ricerca
+        if (query.isNotBlank()) focusTick++
+        query = ""
+        online = OnlineState.Idle
+    }
+
+    fun quickAdd(food: Food) {
+        if (!canQuickAdd(food)) { openQuantity(food); return }
+        haptics.tick()
+        staged.add(StagedFood(food, defaultGrams(food)))
+        lastAdded = staged.lastIndex
+        addedTick++
+        afterAdd()
+    }
+
+    fun applyQuantity(target: QuantityTarget, grams: Int) {
+        haptics.tick()
+        val i = target.index
+        if (i != null && i in staged.indices) {
+            staged[i] = staged[i].copy(grams = grams)
+        } else {
+            staged.add(StagedFood(target.food, grams))
+            afterAdd()
+        }
+        editing = null
     }
 
     // Codice a barre: fotocamera aperta, ricerca in corso, prodotto trovato (o messaggio d'errore)
@@ -204,7 +271,7 @@ fun AddMealDialog(
             val local = UnicumRepository.cachedFoodByBarcode(context, code)
             if (local != null) {
                 scannedFood = local; scanMessage = null
-                selectedFood = local; selectedKey = "s_" + code; gramsText = "100"
+                openQuantity(local)
                 return@launch
             }
             OpenFoodFacts.byBarcode(code).fold(
@@ -213,7 +280,7 @@ fun AddMealDialog(
                         scanMessage = tr("Prodotto %s non trovato o senza valori nutrizionali. Puoi crearlo a mano.", code)
                     } else {
                         scannedFood = food; scanMessage = null
-                        selectedFood = food; selectedKey = "s_" + code; gramsText = "100"
+                        openQuantity(food)
                     }
                 },
                 onFailure = { scanMessage = OpenFoodFacts.friendlyError(it) }
@@ -243,57 +310,33 @@ fun AddMealDialog(
             searchOnline()
         }
     }
-    val showRecents = query.isBlank() && category == null && recents.isNotEmpty()
+    val blank = query.isBlank()
 
     // Pasti fissi: in cima alla ricerca (filtrati per nome), si caricano nel pasto e restano modificabili
     val savedMeals = UserSettings.savedMeals
-    val shownTemplates = remember(query, category, savedMeals) {
-        if (category != null) emptyList() else SavedMeal.search(savedMeals, query)
-    }
+    val shownTemplates = remember(query, savedMeals) { SavedMeal.search(savedMeals, query) }
     // Nome del pasto fisso caricato: proposto quando lo salvi di nuovo (così lo aggiorni)
     var loadedTemplate by rememberSaveable { mutableStateOf<String?>(null) }
     var savingTemplate by remember { mutableStateOf(false) }
     var deletingTemplate by remember { mutableStateOf<SavedMeal?>(null) }
 
     val totalKcal = staged.sumOf { it.meal.calories }
+    // Grammi già nel pasto per ogni alimento: la riga lo segna con "✓"
+    val inMeal = staged.groupBy { it.food.name }.mapValues { (_, l) -> l.sumOf { it.grams } }
 
     fun loadTemplate(m: SavedMeal) {
         haptics.tick()
         staged.addAll(m.items.map { StagedFood(it.food, it.grams) })
         loadedTemplate = m.name
-        selectedFood = null
-        selectedKey = null
-        query = ""
-    }
-
-    fun stageSelected() {
-        val food = selectedFood ?: return
-        val grams = gramsText.toIntOrNull() ?: return
-        if (grams <= 0) return
-        haptics.tick()
-        staged.add(StagedFood(food, grams))
-        selectedFood = null
-        selectedKey = null
-        gramsText = "100"
-        query = ""
-    }
-
-    fun toggle(food: Food, key: String) {
-        val open = selectedKey == key
-        selectedFood = if (open) null else food
-        selectedKey = if (open) null else key
-        // Con porzioni medie si parte da una porzione, altrimenti da 100 g
-        gramsText = (FoodPortions.of(food).firstOrNull()?.grams ?: 100).toString()
+        afterAdd()
     }
 
     @Composable
-    fun FoodItem(food: Food, key: String) = FoodRow(
+    fun FoodItem(food: Food) = FoodRow(
         food = food,
-        expanded = selectedKey == key,
-        gramsText = gramsText,
-        onGramsChange = { gramsText = it },
-        onClick = { toggle(food, key) },
-        onAdd = ::stageSelected
+        inMealGrams = inMeal[food.name],
+        onClick = { openQuantity(food) },
+        onAdd = { quickAdd(food) }
     )
 
     if (scanning) BarcodeScannerDialog(onCode = ::lookupBarcode, onDismiss = { scanning = false })
@@ -358,7 +401,7 @@ fun AddMealDialog(
     }
     if (savingTemplate) {
         SaveTemplateDialog(
-            initialName = loadedTemplate ?: mealType,
+            initialName = loadedTemplate ?: MealTime.label(mealType),
             onDismiss = { savingTemplate = false },
             onSave = { name ->
                 UserSettings.saveMealTemplate(SavedMeal(name, staged.map { DraftItem(it.food, it.grams) }))
@@ -395,6 +438,45 @@ fun AddMealDialog(
             }
         }
     }
+    if (choosingType) {
+        UnicumDialog(onDismiss = { choosingType = false }) {
+            Text(tr("Tipo di pasto"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+            MealTypeInput(mealType, {
+                mealType = it
+                if (!isToday && !minuteTouched) minute = MealTime.typical(it)
+            })
+            UnicumButton(tr("Fatto"), onClick = { choosingType = false })
+        }
+    }
+    editing?.let { target ->
+        QuantitySheet(
+            target = target,
+            onDismiss = { editing = null },
+            onConfirm = { applyQuantity(target, it) },
+            onRemove = target.index?.let { i -> { if (i in staged.indices) staged.removeAt(i); editing = null } }
+        )
+    }
+    if (reviewing && staged.isNotEmpty()) {
+        val current = staged.map { DraftItem(it.food, it.grams) }
+        val savedAs = savedMeals.firstOrNull { it.name.equals(loadedTemplate, true) }
+        MealReviewSheet(
+            staged = staged,
+            mealLabel = MealTime.label(mealType) + " · " + MealTime.format(minute),
+            onDismiss = { reviewing = false },
+            onEdit = { i -> editing = QuantityTarget(staged[i].food, staged[i].grams, i) },
+            onGrams = { i, g -> staged[i] = staged[i].copy(grams = g) },
+            onRemove = { i -> staged.removeAt(i) },
+            templateLabel = when {
+                savedAs != null && savedAs.items == current -> tr("Pasto fisso “%s”", savedAs.name)
+                savedAs != null -> tr("Aggiorna il pasto fisso “%s”", savedAs.name)
+                else -> tr("Salva come pasto fisso")
+            },
+            templateSaved = savedAs != null && savedAs.items == current,
+            onSaveTemplate = { savingTemplate = true },
+            onSave = { reviewing = false; saveMeal() }
+        )
+    }
+
     ModalBottomSheet(
         onDismissRequest = ::requestClose,
         sheetState = sheetState,
@@ -403,33 +485,27 @@ fun AddMealDialog(
         dragHandle = { BottomSheetDefaults.DragHandle(color = UnicumAccent) }
     ) {
         Box(Modifier.fillMaxWidth().fillMaxHeight(0.94f).imePadding()) {
-            Column(Modifier.fillMaxSize().padding(start = 18.dp, end = 18.dp, bottom = 16.dp)) {
+            Column(Modifier.fillMaxSize().padding(start = 18.dp, end = 18.dp, bottom = 12.dp)) {
 
-                // INTESTAZIONE: titolo, giorno e orario del pasto
+                // INTESTAZIONE su una riga: tipo di pasto (si cambia toccandolo), orario, giorno se non è oggi
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    IconBadge(Icons.Rounded.Restaurant, size = 42.dp)
-                    Spacer(Modifier.width(12.dp))
-                    Column(Modifier.weight(1f)) {
-                        Text(tr("Registra pasto"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold, maxLines = 1)
+                    MealTypePill(MealTime.label(mealType), onClick = { choosingType = true })
+                    Spacer(Modifier.width(8.dp))
+                    MealTimePill(minute, { minute = it; minuteTouched = true })
+                    if (!isToday) {
+                        Spacer(Modifier.width(8.dp))
                         Text(
-                            if (isToday) tr("Oggi") else DateUtils.parse(date).let { "${it.dayOfMonth}/${it.monthValue}" },
+                            DateUtils.parse(date).let { "${it.dayOfMonth}/${it.monthValue}" },
                             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail
                         )
                     }
-                    MealTimePill(minute, { minute = it; minuteTouched = true })
+                    Spacer(Modifier.weight(1f))
                     IconButton(onClick = ::requestClose) {
                         Icon(Icons.Rounded.Close, tr("Chiudi"), tint = UnicumDark)
                     }
                 }
 
-                Spacer(Modifier.height(14.dp))
-
-                MealTypeInput(mealType, {
-                    mealType = it
-                    if (!isToday && !minuteTouched) minute = MealTime.typical(it)
-                })
-
-                Spacer(Modifier.height(12.dp))
+                Spacer(Modifier.height(10.dp))
 
                 if (creating) {
                     CreateFoodForm(
@@ -438,10 +514,7 @@ fun AddMealDialog(
                         onCreated = { food ->
                             UserSettings.addCustomFood(food)
                             creating = false
-                            selectedFood = food
-                            selectedKey = "a_" + food.name
-                            gramsText = "100"
-                            query = food.name
+                            editing = QuantityTarget(food, 100)
                         },
                         modifier = Modifier.weight(1f)
                     )
@@ -451,8 +524,6 @@ fun AddMealDialog(
                         value = query,
                         onValueChange = {
                             query = it
-                            selectedFood = null
-                            selectedKey = null
                             online = OnlineState.Idle
                         },
                         placeholder = { Text(tr("Cerca un alimento"), maxLines = 1) },
@@ -460,7 +531,7 @@ fun AddMealDialog(
                         trailingIcon = {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 if (query.isNotEmpty()) {
-                                    IconButton(onClick = { query = ""; selectedFood = null; selectedKey = null; online = OnlineState.Idle }) {
+                                    IconButton(onClick = { query = ""; online = OnlineState.Idle }) {
                                         Icon(Icons.Rounded.Close, tr("Cancella"), tint = UnicumDark.copy(alpha = .6f))
                                     }
                                 }
@@ -472,28 +543,16 @@ fun AddMealDialog(
                         singleLine = true,
                         shape = RoundedCornerShape(18.dp),
                         colors = unicumFieldColors(),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().focusRequester(searchFocus)
                     )
-
-                    Spacer(Modifier.height(10.dp))
-
-                    LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        item { UnicumChip(tr("Tutti"), category == null, { category = null; selectedFood = null; selectedKey = null }, compact = true) }
-                        items(
-                            FoodCatalog.categories +
-                                (if (customFoods.isNotEmpty()) listOf(tk("Personalizzati")) else emptyList()) +
-                                (if (cachedFoods.isNotEmpty() || category == OpenFoodFacts.CATEGORY) listOf(OpenFoodFacts.CATEGORY) else emptyList())
-                        ) { cat ->
-                            UnicumChip(tr(cat), category == cat, { category = cat; selectedFood = null; selectedKey = null }, compact = true)
-                        }
-                    }
 
                     Spacer(Modifier.height(10.dp))
 
                     LazyColumn(
                         state = listState,
                         modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 8.dp)
                     ) {
                         scanMessage?.let { msg ->
                             item(key = "scan_msg") {
@@ -504,8 +563,13 @@ fun AddMealDialog(
                             item(key = "scan_food") {
                                 ListLabel(tr("Prodotto scansionato"))
                                 Spacer(Modifier.height(4.dp))
-                                FoodItem(f, "s_" + (f.barcode ?: f.name))
+                                FoodItem(f)
                             }
+                        }
+                        // A ricerca vuota: prima quello che mangi di solito, poi i pasti salvati e i tuoi alimenti
+                        if (blank && recents.isNotEmpty()) {
+                            item(key = "r_head") { ListLabel(recentsLabel) }
+                            items(recents, key = { "r_" + it.name }) { food -> FoodItem(food) }
                         }
                         if (shownTemplates.isNotEmpty()) {
                             item(key = "t_head") { ListLabel(tr("Pasti salvati")) }
@@ -513,18 +577,18 @@ fun AddMealDialog(
                                 SavedMealRow(m, onAdd = { loadTemplate(m) }, onDelete = { deletingTemplate = m })
                             }
                         }
-                        if (showRecents) {
-                            item { ListLabel(recentsLabel) }
-                            items(recents, key = { "r_" + it.name }) { food -> FoodItem(food, "r_" + food.name) }
+                        if (blank && customFoods.isNotEmpty()) {
+                            item(key = "c_head") { ListLabel(tr("I tuoi alimenti")) }
+                            items(customFoods, key = { "c_" + it.name }) { food -> FoodItem(food) }
                         }
-                        if (showRecents || shownTemplates.isNotEmpty()) {
-                            item { ListLabel(if (query.isBlank()) tr("Tutti gli alimenti") else tr("Alimenti")) }
+                        if ((blank && (recents.isNotEmpty() || customFoods.isNotEmpty())) || shownTemplates.isNotEmpty()) {
+                            item(key = "a_head") { ListLabel(if (blank) tr("Tutti gli alimenti") else tr("Alimenti")) }
                         }
 
-                        items(results, key = { it.name }) { food -> FoodItem(food, "a_" + food.name) }
+                        items(results, key = { "a_" + it.name }) { food -> FoodItem(food) }
 
                         if (results.isEmpty()) {
-                            item {
+                            item(key = "empty") {
                                 Text(
                                     tr("Nessun alimento trovato per “%s”.", query.trim()),
                                     color = UnicumDark.copy(alpha = .6f),
@@ -540,13 +604,11 @@ fun AddMealDialog(
                                 OnlineSearchHeader(query.trim(), online, onSearch = ::searchOnline)
                             }
                             (online as? OnlineState.Done)?.let { done ->
-                                items(done.foods, key = { "o_" + (it.barcode ?: it.name) }) { food ->
-                                    FoodItem(food, "o_" + (food.barcode ?: food.name))
-                                }
+                                items(done.foods, key = { "o_" + (it.barcode ?: it.name) }) { food -> FoodItem(food) }
                             }
                         }
 
-                        item {
+                        item(key = "create") {
                             TextButton(onClick = { creating = true }) {
                                 Icon(Icons.Rounded.Add, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
                                 Spacer(Modifier.width(6.dp))
@@ -560,109 +622,270 @@ fun AddMealDialog(
                     }
                 }
 
-                Spacer(Modifier.height(10.dp))
-
-                // PASTO IN COSTRUZIONE: quantità ancora modificabili prima di salvare
-                if (staged.isNotEmpty()) {
-                    // Già salvato così com'è? Allora il link lo dice, altrimenti propone di salvarlo/aggiornarlo
-                    val current = staged.map { DraftItem(it.food, it.grams) }
-                    val savedAs = savedMeals.firstOrNull { it.name.equals(loadedTemplate, true) }
-                    StagedList(
-                        staged = staged,
-                        onGrams = { i, g -> staged[i] = staged[i].copy(grams = g) },
-                        onRemove = { staged.removeAt(it) },
-                        templateLabel = when {
-                            savedAs != null && savedAs.items == current -> tr("Pasto fisso “%s”", savedAs.name)
-                            savedAs != null -> tr("Aggiorna il pasto fisso “%s”", savedAs.name)
-                            else -> tr("Salva come pasto fisso")
-                        },
-                        templateSaved = savedAs != null && savedAs.items == current,
-                        onSaveTemplate = { savingTemplate = true }
-                    )
-                    Spacer(Modifier.height(10.dp))
+                // Appena aggiunto con il +: si può correggere la quantità
+                val added = lastAdded?.takeIf { it in staged.indices }
+                androidx.compose.animation.AnimatedVisibility(visible = added != null) {
+                    val item = added?.let { staged.getOrNull(it) }
+                    if (item != null) {
+                        AddedToast(
+                            text = tr("Aggiunto: %s · %d g", item.food.name, item.grams),
+                            onEdit = {
+                                editing = QuantityTarget(item.food, item.grams, added)
+                                lastAdded = null
+                            }
+                        )
+                    }
                 }
 
-                UnicumButton(
-                    text = if (staged.isEmpty()) tr("Aggiungi almeno un alimento")
-                    else trp(staged.size, "Salva %d alimento", "Salva %d alimenti") + " · ${io.github.peol13.unicum.i18n.lnum(totalKcal)} kcal",
-                    enabled = staged.isNotEmpty(),
-                    onClick = ::saveMeal
-                )
+                // IL PASTO: una barra bassa con il totale e l'unico tasto Salva; toccandola si apre il riepilogo
+                if (staged.isNotEmpty()) {
+                    Spacer(Modifier.height(8.dp))
+                    MealBar(
+                        count = staged.size,
+                        kcal = totalKcal,
+                        meals = staged.map { it.meal },
+                        onOpen = { reviewing = true },
+                        onSave = ::saveMeal
+                    )
+                }
             }
         }
     }
 }
 
-/** Gli alimenti già aggiunti: − / + di 10 g per correggere la quantità, x per toglierli. */
+/** Tipo di pasto in alto: pillola piena con la freccia, toccandola si cambia. */
 @Composable
-private fun StagedList(
+private fun MealTypePill(label: String, onClick: () -> Unit) {
+    Row(
+        Modifier
+            .clip(RoundedCornerShape(50))
+            .background(UnicumPrimary)
+            .clickable(onClick = onClick)
+            .padding(start = 12.dp, end = 8.dp, top = 7.dp, bottom = 7.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(Icons.Rounded.Restaurant, null, tint = UnicumOnPrimary, modifier = Modifier.size(17.dp))
+        Spacer(Modifier.width(6.dp))
+        Text(
+            label, color = UnicumOnPrimary, style = UnicumType.Body, fontWeight = FontWeight.SemiBold,
+            maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = 150.dp)
+        )
+        Icon(Icons.Rounded.ExpandMore, tr("Tipo di pasto"), tint = UnicumOnPrimary, modifier = Modifier.size(20.dp))
+    }
+}
+
+/** Avviso dopo un'aggiunta con il +: "Aggiunto: Mela · 180 g" e "Modifica". */
+@Composable
+private fun AddedToast(text: String, onEdit: () -> Unit) {
+    Row(
+        Modifier
+            .padding(top = 6.dp)
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(UnicumDark)
+            .padding(start = 14.dp, end = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text, color = UnicumBackground, style = UnicumType.Detail, maxLines = 1,
+            overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f)
+        )
+        TextButton(onClick = onEdit) {
+            Text(tr("Modifica"), color = UnicumAccent, fontWeight = FontWeight.SemiBold)
+        }
+    }
+}
+
+/** Barra del pasto in costruzione: numero di alimenti, kcal e macro; a destra Salva. */
+@Composable
+private fun MealBar(count: Int, kcal: Int, meals: List<Meal>, onOpen: () -> Unit, onSave: () -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(22.dp))
+            .background(UnicumPrimary)
+            .padding(end = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(
+            Modifier
+                .weight(1f)
+                .clickable(onClick = onOpen)
+                .padding(start = 16.dp, top = 10.dp, bottom = 10.dp, end = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(Modifier.weight(1f)) {
+                Text(
+                    trp(count, "%d alimento", "%d alimenti") + " · ${lnum(kcal)} kcal",
+                    color = UnicumOnPrimary, style = UnicumType.Body, fontWeight = FontWeight.SemiBold, maxLines = 1
+                )
+                Text(
+                    "${tr("P")} ${fmtGrams(meals.sumOf { it.protein.toDouble() }.toFloat())} · " +
+                        "${tr("C")} ${fmtGrams(meals.sumOf { it.carbohydrates.toDouble() }.toFloat())} · " +
+                        "${tr("G")} ${fmtGrams(meals.sumOf { it.fats.toDouble() }.toFloat())} · " + tr("Vedi e modifica"),
+                    color = UnicumOnPrimary.copy(alpha = .8f), style = UnicumType.Note, maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            Icon(Icons.Rounded.ExpandLess, tr("Vedi e modifica"), tint = UnicumOnPrimary)
+        }
+        Box(
+            Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(UnicumOnPrimary)
+                .clickable(onClick = onSave)
+                .padding(horizontal = 18.dp, vertical = 12.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(tr("Salva"), color = UnicumPrimary, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+        }
+    }
+}
+
+/**
+ * Quantità di un alimento in un foglio a parte, sempre visibile per intero: porzioni o grammi, riepilogo
+ * e il tasto in fondo. Per un alimento già nel pasto il tasto aggiorna e c'è "Togli dal pasto".
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun QuantitySheet(target: QuantityTarget, onDismiss: () -> Unit, onConfirm: (Int) -> Unit, onRemove: (() -> Unit)?) {
+    val food = target.food
+    var gramsText by remember(target) { mutableStateOf(target.grams.toString()) }
+    val grams = gramsText.toIntOrNull() ?: 0
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        containerColor = UnicumBackground,
+        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+        dragHandle = { BottomSheetDefaults.DragHandle(color = UnicumAccent) }
+    ) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .imePadding()
+                .verticalScroll(rememberScrollState())
+                .padding(start = 18.dp, end = 18.dp, bottom = 18.dp)
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconBadge(foodCategoryIcon(food.category), size = 42.dp)
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(food.name, color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+                    Text(
+                        "${lnum(food.caloriesPer100g)} kcal · ${tr("P")} ${fmtGrams(food.proteinPer100g)} · " +
+                            "${tr("C")} ${fmtGrams(food.carbsPer100g)} · ${tr("G")} ${fmtGrams(food.fatsPer100g)}  " + tr("per 100 g"),
+                        color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
+                    )
+                }
+                IconButton(onClick = onDismiss) { Icon(Icons.Rounded.Close, tr("Chiudi"), tint = UnicumDark) }
+            }
+            Spacer(Modifier.height(16.dp))
+            val portions = remember(food.name) { FoodPortions.of(food) }
+            if (portions.isEmpty()) GramsInput(gramsText, { gramsText = it })
+            else PortionOrGramsInput(portions, gramsText, { gramsText = it })
+            Spacer(Modifier.height(12.dp))
+            val portion = food.portion(grams)
+            NutritionSummary(portion.calories, portion.protein, portion.carbohydrates, portion.fats)
+            Spacer(Modifier.height(14.dp))
+            UnicumButton(
+                if (target.index == null) tr("Aggiungi al pasto") else tr("Aggiorna"),
+                onClick = { onConfirm(grams) }, enabled = grams > 0
+            )
+            if (onRemove != null) {
+                TextButton(onClick = onRemove, modifier = Modifier.fillMaxWidth()) {
+                    Text(tr("Togli dal pasto"), color = DeleteRed, fontWeight = FontWeight.Medium)
+                }
+            }
+        }
+    }
+}
+
+/** Riepilogo del pasto in costruzione: tutti gli alimenti con − / +, tocco = quantità, X = togli; poi Salva. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun MealReviewSheet(
     staged: List<StagedFood>,
+    mealLabel: String,
+    onDismiss: () -> Unit,
+    onEdit: (Int) -> Unit,
     onGrams: (Int, Int) -> Unit,
     onRemove: (Int) -> Unit,
     templateLabel: String,
     templateSaved: Boolean,
-    onSaveTemplate: () -> Unit
+    onSaveTemplate: () -> Unit,
+    onSave: () -> Unit
 ) {
-    val shape = RoundedCornerShape(20.dp)
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .clip(shape)
-            .background(UnicumSurface)
-            .border(1.dp, UnicumAccent.copy(alpha = .45f), shape)
-            .padding(horizontal = 14.dp, vertical = 10.dp)
+    val meals = staged.map { it.meal }
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        containerColor = UnicumBackground,
+        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+        dragHandle = { BottomSheetDefaults.DragHandle(color = UnicumAccent) }
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                tr("NEL PASTO"), color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note,
-                fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f)
-            )
-            val meals = staged.map { it.meal }
-            Text(
-                "${tr("P")} ${fmtGrams(meals.sumOf { it.protein.toDouble() }.toFloat())}  " +
-                    "${tr("C")} ${fmtGrams(meals.sumOf { it.carbohydrates.toDouble() }.toFloat())}  " +
-                    "${tr("G")} ${fmtGrams(meals.sumOf { it.fats.toDouble() }.toFloat())}",
-                color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
-            )
-        }
-        Column(Modifier.heightIn(max = 150.dp).verticalScroll(rememberScrollState())) {
-            staged.forEachIndexed { i, item ->
-                Row(Modifier.fillMaxWidth().padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Column(Modifier.weight(1f)) {
-                        Text(item.food.name, color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium, maxLines = 1)
-                        Text("${io.github.peol13.unicum.i18n.lnum(item.meal.calories)} kcal", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
-                    }
-                    StepButton(add = false, size = 30.dp) { if (item.grams > 10) onGrams(i, item.grams - 10) }
-                    Text(
-                        "${item.grams} g", color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center, modifier = Modifier.width(56.dp)
-                    )
-                    StepButton(add = true, size = 30.dp) { onGrams(i, item.grams + 10) }
-                    Spacer(Modifier.width(4.dp))
-                    IconButton(onClick = { onRemove(i) }, modifier = Modifier.size(32.dp)) {
-                        Icon(Icons.Rounded.Close, tr("Rimuovi"), tint = DeleteRed, modifier = Modifier.size(16.dp))
+        Column(Modifier.fillMaxWidth().padding(start = 18.dp, end = 18.dp, bottom = 18.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text(tr("Il tuo pasto"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+                    Text(mealLabel, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Detail)
+                }
+                IconButton(onClick = onDismiss) { Icon(Icons.Rounded.Close, tr("Chiudi"), tint = UnicumDark) }
+            }
+            Spacer(Modifier.height(10.dp))
+            Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState())) {
+                staged.forEachIndexed { i, item ->
+                    if (i > 0) Box(Modifier.fillMaxWidth().height(1.dp).background(UnicumAccent.copy(alpha = .3f)))
+                    Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f).clip(RoundedCornerShape(10.dp)).clickable { onEdit(i) }.padding(vertical = 4.dp)) {
+                            Text(item.food.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.Medium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                            Text("${lnum(item.meal.calories)} kcal", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
+                        }
+                        StepButton(add = false, size = 34.dp) { if (item.grams > 10) onGrams(i, item.grams - 10) }
+                        Text(
+                            "${item.grams} g", color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center, modifier = Modifier.width(58.dp).clickable { onEdit(i) }
+                        )
+                        StepButton(add = true, size = 34.dp) { onGrams(i, item.grams + 10) }
+                        IconButton(onClick = { onRemove(i) }, modifier = Modifier.size(44.dp)) {
+                            Icon(Icons.Rounded.Close, tr("Rimuovi"), tint = DeleteRed, modifier = Modifier.size(18.dp))
+                        }
                     }
                 }
             }
-        }
-        Row(
-            Modifier
-                .padding(top = 6.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .clickable(onClick = onSaveTemplate)
-                .padding(vertical = 6.dp, horizontal = 2.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                if (templateSaved) Icons.Rounded.Bookmark else Icons.Rounded.BookmarkBorder, null,
-                tint = UnicumPrimary, modifier = Modifier.size(18.dp)
+            Spacer(Modifier.height(10.dp))
+            NutritionSummary(
+                meals.sumOf { it.calories },
+                meals.sumOf { it.protein.toDouble() }.toFloat(),
+                meals.sumOf { it.carbohydrates.toDouble() }.toFloat(),
+                meals.sumOf { it.fats.toDouble() }.toFloat()
             )
-            Spacer(Modifier.width(6.dp))
-            Text(
-                templateLabel, color = if (templateSaved) UnicumDark.copy(alpha = .6f) else UnicumPrimary,
-                style = UnicumType.Detail, fontWeight = FontWeight.SemiBold, maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+            Row(
+                Modifier
+                    .padding(top = 8.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable(onClick = onSaveTemplate)
+                    .padding(vertical = 8.dp, horizontal = 2.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    if (templateSaved) Icons.Rounded.Bookmark else Icons.Rounded.BookmarkBorder, null,
+                    tint = UnicumPrimary, modifier = Modifier.size(18.dp)
+                )
+                Spacer(Modifier.width(6.dp))
+                Text(
+                    templateLabel, color = if (templateSaved) UnicumDark.copy(alpha = .6f) else UnicumPrimary,
+                    style = UnicumType.Detail, fontWeight = FontWeight.SemiBold, maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            Spacer(Modifier.height(8.dp))
+            UnicumButton(
+                trp(staged.size, "Salva %d alimento", "Salva %d alimenti") + " · ${lnum(meals.sumOf { it.calories })} kcal",
+                onClick = onSave
             )
+            TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
+                Text(tr("Aggiungi altri alimenti"), color = UnicumPrimary, fontWeight = FontWeight.SemiBold)
+            }
         }
     }
 }
@@ -759,70 +982,57 @@ private fun ListLabel(text: String) {
     )
 }
 
-/** Riga di un alimento: chiusa mostra kcal e macro per 100 g; aperta, quantità e riepilogo. */
+/**
+ * Riga di un alimento: kcal e macro per 100 g (o "✓ Nel pasto: 80 g" se è già nel pasto).
+ * Tocco sulla riga = scegli la quantità; + = aggiungi subito la quantità abituale.
+ */
 @Composable
 private fun FoodRow(
     food: Food,
-    expanded: Boolean,
-    gramsText: String,
-    onGramsChange: (String) -> Unit,
+    inMealGrams: Int?,
     onClick: () -> Unit,
     onAdd: () -> Unit
 ) {
-    val grams = gramsText.toIntOrNull() ?: 0
     val shape = RoundedCornerShape(20.dp)
-    Column(
+    Row(
         Modifier
             .fillMaxWidth()
             .clip(shape)
             .background(UnicumSurface)
-            .border(1.dp, if (expanded) UnicumPrimary else UnicumAccent.copy(alpha = .4f), shape)
+            .border(1.dp, if (inMealGrams != null) UnicumPrimary.copy(alpha = .6f) else UnicumAccent.copy(alpha = .4f), shape)
+            .clickable { onClick() }
+            .padding(start = 12.dp, end = 4.dp, top = 8.dp, bottom = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            Modifier.fillMaxWidth().clickable { onClick() }.padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconBadge(foodCategoryIcon(food.category), size = 34.dp)
-            Spacer(Modifier.width(10.dp))
-            Column(Modifier.weight(1f)) {
-                Text(food.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
-                Spacer(Modifier.height(2.dp))
+        IconBadge(foodCategoryIcon(food.category), size = 34.dp)
+        Spacer(Modifier.width(10.dp))
+        Column(Modifier.weight(1f)) {
+            Text(food.name, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+            Spacer(Modifier.height(2.dp))
+            if (inMealGrams != null) {
+                Text(
+                    "✓ " + tr("Nel pasto: %d g", inMealGrams),
+                    color = UnicumPrimary, style = UnicumType.Note, fontWeight = FontWeight.SemiBold
+                )
+            } else {
                 Text(
                     "${tr("P")} ${fmtGrams(food.proteinPer100g)} · ${tr("C")} ${fmtGrams(food.carbsPer100g)} · ${tr("G")} ${fmtGrams(food.fatsPer100g)}" +
                         (food.fiberPer100g?.let { " · ${tr("F")} ${fmtGrams(it)}" } ?: "") + "  " + tr("per 100 g"),
                     color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note
                 )
             }
-            Spacer(Modifier.width(8.dp))
-            Column(horizontalAlignment = Alignment.End) {
-                Text("${food.caloriesPer100g}", color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold)
-                Text("kcal", color = UnicumDark.copy(alpha = .5f), style = UnicumType.Micro)
-            }
-            Spacer(Modifier.width(10.dp))
+        }
+        Spacer(Modifier.width(8.dp))
+        Column(horizontalAlignment = Alignment.End) {
+            Text(lnum(food.caloriesPer100g), color = UnicumDark, style = UnicumType.Emphasis, fontWeight = FontWeight.SemiBold)
+            Text("kcal", color = UnicumDark.copy(alpha = .5f), style = UnicumType.Micro)
+        }
+        IconButton(onClick = onAdd, modifier = Modifier.size(48.dp)) {
             Box(
-                Modifier.size(30.dp).clip(CircleShape)
-                    .background(if (expanded) UnicumPrimary else UnicumAccent.copy(alpha = .35f)),
+                Modifier.size(32.dp).clip(CircleShape).background(UnicumAccent.copy(alpha = .35f)),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(
-                    if (expanded) Icons.Rounded.ExpandLess else Icons.Rounded.Add, null,
-                    tint = if (expanded) UnicumOnPrimary else UnicumPrimary, modifier = Modifier.size(18.dp)
-                )
-            }
-        }
-
-        if (expanded) {
-            Column(Modifier.padding(start = 14.dp, end = 14.dp, bottom = 14.dp)) {
-                Box(Modifier.fillMaxWidth().height(1.dp).background(UnicumAccent.copy(alpha = .35f)))
-                Spacer(Modifier.height(12.dp))
-                val portions = remember(food.name) { FoodPortions.of(food) }
-                if (portions.isEmpty()) GramsInput(gramsText, onGramsChange)
-                else PortionOrGramsInput(portions, gramsText, onGramsChange)
-                Spacer(Modifier.height(10.dp))
-                val portion = food.portion(grams)
-                NutritionSummary(portion.calories, portion.protein, portion.carbohydrates, portion.fats)
-                Spacer(Modifier.height(10.dp))
-                UnicumButton(tr("Aggiungi al pasto"), onClick = onAdd, enabled = grams > 0)
+                Icon(Icons.Rounded.Add, tr("Aggiungi al pasto"), tint = UnicumPrimary, modifier = Modifier.size(18.dp))
             }
         }
     }

@@ -173,6 +173,11 @@ object UnicumRepository {
         rows.mapNotNull { r -> UserSettings.findFood(r.foodName) ?: cached[r.foodName] ?: r.toFoodGuess() }
     }
 
+    /** L'ultima quantità in grammi registrata per ogni alimento (nome → grammi). */
+    suspend fun lastGrams(context: Context): Map<String, Int> = withContext(Dispatchers.IO) {
+        dao(context).latestEntryPerFood().filter { it.grams > 0f }.associate { it.foodName to Math.round(it.grams) }
+    }
+
     /** I nomi propri già dati ai pasti "Altro", dal più recente. */
     suspend fun otherMealNames(context: Context): List<String> = withContext(Dispatchers.IO) {
         dao(context).recentMealTypes().mapNotNull { MealTime.customName(it) }.distinctBy { it.lowercase() }.take(8)

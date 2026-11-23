@@ -393,3 +393,10 @@ es: «%s» eliminado
 fr: « %s » supprimé
 de: „%s“ gelöscht
 pt: “%s” excluído
+
+it: Ripristina
+en: Undo
+es: Deshacer
+fr: Annuler
+de: Rückgängig
+pt: Desfazer

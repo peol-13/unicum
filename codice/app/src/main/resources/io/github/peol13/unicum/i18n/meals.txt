@@ -374,13 +374,6 @@ fr: Le repas enregistré ne sera plus proposé. Les repas déjà notés restent.
 de: Die gespeicherte Mahlzeit wird nicht mehr vorgeschlagen. Bereits erfasste Mahlzeiten bleiben.
 pt: A refeição salva não será mais sugerida. As refeições já registradas permanecem.
 
-it: Registra pasto
-en: Log meal
-es: Registrar comida
-fr: Noter un repas
-de: Mahlzeit eintragen
-pt: Registrar refeição
-
 it: Cerca un alimento
 en: Search for a food
 es: Busca un alimento
@@ -472,13 +465,6 @@ fr: Enregistrer comme repas type
 de: Als feste Mahlzeit speichern
 pt: Salvar como refeição fixa
 
-it: Aggiungi almeno un alimento
-en: Add at least one food
-es: Añade al menos un alimento
-fr: Ajoute au moins un aliment
-de: Füge mindestens ein Lebensmittel hinzu
-pt: Adicione pelo menos um alimento
-
 it: Salva %d alimento
 en: Save %d food
 es: Guardar %d alimento
@@ -492,13 +478,6 @@ es: Guardar %d alimentos
 fr: Enregistrer %d aliments
 de: %d Lebensmittel speichern
 pt: Salvar %d alimentos
-
-it: NEL PASTO
-en: IN THIS MEAL
-es: EN LA COMIDA
-fr: DANS LE REPAS
-de: IN DER MAHLZEIT
-pt: NA REFEIÇÃO
 
 it: P
 en: P
@@ -1044,3 +1023,82 @@ es: Completa los datos para la estimación
 fr: Complète tes données pour l'estimation
 de: Vervollständige deine Daten für die Schätzung
 pt: Complete os dados para a estimativa
+
+# Foglio "Registra pasto" (1.1.0)
+
+it: Tipo di pasto
+en: Meal type
+es: Tipo de comida
+fr: Type de repas
+de: Mahlzeit
+pt: Tipo de refeição
+
+it: Fatto
+en: Done
+es: Listo
+fr: Terminé
+de: Fertig
+pt: Pronto
+
+it: I tuoi alimenti
+en: Your foods
+es: Tus alimentos
+fr: Tes aliments
+de: Deine Lebensmittel
+pt: Seus alimentos
+
+it: Nel pasto: %d g
+en: In this meal: %d g
+es: En la comida: %d g
+fr: Dans le repas : %d g
+de: In der Mahlzeit: %d g
+pt: Na refeição: %d g
+
+it: Aggiunto: %s · %d g
+en: Added: %s · %d g
+es: Añadido: %s · %d g
+fr: Ajouté : %s · %d g
+de: Hinzugefügt: %s · %d g
+pt: Adicionado: %s · %d g
+
+it: Il tuo pasto
+en: Your meal
+es: Tu comida
+fr: Ton repas
+de: Deine Mahlzeit
+pt: Sua refeição
+
+it: Togli dal pasto
+en: Remove from meal
+es: Quitar de la comida
+fr: Retirer du repas
+de: Aus der Mahlzeit entfernen
+pt: Tirar da refeição
+
+it: Vedi e modifica
+en: View and edit
+es: Ver y editar
+fr: Voir et modifier
+de: Ansehen und bearbeiten
+pt: Ver e editar
+
+it: Aggiungi altri alimenti
+en: Add more foods
+es: Añadir más alimentos
+fr: Ajouter d'autres aliments
+de: Weitere Lebensmittel hinzufügen
+pt: Adicionar mais alimentos
+
+it: %d alimento
+en: %d food
+es: %d alimento
+fr: %d aliment
+de: %d Lebensmittel
+pt: %d alimento
+
+it: %d alimenti
+en: %d foods
+es: %d alimentos
+fr: %d aliments
+de: %d Lebensmittel
+pt: %d alimentos

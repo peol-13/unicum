@@ -289,9 +289,19 @@ fun PortionOrGramsInput(
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var gramsMode by remember { mutableStateOf(false) }
-    var unit by remember { mutableStateOf(0) }
-    var count by remember { mutableStateOf(1f) }
+    // Si parte dalla quantità attuale: la prima porzione di cui è un multiplo di mezza porzione, altrimenti i grammi
+    val startGrams = remember { gramsText.toIntOrNull() ?: 0 }
+    val startUnit = remember {
+        portions.indices.firstOrNull { i ->
+            val halves = startGrams * 2f / portions[i].grams
+            halves >= 1f && kotlin.math.abs(halves - kotlin.math.round(halves)) < 0.02f
+        }
+    }
+    var gramsMode by remember { mutableStateOf(startUnit == null && startGrams > 0) }
+    var unit by remember { mutableStateOf(startUnit ?: 0) }
+    var count by remember {
+        mutableStateOf(startUnit?.let { kotlin.math.round(startGrams * 2f / portions[it].grams) / 2f } ?: 1f)
+    }
     val portion = portions[unit.coerceIn(portions.indices)]
     fun apply(newUnit: Int = unit, newCount: Float = count) {
         unit = newUnit; count = newCount

@@ -230,7 +230,7 @@ fun UndoSnackbar() {
         host.currentSnackbarData?.dismiss()
         val result = host.showSnackbar(
             message = action.message,
-            actionLabel = tr("Annulla"),
+            actionLabel = tr("Ripristina"),
             duration = androidx.compose.material3.SnackbarDuration.Long
         )
         if (result == androidx.compose.material3.SnackbarResult.ActionPerformed) {
