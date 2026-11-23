@@ -131,6 +131,10 @@ class MainActivity : ComponentActivity() {
 
     /** Dal widget o da un promemoria: apre la registrazione del pasto o la sezione Allenamenti (una volta sola per Intent). */
     private fun handleIntent(intent: Intent?) {
+        if (intent?.getBooleanExtra(io.github.peol13.unicum.data.WeeklySummary.EXTRA_OPEN_WEEK, false) == true) {
+            intent.removeExtra(io.github.peol13.unicum.data.WeeklySummary.EXTRA_OPEN_WEEK)
+            UnicumAppState.pendingOpenWeek = true
+        }
         if (intent?.getBooleanExtra(UnicumWidget.EXTRA_OPEN_TRAINING, false) == true) {
             intent.removeExtra(UnicumWidget.EXTRA_OPEN_TRAINING)
             UnicumAppState.requestOpenTraining()
@@ -184,6 +188,13 @@ private fun AppContent() {
     // Una registrazione chiesta dal widget o da un promemoria si apre nella Home
     LaunchedEffect(UnicumAppState.pendingAddMeal) {
         if (UnicumAppState.pendingAddMeal != null) screen = Route.Home
+    }
+    // La notifica del lunedì apre il racconto della settimana appena finita
+    LaunchedEffect(UnicumAppState.pendingOpenWeek) {
+        if (UnicumAppState.pendingOpenWeek) {
+            UnicumAppState.pendingOpenWeek = false
+            navigate(Route.WeekStory(io.github.peol13.unicum.ui.screens.lastCompletedWeek()))
+        }
     }
     // Il widget del recupero apre la sezione Allenamenti
     LaunchedEffect(UnicumAppState.pendingOpenTraining) {

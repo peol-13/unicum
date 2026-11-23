@@ -91,6 +91,9 @@ object UnicumAppState {
     }
 
     /** Apertura della sezione Allenamenti chiesta da fuori (widget del recupero). */
+    /** Dalla notifica del lunedì: aprire il racconto della settimana. */
+    var pendingOpenWeek by mutableStateOf(false)
+
     var pendingOpenTraining by mutableStateOf(false)
         private set
 

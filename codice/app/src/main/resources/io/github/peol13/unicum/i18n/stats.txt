@@ -453,3 +453,54 @@ es: Medias y peso estimado: solo los días marcados como completos en el Diario 
 fr: Moyennes et poids estimé : seulement les journées cochées comme complètes dans le Journal (%d sur 7).
 de: Durchschnitte und geschätztes Gewicht: nur im Tagebuch als vollständig markierte Tage (%d von 7).
 pt: Médias e peso estimado: só os dias marcados como completos no Diário (%d de 7).
+
+# Riepilogo della settimana (1.1.0)
+
+it: Riepilogo della settimana
+en: Weekly summary
+es: Resumen de la semana
+fr: Résumé de la semaine
+de: Wochenrückblick
+pt: Resumo da semana
+
+it: Il lunedì una notifica con deficit medio, attività e sonno della settimana appena finita. Toccandola si apre il racconto della settimana.
+en: On Mondays, a notification with average deficit, activity and sleep for the week that just ended. Tap it to open the week's story.
+es: Los lunes, una notificación con el déficit medio, la actividad y el sueño de la semana que acaba de terminar. Al tocarla se abre el relato de la semana.
+fr: Le lundi, une notification avec le déficit moyen, l'activité et le sommeil de la semaine qui vient de finir. En la touchant, le récit de la semaine s'ouvre.
+de: Montags eine Benachrichtigung mit durchschnittlichem Defizit, Aktivität und Schlaf der gerade beendeten Woche. Antippen öffnet die Wochengeschichte.
+pt: Às segundas, uma notificação com o déficit médio, a atividade e o sono da semana que acabou. Ao tocá-la, abre o resumo da semana.
+
+it: deficit medio %s kcal
+en: average deficit %s kcal
+es: déficit medio %s kcal
+fr: déficit moyen %s kcal
+de: Durchschnittsdefizit %s kcal
+pt: déficit médio %s kcal
+
+it: surplus medio %s kcal
+en: average surplus %s kcal
+es: superávit medio %s kcal
+fr: surplus moyen %s kcal
+de: Durchschnittsüberschuss %s kcal
+pt: superávit médio %s kcal
+
+it: %d min di attività
+en: %d min of activity
+es: %d min de actividad
+fr: %d min d'activité
+de: %d Min. Aktivität
+pt: %d min de atividade
+
+it: sonno medio %s
+en: average sleep %s
+es: sueño medio %s
+fr: sommeil moyen %s
+de: Schlaf im Schnitt %s
+pt: sono médio %s
+
+it: Tocca per il racconto della settimana.
+en: Tap for the week's story.
+es: Toca para ver el relato de la semana.
+fr: Touche pour le récit de la semaine.
+de: Tippe für die Wochengeschichte.
+pt: Toque para ver o resumo da semana.

@@ -94,6 +94,7 @@ object BackgroundSync {
             val health = UnicumRepository.loadHealth(app, 14, today.toString())
             RecoveryAlerts.fromHealth(health, today)?.let { RecoveryAlertNotifier.notifyOnce(app, it) }
         }
+        step("Riepilogo settimana") { WeeklySummary.notifyIfDue(app) }
         step("Widget") { UnicumWidget.refresh(app) }
 
         prefs(app).edit().putLong("last_run", System.currentTimeMillis())
