@@ -385,6 +385,7 @@ object UnicumRepository {
                     activityMinutes = dayActivities.sumOf { it.durationMinutes },
                     workouts = dayActivities.size,
                     deficitKcal = if (future || dayMeals.isEmpty()) null else DayEnergy.deficit(eaten, resting, extra),
+                    countsForAverages = !UserSettings.usesCompleteDays || UserSettings.isDayComplete(iso),
                     sleepMinutes = night?.durationMinutes,
                     sleepStartMillis = night?.startMillis,
                     sleepEndMillis = night?.endMillis,

@@ -101,6 +101,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.rounded.ContentCopy
 import io.github.peol13.unicum.i18n.trp
 import io.github.peol13.unicum.data.DateUtils
+import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 
 /*
  * Sezioni condivise tra Home, pagine di dettaglio e Diario.
@@ -1038,5 +1040,32 @@ internal fun SectionHeader(title: String, summary: String? = null, first: Boolea
         }
         Spacer(Modifier.height(8.dp))
         Box(Modifier.fillMaxWidth().height(2.dp).clip(RoundedCornerShape(50)).background(UnicumAccent.copy(alpha = .55f)))
+    }
+}
+
+/**
+ * "Giornata completa": si segna quando si è registrato tutto quello che si è mangiato. Da quando se ne segna
+ * una, medie del deficit e peso stimato (Statistiche, racconto della settimana) contano solo i giorni completi.
+ */
+@Composable
+internal fun CompleteDayCard(date: String) {
+    val complete = UserSettings.isDayComplete(date)
+    val haptics = io.github.peol13.unicum.ui.components.rememberHaptics()
+    UnicumCard(onClick = { haptics.tick(); UserSettings.setDayComplete(date, !complete) }) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                if (complete) Icons.Rounded.CheckCircle else Icons.Rounded.RadioButtonUnchecked,
+                null, tint = UnicumPrimary, modifier = Modifier.size(26.dp)
+            )
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(tr("Giornata completa"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+                Text(
+                    if (complete) tr("Hai registrato tutto: questo giorno conta nelle medie e nel peso stimato.")
+                    else tr("Hai registrato tutto quello che hai mangiato? Segnalo: medie e peso stimato useranno solo i giorni completi."),
+                    color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption
+                )
+            }
+        }
     }
 }

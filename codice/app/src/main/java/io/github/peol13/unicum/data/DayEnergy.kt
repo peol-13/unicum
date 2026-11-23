@@ -48,6 +48,8 @@ data class WeekDay(
     val workouts: Int,
     /** Deficit del giorno; null se non ci sono pasti registrati o il giorno non è ancora arrivato. */
     val deficitKcal: Int?,
+    /** Il giorno conta per medie e peso stimato: sempre, oppure solo se segnato come completo (vedi UserSettings). */
+    val countsForAverages: Boolean = true,
     /** Minuti dormiti nella notte che finisce in questo giorno. */
     val sleepMinutes: Int?,
     /** Inizio e fine di quella notte (millisecondi), per gli orari del sonno. */

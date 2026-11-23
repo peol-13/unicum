@@ -38,6 +38,7 @@ import io.github.peol13.unicum.ui.sections.RecoveryDetailCard
 import io.github.peol13.unicum.ui.sections.SleepBigCard
 import io.github.peol13.unicum.ui.sections.WorkoutsCard
 import io.github.peol13.unicum.ui.sections.rememberDayStats
+import io.github.peol13.unicum.ui.sections.CompleteDayCard
 
 /**
  * Diario: il recap completo di una giornata, con tutte le sezioni delle card riunite
@@ -85,6 +86,10 @@ fun DiarioScreen(onNavigate: (Route) -> Unit) {
         // PASTI
         SectionHeader(tr("Pasti"), if (data.meals.isEmpty()) tr("nessuno") else "${fmt(stats.eaten)} kcal")
         HideTitle { MealsCard(data.meals) }
+        if (data.meals.isNotEmpty()) {
+            Gap()
+            CompleteDayCard(UnicumAppState.selectedDate)
+        }
         Gap()
         // Colazione, pranzo, cena e ogni pasto "Altro" col suo nome (es. due spuntini), in ordine di orario
         MealTime.groups(data.meals, withEmptyOther = true).forEach { (type, meals) ->

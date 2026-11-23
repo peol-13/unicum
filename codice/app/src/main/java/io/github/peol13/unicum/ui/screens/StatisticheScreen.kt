@@ -146,7 +146,8 @@ fun StatisticheScreen(onNavigate: (Route) -> Unit) {
 @Composable
 private fun DeficitSection(days: List<WeekDay>) {
     val goal = UserSettings.targetDeficitKcal
-    val values = days.mapNotNull { it.deficitKcal }
+    // Con le giornate complete, medie e peso stimato contano solo quelle (le altre restano nel grafico, tenui)
+    val values = days.filter { it.countsForAverages }.mapNotNull { it.deficitKcal }
     val bars = days.map { d ->
         val v = d.deficitKcal
         WeekBar(
@@ -159,7 +160,7 @@ private fun DeficitSection(days: List<WeekDay>) {
                 v >= goal && v >= 0 -> DeficitGreen
                 v >= 0 -> DeficitYellow
                 else -> DeficitRed
-            },
+            }.let { if (d.countsForAverages) it else it.copy(alpha = .35f) },
             highlighted = d.isToday
         )
     }
@@ -174,7 +175,10 @@ private fun DeficitSection(days: List<WeekDay>) {
         footnote = buildString {
             append(tr("Obiettivo: %,d kcal al giorno.", goal) + " ")
             append(tr("Peso stimato: 7.700 kcal di deficit ≈ 1 kg di grasso; la bilancia varia anche per acqua e digestione."))
-            if (days.any { it.isToday && it.deficitKcal != null }) {
+            if (UserSettings.usesCompleteDays) {
+                append(" " + tr("Medie e peso stimato: solo le giornate segnate come complete nel Diario (%d su 7).", days.count { it.countsForAverages && it.deficitKcal != null }))
+            }
+            if (days.any { it.isToday && it.deficitKcal != null && it.countsForAverages }) {
                 append(" " + tr("Il valore di oggi è parziale: il basale matura nell'arco della giornata."))
             }
         },

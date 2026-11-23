@@ -91,7 +91,9 @@ data class BackupSettings(
     /** Pasti fissi salvati. */
     val savedMeals: List<SavedMeal> = emptyList(),
     /** HRV confrontabile dal (yyyy-MM-dd) scelto a mano; null = automatico. */
-    val hrvFrom: String? = null
+    val hrvFrom: String? = null,
+    /** Giorni segnati come "giornata completa" (yyyy-MM-dd); si uniscono a quelli presenti. */
+    val completeDays: List<String> = emptyList()
 )
 
 /**

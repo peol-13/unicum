@@ -170,6 +170,23 @@ object UserSettings {
         prefs.edit().putString("whats_new_seen", version).apply()
     }
 
+    /**
+     * Giorni segnati come "giornata completa" (yyyy-MM-dd): hai registrato tutto quello che hai mangiato.
+     * Appena ne segni uno, medie del deficit e peso stimato contano solo i giorni completi.
+     */
+    var completeDays by mutableStateOf<Set<String>>(emptySet())
+        private set
+
+    /** Usa le giornate complete (almeno un giorno segnato): le medie ignorano i giorni non completi. */
+    val usesCompleteDays: Boolean get() = completeDays.isNotEmpty()
+
+    fun isDayComplete(date: String): Boolean = date in completeDays
+
+    fun setDayComplete(date: String, complete: Boolean) {
+        completeDays = if (complete) completeDays + date else completeDays - date
+        prefs.edit().putStringSet("complete_days", completeDays).apply()
+    }
+
     /** La card "Primi passi" della Home è stata nascosta a mano. */
     var firstStepsHidden by mutableStateOf(false)
         private set
@@ -260,6 +277,7 @@ object UserSettings {
         weekStorySeen = prefs.getString("week_story_seen", null)
         firstStepsHidden = prefs.getBoolean("first_steps_hidden", false)
         whatsNewSeen = prefs.getString("whats_new_seen", null)
+        completeDays = prefs.getStringSet("complete_days", emptySet())?.toSet() ?: emptySet()
         homeLayout = HomeLayout.decode(prefs.getString("home_layout", null))
         hrvFromManual = prefs.getString("hrv_from_manual", null)?.let(::parseIsoDate)
         hrvFromAuto = prefs.getString("hrv_from_auto", null)?.let(::parseIsoDate)
@@ -464,7 +482,7 @@ object UserSettings {
         proteinPct = proteinPct, carbsPct = carbsPct, fatsPct = fatsPct,
         themeMode = themeMode.name, dashboardMode = dashboardMode.name, homeLayout = homeLayout?.let { HomeLayout.encode(it) },
         customFoods = customFoods, recentFoods = recentFoodNames, savedMeals = savedMeals,
-        hrvFrom = hrvFromManual?.toString()
+        hrvFrom = hrvFromManual?.toString(), completeDays = completeDays.sorted()
     )
 
     /** Ripristina profilo e preferenze dal backup; alimenti personali e recenti si uniscono a quelli presenti. */
@@ -487,7 +505,9 @@ object UserSettings {
         customFoods = mergedFoods
         recentFoodNames = BackupCodec.mergeRecent(recentFoodNames, s.recentFoods)
         savedMeals = SavedMeal.merge(savedMeals, s.savedMeals)
+        completeDays = completeDays + s.completeDays
         prefs.edit()
+            .putStringSet("complete_days", completeDays)
             .putString("saved_meals", Json.encodeToString(savedMeals))
             .putString("recent_foods", recentFoodNames.joinToString("\n"))
             .apply()

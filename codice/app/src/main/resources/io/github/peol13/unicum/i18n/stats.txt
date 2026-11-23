@@ -423,3 +423,33 @@ es: %s: déficit, actividad, sueño y peso de un vistazo
 fr: %s : déficit, activité, sommeil et poids en un coup d'œil
 de: %s: Defizit, Aktivität, Schlaf und Gewicht auf einen Blick
 pt: %s: déficit, atividade, sono e peso num relance
+
+# Giornata completa (1.1.0)
+
+it: Giornata completa
+en: Complete day
+es: Día completo
+fr: Journée complète
+de: Vollständiger Tag
+pt: Dia completo
+
+it: Hai registrato tutto: questo giorno conta nelle medie e nel peso stimato.
+en: You logged everything: this day counts in averages and estimated weight.
+es: Lo has registrado todo: este día cuenta en las medias y en el peso estimado.
+fr: Tu as tout enregistré : ce jour compte dans les moyennes et le poids estimé.
+de: Alles eingetragen: Dieser Tag zählt in Durchschnitten und geschätztem Gewicht.
+pt: Você registrou tudo: este dia conta nas médias e no peso estimado.
+
+it: Hai registrato tutto quello che hai mangiato? Segnalo: medie e peso stimato useranno solo i giorni completi.
+en: Logged everything you ate? Mark it: averages and estimated weight will only use complete days.
+es: ¿Has registrado todo lo que comiste? Márcalo: las medias y el peso estimado usarán solo los días completos.
+fr: Tu as enregistré tout ce que tu as mangé ? Coche-le : les moyennes et le poids estimé n'utiliseront que les jours complets.
+de: Alles eingetragen, was du gegessen hast? Markiere es: Durchschnitte und geschätztes Gewicht nutzen dann nur vollständige Tage.
+pt: Registrou tudo o que comeu? Marque: as médias e o peso estimado vão usar só os dias completos.
+
+it: Medie e peso stimato: solo le giornate segnate come complete nel Diario (%d su 7).
+en: Averages and estimated weight: only days marked complete in the Diary (%d of 7).
+es: Medias y peso estimado: solo los días marcados como completos en el Diario (%d de 7).
+fr: Moyennes et poids estimé : seulement les journées cochées comme complètes dans le Journal (%d sur 7).
+de: Durchschnitte und geschätztes Gewicht: nur im Tagebuch als vollständig markierte Tage (%d von 7).
+pt: Médias e peso estimado: só os dias marcados como completos no Diário (%d de 7).

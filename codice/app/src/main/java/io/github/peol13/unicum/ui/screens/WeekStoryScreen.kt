@@ -97,7 +97,8 @@ fun WeekStoryScreen(monday: LocalDate, onClose: () -> Unit) {
         val weights = UnicumRepository.loadMetricSeries(context, MetricType.WEIGHT_KG, span.coerceAtLeast(7))
             .mapKeys { DateUtils.parse(it.key) }
             .filterKeys { !it.isBefore(monday) && it.isBefore(monday.plusDays(7)) }
-        value = WeekStory.build(days, weights, UserSettings.targetDeficitKcal)
+        // Con le giornate complete il racconto usa solo quelle per il deficit
+        value = WeekStory.build(days.map { if (it.countsForAverages) it else it.copy(deficitKcal = null) }, weights, UserSettings.targetDeficitKcal)
     }
 
     Box(Modifier.fillMaxSize().background(UnicumGradient)) {
