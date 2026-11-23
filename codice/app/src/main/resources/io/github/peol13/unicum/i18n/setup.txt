@@ -585,20 +585,6 @@ fr: L'écran principal. Tu peux réordonner les cartes quand tu veux.
 de: Die Startansicht. Du kannst die Karten jederzeit umordnen.
 pt: A tela principal. Você pode reordenar os cards quando quiser.
 
-it: Hai un programma di corsa?
-en: Do you have a running plan?
-es: ¿Tienes un plan de carrera?
-fr: As-tu un programme de course ?
-de: Hast du einen Laufplan?
-pt: Você tem um plano de corrida?
-
-it: Le sedute compaiono in Allenamenti → Programma e le corse fatte si riconoscono dal giorno.
-en: Sessions appear in Workouts → Plan and completed runs are matched by day.
-es: Las sesiones aparecen en Entrenos → Plan y las carreras hechas se reconocen por el día.
-fr: Les séances apparaissent dans Séances → Programme et les courses faites sont reconnues par le jour.
-de: Die Einheiten erscheinen unter Training → Plan, absolvierte Läufe werden am Tag erkannt.
-pt: As sessões aparecem em Treinos → Plano e as corridas feitas são reconhecidas pelo dia.
-
 it: Da Notion
 en: From Notion
 es: Desde Notion
@@ -633,13 +619,6 @@ es: Ninguno por ahora
 fr: Aucun pour l'instant
 de: Vorerst keiner
 pt: Nenhum por enquanto
-
-it: Potrai scrivere a mano le prossime corse in Allenamenti → Programma
-en: You can write upcoming runs by hand in Workouts → Plan
-es: Podrás escribir a mano las próximas carreras en Entrenos → Plan
-fr: Tu pourras écrire à la main les prochaines courses dans Séances → Programme
-de: Du kannst die nächsten Läufe unter Training → Plan von Hand eintragen
-pt: Você poderá escrever à mão as próximas corridas em Treinos → Plano
 
 it: Collega Notion
 en: Connect Notion
@@ -718,26 +697,19 @@ fr: Programme dans l'app : %d séances
 de: Plan in der App: %d Einheiten
 pt: Plano no app: %d sessões
 
-it: Nessun programma: le corse future si aggiungono in Allenamenti → Programma
-en: No plan: future runs can be added in Workouts → Plan
-es: Sin plan: las próximas carreras se añaden en Entrenos → Plan
-fr: Pas de programme : les prochaines courses s'ajoutent dans Séances → Programme
-de: Kein Plan: Künftige Läufe fügst du unter Training → Plan hinzu
-pt: Sem plano: as próximas corridas se adicionam em Treinos → Plano
+it: Obiettivo: %,d kcal al giorno
+en: Goal: %,d kcal per day
+es: Objetivo: %,d kcal al día
+fr: Objectif : %,d kcal par jour
+de: Ziel: %,d kcal pro Tag
+pt: Meta: %,d kcal por dia
 
-it: Obiettivo: %d kcal al giorno
-en: Goal: %d kcal per day
-es: Objetivo: %d kcal al día
-fr: Objectif : %d kcal par jour
-de: Ziel: %d kcal pro Tag
-pt: Meta: %d kcal por dia
-
-it: Deficit previsto: %d kcal
-en: Planned deficit: %d kcal
-es: Déficit previsto: %d kcal
-fr: Déficit prévu : %d kcal
-de: Geplantes Defizit: %d kcal
-pt: Déficit previsto: %d kcal
+it: Deficit previsto: %,d kcal
+en: Planned deficit: %,d kcal
+es: Déficit previsto: %,d kcal
+fr: Déficit prévu : %,d kcal
+de: Geplantes Defizit: %,d kcal
+pt: Déficit previsto: %,d kcal
 
 it: Obiettivo: mantenere il peso
 en: Goal: maintain weight
@@ -787,3 +759,24 @@ es: Valor entre %d y %d %s.
 fr: Valeur entre %d et %d %s.
 de: Wert zwischen %d und %d %s.
 pt: Valor entre %d e %d %s.
+
+it: Hai un programma di allenamento?
+en: Do you have a training plan?
+es: ¿Tienes un plan de entrenamiento?
+fr: As-tu un programme d'entraînement ?
+de: Hast du einen Trainingsplan?
+pt: Você tem um plano de treino?
+
+it: Potrai scrivere a mano le prossime sedute in Allenamenti → Programma
+en: You can write upcoming sessions by hand in Workouts → Plan
+es: Podrás escribir a mano las próximas sesiones en Entrenos → Plan
+fr: Tu pourras écrire à la main les prochaines séances dans Séances → Programme
+de: Du kannst die nächsten Einheiten unter Training → Plan von Hand eintragen
+pt: Você poderá escrever à mão as próximas sessões em Treinos → Plano
+
+it: Nessun programma: le sedute future si aggiungono in Allenamenti → Programma
+en: No plan: future sessions can be added in Workouts → Plan
+es: Sin plan: las próximas sesiones se añaden en Entrenos → Plan
+fr: Pas de programme : les prochaines séances s'ajoutent dans Séances → Programme
+de: Kein Plan: Künftige Einheiten fügst du unter Training → Plan hinzu
+pt: Sem plano: as próximas sessões se adicionam em Treinos → Plano

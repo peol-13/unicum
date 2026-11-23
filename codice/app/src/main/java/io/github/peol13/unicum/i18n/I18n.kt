@@ -140,5 +140,8 @@ fun trp(n: Int, one: String, other: String): String {
     return tr(if (singular) one else other, n)
 }
 
+/** Numero intero con il separatore delle migliaia della lingua dell'app ("1.795", "1,795"). */
+fun lnum(v: Int): String = java.text.NumberFormat.getIntegerInstance(I18n.locale).format(v)
+
 /** Formatta un numero con la lingua dell'app (es. "%.1f"). */
 fun lfmt(format: String, vararg args: Any?): String = String.format(I18n.locale, format, *args)

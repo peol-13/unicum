@@ -34,6 +34,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.DirectionsRun
+import androidx.compose.material.icons.automirrored.rounded.DirectionsWalk
+import androidx.compose.material.icons.automirrored.rounded.DirectionsBike
+import androidx.compose.material.icons.rounded.Pool
+import androidx.compose.material.icons.rounded.SelfImprovement
+import androidx.compose.material.icons.rounded.SportsSoccer
 import androidx.compose.material.icons.rounded.Bedtime
 import androidx.compose.material.icons.rounded.Bolt
 import androidx.compose.material.icons.rounded.FitnessCenter
@@ -167,7 +172,7 @@ internal fun DeficitSummary(s: DayStats, modifier: Modifier = Modifier) {
         DeficitLine(s.deficit, UserSettings.targetDeficitKcal)
         Spacer(Modifier.height(4.dp))
         Text(
-            tr("Deficit obiettivo: %d kcal", UserSettings.targetDeficitKcal),
+            tr("Deficit obiettivo: %,d kcal", UserSettings.targetDeficitKcal),
             color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note
         )
     }
@@ -294,16 +299,13 @@ internal fun WorkoutsCard(
             activities.takeLast(limit).reversed().forEachIndexed { i, a ->
                 if (i > 0) StatDivider()
                 Row(Modifier.fillMaxWidth().padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                    IconBadge(
-                        if (a.type.equals("Palestra", true)) Icons.Rounded.FitnessCenter
-                        else Icons.AutoMirrored.Rounded.DirectionsRun
-                    )
+                    IconBadge(activityIcon(a.type))
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) {
                         Text(tr(a.type), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
                         Text(workoutDetail(a), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
                     }
-                    Text("${a.calories} kcal", color = UnicumPrimary, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+                    Text("${fmt(a.calories)} kcal", color = UnicumPrimary, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
                     if (onDelete != null) {
                         Box(Modifier.clickable { onDelete(a) }.padding(start = 8.dp, top = 8.dp, bottom = 8.dp)) {
                             Icon(Icons.Rounded.Close, tr("Elimina"), tint = DeleteRed, modifier = Modifier.size(18.dp))
@@ -486,7 +488,7 @@ internal fun MealsCard(meals: List<Meal>, onDetails: (() -> Unit)? = null) {
     UnicumCard(onClick = onDetails) {
         CardHeader(
             Icons.Rounded.Restaurant, tr("Pasti"),
-            action = if (onDetails != null) "Dettagli" else null, onAction = { onDetails?.invoke() }
+            action = if (onDetails != null) tr("Dettagli") else null, onAction = { onDetails?.invoke() }
         )
         Spacer(Modifier.height(6.dp))
         rows.forEach { type ->
@@ -496,12 +498,12 @@ internal fun MealsCard(meals: List<Meal>, onDetails: (() -> Unit)? = null) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(Modifier.weight(1f)) {
-                    Text(type, color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium)
+                    Text(MealTime.label(type), color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium)
                     Spacer(Modifier.height(5.dp))
                     ThinProgress(kcal / max.toFloat(), color = UnicumSecondary, modifier = Modifier.padding(end = 16.dp))
                 }
                 Text(
-                    if (kcal > 0) "$kcal kcal" else "–",
+                    if (kcal > 0) "${fmt(kcal)} kcal" else "–",
                     color = if (kcal > 0) UnicumDark else UnicumDark.copy(alpha = .4f),
                     style = UnicumType.Detail, fontWeight = FontWeight.Medium
                 )
@@ -521,7 +523,7 @@ internal fun SoftPill(modifier: Modifier = Modifier, content: @Composable () -> 
     ) { content() }
 }
 
-internal fun fmt(v: Int): String = NumberFormat.getIntegerInstance(I18n.locale).format(v)
+internal fun fmt(v: Int): String = io.github.peol13.unicum.i18n.lnum(v)
 
 @Composable
 internal fun MealSection(
@@ -535,7 +537,7 @@ internal fun MealSection(
             Box(Modifier.weight(1f)) {
                 CardHeader(
                     icon = Icons.Rounded.Restaurant,
-                    title = io.github.peol13.unicum.data.MealTime.label(title).let { t -> if (meals.isEmpty()) t else "$t · ${meals.sumOf { it.calories }} kcal" }
+                    title = io.github.peol13.unicum.data.MealTime.label(title).let { t -> if (meals.isEmpty()) t else "$t · ${fmt(meals.sumOf { it.calories })} kcal" }
                 )
             }
             Row(
@@ -594,6 +596,17 @@ internal fun MealSection(
             }
         }
     }
+}
+
+/** Icona di un tipo di allenamento (valore salvato in italiano, come arriva da Health Connect o dal dialog). */
+internal fun activityIcon(type: String): androidx.compose.ui.graphics.vector.ImageVector = when {
+    io.github.peol13.unicum.data.Sport.ofWorkout(type)?.isStrength == true -> Icons.Rounded.FitnessCenter
+    type.equals("Camminata", true) || type.equals("Escursionismo", true) -> Icons.AutoMirrored.Rounded.DirectionsWalk
+    type.equals("Ciclismo", true) -> Icons.AutoMirrored.Rounded.DirectionsBike
+    type.equals("Nuoto", true) -> Icons.Rounded.Pool
+    type.equals("Yoga", true) -> Icons.Rounded.SelfImprovement
+    type.equals("Calcio", true) -> Icons.Rounded.SportsSoccer
+    else -> Icons.AutoMirrored.Rounded.DirectionsRun
 }
 
 /** Numeri del giorno mostrato. Per oggi il consumo a riposo matura col passare dei minuti. */

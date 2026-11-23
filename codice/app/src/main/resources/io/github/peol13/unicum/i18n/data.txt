@@ -16,40 +16,40 @@ fr: Alimentation
 de: Ernährung
 pt: Alimentação
 
-it: Oltre di %d kcal: nessun dramma
-en: %d kcal over: no big deal
-es: %d kcal de más: sin dramas
-fr: %d kcal de trop : pas de drame
-de: %d kcal drüber: kein Drama
-pt: %d kcal a mais: sem drama
+it: Oltre di %,d kcal: nessun dramma
+en: %,d kcal over: no big deal
+es: %,d kcal de más: sin dramas
+fr: %,d kcal de trop : pas de drame
+de: %,d kcal drüber: kein Drama
+pt: %,d kcal a mais: sem drama
 
-it: Una camminata svelta di %d minuti brucia circa %d kcal. Domani non serve saltare pasti: riparti dal tuo obiettivo normale.
-en: A brisk %d-minute walk burns about %d kcal. No need to skip meals tomorrow: start again from your usual goal.
-es: Una caminata rápida de %d minutos quema unas %d kcal. Mañana no hace falta saltarse comidas: vuelve a tu objetivo normal.
-fr: Une marche rapide de %d minutes brûle environ %d kcal. Pas besoin de sauter des repas demain : repars de ton objectif habituel.
-de: Ein zügiger Spaziergang von %d Minuten verbrennt etwa %d kcal. Morgen musst du keine Mahlzeiten auslassen: Starte wieder mit deinem normalen Ziel.
-pt: Uma caminhada rápida de %d minutos queima cerca de %d kcal. Amanhã não precisa pular refeições: recomece da sua meta normal.
+it: Una camminata svelta di %d minuti brucia circa %,d kcal. Domani non serve saltare pasti: riparti dal tuo obiettivo normale.
+en: A brisk %d-minute walk burns about %,d kcal. No need to skip meals tomorrow: start again from your usual goal.
+es: Una caminata rápida de %d minutos quema unas %,d kcal. Mañana no hace falta saltarse comidas: vuelve a tu objetivo normal.
+fr: Une marche rapide de %d minutes brûle environ %,d kcal. Pas besoin de sauter des repas demain : repars de ton objectif habituel.
+de: Ein zügiger Spaziergang von %d Minuten verbrennt etwa %,d kcal. Morgen musst du keine Mahlzeiten auslassen: Starte wieder mit deinem normalen Ziel.
+pt: Uma caminhada rápida de %d minutos queima cerca de %,d kcal. Amanhã não precisa pular refeições: recomece da sua meta normal.
 
-it: Hai assunto %d kcal
-en: You've eaten %d kcal
-es: Has tomado %d kcal
-fr: Tu as mangé %d kcal
-de: Du hast %d kcal gegessen
-pt: Você consumiu %d kcal
+it: Hai assunto %,d kcal
+en: You've eaten %,d kcal
+es: Has tomado %,d kcal
+fr: Tu as mangé %,d kcal
+de: Du hast %,d kcal gegessen
+pt: Você consumiu %,d kcal
 
-it: %s: circa %d kcal
-en: %s: about %d kcal
-es: %s: unas %d kcal
-fr: %s : environ %d kcal
-de: %s: etwa %d kcal
-pt: %s: cerca de %d kcal
+it: %s: circa %,d kcal
+en: %s: about %,d kcal
+es: %s: unas %,d kcal
+fr: %s : environ %,d kcal
+de: %s: etwa %,d kcal
+pt: %s: cerca de %,d kcal
 
-it: Ti restano %d kcal per %s
-en: You have %d kcal left for %s
-es: Te quedan %d kcal para %s
-fr: Il te reste %d kcal pour %s
-de: Dir bleiben %d kcal für %s
-pt: Restam %d kcal para %s
+it: Ti restano %,d kcal per %s
+en: You have %,d kcal left for %s
+es: Te quedan %,d kcal para %s
+fr: Il te reste %,d kcal pour %s
+de: Dir bleiben %,d kcal für %s
+pt: Restam %,d kcal para %s
 
 it: un pasto
 en: one meal
@@ -65,26 +65,26 @@ fr: %d repas
 de: %d Mahlzeiten
 pt: %d refeições
 
-it: punta a circa %d kcal con %d g di proteine.
-en: aim for about %d kcal with %d g of protein.
-es: apunta a unas %d kcal con %d g de proteínas.
-fr: vise environ %d kcal avec %d g de protéines.
-de: peile etwa %d kcal mit %d g Eiweiß an.
-pt: mire em cerca de %d kcal com %d g de proteínas.
+it: punta a circa %,d kcal con %d g di proteine.
+en: aim for about %,d kcal with %d g of protein.
+es: apunta a unas %,d kcal con %d g de proteínas.
+fr: vise environ %,d kcal avec %d g de protéines.
+de: peile etwa %,d kcal mit %d g Eiweiß an.
+pt: mire em cerca de %,d kcal com %d g de proteínas.
 
-it: punta a circa %d kcal.
-en: aim for about %d kcal.
-es: apunta a unas %d kcal.
-fr: vise environ %d kcal.
-de: peile etwa %d kcal an.
-pt: mire em cerca de %d kcal.
+it: punta a circa %,d kcal.
+en: aim for about %,d kcal.
+es: apunta a unas %,d kcal.
+fr: vise environ %,d kcal.
+de: peile etwa %,d kcal an.
+pt: mire em cerca de %,d kcal.
 
-it: Finora %d kcal e %d g di proteine
-en: So far %d kcal and %d g of protein
-es: Hasta ahora %d kcal y %d g de proteínas
-fr: Jusqu'ici %d kcal et %d g de protéines
-de: Bisher %d kcal und %d g Eiweiß
-pt: Até agora %d kcal e %d g de proteínas
+it: Finora %,d kcal e %d g di proteine
+en: So far %,d kcal and %d g of protein
+es: Hasta ahora %,d kcal y %d g de proteínas
+fr: Jusqu'ici %,d kcal et %d g de protéines
+de: Bisher %,d kcal und %d g Eiweiß
+pt: Até agora %,d kcal e %d g de proteínas
 
 it: Oggi hai mangiato poco
 en: You've eaten little today
@@ -93,33 +93,33 @@ fr: Tu as peu mangé aujourd'hui
 de: Du hast heute wenig gegessen
 pt: Hoje você comeu pouco
 
-it: Ti restano ancora %d kcal: non serve arrivare a zero, ma un deficit troppo forte ripetuto nei giorni fa perdere muscolo ed energia. Uno spuntino proteico ci sta.
-en: You still have %d kcal left: no need to reach zero, but a very large deficit repeated over days costs muscle and energy. A protein snack fits in.
-es: Aún te quedan %d kcal: no hace falta llegar a cero, pero un déficit muy fuerte repetido varios días hace perder músculo y energía. Un tentempié proteico cabe.
-fr: Il te reste encore %d kcal : pas besoin d'arriver à zéro, mais un déficit trop fort répété fait perdre du muscle et de l'énergie. Un en-cas protéiné a sa place.
-de: Dir bleiben noch %d kcal: Du musst nicht auf null kommen, aber ein zu großes Defizit über Tage kostet Muskeln und Energie. Ein Eiweiß-Snack passt.
-pt: Ainda restam %d kcal: não precisa chegar a zero, mas um déficit forte demais repetido por dias faz perder músculo e energia. Um lanche proteico cabe.
+it: Ti restano ancora %,d kcal: non serve arrivare a zero, ma un deficit troppo forte ripetuto nei giorni fa perdere muscolo ed energia. Uno spuntino proteico ci sta.
+en: You still have %,d kcal left: no need to reach zero, but a very large deficit repeated over days costs muscle and energy. A protein snack fits in.
+es: Aún te quedan %,d kcal: no hace falta llegar a cero, pero un déficit muy fuerte repetido varios días hace perder músculo y energía. Un tentempié proteico cabe.
+fr: Il te reste encore %,d kcal : pas besoin d'arriver à zéro, mais un déficit trop fort répété fait perdre du muscle et de l'énergie. Un en-cas protéiné a sa place.
+de: Dir bleiben noch %,d kcal: Du musst nicht auf null kommen, aber ein zu großes Defizit über Tage kostet Muskeln und Energie. Ein Eiweiß-Snack passt.
+pt: Ainda restam %,d kcal: não precisa chegar a zero, mas um déficit forte demais repetido por dias faz perder músculo e energia. Um lanche proteico cabe.
 
-it: Allenamento da %d kcal
-en: %d kcal workout
-es: Entrenamiento de %d kcal
-fr: Séance de %d kcal
-de: Training mit %d kcal
-pt: Treino de %d kcal
+it: Allenamento da %,d kcal
+en: %,d kcal workout
+es: Entrenamiento de %,d kcal
+fr: Séance de %,d kcal
+de: Training mit %,d kcal
+pt: Treino de %,d kcal
 
-it: Sei oltre l'obiettivo di %d kcal, ma con l'allenamento il deficit di oggi resta in linea: nessuna compensazione necessaria.
-en: You're %d kcal over your goal, but with the workout today's deficit stays on track: no need to compensate.
-es: Estás %d kcal por encima del objetivo, pero con el entrenamiento el déficit de hoy sigue en línea: no hace falta compensar.
-fr: Tu dépasses l'objectif de %d kcal, mais avec la séance le déficit du jour reste dans les clous : pas besoin de compenser.
-de: Du liegst %d kcal über dem Ziel, aber mit dem Training bleibt das heutige Defizit im Plan: Kein Ausgleich nötig.
-pt: Você está %d kcal acima da meta, mas com o treino o déficit de hoje continua no caminho: não precisa compensar.
+it: Sei oltre l'obiettivo di %,d kcal, ma con l'allenamento il deficit di oggi resta in linea: nessuna compensazione necessaria.
+en: You're %,d kcal over your goal, but with the workout today's deficit stays on track: no need to compensate.
+es: Estás %,d kcal por encima del objetivo, pero con el entrenamiento el déficit de hoy sigue en línea: no hace falta compensar.
+fr: Tu dépasses l'objectif de %,d kcal, mais avec la séance le déficit du jour reste dans les clous : pas besoin de compenser.
+de: Du liegst %,d kcal über dem Ziel, aber mit dem Training bleibt das heutige Defizit im Plan: Kein Ausgleich nötig.
+pt: Você está %,d kcal acima da meta, mas com o treino o déficit de hoje continua no caminho: não precisa compensar.
 
-it: Il deficit di oggi è già più ampio del previsto: se hai fame puoi aggiungere fino a circa %d kcal (meglio proteiche) restando comunque oltre il tuo obiettivo di deficit.
-en: Today's deficit is already bigger than planned: if you're hungry you can add up to about %d kcal (preferably protein) and still beat your deficit goal.
-es: El déficit de hoy ya es mayor de lo previsto: si tienes hambre puedes añadir hasta unas %d kcal (mejor proteicas) y seguir por encima de tu objetivo de déficit.
-fr: Le déficit du jour est déjà plus grand que prévu : si tu as faim, tu peux ajouter jusqu'à environ %d kcal (plutôt protéinées) en restant au-delà de ton objectif de déficit.
-de: Das heutige Defizit ist schon größer als geplant: Wenn du Hunger hast, kannst du bis zu etwa %d kcal (am besten Eiweiß) ergänzen und bleibst trotzdem über deinem Defizitziel.
-pt: O déficit de hoje já é maior que o previsto: se tiver fome pode adicionar até cerca de %d kcal (de preferência proteicas) e continuar acima da sua meta de déficit.
+it: Il deficit di oggi è già più ampio del previsto: se hai fame puoi aggiungere fino a circa %,d kcal (meglio proteiche) restando comunque oltre il tuo obiettivo di deficit.
+en: Today's deficit is already bigger than planned: if you're hungry you can add up to about %,d kcal (preferably protein) and still beat your deficit goal.
+es: El déficit de hoy ya es mayor de lo previsto: si tienes hambre puedes añadir hasta unas %,d kcal (mejor proteicas) y seguir por encima de tu objetivo de déficit.
+fr: Le déficit du jour est déjà plus grand que prévu : si tu as faim, tu peux ajouter jusqu'à environ %,d kcal (plutôt protéinées) en restant au-delà de ton objectif de déficit.
+de: Das heutige Defizit ist schon größer als geplant: Wenn du Hunger hast, kannst du bis zu etwa %,d kcal (am besten Eiweiß) ergänzen und bleibst trotzdem über deinem Defizitziel.
+pt: O déficit de hoje já é maior que o previsto: se tiver fome pode adicionar até cerca de %,d kcal (de preferência proteicas) e continuar acima da sua meta de déficit.
 
 it: Mancano %d g di proteine
 en: %d g of protein to go
@@ -156,12 +156,12 @@ fr: Bouge un peu avant le soir
 de: Beweg dich ein bisschen vor dem Abend
 pt: Mexa-se um pouco antes da noite
 
-it: Una camminata di 30 minuti adesso aggiunge circa %d kcal al deficit e circa 3.500 passi.
-en: A 30-minute walk now adds about %d kcal to the deficit and about 3,500 steps.
-es: Una caminata de 30 minutos ahora añade unas %d kcal al déficit y unos 3.500 pasos.
-fr: Une marche de 30 minutes maintenant ajoute environ %d kcal au déficit et environ 3 500 pas.
-de: Ein 30-Minuten-Spaziergang jetzt bringt etwa %d kcal mehr Defizit und rund 3.500 Schritte.
-pt: Uma caminhada de 30 minutos agora adiciona cerca de %d kcal ao déficit e cerca de 3.500 passos.
+it: Una camminata di 30 minuti adesso aggiunge circa %,d kcal al deficit e circa 3.500 passi.
+en: A 30-minute walk now adds about %,d kcal to the deficit and about 3,500 steps.
+es: Una caminata de 30 minutos ahora añade unas %,d kcal al déficit y unos 3.500 pasos.
+fr: Une marche de 30 minutes maintenant ajoute environ %,d kcal au déficit et environ 3 500 pas.
+de: Ein 30-Minuten-Spaziergang jetzt bringt etwa %,d kcal mehr Defizit und rund 3.500 Schritte.
+pt: Uma caminhada de 30 minutos agora adiciona cerca de %,d kcal ao déficit e cerca de 3.500 passos.
 
 it: Finora %d passi e nessun allenamento
 en: So far %d steps and no workout
@@ -443,12 +443,12 @@ fr: Quand tu ajoutes les repas du jour, je peux te dire combien de calories et d
 de: Wenn du die Mahlzeiten des Tages einträgst, kann ich dir sagen, wie viele Kalorien und wie viel Eiweiß dir bleiben.
 pt: Quando você adicionar as refeições do dia, posso dizer quantas calorias e proteínas restam.
 
-it: Ti restano %d kcal
-en: You have %d kcal left
-es: Te quedan %d kcal
-fr: Il te reste %d kcal
-de: Dir bleiben %d kcal
-pt: Restam %d kcal
+it: Ti restano %,d kcal
+en: You have %,d kcal left
+es: Te quedan %,d kcal
+fr: Il te reste %,d kcal
+de: Dir bleiben %,d kcal
+pt: Restam %,d kcal
 
 it: Puoi ancora fare un pasto completo o uno spuntino senza uscire dal tuo obiettivo.
 en: You can still have a full meal or a snack without going over your goal.
@@ -457,12 +457,12 @@ fr: Tu peux encore faire un repas complet ou un en-cas sans dépasser ton object
 de: Du kannst noch eine ganze Mahlzeit oder einen Snack essen, ohne dein Ziel zu überschreiten.
 pt: Você ainda pode fazer uma refeição completa ou um lanche sem sair da meta.
 
-it: Finora %d kcal assunte
-en: %d kcal eaten so far
-es: Hasta ahora %d kcal tomadas
-fr: %d kcal mangées jusqu'ici
-de: Bisher %d kcal gegessen
-pt: Até agora %d kcal consumidas
+it: Finora %,d kcal assunte
+en: %,d kcal eaten so far
+es: Hasta ahora %,d kcal tomadas
+fr: %,d kcal mangées jusqu'ici
+de: Bisher %,d kcal gegessen
+pt: Até agora %,d kcal consumidas
 
 it: Obiettivo calorico raggiunto
 en: Calorie goal reached
@@ -1140,19 +1140,19 @@ fr: kcal par jour
 de: kcal pro Tag
 pt: kcal por dia
 
-it: Obiettivo di %d kcal non ancora raggiunto in nessun giorno.
-en: %d kcal goal not yet reached on any day.
-es: Objetivo de %d kcal aún no alcanzado ningún día.
-fr: Objectif de %d kcal pas encore atteint un seul jour.
-de: Ziel von %d kcal noch an keinem Tag erreicht.
-pt: Meta de %d kcal ainda não atingida em nenhum dia.
+it: Obiettivo di %,d kcal non ancora raggiunto in nessun giorno.
+en: %,d kcal goal not yet reached on any day.
+es: Objetivo de %,d kcal aún no alcanzado ningún día.
+fr: Objectif de %,d kcal pas encore atteint un seul jour.
+de: Ziel von %,d kcal noch an keinem Tag erreicht.
+pt: Meta de %,d kcal ainda não atingida em nenhum dia.
 
-it: Obiettivo di %d kcal raggiunto in %s su %d.
-en: %d kcal goal reached on %s out of %d.
-es: Objetivo de %d kcal alcanzado en %s de %d.
-fr: Objectif de %d kcal atteint %s sur %d.
-de: Ziel von %d kcal an %s von %d erreicht.
-pt: Meta de %d kcal atingida em %s de %d.
+it: Obiettivo di %,d kcal raggiunto in %s su %d.
+en: %,d kcal goal reached on %s out of %d.
+es: Objetivo de %,d kcal alcanzado en %s de %d.
+fr: Objectif de %,d kcal atteint %s sur %d.
+de: Ziel von %,d kcal an %s von %d erreicht.
+pt: Meta de %,d kcal atingida em %s de %d.
 
 it: In tutta la settimana: %s kcal, circa %s di grasso.
 en: Over the whole week: %s kcal, about %s of fat.

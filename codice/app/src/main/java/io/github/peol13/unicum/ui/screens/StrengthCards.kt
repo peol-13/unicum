@@ -87,7 +87,7 @@ internal fun exerciseLine(e: Exercise): String =
 /** Riepilogo di una seduta di forza registrata: durata, calorie, battito medio. */
 internal fun strengthSummary(w: WorkoutDetail): String = listOfNotNull(
     WorkoutAnalysis.formatDuration(w.movingSeconds),
-    w.kcal?.let { "${it.roundToInt()} kcal" },
+    w.kcal?.let { "${io.github.peol13.unicum.i18n.lnum(it.roundToInt())} kcal" },
     w.avgHr?.let { "$it bpm" }
 ).joinToString(" · ")
 

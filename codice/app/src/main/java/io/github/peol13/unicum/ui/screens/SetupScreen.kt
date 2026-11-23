@@ -83,7 +83,7 @@ import io.github.peol13.unicum.ui.theme.UnicumPrimary
 import io.github.peol13.unicum.ui.theme.UnicumSurface
 import io.github.peol13.unicum.ui.theme.UnicumType
 
-/** Da dove arriva il programma di corsa, scelto al primo avvio. */
+/** Da dove arriva il programma di allenamento, scelto al primo avvio. */
 private enum class PlanChoice { NOTION, PDF, NONE }
 
 /**
@@ -313,14 +313,14 @@ private fun StepContent(step: Step, form: PersonalFormState) {
         }
 
         Step.PLAN -> {
-            Question(tr("Hai un programma di corsa?"), tr("Le sedute compaiono in Allenamenti → Programma e le corse fatte si riconoscono dal giorno."))
+            Question(tr("Hai un programma di allenamento?"), tr("Le sedute compaiono in Allenamenti → Programma e gli allenamenti fatti si riconoscono dal giorno e dallo sport."))
             BigOption(Icons.Rounded.ViewKanban, tr("Da Notion"), tr("Leggo il tuo database del programma (e il registro, se c'è)"),
                 SetupDraft.plan == PlanChoice.NOTION) { SetupDraft.plan = PlanChoice.NOTION }
             Spacer(Modifier.height(10.dp))
             BigOption(Icons.Rounded.Description, tr("Da un PDF"), tr("Importo le sedute dal file del tuo allenatore o di un'app"),
                 SetupDraft.plan == PlanChoice.PDF) { SetupDraft.plan = PlanChoice.PDF }
             Spacer(Modifier.height(10.dp))
-            BigOption(Icons.Rounded.EditCalendar, tr("Nessuno per ora"), tr("Potrai scrivere a mano le prossime corse in Allenamenti → Programma"),
+            BigOption(Icons.Rounded.EditCalendar, tr("Nessuno per ora"), tr("Potrai scrivere a mano le prossime sedute in Allenamenti → Programma"),
                 SetupDraft.plan == PlanChoice.NONE) { SetupDraft.plan = PlanChoice.NONE }
         }
 
@@ -386,11 +386,11 @@ private fun Done(form: PersonalFormState) {
     val plan = when {
         NotionPlan.connected -> tr("Programma da Notion collegato")
         !LocalPlan.isEmpty -> tr("Programma nell'app: %d sedute", LocalPlan.runs.size)
-        else -> tr("Nessun programma: le corse future si aggiungono in Allenamenti → Programma")
+        else -> tr("Nessun programma: le sedute future si aggiungono in Allenamenti → Programma")
     }
     listOfNotNull(
-        form.intakeToSave?.let { tr("Obiettivo: %d kcal al giorno", it) },
-        form.deficitValue?.let { if (it > 0) tr("Deficit previsto: %d kcal", it) else tr("Obiettivo: mantenere il peso") },
+        form.intakeToSave?.let { tr("Obiettivo: %,d kcal al giorno", it) },
+        form.deficitValue?.let { if (it > 0) tr("Deficit previsto: %,d kcal", it) else tr("Obiettivo: mantenere il peso") },
         tr("Schermata principale: %s", SetupDraft.mode.label),
         plan
     ).forEach {

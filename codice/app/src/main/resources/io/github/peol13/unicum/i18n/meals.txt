@@ -318,12 +318,12 @@ fr: Repas non enregistré
 de: Mahlzeit nicht gespeichert
 pt: Refeição não salva
 
-it: %s (%d kcal) nel pasto. Cosa ne facciamo?
-en: %s (%d kcal) in this meal. What should we do?
-es: %s (%d kcal) en la comida. ¿Qué hacemos?
-fr: %s (%d kcal) dans le repas. Qu'en faisons-nous ?
-de: %s (%d kcal) in der Mahlzeit. Was tun wir damit?
-pt: %s (%d kcal) na refeição. O que fazemos?
+it: %s (%,d kcal) nel pasto. Cosa ne facciamo?
+en: %s (%,d kcal) in this meal. What should we do?
+es: %s (%,d kcal) en la comida. ¿Qué hacemos?
+fr: %s (%,d kcal) dans le repas. Qu'en faisons-nous ?
+de: %s (%,d kcal) in der Mahlzeit. Was tun wir damit?
+pt: %s (%,d kcal) na refeição. O que fazemos?
 
 it: Hai %d alimento
 en: You have %d food
@@ -996,12 +996,12 @@ fr: Quelle part des calories cibles vient de chaque macro. Le total doit faire 1
 de: Welcher Anteil des Kalorienziels aus jedem Makro kommt. Zusammen müssen es 100 % ergeben.
 pt: Que parte das calorias da meta vem de cada macro. Devem somar 100%.
 
-it: Con %d kcal: proteine %d g, carboidrati %d g, grassi %d g.
-en: With %d kcal: protein %d g, carbs %d g, fat %d g.
-es: Con %d kcal: proteínas %d g, carbohidratos %d g, grasas %d g.
-fr: Avec %d kcal : protéines %d g, glucides %d g, lipides %d g.
-de: Bei %d kcal: Eiweiß %d g, Kohlenhydrate %d g, Fett %d g.
-pt: Com %d kcal: proteínas %d g, carboidratos %d g, gorduras %d g.
+it: Con %,d kcal: proteine %d g, carboidrati %d g, grassi %d g.
+en: With %,d kcal: protein %d g, carbs %d g, fat %d g.
+es: Con %,d kcal: proteínas %d g, carbohidratos %d g, grasas %d g.
+fr: Avec %,d kcal : protéines %d g, glucides %d g, lipides %d g.
+de: Bei %,d kcal: Eiweiß %d g, Kohlenhydrate %d g, Fett %d g.
+pt: Com %,d kcal: proteínas %d g, carboidratos %d g, gorduras %d g.
 
 it: Il totale è %d%%: deve essere 100%%.
 en: The total is %d%%: it must be 100%%.

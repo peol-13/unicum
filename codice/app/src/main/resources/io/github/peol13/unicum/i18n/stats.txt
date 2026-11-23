@@ -186,12 +186,12 @@ fr: Poids estimé
 de: Geschätztes Gewicht
 pt: Peso estimado
 
-it: Obiettivo: %d kcal al giorno.
-en: Goal: %d kcal per day.
-es: Objetivo: %d kcal al día.
-fr: Objectif : %d kcal par jour.
-de: Ziel: %d kcal pro Tag.
-pt: Meta: %d kcal por dia.
+it: Obiettivo: %,d kcal al giorno.
+en: Goal: %,d kcal per day.
+es: Objetivo: %,d kcal al día.
+fr: Objectif : %,d kcal par jour.
+de: Ziel: %,d kcal pro Tag.
+pt: Meta: %,d kcal por dia.
 
 it: Peso stimato: 7.700 kcal di deficit ≈ 1 kg di grasso; la bilancia varia anche per acqua e digestione.
 en: Estimated weight: 7,700 kcal of deficit ≈ 1 kg of fat; the scale also varies with water and digestion.
@@ -389,12 +389,12 @@ fr: Ce sont des corrélations, pas des causes : deux choses qui arrivent ensembl
 de: Das sind Zusammenhänge, keine Ursachen: Zwei Dinge, die zusammen auftreten, können von etwas anderem abhängen (Stress, Zeiten, Krankheit).
 pt: São correlações, não causas: duas coisas que acontecem juntas podem depender de outra (estresse, horários, doença).
 
-it: surplus %d kcal
-en: surplus %d kcal
-es: superávit %d kcal
-fr: surplus %d kcal
-de: Überschuss %d kcal
-pt: superávit %d kcal
+it: surplus %,d kcal
+en: surplus %,d kcal
+es: superávit %,d kcal
+fr: surplus %,d kcal
+de: Überschuss %,d kcal
+pt: superávit %,d kcal
 
 it: Tocca o scorri per andare avanti
 en: Tap or swipe to continue

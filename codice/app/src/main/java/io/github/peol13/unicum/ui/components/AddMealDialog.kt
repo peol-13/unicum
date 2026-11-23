@@ -331,7 +331,7 @@ fun AddMealDialog(
         UnicumDialog(onDismiss = { confirmClose = false }) {
             Text(tr("Pasto non salvato"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
             Text(
-                tr("%s (%d kcal) nel pasto. Cosa ne facciamo?", trp(staged.size, "Hai %d alimento", "Hai %d alimenti"), totalKcal),
+                tr("%s (%,d kcal) nel pasto. Cosa ne facciamo?", trp(staged.size, "Hai %d alimento", "Hai %d alimenti"), totalKcal),
                 color = UnicumDark.copy(alpha = .7f), style = UnicumType.Body
             )
             UnicumButton(tr("Salva pasto"), onClick = { confirmClose = false; saveMeal() })
@@ -584,7 +584,7 @@ fun AddMealDialog(
 
                 UnicumButton(
                     text = if (staged.isEmpty()) tr("Aggiungi almeno un alimento")
-                    else trp(staged.size, "Salva %d alimento", "Salva %d alimenti") + " · $totalKcal kcal",
+                    else trp(staged.size, "Salva %d alimento", "Salva %d alimenti") + " · ${io.github.peol13.unicum.i18n.lnum(totalKcal)} kcal",
                     enabled = staged.isNotEmpty(),
                     onClick = ::saveMeal
                 )
@@ -630,7 +630,7 @@ private fun StagedList(
                 Row(Modifier.fillMaxWidth().padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(item.food.name, color = UnicumDark, style = UnicumType.Detail, fontWeight = FontWeight.Medium, maxLines = 1)
-                        Text("${item.meal.calories} kcal", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
+                        Text("${io.github.peol13.unicum.i18n.lnum(item.meal.calories)} kcal", color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note)
                     }
                     StepButton(add = false, size = 30.dp) { if (item.grams > 10) onGrams(i, item.grams - 10) }
                     Text(

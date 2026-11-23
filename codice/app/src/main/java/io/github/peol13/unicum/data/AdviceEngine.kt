@@ -86,10 +86,10 @@ object AdviceEngine {
             val over = -i.remainingKcal
             val minutes = (((over / walkKcalPerMin) / 5).roundToInt() * 5).coerceIn(15, 90)
             out += Advice(
-                AdviceCategory.GIORNATA, tr("Oltre di %d kcal: nessun dramma", over),
-                tr("Una camminata svelta di %d minuti brucia circa %d kcal. Domani non serve saltare pasti: riparti dal tuo obiettivo normale.", minutes, (minutes * walkKcalPerMin).roundToInt()),
+                AdviceCategory.GIORNATA, tr("Oltre di %,d kcal: nessun dramma", over),
+                tr("Una camminata svelta di %d minuti brucia circa %,d kcal. Domani non serve saltare pasti: riparti dal tuo obiettivo normale.", minutes, (minutes * walkKcalPerMin).roundToInt()),
                     
-                tr("Hai assunto %d kcal", i.eatenKcal)
+                tr("Hai assunto %,d kcal", i.eatenKcal)
             )
         } else if (i.remainingKcal >= 0) {
             // Budget per i pasti principali che restano oggi
@@ -100,18 +100,18 @@ object AdviceEngine {
                 val protein = proteinLeft / upcoming.size
                 val rest = if (upcoming.size > 1) " (${upcoming.joinToString(" " + tr("e") + " ") { tr(it).lowercase(I18n.locale) }})" else ""
                 out += Advice(
-                    AdviceCategory.GIORNATA, tr("%s: circa %d kcal", mealLabel(next), kcal),
-                    tr("Ti restano %d kcal per %s", i.remainingKcal, if (upcoming.size == 1) tr("un pasto") else tr("%d pasti", upcoming.size)) + rest +
-                        ": " + (if (protein >= 10) tr("punta a circa %d kcal con %d g di proteine.", kcal, protein) else tr("punta a circa %d kcal.", kcal)),
-                    tr("Finora %d kcal e %d g di proteine", i.eatenKcal, i.proteinEaten.roundToInt())
+                    AdviceCategory.GIORNATA, tr("%s: circa %,d kcal", mealLabel(next), kcal),
+                    tr("Ti restano %,d kcal per %s", i.remainingKcal, if (upcoming.size == 1) tr("un pasto") else tr("%d pasti", upcoming.size)) + rest +
+                        ": " + (if (protein >= 10) tr("punta a circa %,d kcal con %d g di proteine.", kcal, protein) else tr("punta a circa %,d kcal.", kcal)),
+                    tr("Finora %,d kcal e %d g di proteine", i.eatenKcal, i.proteinEaten.roundToInt())
                 )
             } else if (upcoming.isEmpty() && now >= 20 * 60 + 30 && i.remainingKcal > 800) {
                 // Sera, con un deficit molto ampio
                 out += Advice(
                     AdviceCategory.GIORNATA, tr("Oggi hai mangiato poco"),
-                    tr("Ti restano ancora %d kcal: non serve arrivare a zero, ma un deficit troppo forte ripetuto nei giorni fa perdere muscolo ed energia. Uno spuntino proteico ci sta.", i.remainingKcal),
+                    tr("Ti restano ancora %,d kcal: non serve arrivare a zero, ma un deficit troppo forte ripetuto nei giorni fa perdere muscolo ed energia. Uno spuntino proteico ci sta.", i.remainingKcal),
                         
-                    tr("Hai assunto %d kcal", i.eatenKcal)
+                    tr("Hai assunto %,d kcal", i.eatenKcal)
                 )
             }
         }
@@ -119,11 +119,11 @@ object AdviceEngine {
         // Allenamento importante: margine in più se si ha fame
         if (workoutMargin > 0 && i.remainingKcal < 300) {
             out += Advice(
-                AdviceCategory.GIORNATA, tr("Allenamento da %d kcal", i.activityKcal),
+                AdviceCategory.GIORNATA, tr("Allenamento da %,d kcal", i.activityKcal),
                 if (i.remainingKcal < 0)
-                    tr("Sei oltre l'obiettivo di %d kcal, ma con l'allenamento il deficit di oggi resta in linea: nessuna compensazione necessaria.", -i.remainingKcal)
+                    tr("Sei oltre l'obiettivo di %,d kcal, ma con l'allenamento il deficit di oggi resta in linea: nessuna compensazione necessaria.", -i.remainingKcal)
                 else
-                    tr("Il deficit di oggi è già più ampio del previsto: se hai fame puoi aggiungere fino a circa %d kcal (meglio proteiche) restando comunque oltre il tuo obiettivo di deficit.", workoutMargin)
+                    tr("Il deficit di oggi è già più ampio del previsto: se hai fame puoi aggiungere fino a circa %,d kcal (meglio proteiche) restando comunque oltre il tuo obiettivo di deficit.", workoutMargin)
                         
             )
         }
@@ -142,7 +142,7 @@ object AdviceEngine {
         if (now in 16 * 60 until 21 * 60 && i.activityKcal == 0 && i.steps != null && i.steps < 5000) {
             out += Advice(
                 AdviceCategory.GIORNATA, tr("Muoviti un po' prima di sera"),
-                tr("Una camminata di 30 minuti adesso aggiunge circa %d kcal al deficit e circa 3.500 passi.", (30 * walkKcalPerMin).roundToInt()),
+                tr("Una camminata di 30 minuti adesso aggiunge circa %,d kcal al deficit e circa 3.500 passi.", (30 * walkKcalPerMin).roundToInt()),
                 tr("Finora %d passi e nessun allenamento", i.steps)
             )
         }
@@ -319,15 +319,15 @@ object AdviceEngine {
             // Calorie rimaste e proteine della sera sono già in "La tua giornata"
         } else if (i.remainingKcal > 0) {
             out += Advice(
-                AdviceCategory.ALIMENTAZIONE, tr("Ti restano %d kcal", i.remainingKcal),
+                AdviceCategory.ALIMENTAZIONE, tr("Ti restano %,d kcal", i.remainingKcal),
                 tr("Puoi ancora fare un pasto completo o uno spuntino senza uscire dal tuo obiettivo."),
-                tr("Finora %d kcal assunte", i.eatenKcal)
+                tr("Finora %,d kcal assunte", i.eatenKcal)
             )
         } else {
             out += Advice(
                 AdviceCategory.ALIMENTAZIONE, tr("Obiettivo calorico raggiunto"),
                 tr("Per il resto della giornata scegli acqua, verdure o tisane."),
-                tr("Hai assunto %d kcal", i.eatenKcal)
+                tr("Hai assunto %,d kcal", i.eatenKcal)
             )
         }
         if (i.proteinGoal > 0 && i.proteinEaten < i.proteinGoal * 0.5f && !(i.proactive() && i.minuteOfDay!! >= 18 * 60)) {

@@ -179,6 +179,16 @@ internal fun WeekStoryTeaser(onOpen: () -> Unit) {
     val today = DateUtils.today()
     val showDays = today.dayOfWeek.value <= 2
     if (!showDays || UserSettings.weekStorySeen == monday.toString()) return
+    // Solo se quella settimana ha qualcosa da raccontare (chi ha appena installato l'app non ha dati)
+    val context = LocalContext.current
+    val hasData by produceState<Boolean?>(null, monday) {
+        value = runCatching {
+            UnicumRepository.loadWeekStats(context, monday).any {
+                it.eatenKcal > 0 || it.activityMinutes > 0 || it.workouts > 0 || it.sleepMinutes != null
+            }
+        }.getOrDefault(false)
+    }
+    if (hasData != true) return
     Row(
         Modifier
             .fillMaxWidth()

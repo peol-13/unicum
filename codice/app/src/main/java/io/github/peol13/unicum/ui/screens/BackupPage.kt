@@ -69,7 +69,8 @@ fun BackupPage() {
     var pending by remember { mutableStateOf<PendingImport?>(null) }
     // Spento ogni volta che si apre la pagina: il token entra nel file solo per scelta esplicita
     var withNotion by remember { mutableStateOf(false) }
-    remember { NotionPlan.init(context) }
+    // Già fatto in MainActivity; ripetuto per sicurezza (non fa niente se già inizializzato)
+    NotionPlan.init(context)
 
     val exportLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument("application/json")

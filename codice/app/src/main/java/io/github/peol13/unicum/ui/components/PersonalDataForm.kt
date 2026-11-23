@@ -227,7 +227,7 @@ fun GoalFields(state: PersonalFormState) {
     val goal = state.intakeToSave ?: 0
     Text(
         if (state.pctSum == 100)
-            tr("Con %d kcal: proteine %d g, carboidrati %d g, grassi %d g.", goal,
+            tr("Con %,d kcal: proteine %d g, carboidrati %d g, grassi %d g.", goal,
                 UserSettings.gramsFor(goal, state.proteinPct.toIntOrNull() ?: 0, 4),
                                 UserSettings.gramsFor(goal, state.carbsPct.toIntOrNull() ?: 0, 4),
                                 UserSettings.gramsFor(goal, state.fatsPct.toIntOrNull() ?: 0, 9))

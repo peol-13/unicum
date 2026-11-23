@@ -291,12 +291,12 @@ fr: Détails
 de: Details
 pt: Detalhes
 
-it: Deficit obiettivo: %d kcal
-en: Target deficit: %d kcal
-es: Déficit objetivo: %d kcal
-fr: Déficit visé : %d kcal
-de: Zieldefizit: %d kcal
-pt: Déficit da meta: %d kcal
+it: Deficit obiettivo: %,d kcal
+en: Target deficit: %,d kcal
+es: Déficit objetivo: %,d kcal
+fr: Déficit visé : %,d kcal
+de: Zieldefizit: %,d kcal
+pt: Déficit da meta: %,d kcal
 
 it: rispetto alla media
 en: vs your average

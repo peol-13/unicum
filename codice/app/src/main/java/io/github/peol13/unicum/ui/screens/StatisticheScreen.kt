@@ -172,7 +172,7 @@ private fun DeficitSection(days: List<WeekDay>) {
             tr("Peso stimato") to if (values.isEmpty()) "–" else DayEnergy.weightChangeText(DayEnergy.weightChangeKg(values.sum()))
         ),
         footnote = buildString {
-            append(tr("Obiettivo: %d kcal al giorno.", goal) + " ")
+            append(tr("Obiettivo: %,d kcal al giorno.", goal) + " ")
             append(tr("Peso stimato: 7.700 kcal di deficit ≈ 1 kg di grasso; la bilancia varia anche per acqua e digestione."))
             if (days.any { it.isToday && it.deficitKcal != null }) {
                 append(" " + tr("Il valore di oggi è parziale: il basale matura nell'arco della giornata."))
@@ -440,4 +440,4 @@ private fun StatSection(
 
 /** "650 kcal" per un deficit, "surplus 120 kcal" se si è mangiato più di quanto si è bruciato. */
 private fun deficitText(kcal: Int): String =
-    if (kcal >= 0) "$kcal kcal" else tr("surplus %d kcal", abs(kcal))
+    if (kcal >= 0) "$kcal kcal" else tr("surplus %,d kcal", abs(kcal))

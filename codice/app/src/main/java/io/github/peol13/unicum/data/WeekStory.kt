@@ -66,8 +66,8 @@ object WeekStory {
             val reached = values.count { it >= deficitGoal }
             pages += StoryPage(
                 StoryPage.Kind.DEFICIT, if (avg >= 0) tr("Deficit medio") else tr("Surplus medio"), fmt(abs(avg)), tr("kcal al giorno"),
-                if (avg >= 0) (if (reached == 0) tr("Obiettivo di %d kcal non ancora raggiunto in nessun giorno.", deficitGoal) + " "
-                    else tr("Obiettivo di %d kcal raggiunto in %s su %d.", deficitGoal, trp(reached, "%d giorno", "%d giorni"), values.size) + " ") +
+                if (avg >= 0) (if (reached == 0) tr("Obiettivo di %,d kcal non ancora raggiunto in nessun giorno.", deficitGoal) + " "
+                    else tr("Obiettivo di %,d kcal raggiunto in %s su %d.", deficitGoal, trp(reached, "%d giorno", "%d giorni"), values.size) + " ") +
                     tr("In tutta la settimana: %s kcal, circa %s di grasso.", fmt(values.sum()), kg(values.sum() / BodyTrend.KCAL_PER_KG))
                 else tr("Hai mangiato più di quanto hai consumato: %s kcal di surplus in tutta la settimana.", fmt(-values.sum()))
             )
