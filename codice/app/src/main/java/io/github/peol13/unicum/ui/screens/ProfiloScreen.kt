@@ -100,6 +100,7 @@ import io.github.peol13.unicum.ui.theme.UnicumType
 import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Straighten
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 
 @Composable
 fun ProfiloScreen(onNavigate: (Route) -> Unit) {
@@ -538,6 +539,43 @@ internal fun HealthConnectCard() {
                 }
             }
         }
+        // I dati arrivano solo se anche le altre app (orologio, anello, bilancia) scrivono in Health Connect
+        if (status is HealthConnectSource.Status.Available) OtherAppsHint()
+    }
+}
+
+/**
+ * Promemoria sotto la card di Health Connect: UNICUM legge solo quello che le app di orologio, anello e bilancia
+ * scrivono in Health Connect, quindi anche loro devono avere il permesso. Il tasto apre le impostazioni di Health
+ * Connect (in Android 14+ sono nelle impostazioni di sistema), dove si vedono i permessi di ogni app.
+ */
+@Composable
+private fun OtherAppsHint() {
+    val context = LocalContext.current
+    Spacer(Modifier.height(12.dp))
+    Box(Modifier.fillMaxWidth().height(1.dp).background(UnicumAccent.copy(alpha = .35f)))
+    Spacer(Modifier.height(10.dp))
+    Text(
+        tr("Controlla anche le altre app: l'app dell'orologio, dell'anello o della bilancia (Samsung Health, Garmin Connect, Oura, Health Sync…) deve avere il permesso di scrivere in Health Connect, altrimenti qui non arriva niente."),
+        color = UnicumDark.copy(alpha = .7f), style = UnicumType.Caption, lineHeight = 17.sp
+    )
+    TextButton(onClick = { openHealthConnectSettings(context) }, modifier = Modifier.fillMaxWidth()) {
+        Icon(Icons.AutoMirrored.Rounded.OpenInNew, null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.width(6.dp))
+        Text(tr("Apri le impostazioni di Health Connect"), color = UnicumPrimary, fontWeight = FontWeight.SemiBold)
+    }
+}
+
+/** Le impostazioni di Health Connect (permessi delle app); se il telefono non le apre, i dati gestiti o il Play Store. */
+internal fun openHealthConnectSettings(context: android.content.Context) {
+    val flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    val attempts = listOf(
+        { Intent(androidx.health.connect.client.HealthConnectClient.ACTION_HEALTH_CONNECT_SETTINGS) },
+        { androidx.health.connect.client.HealthConnectClient.getHealthConnectManageDataIntent(context) },
+        { Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.apps.healthdata")) }
+    )
+    for (make in attempts) {
+        if (runCatching { context.startActivity(make().addFlags(flags)) }.isSuccess) return
     }
 }
 

@@ -961,3 +961,17 @@ es: Previsto por el déficit: %s · real (tendencia): %s en %d días.
 fr: Prévu par le déficit : %s · réel (tendance) : %s en %d jours.
 de: Aus dem Defizit erwartet: %s · tatsächlich (Trend): %s in %d Tagen.
 pt: Previsto pelo déficit: %s · real (tendência): %s em %d dias.
+
+it: Controlla anche le altre app: l'app dell'orologio, dell'anello o della bilancia (Samsung Health, Garmin Connect, Oura, Health Sync…) deve avere il permesso di scrivere in Health Connect, altrimenti qui non arriva niente.
+en: Check your other apps too: your watch, ring or scale app (Samsung Health, Garmin Connect, Oura, Health Sync…) must be allowed to write to Health Connect, otherwise nothing arrives here.
+es: Revisa también las otras apps: la app del reloj, del anillo o de la báscula (Samsung Health, Garmin Connect, Oura, Health Sync…) debe tener permiso para escribir en Health Connect; si no, aquí no llega nada.
+fr: Vérifie aussi les autres applis : l'appli de ta montre, de ta bague ou de ta balance (Samsung Health, Garmin Connect, Oura, Health Sync…) doit avoir l'autorisation d'écrire dans Health Connect, sinon rien n'arrive ici.
+de: Prüfe auch die anderen Apps: Die App deiner Uhr, deines Rings oder deiner Waage (Samsung Health, Garmin Connect, Oura, Health Sync…) muss in Health Connect schreiben dürfen, sonst kommt hier nichts an.
+pt: Verifique também os outros apps: o app do relógio, do anel ou da balança (Samsung Health, Garmin Connect, Oura, Health Sync…) precisa ter permissão para escrever no Health Connect, senão nada chega aqui.
+
+it: Apri le impostazioni di Health Connect
+en: Open Health Connect settings
+es: Abrir los ajustes de Health Connect
+fr: Ouvrir les paramètres de Health Connect
+de: Health-Connect-Einstellungen öffnen
+pt: Abrir as configurações do Health Connect
