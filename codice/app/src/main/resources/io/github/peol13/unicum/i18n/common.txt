@@ -386,3 +386,10 @@ es: tiempo
 fr: temps
 de: Zeit
 pt: tempo
+
+it: «%s» eliminato
+en: “%s” deleted
+es: «%s» eliminado
+fr: « %s » supprimé
+de: „%s“ gelöscht
+pt: “%s” excluído

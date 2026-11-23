@@ -35,6 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import io.github.peol13.unicum.i18n.tr
 
 object UnicumAppState {
 
@@ -160,18 +161,48 @@ object UnicumAppState {
         }
     }
 
+    /** Un'eliminazione appena fatta: l'avviso in basso la mostra con "Annulla" per qualche secondo. */
+    class UndoAction(val message: String, val undo: () -> Unit)
+
+    /** L'ultima eliminazione annullabile (pasto o allenamento manuale); null = nessun avviso. */
+    var undo by mutableStateOf<UndoAction?>(null)
+        private set
+
+    /** L'avviso è sparito (tempo scaduto, annullato o sostituito da un'altra eliminazione). */
+    fun clearUndo(action: UndoAction) {
+        if (undo === action) undo = null
+    }
+
     fun removeMeal(context: Context, meal: Meal) {
+        val date = selectedDate
         scope.launch {
             UnicumRepository.deleteMeal(context, meal.id)
             reload(context)
             HealthConnectWriter.deleteMeals(context, listOf(meal.id))
         }
+        // Annulla: lo stesso alimento torna con lo stesso id (e lo stesso record in Health Connect)
+        undo = UndoAction(tr("«%s» eliminato", meal.name)) {
+            scope.launch {
+                val ids = UnicumRepository.insertMeals(context, date, listOf(meal))
+                reload(context)
+                HealthConnectWriter.upsertMeals(context, UnicumRepository.mealEntities(context, ids))
+            }
+        }
     }
 
+    /** Solo gli allenamenti scritti a mano: quelli di Health Connect tornerebbero alla sincronizzazione. */
     fun removeActivity(context: Context, activity: Activity) {
+        if (!activity.isManual) return
+        val date = selectedDate
         scope.launch {
             UnicumRepository.deleteActivity(context, activity.id)
             reload(context)
+        }
+        undo = UndoAction(tr("«%s» eliminato", tr(activity.type))) {
+            scope.launch {
+                UnicumRepository.insertActivities(context, date, listOf(activity))
+                reload(context)
+            }
         }
     }
 

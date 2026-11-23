@@ -175,7 +175,8 @@ fun UnicumScreen(
     Scaffold(
         containerColor = UnicumBackground,
         bottomBar = { BottomNavigationBar(selectedItem, onNavigate) },
-        floatingActionButton = floatingActionButton
+        floatingActionButton = floatingActionButton,
+        snackbarHost = { UndoSnackbar() }
     ) { innerPadding ->
         val body: @Composable () -> Unit = {
             Column(
@@ -216,6 +217,40 @@ fun UnicumScreen(
 }
 
 /**
+ * Avviso in basso dopo un'eliminazione: "«Mela» eliminato · Annulla" per qualche secondo.
+ * Legge [io.github.peol13.unicum.UnicumAppState.undo]; ogni nuova eliminazione sostituisce la precedente.
+ */
+@Composable
+fun UndoSnackbar() {
+    val host = remember { androidx.compose.material3.SnackbarHostState() }
+    val action = io.github.peol13.unicum.UnicumAppState.undo
+    val haptics = rememberHaptics()
+    LaunchedEffect(action) {
+        if (action == null) return@LaunchedEffect
+        host.currentSnackbarData?.dismiss()
+        val result = host.showSnackbar(
+            message = action.message,
+            actionLabel = tr("Annulla"),
+            duration = androidx.compose.material3.SnackbarDuration.Long
+        )
+        if (result == androidx.compose.material3.SnackbarResult.ActionPerformed) {
+            haptics.confirm()
+            action.undo()
+        }
+        io.github.peol13.unicum.UnicumAppState.clearUndo(action)
+    }
+    androidx.compose.material3.SnackbarHost(host) { data ->
+        androidx.compose.material3.Snackbar(
+            snackbarData = data,
+            shape = RoundedCornerShape(18.dp),
+            containerColor = UnicumDark,
+            contentColor = UnicumBackground,
+            actionColor = UnicumAccent
+        )
+    }
+}
+
+/**
  * Come [UnicumScreen] ma per elenchi lunghi: il contenuto è una lista lazy (si disegnano solo le righe a schermo).
  * Stessi margini e stessa barra in basso.
  */
@@ -227,7 +262,8 @@ fun UnicumLazyScreen(
 ) {
     Scaffold(
         containerColor = UnicumBackground,
-        bottomBar = { BottomNavigationBar(selectedItem, onNavigate) }
+        bottomBar = { BottomNavigationBar(selectedItem, onNavigate) },
+        snackbarHost = { UndoSnackbar() }
     ) { innerPadding ->
         CompositionLocalProvider(LocalNavigate provides onNavigate) {
             androidx.compose.foundation.lazy.LazyColumn(

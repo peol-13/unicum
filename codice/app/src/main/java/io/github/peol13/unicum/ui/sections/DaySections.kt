@@ -97,6 +97,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import io.github.peol13.unicum.ui.theme.UnicumType
+import androidx.compose.material3.IconButton
 
 /*
  * Sezioni condivise tra Home, pagine di dettaglio e Diario.
@@ -306,8 +307,9 @@ internal fun WorkoutsCard(
                         Text(workoutDetail(a), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
                     }
                     Text("${fmt(a.calories)} kcal", color = UnicumPrimary, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
-                    if (onDelete != null) {
-                        Box(Modifier.clickable { onDelete(a) }.padding(start = 8.dp, top = 8.dp, bottom = 8.dp)) {
+                    // Solo quelli scritti a mano: gli altri arrivano da Health Connect e tornerebbero alla sincronizzazione
+                    if (onDelete != null && a.isManual) {
+                        IconButton(onClick = { onDelete(a) }, modifier = Modifier.size(44.dp)) {
                             Icon(Icons.Rounded.Close, tr("Elimina"), tint = DeleteRed, modifier = Modifier.size(18.dp))
                         }
                     }
@@ -589,7 +591,7 @@ internal fun MealSection(
                         Icons.Rounded.Edit, tr("Modifica"), tint = UnicumDark.copy(alpha = .35f),
                         modifier = Modifier.size(16.dp)
                     )
-                    Box(Modifier.clickable { onDelete(meal) }.padding(8.dp)) {
+                    IconButton(onClick = { onDelete(meal) }, modifier = Modifier.size(44.dp)) {
                         Icon(Icons.Rounded.Close, tr("Elimina"), tint = DeleteRed, modifier = Modifier.size(18.dp))
                     }
                 }
