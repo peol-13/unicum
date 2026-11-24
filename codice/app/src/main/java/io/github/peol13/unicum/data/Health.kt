@@ -12,7 +12,7 @@ object MetricType {
     const val WEIGHT_KG = "weight_kg"          // kg
     const val BODY_FAT_PCT = "body_fat_pct"    // % di grasso corporeo
     const val HRV = "hrv_rmssd"                // ms, media di tutti i campioni del giorno
-    const val HRV_NIGHT = "hrv_night"          // ms, media dei soli campioni dentro la notte di sonno (data = risveglio)
+    const val HRV_NIGHT = "hrv_night"          // ms, campioni dentro la notte di sonno, vedi HrvData.nightAverage (data = risveglio)
     const val NIGHT_TEMP = "night_temp"        // °C, media notturna della pelle/corpo
     const val NIGHT_TEMP_DELTA = "night_temp_delta" // °C rispetto alla base personale (se la fonte non dà il valore assoluto)
 }
@@ -37,6 +37,30 @@ object HrvData {
     private const val MIN_SEPARATION = 2.5
 
     fun isHrv(type: String) = type == MetricType.HRV || type == MetricType.HRV_NIGHT
+
+    /** Due campioni più vicini di così sono lo stesso (l'anello ne scrive uno ogni ~6 minuti). */
+    private const val DUPLICATE_MS = 2 * 60_000L
+    /** Quota dei valori scartata a ciascun estremo (picchi da movimento). */
+    private const val TRIM = 0.05
+
+    /**
+     * HRV di una notte dai campioni (ora in ms, valore) dentro il sonno. Ultrahuman a volte scrive in Health Connect
+     * raffiche di decine di campioni uguali nello stesso minuto, che in una media semplice pesano come ore di
+     * sonno: si tiene il primo campione di ogni gruppo più fitto di [DUPLICATE_MS]. Poi media tagliata del [TRIM]
+     * per lato. Con i dati veri (22-24/11/2026) dà 31,4 / 29,4 / 29,9 contro 31 / 29 / 30 dell'app Ultrahuman
+     * (la media semplice dava 32,1 / 24,4 / 27,0). null senza campioni.
+     */
+    fun nightAverage(samples: List<Pair<Long, Double>>): Double? {
+        val kept = mutableListOf<Pair<Long, Double>>()
+        for (s in samples.sortedBy { it.first }) {
+            if (kept.isNotEmpty() && s.first - kept.last().first < DUPLICATE_MS) continue
+            kept += s
+        }
+        if (kept.isEmpty()) return null
+        val values = kept.map { it.second }.sorted()
+        val cut = (values.size * TRIM).toInt()
+        return values.subList(cut, values.size - cut).average()
+    }
 
     fun reliable(date: LocalDate) = reliableFrom?.let { !date.isBefore(it) } ?: true
 
@@ -130,7 +154,7 @@ data class SleepNight(
 
 /** Quanto [value] si scosta da [base], in percentuale intera (null se manca uno dei due). */
 fun percentVs(value: Double?, base: Double?): Int? =
-    if (value == null || base == null || base <= 0) null else ((value - base) / base * 100).toInt()
+    if (value == null || base == null || base <= 0) null else kotlin.math.round((value - base) / base * 100).toInt()
 
 /** "+12%" oppure "-5%". */
 fun signedPercent(pct: Int): String = "${if (pct >= 0) "+" else ""}$pct%"

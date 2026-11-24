@@ -391,7 +391,7 @@ object UnicumRepository {
                     sleepMinutes = night?.durationMinutes,
                     sleepStartMillis = night?.startMillis,
                     sleepEndMillis = night?.endMillis,
-                    hrv = metric(MetricType.HRV),
+                    hrv = metric(MetricType.HRV_NIGHT),
                     nightTemp = temp ?: tempDelta,
                     tempIsDelta = temp == null && tempDelta != null,
                     steps = metric(MetricType.STEPS)?.toInt()

@@ -35,6 +35,7 @@ import io.github.peol13.unicum.data.signedPercent
 import io.github.peol13.unicum.ui.components.ExpandRow
 import io.github.peol13.unicum.ui.components.RingGauge
 import io.github.peol13.unicum.ui.components.UnicumCard
+import io.github.peol13.unicum.ui.sections.formatDuration
 import io.github.peol13.unicum.ui.theme.UnicumDark
 import io.github.peol13.unicum.ui.theme.UnicumType
 import java.time.Instant
@@ -77,37 +78,52 @@ private fun sessionText(s: RecoveryEstimate.Session): String {
 }
 
 /**
- * In cima alla sezione Allenamenti: quanto manca al recupero dopo gli ultimi allenamenti, con anello di
- * avanzamento. Sotto, aperta a richiesta, la spiegazione: carico e fatica misurata, come hai recuperato in passato
- * (HRV notturna dal 28/10), HRV, sonno e temperatura di stanotte.
+ * In cima alla sezione Allenamenti, due anelli affiancati: a sinistra quanto manca al recupero dopo gli ultimi
+ * allenamenti, a destra la prontezza all'allenamento dalle ultime notti ([io.github.peol13.unicum.data.Readiness]).
+ * Sotto, aperta a richiesta, la spiegazione: carico e fatica misurata, come hai recuperato in passato
+ * (HRV notturna dal 28/10), HRV, sonno e temperatura di stanotte, e da cosa viene la prontezza.
  */
 @Composable
 fun RecoveryCard(data: RecoveryData.Loaded) {
     val r = data.result
+    val ready = data.readiness
     var open by rememberSaveable { mutableStateOf(false) }
     UnicumCard(padding = 14.dp) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            RingGauge(r.progress, size = 58.dp, stroke = 6.dp) {
-                Text("${(r.progress * 100).roundToInt()}%", color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.SemiBold)
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(tr("Recupero"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
-                Text(
-                    if (r.recovered) tr("Recuperato") else tr("Pronto tra %s", hoursText(r.remainingHours)),
-                    color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold
-                )
-                val sub = when {
-                    !r.recovered && r.readyAtMillis != null ->
-                        readyText(r.readyAtMillis) + (r.main?.let { " · " + tr("dopo %s", sessionText(it)) } ?: "")
-                    r.lastSession != null -> tr("Ultimo allenamento: %s", sessionText(r.lastSession))
-                    else -> tr("Nessun allenamento recente")
+        Row(verticalAlignment = Alignment.Top) {
+            RingStat(
+                Modifier.weight(1f), r.progress, "${(r.progress * 100).roundToInt()}%", tr("Recupero"),
+                if (r.recovered) tr("Recuperato") else tr("Pronto tra %s", hoursText(r.remainingHours)),
+                when {
+                    !r.recovered && r.readyAtMillis != null -> readyText(r.readyAtMillis)
+                    r.lastSession == null -> tr("Nessun allenamento recente")
+                    else -> null
                 }
-                Text(sub, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp)
-            }
+            )
+            Spacer(Modifier.width(10.dp))
+            RingStat(
+                Modifier.weight(1f), (ready?.score ?: 0) / 100f, ready?.let { "${it.score}%" } ?: "–", tr("Prontezza"),
+                ready?.level ?: "–",
+                if (ready == null) tr("Mancano i dati delle notti") else null
+            )
         }
         ExpandRow(open, tr("Come è calcolato"), { open = !open })
         if (open) RecoveryDetails(data)
+    }
+}
+
+/** Mezza card: anello con la percentuale, titolo piccolo, valore e (se c'è) una riga sotto. */
+@Composable
+private fun RingStat(modifier: Modifier, progress: Float, ringText: String, title: String, value: String, sub: String?) {
+    Row(modifier, verticalAlignment = Alignment.CenterVertically) {
+        RingGauge(progress, size = 50.dp, stroke = 5.dp) {
+            Text(ringText, color = UnicumDark, style = UnicumType.Note, fontWeight = FontWeight.SemiBold)
+        }
+        Spacer(Modifier.width(10.dp))
+        Column(Modifier.weight(1f)) {
+            Text(title, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption)
+            Text(value, color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold, lineHeight = 18.sp)
+            if (sub != null) Text(sub, color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 14.sp)
+        }
     }
 }
 
@@ -116,6 +132,7 @@ private fun RecoveryDetails(data: RecoveryData.Loaded) {
     val r = data.result
     Spacer(Modifier.height(10.dp))
     val main = r.main
+    if (main == null) r.lastSession?.let { DetailLine(null, tr("Ultimo allenamento: %s", sessionText(it))) }
     if (main != null && r.mainHours != null) {
         DetailLine(
             tr("Allenamento"),
@@ -151,10 +168,22 @@ private fun RecoveryDetails(data: RecoveryData.Loaded) {
     )
     DetailLine(tr("Stanotte"), if (tonight.isEmpty()) tr("Dati della notte non ancora arrivati.") else tonight.joinToString(" · ").replaceFirstChar { it.uppercase() })
     r.reasons.forEach { DetailLine(null, it) }
+    data.readiness?.let { p ->
+        val parts = listOfNotNull(
+            tr("HRV %s rispetto alle notti prima", signedPercent(p.hrvDeltaPct)),
+            tr("sonno %s, di cui %s tra profondo e REM", formatDuration(p.sleepMinutes), formatDuration(p.restorativeMinutes)),
+            p.kcalDelta?.let { tr("ieri %s kcal attive rispetto al solito", lfmt("%+d", it)) }
+        )
+        DetailLine(
+            tr("Prontezza") + " · " + DateUtils.relativeLabel(p.date),
+            tr("%d%%, %s:", p.score, p.level.lowercase(io.github.peol13.unicum.i18n.I18n.locale)) + " " + parts.joinToString(", ") + ". " +
+                tr("Guarda le ultime notti, non un allenamento: più sonno profondo e REM e HRV sopra la tua media la alzano, un giorno molto attivo la abbassa.")
+        )
+    }
     Spacer(Modifier.height(6.dp))
     Text(
         tr("Carico = minuti in ogni zona × numero della zona (FC max %d bpm).", data.maxHr) + " " +
-            (if (data.nightHrv) tr("HRV media della notte") else tr("HRV media del giorno")) +
+            tr("HRV media della notte") +
             (HrvData.reliableFrom?.let { ", " + tr("considerata solo dal %s: prima i valori erano su un'altra scala (Profilo → Recupero).", "${it.dayOfMonth}/${it.monthValue}") } ?: "."),
         color = UnicumDark.copy(alpha = .5f), style = UnicumType.Note, lineHeight = 15.sp
     )

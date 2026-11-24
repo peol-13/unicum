@@ -1,61 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Widget 2x1 del recupero: anello con la percentuale recuperata, tempo che manca e ora in cui sarai pronto -->
+<!-- Widget 2x1 del recupero: due colonne, a sinistra il recupero dall'ultimo allenamento, a destra la prontezza
+     all'allenamento dalle ultime notti; ognuna con anello, titolo piccolo e valore -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wr_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_background"
-    android:gravity="center_vertical"
+    android:gravity="center"
     android:orientation="horizontal"
-    android:paddingStart="11dp"
+    android:paddingStart="8dp"
     android:paddingTop="6dp"
-    android:paddingEnd="14dp"
+    android:paddingEnd="8dp"
     android:paddingBottom="6dp">
 
-    <FrameLayout
-        android:layout_width="44dp"
-        android:layout_height="44dp">
-
-        <ImageView
-            android:id="@+id/wr_ring_track"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@null" />
-
-        <ImageView
-            android:id="@+id/wr_ring"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@null" />
-
-        <TextView
-            android:id="@+id/wr_percent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/montserrat_semibold"
-            tools:text="–"
-            android:textColor="@color/widget_text"
-            android:textSize="11sp" />
-    </FrameLayout>
-
+    <!-- Recupero -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
         android:layout_weight="1"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/wr_ring_track"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null" />
+
+            <ImageView
+                android:id="@+id/wr_ring"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/wr_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="@color/widget_text"
+                android:textSize="10sp"
+                tools:text="–" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/wr_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:fontFamily="@font/montserrat_regular"
+            android:includeFontPadding="false"
             android:maxLines="1"
-            tools:text="Recupero"
             android:textColor="@color/widget_text_muted"
-            android:textSize="11sp" />
+            android:textSize="10sp"
+            tools:text="Recupero" />
 
         <TextView
             android:id="@+id/wr_title"
@@ -65,19 +69,80 @@
             android:fontFamily="@font/montserrat_semibold"
             android:includeFontPadding="false"
             android:maxLines="1"
-            tools:text="–"
             android:textColor="@color/widget_primary"
-            android:textSize="17sp" />
+            android:textSize="13sp"
+            tools:text="Recuperato" />
 
         <TextView
             android:id="@+id/wr_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
             android:ellipsize="end"
             android:fontFamily="@font/montserrat_regular"
+            android:includeFontPadding="false"
             android:maxLines="1"
             android:textColor="@color/widget_text_muted"
-            android:textSize="11sp" />
+            android:textSize="10sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- Prontezza -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/wp_ring_track"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null" />
+
+            <ImageView
+                android:id="@+id/wp_ring"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/wp_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="@color/widget_text"
+                android:textSize="10sp"
+                tools:text="–" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/wp_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/widget_text_muted"
+            android:textSize="10sp"
+            tools:text="Prontezza" />
+
+        <TextView
+            android:id="@+id/wp_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/widget_primary"
+            android:textSize="13sp"
+            tools:text="Pronto" />
     </LinearLayout>
 </LinearLayout>

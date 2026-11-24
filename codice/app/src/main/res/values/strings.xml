@@ -2,7 +2,7 @@
     <string name="app_name">UNICUM</string>
     <string name="widget_description">Calories left, deficit and quick meal logging</string>
     <string name="widget_deficit_description">Today\'s calorie deficit with the green, yellow and red line</string>
-    <string name="widget_recovery_description">Recovery percentage and time until you\'re ready</string>
+    <string name="widget_recovery_description">Recovery from your last workout and training readiness</string>
     <string name="widget_label_calories">Calories</string>
     <string name="widget_label_deficit">Deficit</string>
     <string name="widget_label_recovery">Recovery</string>

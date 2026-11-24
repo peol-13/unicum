@@ -15,8 +15,8 @@ object RecoveryData {
         val result: RecoveryEstimate.Result,
         /** FC massima usata per fatica e carico (vedi [TrainingLoad.personalMaxHr]). */
         val maxHr: Int,
-        /** true = HRV della sola notte, false = media del giorno (finché la notte non è sincronizzata). */
-        val nightHrv: Boolean
+        /** Prontezza all'allenamento dalle ultime notti (null se mancano i dati). */
+        val readiness: Readiness.Result? = null
     )
 
     /** Giorni di sonno e temperatura da leggere (la base è di 7 giorni, lo storico HRV parte dal 28/10). */
@@ -59,21 +59,20 @@ object RecoveryData {
 
         val health = UnicumRepository.loadHealth(context, days = HEALTH_DAYS)
         fun series(type: String) = health.metrics[type].orEmpty().mapKeys { LocalDate.parse(it.key) }
-        val day = series(MetricType.HRV)
-        val night = series(MetricType.HRV_NIGHT)
-        // La notte quando copre quasi tutti i giorni affidabili, se no la media del giorno
-        val useNight = RecoveryEstimate.useNightHrv(day, night)
+        // Solo l'HRV della notte: la media del giorno comprende anche i campioni presi durante gli allenamenti
+        val hrv = series(MetricType.HRV_NIGHT)
         val nights = health.sleep.associateBy { LocalDate.parse(it.date) }
         val temp = series(MetricType.NIGHT_TEMP).ifEmpty { series(MetricType.NIGHT_TEMP_DELTA) }
 
         val result = RecoveryEstimate.estimate(
             sessions = sessions,
-            hrv = if (useNight) night else day,
+            hrv = hrv,
             sleepEnd = nights.mapValues { it.value.endMillis },
             sleepMinutes = nights.mapValues { it.value.durationMinutes },
             nightTemp = temp,
             now = now
         )
-        Loaded(result, maxHr, useNight)
+        val readiness = Readiness.latest(today, hrv, nights, series(MetricType.ACTIVE_KCAL))
+        Loaded(result, maxHr, readiness)
     }
 }

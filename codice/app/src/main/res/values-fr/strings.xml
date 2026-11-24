@@ -2,7 +2,7 @@
     <string name="app_name">UNICUM</string>
     <string name="widget_description">Calories restantes, déficit et saisie rapide d\'un repas</string>
     <string name="widget_deficit_description">Déficit calorique du jour avec la ligne verte, jaune et rouge</string>
-    <string name="widget_recovery_description">Pourcentage de récupération et temps avant d\'être prêt</string>
+    <string name="widget_recovery_description">Récupération après la dernière séance et disponibilité à l\'entraînement</string>
     <string name="widget_label_calories">Calories</string>
     <string name="widget_label_deficit">Déficit</string>
     <string name="widget_label_recovery">Récupération</string>

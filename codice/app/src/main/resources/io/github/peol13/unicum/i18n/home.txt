@@ -592,12 +592,26 @@ fr: Température nocturne
 de: Nachttemperatur
 pt: Temperatura noturna
 
-it: HRV degli ultimi 7 giorni
-en: HRV over the last 7 days
-es: HRV de los últimos 7 días
-fr: HRV des 7 derniers jours
-de: HRV der letzten 7 Tage
-pt: HRV dos últimos 7 dias
+it: HRV delle ultime 7 notti
+en: HRV over the last 7 nights
+es: HRV de las últimas 7 noches
+fr: HRV des 7 dernières nuits
+de: HRV der letzten 7 Nächte
+pt: HRV das últimas 7 noites
+
+it: Rispetto alla tua media (%d ms): sopra la linea meglio del solito, sotto peggio.
+en: Compared with your average (%d ms): above the line is better than usual, below is worse.
+es: Respecto a tu media (%d ms): por encima de la línea, mejor de lo habitual; por debajo, peor.
+fr: Par rapport à ta moyenne (%d ms) : au-dessus de la ligne, mieux que d'habitude ; en dessous, moins bien.
+de: Im Vergleich zu deinem Durchschnitt (%d ms): über der Linie besser als sonst, darunter schlechter.
+pt: Em relação à sua média (%d ms): acima da linha, melhor que o normal; abaixo, pior.
+
+it: Prontezza all'allenamento
+en: Training readiness
+es: Preparación para entrenar
+fr: Disponibilité à l'entraînement
+de: Trainingsbereitschaft
+pt: Prontidão para treinar
 
 it: Servono almeno 4 giorni di dati per confrontare con la tua media.
 en: At least 4 days of data are needed to compare with your average.
@@ -912,3 +926,4 @@ es: 2 alimentos · 310 kcal
 fr: 2 aliments · 310 kcal
 de: 2 Lebensmittel · 310 kcal
 pt: 2 alimentos · 310 kcal
+

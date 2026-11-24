@@ -76,7 +76,7 @@ object RecoveryEstimate {
     data class Today(
         val hrv: Double?,
         val baseline: Double?,
-        /** Scarto % dalla media dei 7 giorni prima. */
+        /** Scarto % dalla media delle notti dei 14 giorni prima (come pagina Sonno e prontezza). */
         val hrvDeltaPct: Int?,
         val hrvNormal: Boolean?,
         val sleepMinutes: Int?,
@@ -115,17 +115,6 @@ object RecoveryEstimate {
     fun modelHours(e: TrainingLoad.Effort): Double {
         if (e.load < MIN_LOAD) return 0.0
         return (20 * ln(1 + e.load / 40) * (0.8 + 0.05 * e.rawScore)).coerceAtMost(MAX_HOURS)
-    }
-
-    /**
-     * HRV della sola notte (true) o media del giorno (false). La media del giorno comprende anche i campioni presi
-     * durante e dopo gli allenamenti, quindi la notte è da preferire appena copre quasi tutti i giorni affidabili.
-     * Si contano solo i giorni dal [HrvData.reliableFrom]: la media del giorno esiste da molto prima.
-     */
-    fun useNightHrv(day: Map<LocalDate, Double>, night: Map<LocalDate, Double>): Boolean {
-        val nights = night.keys.count { HrvData.reliable(it) }
-        val days = day.keys.count { HrvData.reliable(it) }
-        return nights >= 3 && nights >= days * 0.7
     }
 
     /** Media e deviazione standard dell'HRV tra [from] e [to] compresi (servono almeno 3 notti). */
@@ -195,12 +184,15 @@ object RecoveryEstimate {
     /** Temperatura notturna sopra la media: × 1 fino a +0,2 °C, × 1,15 da +0,6 °C, lineare in mezzo. */
     fun tempFactor(delta: Double): Double = 1 + 0.15 * ((delta - 0.2) / 0.4).coerceIn(0.0, 1.0)
 
-    /** I dati di una notte (data = giorno del risveglio), confrontati con i 7 giorni prima. */
+    /**
+     * I dati di una notte (data = giorno del risveglio), confrontati con i 7 giorni prima per la stima. Lo scarto %
+     * mostrato usa invece [shownMean], la media delle notti dei 14 giorni prima, come pagina Sonno e prontezza.
+     */
     private class Night(
-        val hrv: Double?, val base: Pair<Double, Double>?, val sleep: Int?, val tempDelta: Double?
+        val hrv: Double?, val base: Pair<Double, Double>?, val shownMean: Double?, val sleep: Int?, val tempDelta: Double?
     ) {
         val hrvNormal: Boolean? get() = if (hrv != null && base != null) hrv >= threshold(base) else null
-        val hrvDeltaPct: Int? get() = if (hrv != null && base != null) percentVs(hrv, base.first) else null
+        val hrvDeltaPct: Int? get() = if (hrv != null && shownMean != null) percentVs(hrv, shownMean) else null
         /** Scarto dalla media in deviazioni standard. */
         val hrvZ: Double? get() = if (hrv != null && base != null) (hrv - base.first) / base.second else null
     }
@@ -209,9 +201,11 @@ object RecoveryEstimate {
         d: LocalDate, hrv: Map<LocalDate, Double>, sleepMinutes: Map<LocalDate, Int>, nightTemp: Map<LocalDate, Double>
     ): Night {
         val tempBase = nightTemp.filterKeys { it.isBefore(d) && !it.isBefore(d.minusDays(7)) }.values
+        val base = baseline(hrv, d.minusDays(7), d.minusDays(1))
         return Night(
             hrv = hrv[d],
-            base = baseline(hrv, d.minusDays(7), d.minusDays(1)),
+            base = base,
+            shownMean = baseline(hrv, d.minusDays(14), d.minusDays(1))?.first ?: base?.first,
             sleep = sleepMinutes[d],
             tempDelta = nightTemp[d]?.takeIf { tempBase.size >= 3 }?.let { it - tempBase.average() }
         )
@@ -234,7 +228,7 @@ object RecoveryEstimate {
         val last = done.maxByOrNull { it.endMillis }
 
         val n = night(today, reliableHrv, sleepMinutes, nightTemp)
-        val todayInfo = Today(n.hrv, n.base?.first, n.hrvDeltaPct, n.hrvNormal, n.sleep, n.tempDelta)
+        val todayInfo = Today(n.hrv, n.shownMean, n.hrvDeltaPct, n.hrvNormal, n.sleep, n.tempDelta)
 
         /** Fine del recupero di un allenamento: modello × fattore personale, poi le notti che seguono, una alla volta. */
         class Adjusted(val ready: Long, val floor: Long, val reasons: List<Pair<LocalDate, String>>)

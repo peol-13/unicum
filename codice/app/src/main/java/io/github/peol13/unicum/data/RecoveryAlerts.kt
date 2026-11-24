@@ -41,7 +41,7 @@ object RecoveryAlerts {
     fun fromHealth(data: HealthData, day: LocalDate): RecoveryAlert? {
         fun series(type: String) = data.metrics[type].orEmpty().mapKeys { LocalDate.parse(it.key) }
         val temp = series(MetricType.NIGHT_TEMP).ifEmpty { series(MetricType.NIGHT_TEMP_DELTA) }
-        return check(series(MetricType.HRV), temp, day)
+        return check(series(MetricType.HRV_NIGHT), temp, day)
     }
 
     fun check(hrv: Map<LocalDate, Double>, temp: Map<LocalDate, Double>, day: LocalDate): RecoveryAlert? {

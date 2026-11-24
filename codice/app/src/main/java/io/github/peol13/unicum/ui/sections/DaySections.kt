@@ -74,6 +74,8 @@ import io.github.peol13.unicum.data.UserSettings
 import io.github.peol13.unicum.ui.components.EditMealDialog
 import androidx.compose.material.icons.rounded.Edit
 import io.github.peol13.unicum.ui.components.CardHeader
+import io.github.peol13.unicum.ui.components.WeekBar
+import io.github.peol13.unicum.ui.components.WeekChart
 import io.github.peol13.unicum.ui.components.DeficitLine
 import io.github.peol13.unicum.ui.components.IconBadge
 import io.github.peol13.unicum.ui.components.HealthEmptyState
@@ -456,9 +458,9 @@ internal fun tempVsAverage(temp: Pair<Double, Boolean>): String {
 /** Recupero: HRV notturna rispetto alla propria media, con temperatura notturna. */
 @Composable
 internal fun RecoveryCard(modifier: Modifier, onClick: (() -> Unit)? = null) {
-    val hrv = UnicumAppState.latestMetric(MetricType.HRV)
+    val hrv = UnicumAppState.latestMetric(MetricType.HRV_NIGHT)
     val temp = UnicumAppState.latestNightTemp()
-    val baseline = UnicumAppState.metricBaseline(MetricType.HRV)
+    val baseline = UnicumAppState.metricBaseline(MetricType.HRV_NIGHT)
     val progress = if (hrv != null && baseline != null && baseline > 0) (hrv / baseline / 1.5).toFloat() else 0f
 
     UnicumCard(modifier = modifier, onClick = onClick) {
@@ -468,7 +470,7 @@ internal fun RecoveryCard(modifier: Modifier, onClick: (() -> Unit)? = null) {
             RingGauge(progress = progress, size = 104.dp, stroke = 10.dp) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        hrv?.let { "${it.toInt()}" } ?: NO_DATA,
+                        hrv?.let { "${it.roundToInt()}" } ?: NO_DATA,
                         color = UnicumDark, style = UnicumType.Page, fontWeight = FontWeight.SemiBold
                     )
                     Text("HRV ms", color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note)
@@ -884,19 +886,23 @@ internal fun RecoveryAlertBox(alert: RecoveryAlert) {
     }
 }
 
-/** HRV e temperatura notturna con il confronto rispetto alla propria media. */
+/**
+ * HRV e temperatura notturna con il confronto rispetto alla propria media, la prontezza all'allenamento e
+ * l'HRV delle ultime 7 notti come scarto dalla media (sopra o sotto la linea).
+ */
 @Composable
 internal fun RecoveryDetailCard() {
-    val hrv = UnicumAppState.latestMetric(MetricType.HRV)
+    val hrv = UnicumAppState.latestMetric(MetricType.HRV_NIGHT)
     val temp = UnicumAppState.latestNightTemp()
-    val hrvBase = UnicumAppState.metricBaseline(MetricType.HRV)
+    val hrvBase = UnicumAppState.metricBaseline(MetricType.HRV_NIGHT)
+    val ready = UnicumAppState.readiness()
     val days = UnicumRepository.lastDays(7, UnicumAppState.selectedDate)
-    val hrvWeek = days.map { UnicumAppState.health.metric(MetricType.HRV, it)?.toInt() ?: 0 }
+    val hrvWeek = days.map { UnicumAppState.health.metric(MetricType.HRV_NIGHT, it) }
 
     UnicumCard {
         CardHeader(Icons.Rounded.Bolt, tr("Recupero"))
         Spacer(Modifier.height(6.dp))
-        if (hrv == null && temp == null && hrvWeek.all { it == 0 }) {
+        if (hrv == null && temp == null && hrvWeek.all { it == null }) {
             HealthEmptyState(
                 tr("Nessun dato di recupero"),
                 tr("HRV e temperatura notturna arrivano dall'anello o dall'orologio tramite Health Connect.")
@@ -908,16 +914,39 @@ internal fun RecoveryDetailCard() {
             Spacer(Modifier.height(6.dp))
         }
         val hrvVs = percentVs(hrv, hrvBase)?.let { " " + tr("(%s vs media)", signedPercent(it)) }.orEmpty()
-        StatRow(tr("HRV notturna"), if (hrv != null) "${hrv.toInt()} ms$hrvVs" else NO_DATA, emphasized = true)
+        StatRow(tr("Prontezza all'allenamento"), ready?.let { "${it.score}% · ${it.level}" } ?: NO_DATA, emphasized = true)
+        StatDivider()
+        StatRow(tr("HRV notturna"), if (hrv != null) "${hrv.roundToInt()} ms$hrvVs" else NO_DATA)
         StatDivider()
         StatRow(
             tr("Temperatura notturna"),
             if (temp != null) tempText(temp.first, temp.second) + tempVsAverage(temp) else NO_DATA
         )
+        Spacer(Modifier.height(14.dp))
+        Text(tr("HRV delle ultime 7 notti"), color = UnicumDark, style = UnicumType.Body, fontWeight = FontWeight.SemiBold)
+        if (hrvBase != null) {
+            Text(
+                tr("Rispetto alla tua media (%d ms): sopra la linea meglio del solito, sotto peggio.", hrvBase.roundToInt()),
+                color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 16.sp
+            )
+        }
         Spacer(Modifier.height(10.dp))
-        Text(tr("HRV degli ultimi 7 giorni"), color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption)
-        Spacer(Modifier.height(6.dp))
-        MiniBars(hrvWeek, height = 50.dp)
+        val above = UnicumPrimary
+        val below = UnicumSecondary.copy(alpha = .45f)
+        WeekChart(
+            days.mapIndexed { i, day ->
+                val v = hrvWeek[i]
+                WeekBar(
+                    label = DateUtils.weekdayInitial(java.time.LocalDate.parse(day)),
+                    // Con la media le colonne mostrano lo scarto (sopra/sotto la linea); senza, il valore
+                    value = v?.let { if (hrvBase != null) (it - hrvBase).toFloat() else it.toFloat() },
+                    valueText = v?.roundToInt()?.toString() ?: "–",
+                    color = if (v != null && hrvBase != null && v < hrvBase) below else above,
+                    highlighted = i == days.lastIndex
+                )
+            },
+            height = 90.dp
+        )
         if (hrvBase == null) {
             Spacer(Modifier.height(8.dp))
             Text(

@@ -400,21 +400,25 @@ object UserSettings {
             .apply()
     }
 
-    /** true finché non è stata fatta la risincronizzazione di 30 giorni che riempie le fasi del sonno. */
-    val needsStagesResync: Boolean get() = !prefs.getBoolean("stages_resync_v3", false)
+    /**
+     * true finché non è stata fatta la risincronizzazione di 30 giorni che riempie le fasi del sonno
+     * (v5: e l'HRV della notte, ricalcolata senza doppioni, anche senza il permesso dello storico).
+     */
+    val needsStagesResync: Boolean get() = !prefs.getBoolean("stages_resync_v5", false)
 
     fun markStagesResyncDone() {
-        prefs.edit().putBoolean("stages_resync_v3", true).apply()
+        prefs.edit().putBoolean("stages_resync_v5", true).apply()
     }
 
     /**
      * true finché sonno, HRV e metriche non sono stati scaricati per un anno intero (una volta sola: su un telefono
      * nuovo o dopo un ripristino il database ha solo quello che arriva dalle sincronizzazioni).
+     * v3: si riscarica per ricalcolare l'HRV della notte (solo quella, senza doppioni) anche sulle notti vecchie.
      */
-    val needsHealthHistory: Boolean get() = !prefs.getBoolean("health_history_v1", false)
+    val needsHealthHistory: Boolean get() = !prefs.getBoolean("health_history_v3", false)
 
     fun markHealthHistoryDone() {
-        prefs.edit().putBoolean("health_history_v1", true).apply()
+        prefs.edit().putBoolean("health_history_v3", true).apply()
     }
 
     /** true finché all'avvio non è stato chiesto il permesso delle notifiche (Android 13+): si chiede una volta sola. */

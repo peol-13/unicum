@@ -45,8 +45,8 @@ internal fun adviceInput(stats: DayStats): AdviceInput {
     return AdviceInput(
         lastNight = UnicumAppState.lastNight,
         recentNights = UnicumAppState.health.sleep.filter { it.date <= selected }.takeLast(7),
-        hrv = UnicumAppState.latestMetric(MetricType.HRV),
-        hrvBaseline = UnicumAppState.metricBaseline(MetricType.HRV),
+        hrv = UnicumAppState.latestMetric(MetricType.HRV_NIGHT),
+        hrvBaseline = UnicumAppState.metricBaseline(MetricType.HRV_NIGHT),
         weekMinutes = UnicumAppState.week.map { it.activityMinutes },
         steps = UnicumAppState.steps,
         eatenKcal = stats.eaten,

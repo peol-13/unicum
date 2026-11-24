@@ -373,9 +373,12 @@ object UnicumAppState {
     val sleepWeekMinutes: List<Int>
         get() = week.map { day -> health.sleep.firstOrNull { it.date == day.date }?.durationMinutes ?: 0 }
 
+    /** Giorno del valore più recente di una metrica nei 3 giorni fino a quello mostrato. */
+    private fun latestMetricDate(type: String): String? =
+        UnicumRepository.lastDays(3, selectedDate).reversed().firstOrNull { health.metric(type, it) != null }
+
     /** Valore più recente di una metrica nei 3 giorni fino a quello mostrato. */
-    fun latestMetric(type: String): Double? =
-        UnicumRepository.lastDays(3, selectedDate).reversed().firstNotNullOfOrNull { health.metric(type, it) }
+    fun latestMetric(type: String): Double? = latestMetricDate(type)?.let { health.metric(type, it) }
 
     /** Ultima temperatura notturna: (valore, true se è solo lo scarto dalla base personale). */
     fun latestNightTemp(): Pair<Double, Boolean>? {
@@ -383,12 +386,26 @@ object UnicumAppState {
         return latestMetric(MetricType.NIGHT_TEMP_DELTA)?.let { it to true }
     }
 
-    /** Media della metrica nei giorni precedenti all'ultimo valore (serve almeno 3 giorni di dati). */
+    /**
+     * Media della metrica nei 14 giorni prima del valore mostrato da [latestMetric] (servono almeno 3 valori).
+     * Per l'HRV si usa [MetricType.HRV_NIGHT]: notte contro notti, come l'anello.
+     */
     fun metricBaseline(type: String): Double? {
         val byDate = health.metrics[type] ?: return null
-        val dates = byDate.keys.sorted()
-        if (dates.size < 4) return null
-        return dates.dropLast(1).map { byDate.getValue(it) }.average()
+        val shown = latestMetricDate(type) ?: return null
+        val from = java.time.LocalDate.parse(shown).minusDays(14).toString()
+        val before = byDate.filterKeys { it < shown && it >= from }.values
+        if (before.size < 3) return null
+        return before.average()
+    }
+
+    /** Prontezza all'allenamento della notte che finisce nel giorno mostrato (o di quella prima, se manca). */
+    fun readiness(): io.github.peol13.unicum.data.Readiness.Result? {
+        fun series(type: String) = health.metrics[type].orEmpty().mapKeys { java.time.LocalDate.parse(it.key) }
+        val nights = health.sleep.associateBy { java.time.LocalDate.parse(it.date) }
+        return io.github.peol13.unicum.data.Readiness.latest(
+            java.time.LocalDate.parse(selectedDate), series(MetricType.HRV_NIGHT), nights, series(MetricType.ACTIVE_KCAL)
+        )
     }
 
     /**
@@ -419,7 +436,9 @@ object UnicumAppState {
         val meals = UnicumRepository.loadMeals(context, day)
         val activities = UnicumRepository.loadActivities(context, day)
         val weekSummary = UnicumRepository.loadWeek(context, day)
-        val healthData = UnicumRepository.loadHealth(context, 14, day)
+        // 16 giorni: il giorno mostrato + 14 notti per le medie (come prontezza e recupero) + 1 per la media
+        // delle calorie attive della prontezza, che parte dal giorno prima di ieri
+        val healthData = UnicumRepository.loadHealth(context, 16, day)
 
         withContext(Dispatchers.Main) {
             // Nel frattempo è stato scelto un altro giorno: questi dati sono vecchi, ci pensa il reload di quel giorno

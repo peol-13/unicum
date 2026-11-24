@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.RemoteViews
 import io.github.peol13.unicum.R
+import io.github.peol13.unicum.data.DateUtils
+import io.github.peol13.unicum.data.Readiness
 import io.github.peol13.unicum.data.RecoveryData
 import io.github.peol13.unicum.data.UserSettings
 import io.github.peol13.unicum.ui.screens.hoursText
@@ -71,11 +73,14 @@ class DeficitWidgetProvider : SmallWidgetProvider() {
 }
 
 /**
- * Widget 2x1 del recupero: anello con la percentuale già recuperata, tempo che manca e ora in cui sarai pronto
- * (stessa stima della card in cima ad Allenamenti). Tocco = apre Allenamenti.
+ * Widget 2x1 del recupero, in due colonne come la card in cima ad Allenamenti: a sinistra l'anello con la
+ * percentuale già recuperata e il tempo che manca, a destra la prontezza all'allenamento dalle ultime notti
+ * ([io.github.peol13.unicum.data.Readiness]). Tocco = apre Allenamenti. Se il widget è basso restano solo anelli e
+ * valori; se è alto compare anche l'ora in cui sarai pronto.
  *
  * La stima rilegge gli allenamenti dal database: se ci mette troppo (o fallisce) si usa l'ultima salvata, il cui
  * tempo rimasto si ricalcola dall'ora "pronto alle" — così il widget resta giusto anche tra un aggiornamento e l'altro.
+ * La prontezza salvata vale solo se è della notte di oggi o di ieri.
  */
 class RecoveryWidgetProvider : SmallWidgetProvider() {
     private class Saved(val totalHours: Double, val readyAt: Long)
@@ -94,6 +99,14 @@ class RecoveryWidgetProvider : SmallWidgetProvider() {
             Saved(prefs.getFloat("total", 0f).toDouble(), prefs.getLong("ready", 0L))
         } else null
 
+        // Prontezza: quella appena calcolata, altrimenti l'ultima salvata se è ancora di oggi o di ieri
+        val readiness: Int? = if (loaded != null) {
+            loaded.readiness?.also { prefs.edit().putInt("readiness", it.score).putString("readiness_date", it.date.toString()).apply() }?.score
+        } else {
+            val date = prefs.getString("readiness_date", null)
+            prefs.getInt("readiness", -1).takeIf { it >= 0 && date != null && date >= DateUtils.today().minusDays(1).toString() }
+        }
+
         // Senza allenamenti nel database (o mai calcolato): niente valori inventati
         val remaining = saved?.let { ((it.readyAt - now) / 3_600_000.0).coerceAtLeast(0.0) }
         val progress = when {
@@ -102,29 +115,44 @@ class RecoveryWidgetProvider : SmallWidgetProvider() {
             else -> (1 - remaining!! / saved.totalHours).toFloat().coerceIn(0f, 1f)
         }
 
-        val views = RemoteViews(context.packageName, R.layout.widget_recovery).apply {
-            setRing(context, R.id.wr_ring_track, R.id.wr_ring, progress ?: 0f, sizeDp = 44, strokeDp = 5f)
-            setTextViewText(R.id.wr_percent, progress?.let { "${(it * 100).roundToInt()}%" } ?: "–")
-            when {
-                saved == null || remaining == null -> {
-                    setTextViewText(R.id.wr_label, tr("Recupero"))
-                    setTextViewText(R.id.wr_title, "–")
-                    setTextViewText(R.id.wr_sub, tr("nessun allenamento"))
+        for (id in ids) {
+            val height = manager.getAppWidgetOptions(id)?.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT) ?: 0
+            // Altezza in dp: sotto 80 solo anelli e valori, da 110 anche la riga dell'ora
+            val labels = height == 0 || height >= 80
+            val sub = height >= 110
+            val views = RemoteViews(context.packageName, R.layout.widget_recovery).apply {
+                setRing(context, R.id.wr_ring_track, R.id.wr_ring, progress ?: 0f, sizeDp = 40, strokeDp = 4.5f)
+                setTextViewText(R.id.wr_percent, progress?.let { "${(it * 100).roundToInt()}%" } ?: "–")
+                when {
+                    saved == null || remaining == null -> {
+                        setTextViewText(R.id.wr_label, tr("Recupero"))
+                        setTextViewText(R.id.wr_title, "–")
+                        setTextViewText(R.id.wr_sub, tr("nessun allenamento"))
+                    }
+                    remaining <= 0.0 -> {
+                        setTextViewText(R.id.wr_label, tr("Recupero"))
+                        setTextViewText(R.id.wr_title, tr("Recuperato"))
+                        setTextViewText(R.id.wr_sub, tr("sei pronto"))
+                    }
+                    else -> {
+                        // Testi corti: mezza colonna di un 2x1 ha posto per circa 10 caratteri
+                        setTextViewText(R.id.wr_label, tr("Pronto tra"))
+                        setTextViewText(R.id.wr_title, hoursText(remaining))
+                        setTextViewText(R.id.wr_sub, readyText(saved.readyAt))
+                    }
                 }
-                remaining <= 0.0 -> {
-                    setTextViewText(R.id.wr_label, tr("Recupero"))
-                    setTextViewText(R.id.wr_title, tr("Recuperato"))
-                    setTextViewText(R.id.wr_sub, tr("sei pronto"))
-                }
-                else -> {
-                    // Testi corti: in 2x1 c'è posto per circa 15 caratteri ("domani 9:00")
-                    setTextViewText(R.id.wr_label, tr("Pronto tra"))
-                    setTextViewText(R.id.wr_title, hoursText(remaining))
-                    setTextViewText(R.id.wr_sub, readyText(saved.readyAt))
-                }
+                setRing(context, R.id.wp_ring_track, R.id.wp_ring, (readiness ?: 0) / 100f, sizeDp = 40, strokeDp = 4.5f)
+                setTextViewText(R.id.wp_percent, readiness?.let { "$it%" } ?: "–")
+                setTextViewText(R.id.wp_label, tr("Prontezza"))
+                setTextViewText(R.id.wp_title, readiness?.let { Readiness.levelLabel(it) } ?: "–")
+
+                val labelVisibility = if (labels) android.view.View.VISIBLE else android.view.View.GONE
+                setViewVisibility(R.id.wr_label, labelVisibility)
+                setViewVisibility(R.id.wp_label, labelVisibility)
+                setViewVisibility(R.id.wr_sub, if (sub) android.view.View.VISIBLE else android.view.View.GONE)
+                setOnClickPendingIntent(R.id.wr_root, UnicumWidget.openAppIntent(context, 420, null, openTraining = true))
             }
-            setOnClickPendingIntent(R.id.wr_root, UnicumWidget.openAppIntent(context, 420, null, openTraining = true))
+            manager.updateAppWidget(id, views)
         }
-        manager.updateAppWidget(ids, views)
     }
 }

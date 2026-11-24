@@ -244,12 +244,14 @@ object HealthConnectSource {
                 val hrv = readAll<HeartRateVariabilityRmssdRecord>(client, firstDay.minusDays(1).atStartOfDay(zone).toInstant(), now)
                 metrics += dailyAverages(hrv.filter { !it.time.isBefore(from) }, MetricType.HRV, zone,
                     { it.time }, { it.heartRateVariabilityMillis })
-                // HRV della notte (per il recupero dopo gli allenamenti): solo i campioni dentro la notte di sonno
+                // HRV della notte (l'unica mostrata nell'app): solo i campioni dentro la notte di sonno,
+                // senza le raffiche di doppioni e i picchi (HrvData.nightAverage)
                 nights.forEach { (date, night) ->
                     hrv.filter { it.time.toEpochMilli() in night.startMillis..night.endMillis }
                         .groupBy { it.metadata.dataOrigin.packageName }
                         .forEach { (src, list) ->
-                            metrics += metric(date, MetricType.HRV_NIGHT, list.map { it.heartRateVariabilityMillis }.average(), src)
+                            HrvData.nightAverage(list.map { it.time.toEpochMilli() to it.heartRateVariabilityMillis })
+                                ?.let { metrics += metric(date, MetricType.HRV_NIGHT, it, src) }
                         }
                 }
             }.onFailure { rethrowCancellation(it); skipped += "HRV" }

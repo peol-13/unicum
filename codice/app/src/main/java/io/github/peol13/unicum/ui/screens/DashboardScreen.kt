@@ -363,8 +363,8 @@ private fun ActivityBanner(s: DayStats, onClick: () -> Unit) {
 @Composable
 private fun RecoveryBanner(onClick: () -> Unit) {
     val night = UnicumAppState.lastNight
-    val hrv = UnicumAppState.latestMetric(MetricType.HRV)
-    val baseline = UnicumAppState.metricBaseline(MetricType.HRV)
+    val hrv = UnicumAppState.latestMetric(MetricType.HRV_NIGHT)
+    val baseline = UnicumAppState.metricBaseline(MetricType.HRV_NIGHT)
     val alert = UnicumAppState.recoveryAlert()
     val (title, text) = when {
         alert != null -> alert.title to alert.text
@@ -375,7 +375,7 @@ private fun RecoveryBanner(onClick: () -> Unit) {
                                 else tr("%s di sonno.", formatDuration(night.durationMinutes)))
         night != null -> tr("Notte un po' corta") to
             tr("%s di sonno: oggi vai con calma se puoi.", formatDuration(night.durationMinutes))
-        else -> tr("Dati di recupero") to "HRV ${hrv?.toInt()} ms."
+        else -> tr("Dati di recupero") to "HRV ${hrv?.let { kotlin.math.round(it).toInt() }} ms."
     }
     TealBanner(Icons.Rounded.Bedtime, title, text, onClick = onClick)
 }

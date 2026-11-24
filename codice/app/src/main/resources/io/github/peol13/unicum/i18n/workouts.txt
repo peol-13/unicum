@@ -549,12 +549,75 @@ fr: Prêt dans %s
 de: Bereit in %s
 pt: Pronto em %s
 
-it: dopo %s
-en: after %s
-es: tras %s
-fr: après %s
-de: nach %s
-pt: depois de %s
+it: Prontezza
+en: Readiness
+es: Preparación
+fr: Disponibilité
+de: Bereitschaft
+pt: Prontidão
+
+it: Riposo
+en: Rest
+es: Descanso
+fr: Repos
+de: Ruhe
+pt: Descanso
+
+it: Pronto
+en: Ready
+es: Listo
+fr: Prêt
+de: Bereit
+pt: Pronto
+
+it: Ottimale
+en: Optimal
+es: Óptimo
+fr: Optimal
+de: Optimal
+pt: Ótimo
+
+it: Mancano i dati delle notti
+en: Night data missing
+es: Faltan los datos de las noches
+fr: Données des nuits manquantes
+de: Nachtdaten fehlen
+pt: Faltam os dados das noites
+
+it: HRV %s rispetto alle notti prima
+en: HRV %s vs the previous nights
+es: HRV %s respecto a las noches anteriores
+fr: HRV %s par rapport aux nuits précédentes
+de: HRV %s gegenüber den Nächten davor
+pt: HRV %s em relação às noites anteriores
+
+it: sonno %s, di cui %s tra profondo e REM
+en: sleep %s, of which %s deep and REM
+es: sueño %s, de ello %s entre profundo y REM
+fr: sommeil %s, dont %s de profond et REM
+de: Schlaf %s, davon %s Tief- und REM-Schlaf
+pt: sono %s, dos quais %s entre profundo e REM
+
+it: ieri %s kcal attive rispetto al solito
+en: yesterday %s active kcal vs usual
+es: ayer %s kcal activas respecto a lo habitual
+fr: hier %s kcal actives par rapport à d'habitude
+de: gestern %s aktive kcal gegenüber sonst
+pt: ontem %s kcal ativas em relação ao habitual
+
+it: %d%%, %s:
+en: %d%%, %s:
+es: %d%%, %s:
+fr: %d%%, %s :
+de: %d%%, %s:
+pt: %d%%, %s:
+
+it: Guarda le ultime notti, non un allenamento: più sonno profondo e REM e HRV sopra la tua media la alzano, un giorno molto attivo la abbassa.
+en: It looks at the last nights, not at one workout: more deep and REM sleep and HRV above your average raise it, a very active day lowers it.
+es: Mira las últimas noches, no un entrenamiento: más sueño profundo y REM y una HRV por encima de tu media la suben, un día muy activo la baja.
+fr: Elle regarde les dernières nuits, pas une séance : plus de sommeil profond et REM et une HRV au-dessus de ta moyenne l'augmentent, une journée très active la fait baisser.
+de: Sie betrachtet die letzten Nächte, nicht ein Training: mehr Tief- und REM-Schlaf und eine HRV über deinem Durchschnitt erhöhen sie, ein sehr aktiver Tag senkt sie.
+pt: Olha as últimas noites, não um treino: mais sono profundo e REM e HRV acima da sua média aumentam a prontidão, um dia muito ativo a diminui.
 
 it: Ultimo allenamento: %s
 en: Last workout: %s
@@ -702,13 +765,6 @@ es: HRV media de la noche
 fr: HRV moyenne de la nuit
 de: HRV Nachtdurchschnitt
 pt: HRV média da noite
-
-it: HRV media del giorno
-en: HRV daily average
-es: HRV media del día
-fr: HRV moyenne du jour
-de: HRV Tagesdurchschnitt
-pt: HRV média do dia
 
 it: considerata solo dal %s: prima i valori erano su un'altra scala (Profilo → Recupero).
 en: counted only from %s: before that, values were on another scale (Profile → Recovery).

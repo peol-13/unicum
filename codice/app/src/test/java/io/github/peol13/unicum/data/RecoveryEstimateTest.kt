@@ -221,14 +221,6 @@ class RecoveryEstimateTest {
     }
 
     @Test
-    fun nightHrvIsPreferredWhenItCoversTheReliableDays() {
-        val day = (0L..60L).associate { LocalDate.of(2026, 9, 15).plusDays(it) to 50.0 }
-        val night = (0L..15L).associate { LocalDate.of(2026, 10, 28).plusDays(it) to 40.0 }
-        assertTrue(RecoveryEstimate.useNightHrv(day, night))
-        assertFalse(RecoveryEstimate.useNightHrv(day, night.filterKeys { it.dayOfMonth % 3 == 0 }))
-    }
-
-    @Test
     fun shortSleepAndHighTemperatureSlowDown() {
         val s = session("2026-11-09", 18)
         val temp = (3..10).associate { LocalDate.of(2026, 11, it) to 34.8 } + (LocalDate.of(2026, 11, 10) to 35.4)
