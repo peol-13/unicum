@@ -64,6 +64,7 @@ class MainActivity : ComponentActivity() {
         AutoBackup.init(applicationContext)
         UsageStats.init(applicationContext)
         io.github.peol13.unicum.data.UpdateCheck.init(applicationContext)
+        io.github.peol13.unicum.data.FeedbackPrompt.init(applicationContext)
         BackgroundSync.schedule(applicationContext)
         handleIntent(intent)
 
@@ -78,6 +79,8 @@ class MainActivity : ComponentActivity() {
                 launch { UsageStats.sendIfDue(usageFeatures()) }
                 // Nuova versione su GitHub? Max una volta al giorno; il banner compare nella Home
                 launch { io.github.peol13.unicum.data.UpdateCheck.checkIfDue() }
+                // Giorni d'uso per la card "Come ti trovi?" (una volta al giorno)
+                io.github.peol13.unicum.data.FeedbackPrompt.recordOpen()
                 UnicumAppState.followToday(applicationContext)
                 UnicumAppState.reloadFromDatabase(applicationContext)
                 UnicumAppState.autoSync(applicationContext)

@@ -1,7 +1,7 @@
 // Testi della pagina principale (index.html) nelle 5 lingue oltre all'italiano, che resta scritto nell'HTML.
 // Le chiavi corrispondono agli attributi data-t / data-t-alt / data-t-aria. Il motore è in i18n.js.
 (function () {
-  var FORM = '<a href="https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform" target="_blank" rel="noopener" data-feedback>';
+  var FORM = '<a href="https://docs.google.com/forms/d/e/1FAIpQLSfcQpbejWIYUOtbkkv-rpGvtRq7Qx9fv9LEwcMOA1jQMAu49g/viewform" target="_blank" rel="noopener" data-feedback>';
   var PRIVACY = '<a href="privacy.html">';
 
   window.UNICUM_TEXT = {

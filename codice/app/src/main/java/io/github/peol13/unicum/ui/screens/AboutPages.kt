@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.peol13.unicum.BuildConfig
 import io.github.peol13.unicum.data.AppInfo
+import io.github.peol13.unicum.data.FeedbackPrompt
 import io.github.peol13.unicum.i18n.tr
 import io.github.peol13.unicum.ui.components.CardHeader
 import io.github.peol13.unicum.ui.components.UnicumCard
@@ -45,8 +46,6 @@ import androidx.compose.material.icons.rounded.ChevronRight
 
 /** Indirizzi pubblici del progetto (gli stessi della pagina web). */
 internal object ProjectLinks {
-    /** Modulo Google "UNICUM - scrivimi (pareri e problemi)": senza account, arriva per email all'autore. */
-    const val FEEDBACK_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform"
     const val ISSUES = "${AppInfo.PROJECT_URL}/issues/new/choose"
     const val PRIVACY = "https://peol-13.github.io/unicum/privacy.html"
     const val RELEASES = "${AppInfo.PROJECT_URL}/releases"
@@ -70,21 +69,21 @@ fun FeedbackPage() {
         LinkRow(
             Icons.Rounded.MailOutline, tr("In privato"),
             tr("Un modulo di un minuto, senza account. Arriva direttamente all'autore.")
-        ) { openUrl(context, ProjectLinks.FEEDBACK_FORM) }
+        ) {
+            openUrl(context, FeedbackPrompt.formUrl())
+            FeedbackPrompt.answered()
+        }
         LinkRow(
             Icons.Rounded.Forum, tr("Su GitHub, in pubblico"),
             tr("Gli altri possono leggere e commentare. Serve un account GitHub, gratuito.")
         ) { openUrl(context, ProjectLinks.ISSUES) }
         Text(
-            tr("Se segnali un problema, scrivi anche questa riga: %s", deviceLine()),
+            tr("Se segnali un problema, scrivi anche questa riga: %s", FeedbackPrompt.deviceLine()),
             color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, lineHeight = 17.sp,
             modifier = Modifier.padding(top = 4.dp)
         )
     }
 }
-
-private fun deviceLine(): String =
-    "UNICUM ${BuildConfig.VERSION_NAME} · Android ${android.os.Build.VERSION.RELEASE} · ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}"
 
 /** Informazioni: versione, codice sorgente, privacy, licenza e crediti dei dati e delle librerie usate. */
 @Composable

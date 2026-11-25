@@ -106,6 +106,7 @@ fun DashboardScreen(onNavigate: (Route) -> Unit) {
         UpdateBanner()
         WhatsNewOnUpdate()
         if (UnicumAppState.isToday) FirstStepsCard(onAddMeal = { adding.addMeal() })
+        if (UnicumAppState.isToday) FeedbackCard()
         if (UnicumAppState.isToday) WeekStoryTeaser(onOpen = { onNavigate(Route.WeekStory(lastCompletedWeek())) })
 
         // Le card nell'ordine scelto (o quello della modalità); tenendone premuta una si apre la modifica

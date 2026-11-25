@@ -9,9 +9,9 @@
   <a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22io.github.peol13.unicum%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Fpeol-13%2Funicum%22%2C%22author%22%3A%22peol-13%22%2C%22name%22%3A%22UNICUM%22%7D"><img src="docs/badges/obtainium.png" height="48" alt="Get it on Obtainium"></a>
 </p>
 
-> **🧪 Looking for testers.** Testing currently works like this: download the APK from [Releases](../../releases/latest), use it, and tell me how it went, either [here on GitHub](../../issues/new/choose) or [privately with a short form](https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform). Every report ends up in a better version.
+> **🧪 Looking for testers.** Testing currently works like this: download the APK from [Releases](../../releases/latest), use it, and tell me how it went, either [here on GitHub](../../issues/new/choose) or [privately with a short form](https://docs.google.com/forms/d/e/1FAIpQLSfcQpbejWIYUOtbkkv-rpGvtRq7Qx9fv9LEwcMOA1jQMAu49g/viewform). Every report ends up in a better version.
 >
-> **Poll:** would you join a future Google Play test (12 people, 14 days)? [Answer the 1-minute poll](https://docs.google.com/forms/d/e/1FAIpQLSehDoj3_mSq1G3RxsAol6V6Mn-tKXvs1gXZgaoW2BQJJIW6Fg/viewform).
+> **Poll:** would you join a future Google Play test (12 people, 14 days)? [Answer the 1-minute poll](https://docs.google.com/forms/d/e/1FAIpQLSfcQpbejWIYUOtbkkv-rpGvtRq7Qx9fv9LEwcMOA1jQMAu49g/viewform).
 
 <p>
   <img src="docs/screenshots/05-home.png" width="200" alt="Home: calories, deficit and macros">
@@ -55,7 +55,7 @@ There is no account and no server. Your data stays on your phone, in a local dat
 
 ## Install
 
-1. Download the latest APK from [Releases](../../releases).
+1. Download the latest APK from [Releases](../../releases/latest).
 2. Install [Health Connect](https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata). It is built into Android 14 and later.
 3. Open UNICUM, answer a few questions and connect Health Connect (you can also do it later from **Profile**).
 
@@ -138,14 +138,14 @@ L'anello registra il sonno, l'orologio le corse, un'app i pasti, e il programma 
 - **Recupero stimato**: da HRV notturna, sonno e carico misurato degli allenamenti.
 - **Stime 5/7/10 km, obiettivi di corsa, scarpe, widget, riepilogo del lunedì, tema scuro, backup. In 6 lingue, con kg/cm o lb/ft.**
 
-**🧪 Cerco tester.** Per ora la prova funziona così: scarichi l'APK dalle [Releases](../../releases/latest), usi l'app e mi scrivi com'è andata, [qui su GitHub](../../issues/new/choose) oppure [in privato con un modulo](https://docs.google.com/forms/d/e/1FAIpQLSejujvTR2J8jWqYPyPMps9YFfEggqCUqc0QjBhuOft_-t1yxA/viewform). Se trovi un problema o un PDF che l'app non legge, è il messaggio più utile.
+**🧪 Cerco tester.** Per ora la prova funziona così: scarichi l'APK dalle [Releases](../../releases/latest), usi l'app e mi scrivi com'è andata, [qui su GitHub](../../issues/new/choose) oppure [in privato con un modulo](https://docs.google.com/forms/d/e/1FAIpQLSfcQpbejWIYUOtbkkv-rpGvtRq7Qx9fv9LEwcMOA1jQMAu49g/viewform). Se trovi un problema o un PDF che l'app non legge, è il messaggio più utile.
 
-**Sondaggio:** parteciperesti alla futura prova sul Play Store (12 persone, 14 giorni)? [Rispondi in un minuto](https://docs.google.com/forms/d/e/1FAIpQLSehDoj3_mSq1G3RxsAol6V6Mn-tKXvs1gXZgaoW2BQJJIW6Fg/viewform).
+**Sondaggio:** parteciperesti alla futura prova sul Play Store (12 persone, 14 giorni)? [Rispondi in un minuto](https://docs.google.com/forms/d/e/1FAIpQLSfcQpbejWIYUOtbkkv-rpGvtRq7Qx9fv9LEwcMOA1jQMAu49g/viewform).
 
 **Privacy**: nessun account e nessun server, i dati restano sul telefono. Statistiche d'uso anonime solo se le accetti (quali schermate apri, mai i dati). [Informativa completa](https://peol-13.github.io/unicum/privacy.html).
 
 **Installazione**
-1. Scarica l'APK da [Releases](../../releases).
+1. Scarica l'ultimo APK dalle [Releases](../../releases/latest).
 2. Installa Health Connect (su Android 14 e successivi è già presente).
 3. Apri l'app e rispondi alle domande del primo avvio.
 4. Collega Health Connect nel primo avvio (o dopo, dal Profilo).

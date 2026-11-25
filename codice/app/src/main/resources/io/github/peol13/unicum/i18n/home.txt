@@ -927,3 +927,32 @@ fr: 2 aliments · 310 kcal
 de: 2 Lebensmittel · 310 kcal
 pt: 2 alimentos · 310 kcal
 
+# Card "Come ti trovi?" (FeedbackCard)
+
+it: Come ti trovi con UNICUM?
+en: How are you finding UNICUM?
+es: ¿Qué tal te va con UNICUM?
+fr: Comment trouvez-vous UNICUM ?
+de: Wie gefällt dir UNICUM?
+pt: Como está sendo usar o UNICUM?
+
+it: Un minuto, senza account: dimmi cosa migliorare e vota la prossima funzione. Leggo ogni risposta.
+en: One minute, no account: tell me what to improve and vote for the next feature. I read every answer.
+es: Un minuto, sin cuenta: dime qué mejorar y vota la próxima función. Leo cada respuesta.
+fr: Une minute, sans compte : dites-moi quoi améliorer et votez pour la prochaine fonction. Je lis chaque réponse.
+de: Eine Minute, ohne Konto: Sag mir, was besser werden soll, und stimm über die nächste Funktion ab. Ich lese jede Antwort.
+pt: Um minuto, sem conta: diga o que melhorar e vote na próxima função. Eu leio todas as respostas.
+
+it: Non ora
+en: Not now
+es: Ahora no
+fr: Pas maintenant
+de: Nicht jetzt
+pt: Agora não
+
+it: Rispondi
+en: Answer
+es: Responder
+fr: Répondre
+de: Antworten
+pt: Responder
