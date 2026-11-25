@@ -71,6 +71,75 @@ class WorkoutAnalysisTest {
     }
 
     @Test
+    fun lapsWrittenByHand() {
+        // Giri liberi come su Samsung Health: 10', poi 3 × (4' veloce + 2'), senza l'ultimo recupero
+        val parts = listOf(600 to false, 240 to true, 120 to false, 240 to true, 120 to false, 240 to true)
+        val plan = IntervalPlan.ofLaps(parts.map { IntervalPart(seconds = it.first) to it.second })!!
+        assertTrue(plan.laps)
+        val s = WorkoutAnalysis.intervals(intervalRun(), plan)
+        // I 180 s che avanzano diventano il giro 7
+        assertEquals(listOf("LAP", "WORK", "LAP", "WORK", "LAP", "WORK", "LAP"), s.map { it.kind.name })
+        assertEquals((1..7).toList(), s.map { it.rep })
+        assertTrue(s.all { it.lap })
+        assertEquals(listOf(600, 240, 120, 240, 120, 240, 180), s.map { it.seconds })
+        s.filter { it.kind == WorkoutAnalysis.IntervalKind.WORK }.forEach { assertEquals(170, it.avgHr) }
+        // FC dei tratti veloci per la stima dei 5 km
+        assertEquals(170, WorkoutAnalysis.withWorkHr(intervalRun(), plan).workHr)
+    }
+
+    @Test
+    fun lapsShortTailJoinsLastLap() {
+        val plan = IntervalPlan.ofLaps(listOf(IntervalPart(seconds = 600) to false, IntervalPart(seconds = 1130) to false))!!
+        val s = WorkoutAnalysis.intervals(intervalRun(), plan)
+        assertEquals(2, s.size)
+        assertEquals(1740, s.last().endS)
+        // Senza nessun giro veloce non c'è FC dei veloci
+        assertNull(WorkoutAnalysis.withWorkHr(intervalRun(), plan).workHr)
+        // Giri a distanza
+        val byKm = IntervalPlan.ofLaps(listOf(IntervalPart(meters = 1200.0) to false, IntervalPart(meters = 720.0) to true))!!
+        val k = WorkoutAnalysis.intervals(intervalRun(), byKm)
+        assertEquals(600, k[0].endS)
+        assertEquals(720.0, k[1].meters, 8.0)
+        assertEquals(3, k.size)
+    }
+
+    @Test
+    fun lapsTotalAgainstRecording() {
+        val d = intervalRun() // 1740 s, ~3,2 km
+        fun t(vararg sec: Int) = WorkoutAnalysis.lapsTotal(d, sec.map { IntervalPart(seconds = it) })!!
+        // Somma giusta, o entro 15 s
+        assertTrue(t(600, 240, 120, 240, 120, 420).ok)
+        assertTrue(t(600, 240, 120, 240, 120, 408).ok)
+        // Manca l'ultimo giro: -420 s
+        val missing = t(600, 240, 120, 240, 120)
+        assertTrue(!missing.ok)
+        assertEquals(-420.0, missing.diff, 0.1)
+        // Troppo lunghi
+        assertTrue(!t(600, 240, 120, 240, 120, 460).ok)
+        // Con le pause escluse dai giri vale la durata in movimento
+        val paused = d.copy(movingSeconds = 1700)
+        assertTrue(WorkoutAnalysis.lapsTotal(paused, listOf(IntervalPart(seconds = 1700)))!!.ok)
+        // A distanza: 2% di scarto
+        val km = d.distanceM!!
+        assertTrue(WorkoutAnalysis.lapsTotal(d, listOf(IntervalPart(meters = km * 0.99)))!!.ok)
+        assertTrue(!WorkoutAnalysis.lapsTotal(d, listOf(IntervalPart(meters = km * 0.9)))!!.ok)
+        // Niente scritto o tempo e distanza mescolati
+        assertNull(WorkoutAnalysis.lapsTotal(d, emptyList()))
+        assertNull(WorkoutAnalysis.lapsTotal(d, listOf(IntervalPart(seconds = 60), IntervalPart(meters = 200.0))))
+    }
+
+    @Test
+    fun lapsFromWatch() {
+        assertNull(IntervalPlan.fromWatchLaps(listOf(WorkoutLap(0, 600))))
+        assertNull(IntervalPlan.ofLaps(listOf(IntervalPart() to false)))
+        val plan = IntervalPlan.fromWatchLaps(listOf(WorkoutLap(845, 1740), WorkoutLap(5, 605), WorkoutLap(605, 845)))!!
+        assertTrue(plan.fromWatch)
+        val s = WorkoutAnalysis.intervals(intervalRun(), plan)
+        assertEquals(listOf(0, 605, 845), s.map { it.startS })
+        assertEquals(1740, s.last().endS)
+    }
+
+    @Test
     fun intervalsByTime() {
         val plan = IntervalPlan(IntervalPart(seconds = 600), 3, IntervalPart(seconds = 240), IntervalPart(seconds = 120))
         val s = WorkoutAnalysis.intervals(intervalRun(), plan)

@@ -24,7 +24,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.SentimentSatisfied
 import androidx.compose.material.icons.rounded.Speed
@@ -51,6 +55,7 @@ import androidx.compose.ui.unit.sp
 import androidx.health.connect.client.contracts.ExerciseRouteRequestContract
 import io.github.peol13.unicum.data.DateUtils
 import io.github.peol13.unicum.data.IntervalPart
+import io.github.peol13.unicum.data.StepKind
 import io.github.peol13.unicum.data.IntervalPlan
 import io.github.peol13.unicum.data.LoggedRun
 import io.github.peol13.unicum.data.NotionPlan
@@ -98,6 +103,7 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import androidx.compose.ui.graphics.Color
 import kotlin.math.roundToInt
 
 /**
@@ -163,7 +169,9 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
     }
     detail?.let { raw ->
         if (correcting) CorrectionDialog(raw, feedback, onDismiss = { correcting = false }) { f -> correcting = false; saveFeedback(f) }
-        if (editingIntervals) IntervalsDialog(raw, feedback.intervals, onDismiss = { editingIntervals = false }) { plan ->
+        if (editingIntervals) IntervalsDialog(
+            raw, feedback.intervals, preferLaps = RunFeedback.merge(feedback, notion?.logged, notion?.planned).kind !in PlanStructure.STRUCTURED_KINDS, onDismiss = { editingIntervals = false }
+        ) { plan ->
             editingIntervals = false
             saveFeedback(feedback.copy(intervals = plan?.let { WorkoutAnalysis.withWorkHr(raw, it) }))
         }
@@ -280,14 +288,17 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         }
         if (!strength) Spacer(Modifier.height(14.dp))
 
-        // Ripetute scritte dall'utente o, se mancano, ricavate dal programma di Notion: sulla registrazione
-        // intera (come i giri dell'orologio), non su quella corretta
-        val intervalPlan = feedback.intervals ?: notion?.autoPlan
+        // Giri o ripetute scritti dall'utente; se mancano, i giri dell'orologio (se la fonte li scrive in Health
+        // Connect) o la struttura del programma di Notion: sulla registrazione intera, non su quella corretta
+        val watchLaps = remember(raw) { IntervalPlan.fromWatchLaps(raw.laps) }
+        val intervalPlan = feedback.intervals ?: watchLaps ?: notion?.autoPlan
         val segments = remember(raw, intervalPlan) { intervalPlan?.let { WorkoutAnalysis.intervals(raw, it) }.orEmpty() }
         if (splits.isNotEmpty() || segments.isNotEmpty() || isRun) {
             SplitsCard(
                 splits, segments, canEditIntervals = isRun, suggestIntervals = shown.kind in PlanStructure.STRUCTURED_KINDS,
-                fromPlan = intervalPlan?.fromPlan.takeIf { feedback.intervals == null }
+                fromPlan = intervalPlan?.fromPlan.takeIf { feedback.intervals == null },
+                fromWatch = feedback.intervals == null && intervalPlan?.fromWatch == true,
+                manual = feedback.intervals != null
             ) { editingIntervals = true }
             Spacer(Modifier.height(14.dp))
         }
@@ -418,8 +429,8 @@ private fun SummaryCard(d: WorkoutDetail, splits: List<WorkoutAnalysis.Split>) {
 }
 
 /**
- * Parziali della corsa, come in Samsung Health: le ripetute (se l'utente ne ha scritto la struttura) e i km.
- * Con entrambi, due schede "Ripetute | 1 km".
+ * Parziali della corsa, come in Samsung Health: i giri o le ripetute (scritti dall'utente, dell'orologio o dal
+ * programma) e i km. Con entrambi, due schede "Giri | 1 km" o "Ripetute | 1 km".
  */
 @Composable
 private fun SplitsCard(
@@ -428,18 +439,21 @@ private fun SplitsCard(
     canEditIntervals: Boolean,
     suggestIntervals: Boolean,
     fromPlan: String?,
+    fromWatch: Boolean,
+    manual: Boolean,
     onEditIntervals: () -> Unit
 ) {
     var tab by rememberSaveable { mutableStateOf(0) }
+    val laps = segments.any { it.lap }
     UnicumCard {
         CardHeader(
             Icons.Rounded.Straighten, tr("Parziali"),
-            action = if (!canEditIntervals) null else if (segments.isEmpty() || fromPlan != null) tr("Ripetute") else tr("Modifica"),
+            action = if (!canEditIntervals) null else if (manual) tr("Modifica") else tr("Giri"),
             onAction = onEditIntervals
         )
         Spacer(Modifier.height(12.dp))
         if (segments.isNotEmpty() && splits.isNotEmpty()) {
-            UnicumSegmented(listOf(tr("Ripetute"), "1 km"), tab, { tab = it }, height = 36.dp)
+            UnicumSegmented(listOf(if (laps) tr("Giri") else tr("Ripetute"), "1 km"), tab, { tab = it }, height = 36.dp)
             Spacer(Modifier.height(12.dp))
         }
         when {
@@ -453,15 +467,22 @@ private fun SplitsCard(
         if (fromPlan != null && segments.isNotEmpty() && (tab == 0 || splits.isEmpty())) {
             Spacer(Modifier.height(10.dp))
             Text(
-                tr("Pezzi presi dal programma (\"%s\"), collocati dove la corsa li segue meglio. Se hai fatto altro, scrivi la struttura con \"Ripetute\".", fromPlan),
+                tr("Pezzi presi dal programma (\"%s\"), collocati dove la corsa li segue meglio. Se hai fatto altro, scrivi i giri con \"Giri\".", fromPlan),
                     
+                color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
+            )
+        }
+        if (fromWatch && segments.isNotEmpty() && (tab == 0 || splits.isEmpty())) {
+            Spacer(Modifier.height(10.dp))
+            Text(
+                tr("Giri registrati dall'orologio. Se non tornano, scrivili tu con \"Giri\"."),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
         if (segments.isEmpty() && canEditIntervals && suggestIntervals) {
             Spacer(Modifier.height(10.dp))
             Text(
-                tr("I giri dell'orologio non arrivano in Health Connect: tocca \"Ripetute\" e scrivi la struttura (es. 10' di riscaldamento, 3 × 4' veloce e 2' di recupero) per vederle una per una."),
+                tr("I giri dell'orologio non arrivano in Health Connect: tocca \"Giri\" e scrivi la durata di ogni giro, oppure la struttura delle ripetute (es. 10' di riscaldamento, 3 × 4' veloce e 2' di recupero)."),
                     
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
             )
@@ -472,8 +493,9 @@ private fun SplitsCard(
 @Composable
 private fun IntervalsTable(segments: List<WorkoutAnalysis.IntervalSegment>) {
     val work = segments.filter { it.kind == WorkoutAnalysis.IntervalKind.WORK }
+    val laps = segments.any { it.lap }
     // Senza recuperi (progressivo) i tratti sono blocchi, non ripetute veloci
-    val blocks = segments.none { it.kind == WorkoutAnalysis.IntervalKind.REST }
+    val blocks = !laps && segments.none { it.kind == WorkoutAnalysis.IntervalKind.REST }
     Row(Modifier.fillMaxWidth().padding(bottom = 4.dp)) {
         Header("", Modifier.weight(1f))
         Header(tr("Durata"), Modifier.width(52.dp), TextAlign.End)
@@ -482,7 +504,8 @@ private fun IntervalsTable(segments: List<WorkoutAnalysis.IntervalSegment>) {
         Header(tr("FC"), Modifier.width(40.dp), TextAlign.End)
     }
     segments.forEach { s ->
-        val strong = s.kind == WorkoutAnalysis.IntervalKind.WORK
+        // Giri senza nessuno segnato veloce: tutti uguali
+        val strong = s.kind == WorkoutAnalysis.IntervalKind.WORK || (laps && work.isEmpty())
         val color = if (strong) UnicumDark else UnicumDark.copy(alpha = .6f)
         val weight = if (strong) FontWeight.SemiBold else FontWeight.Normal
         Row(Modifier.fillMaxWidth().padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -492,10 +515,7 @@ private fun IntervalsTable(segments: List<WorkoutAnalysis.IntervalSegment>) {
                         .background(if (strong) UnicumPrimary else UnicumAccent.copy(alpha = .5f))
                 )
                 Spacer(Modifier.width(8.dp))
-                Text(
-                    (if (strong && blocks) tr("Blocco") else s.kind.label) + (s.rep?.takeIf { strong }?.let { " $it" } ?: ""),
-                    color = color, style = UnicumType.Caption, fontWeight = weight, maxLines = 1
-                )
+                Text(segmentName(s, blocks), color = color, style = UnicumType.Caption, fontWeight = weight, maxLines = 1)
             }
             listOf(
                 WorkoutAnalysis.formatDuration(s.seconds) to 52.dp,
@@ -516,10 +536,17 @@ private fun IntervalsTable(segments: List<WorkoutAnalysis.IntervalSegment>) {
         Text(
             tr("%s: %s km in %s, ritmo medio %s/km", if (blocks) tr("Blocchi") else tr("Veloci"), kmText(meters), WorkoutAnalysis.formatDuration(seconds),
                                 WorkoutAnalysis.formatPace(WorkoutAnalysis.paceSecPerKm(meters, seconds))) +
-                (hr?.let { " · " + tr("FC %d", it) } ?: "") + (fastest?.let { " · " + if (blocks) tr("il più veloce il %d°", it.rep) else tr("la più veloce la %dª", it.rep) } ?: ""),
+                (hr?.let { " · " + tr("FC %d", it) } ?: "") + (fastest?.let { " · " + when { laps -> tr("il più veloce il giro %d", it.rep); blocks -> tr("il più veloce il %d°", it.rep); else -> tr("la più veloce la %dª", it.rep) } } ?: ""),
             color = UnicumDark.copy(alpha = .6f), style = UnicumType.Note, lineHeight = 15.sp
         )
     }
+}
+
+/** "Giro 3", "Veloce 2", "Blocco 1", "Recupero", "Riscaldamento"… */
+private fun segmentName(s: WorkoutAnalysis.IntervalSegment, blocks: Boolean): String = when {
+    s.lap -> tr("Giro %d", s.rep ?: 0)
+    s.kind == WorkoutAnalysis.IntervalKind.WORK -> (if (blocks) tr("Blocco") else s.kind.label) + (s.rep?.let { " $it" } ?: "")
+    else -> s.kind.label
 }
 
 @Composable
@@ -754,57 +781,180 @@ private class PartInput(text: String, km: Boolean) {
     }
 }
 
+/** Un giro nel dialog: testo (tempo o km, come scelto per tutti i giri) e se è un tratto veloce. */
+private class LapInput(text: String, fast: Boolean) {
+    var text by mutableStateOf(text)
+    var fast by mutableStateOf(fast)
+}
+
+/** Testo di un giro a tempo ("6:40") o a distanza ("0,64" km; oltre 20 si intendono metri). */
+private fun lapPart(text: String, km: Boolean): IntervalPart? = if (km) {
+    text.replace(',', '.').trim().toDoubleOrNull()?.takeIf { it > 0 }?.let { IntervalPart(meters = if (it > 20) it else it * 1000) }
+} else parseClock(text)?.let { IntervalPart(seconds = it) }
+
 /**
- * Struttura delle ripetute scritta dall'utente (i giri dell'orologio non arrivano in Health Connect):
- * riscaldamento, numero di ripetute, veloce e recupero, ognuno a tempo o a distanza. Sotto, i pezzi che ne
- * escono sulla registrazione, per controllare che tornino con quelli dell'orologio.
+ * Come era fatta la corsa, scritta dall'utente (i giri dell'orologio di solito non arrivano in Health Connect), in
+ * due modi: **Ripetute** (riscaldamento, numero di ripetute, veloce e recupero) oppure **Giri** liberi, uno per
+ * riga con la sua durata o distanza (es. 6:40, 2:00, 6:16, 2:00, 25:00), tagliati in ordine dall'inizio della
+ * registrazione. Sotto, i pezzi che ne escono, per controllare che tornino con quelli dell'orologio.
  */
 @Composable
-private fun IntervalsDialog(raw: WorkoutDetail, current: IntervalPlan?, onDismiss: () -> Unit, onSave: (IntervalPlan?) -> Unit) {
-    val warmUp = remember { PartInput.of(current?.warmUp) }
-    val work = remember { PartInput.of(current?.work) }
-    val rest = remember { PartInput.of(current?.rest) }
-    var repsText by remember { mutableStateOf(current?.reps?.toString().orEmpty()) }
+private fun IntervalsDialog(
+    raw: WorkoutDetail,
+    current: IntervalPlan?,
+    preferLaps: Boolean,
+    onDismiss: () -> Unit,
+    onSave: (IntervalPlan?) -> Unit
+) {
+    val watch = remember(raw) { IntervalPlan.fromWatchLaps(raw.laps) }
+    var lapsMode by remember { mutableStateOf(current?.laps ?: (watch != null || preferLaps)) }
+
+    // Ripetute
+    val ivPlan = current?.takeIf { !it.laps }
+    val warmUp = remember { PartInput.of(ivPlan?.warmUp) }
+    val work = remember { PartInput.of(ivPlan?.work) }
+    val rest = remember { PartInput.of(ivPlan?.rest) }
+    var repsText by remember { mutableStateOf(ivPlan?.reps?.toString().orEmpty()) }
     val reps = repsText.trim().toIntOrNull()?.takeIf { it in 1..50 }
     val workPart = work.part()
-    val plan = if (reps != null && workPart != null) IntervalPlan(warmUp.part(), reps, workPart, rest.part()) else null
+
+    // Giri: quelli salvati, altrimenti quelli dell'orologio, altrimenti due righe vuote
+    val lapSource = current?.takeIf { it.laps } ?: watch
+    var lapsKm by remember { mutableStateOf(lapSource?.steps().orEmpty().let { s -> s.isNotEmpty() && s.all { it.part.meters != null } }) }
+    val lapInputs = remember {
+        mutableStateListOf<LapInput>().apply {
+            lapSource?.steps().orEmpty().forEach { st ->
+                val text = st.part.meters?.let { kmText(it) } ?: st.part.seconds?.let { WorkoutAnalysis.formatDuration(it) }.orEmpty()
+                add(LapInput(text, st.kind == StepKind.WORK))
+            }
+            while (size < 2) add(LapInput("", false))
+        }
+    }
+    val lapsComplete = lapInputs.all { it.text.isBlank() || lapPart(it.text, lapsKm) != null }
+
+    val lapParts = if (lapsComplete) lapInputs.mapNotNull { l -> lapPart(l.text, lapsKm)?.let { it to l.fast } } else emptyList()
+    // La somma dei giri deve tornare con la corsa registrata (piccolo scarto ammesso)
+    val lapsTotal = remember(raw, lapParts) { WorkoutAnalysis.lapsTotal(raw, lapParts.map { it.first }) }
+    val plan = if (lapsMode) {
+        if (!lapsComplete) null else IntervalPlan.ofLaps(lapParts)
+    } else if (reps != null && workPart != null) IntervalPlan(warmUp.part(), reps, workPart, rest.part()) else null
     val preview = remember(plan) { plan?.let { WorkoutAnalysis.intervals(raw, it) }.orEmpty() }
 
     io.github.peol13.unicum.ui.components.UnicumDialog(onDismiss, spacing = 12.dp) {
-        Text(tr("Ripetute"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
-        Text(
-            tr("I giri dell'orologio non arrivano in Health Connect: scrivi come era fatta la seduta. Ogni parte a tempo (min:sec) o a distanza (km). Il resto in fondo diventa defaticamento."),
-                
-            color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, lineHeight = 17.sp
-        )
-        PartField(tr("Riscaldamento"), tr("es. 10:00 (se c'è)"), warmUp)
-        CorrectionField(tr("Numero di ripetute"), repsText, androidx.compose.ui.text.input.KeyboardType.Number) { repsText = it.filter(Char::isDigit) }
-        PartField(tr("Veloce"), tr("es. 4:00"), work)
-        PartField(tr("Recupero"), tr("es. 2:00"), rest)
+        Text(tr("Giri e ripetute"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        UnicumSegmented(listOf(tr("Giri"), tr("Ripetute")), if (lapsMode) 0 else 1, { lapsMode = it == 0 }, height = 36.dp)
+        if (lapsMode) {
+            Text(
+                tr("Scrivi tutti i giri come li vedi nei giri dell'orologio: la corsa viene tagliata in quest'ordine dall'inizio e la somma deve tornare con la sua durata (scarto massimo %d s). Segna \"Veloce\" i tratti di sforzo.", WorkoutAnalysis.LAPS_TOLERANCE_S),
+                color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, lineHeight = 17.sp
+            )
+            UnicumSegmented(
+                listOf(tr("Durata (min:sec)"), tr("Distanza (km)")), if (lapsKm) 1 else 0, { lapsKm = it == 1 },
+                height = 36.dp, style = UnicumType.Caption
+            )
+            lapInputs.forEachIndexed { i, lap ->
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        "${i + 1}", color = UnicumDark.copy(alpha = .5f), style = UnicumType.Caption,
+                        fontWeight = FontWeight.Medium, modifier = Modifier.width(20.dp)
+                    )
+                    OutlinedTextField(
+                        value = lap.text, onValueChange = { lap.text = it.take(8) },
+                        placeholder = { Text(if (lapsKm) tr("es. 0,40") else tr("es. 6:40")) }, singleLine = true,
+                        isError = lap.text.isNotBlank() && lapPart(lap.text, lapsKm) == null,
+                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                            keyboardType = if (lapsKm) androidx.compose.ui.text.input.KeyboardType.Decimal else androidx.compose.ui.text.input.KeyboardType.Text
+                        ),
+                        textStyle = unicumFieldTextStyle(), colors = unicumFieldColors(),
+                        shape = RoundedCornerShape(14.dp), modifier = Modifier.weight(1f)
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    UnicumChip(tr("Veloce"), lap.fast, { lap.fast = !lap.fast }, compact = true)
+                    androidx.compose.material3.IconButton(
+                        onClick = { lapInputs.removeAt(i); if (lapInputs.isEmpty()) lapInputs.add(LapInput("", false)) },
+                        modifier = Modifier.size(36.dp)
+                    ) {
+                        androidx.compose.material3.Icon(
+                            Icons.Rounded.Close, contentDescription = tr("Togli il giro %d", i + 1),
+                            tint = UnicumDark.copy(alpha = .5f), modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
+            }
+            androidx.compose.material3.TextButton(onClick = { if (lapInputs.size < 60) lapInputs.add(LapInput("", false)) }) {
+                androidx.compose.material3.Icon(Icons.Rounded.Add, contentDescription = null, tint = UnicumPrimary, modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(6.dp))
+                Text(tr("Aggiungi giro"), color = UnicumPrimary)
+            }
+            lapsTotal?.let { LapsTotalCheck(it, lapsKm) { text ->
+                val empty = lapInputs.lastOrNull()?.takeIf { it.text.isBlank() }
+                if (empty != null) empty.text = text else lapInputs.add(LapInput(text, false))
+            } }
+        } else {
+            Text(
+                tr("Scrivi come era fatta la seduta. Ogni parte a tempo (min:sec) o a distanza (km). Il resto in fondo diventa defaticamento."),
+                color = UnicumDark.copy(alpha = .65f), style = UnicumType.Caption, lineHeight = 17.sp
+            )
+            PartField(tr("Riscaldamento"), tr("es. 10:00 (se c'è)"), warmUp)
+            CorrectionField(tr("Numero di ripetute"), repsText, androidx.compose.ui.text.input.KeyboardType.Number) { repsText = it.filter(Char::isDigit) }
+            PartField(tr("Veloce"), tr("es. 4:00"), work)
+            PartField(tr("Recupero"), tr("es. 2:00"), rest)
+        }
 
         if (preview.isNotEmpty()) {
             Spacer(Modifier.height(2.dp))
             Text(tr("COME VIENE"), color = UnicumDark.copy(alpha = .45f), style = UnicumType.Note, fontWeight = FontWeight.SemiBold)
+            val anyFast = preview.any { it.kind == WorkoutAnalysis.IntervalKind.WORK }
             preview.forEach { s ->
                 val strong = s.kind == WorkoutAnalysis.IntervalKind.WORK
                 Text(
-                    "${s.kind.label}${s.rep?.takeIf { strong }?.let { " $it" } ?: ""} · " +
+                    "${segmentName(s, blocks = false)} · " +
                         "${WorkoutAnalysis.formatDuration(s.startS)}–${WorkoutAnalysis.formatDuration(s.endS)} · " +
-                        "${kmText(s.meters)} km · ${WorkoutAnalysis.formatPace(s.paceSec)}/km",
-                    color = if (strong) UnicumDark else UnicumDark.copy(alpha = .6f), style = UnicumType.Caption,
+                        "${kmText(s.meters)} km · ${WorkoutAnalysis.formatPace(s.paceSec)}/km" +
+                        (s.avgHr?.let { " · " + tr("FC %d", it) } ?: ""),
+                    color = if (strong || (s.lap && !anyFast)) UnicumDark else UnicumDark.copy(alpha = .6f), style = UnicumType.Caption,
                     fontWeight = if (strong) FontWeight.Medium else FontWeight.Normal
                 )
             }
         }
-        io.github.peol13.unicum.ui.components.UnicumButton(tr("Salva ripetute"), enabled = plan != null && preview.isNotEmpty(), onClick = { onSave(plan) })
+        io.github.peol13.unicum.ui.components.UnicumButton(
+            if (lapsMode) tr("Salva giri") else tr("Salva ripetute"),
+            enabled = plan != null && preview.isNotEmpty() && (!lapsMode || lapsTotal?.ok == true), onClick = { onSave(plan) }
+        )
         if (current != null) {
             androidx.compose.material3.TextButton(onClick = { onSave(null) }, modifier = Modifier.fillMaxWidth()) {
-                Text(tr("Togli le ripetute"), color = UnicumPrimary)
+                Text(if (current.laps) tr("Togli i giri") else tr("Togli le ripetute"), color = UnicumPrimary)
             }
         }
         androidx.compose.material3.TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
             Text(tr("Annulla"), color = UnicumDark.copy(alpha = .7f))
         }
+    }
+}
+
+/**
+ * Somma dei giri contro la corsa: va bene (teal), manca un pezzo (con il bottone che lo aggiunge come ultimo
+ * giro) oppure la supera (sabbia). [onAddRest] riceve il testo del pezzo mancante.
+ */
+@Composable
+private fun LapsTotalCheck(t: WorkoutAnalysis.LapsTotal, km: Boolean, onAddRest: (String) -> Unit) {
+    fun fmt(v: Double): String = if (t.byKm) kmText(v) + " km" else WorkoutAnalysis.formatDuration(v.roundToInt())
+    val sand = Color(0xFFC9A66B)
+    val rest = -t.diff
+    Text(
+        tr("Somma dei giri: %s · corsa: %s", fmt(t.written), fmt(t.recorded)),
+        color = UnicumDark.copy(alpha = .75f), style = UnicumType.Caption, fontWeight = FontWeight.Medium
+    )
+    when {
+        t.ok -> Text(tr("Torna con la corsa."), color = UnicumPrimary, style = UnicumType.Caption)
+        rest > 0 -> {
+            Text(tr("Mancano %s: aggiungi l'ultimo giro.", fmt(rest)), color = sand, style = UnicumType.Caption, lineHeight = 17.sp)
+            // Solo se il pezzo mancante si scrive nell'unità scelta per i giri
+            if (km == t.byKm) UnicumChip(tr("Aggiungi %s come ultimo giro", fmt(rest)), false, {
+                onAddRest(if (t.byKm) kmText(rest) else WorkoutAnalysis.formatDuration(rest.roundToInt()))
+            }, compact = true)
+        }
+        else -> Text(tr("I giri superano la corsa di %s: controllali.", fmt(-rest)), color = sand, style = UnicumType.Caption, lineHeight = 17.sp)
     }
 }
 

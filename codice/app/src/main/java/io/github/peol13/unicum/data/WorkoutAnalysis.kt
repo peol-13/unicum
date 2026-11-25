@@ -134,12 +134,15 @@ object WorkoutAnalysis {
     // ---------- ripetute scritte dall'utente
 
     enum class IntervalKind(private val labelIt: String) {
-        WARM_UP(tk("Riscaldamento")), WORK(tk("Veloce")), REST(tk("Recupero")), COOL_DOWN(tk("Defaticamento"));
+        WARM_UP(tk("Riscaldamento")), WORK(tk("Veloce")), REST(tk("Recupero")), COOL_DOWN(tk("Defaticamento")), LAP(tk("Giro"));
 
         val label: String get() = tr(labelIt)
     }
 
-    /** Un pezzo della seduta a ripetute: [rep] = numero della ripetuta (per veloce e recupero). */
+    /**
+     * Un pezzo della seduta a ripetute: [rep] = numero della ripetuta (per veloce e recupero) o del giro.
+     * [lap] = pezzo di una struttura a giri ([IntervalPlan.laps]): si chiama "Giro N", veloce o no.
+     */
     data class IntervalSegment(
         val kind: IntervalKind,
         val rep: Int?,
@@ -148,7 +151,8 @@ object WorkoutAnalysis {
         val meters: Double,
         val paceSec: Int?,
         val avgHr: Int?,
-        val maxHr: Int?
+        val maxHr: Int?,
+        val lap: Boolean = false
     ) {
         val seconds: Int get() = endS - startS
     }
@@ -204,6 +208,7 @@ object WorkoutAnalysis {
         StepKind.WORK -> IntervalKind.WORK
         StepKind.REST -> IntervalKind.REST
         StepKind.COOL_DOWN -> IntervalKind.COOL_DOWN
+        StepKind.LAP -> IntervalKind.LAP
     }
 
     /**
@@ -211,13 +216,17 @@ object WorkoutAnalysis {
      * (letti dalla distanza nel tempo, come i parziali). Prima di [IntervalPlan.offsetS] c'è il riscaldamento
      * non scritto nella struttura; quello che avanza in fondo (almeno 20 s) è il defaticamento. Se la
      * registrazione finisce prima, l'ultima parte si accorcia.
+     *
+     * Con una struttura a giri ([IntervalPlan.laps]) i giri si tagliano uno dopo l'altro dall'inizio; quello che
+     * avanza in fondo è un giro in più (sotto i 20 s si unisce all'ultimo).
      */
     fun intervals(d: WorkoutDetail, plan: IntervalPlan): List<IntervalSegment> {
         val line = distanceTimeline(d)
         val steps = plan.steps()
-        if (line.size < 2 || steps.none { it.kind == StepKind.WORK && it.part.isSet }) return emptyList()
+        if (line.size < 2 || steps.none { (it.kind == StepKind.WORK || it.kind == StepKind.LAP) && it.part.isSet }) return emptyList()
         val tl = Timeline(line)
         val (placed, _) = layout(tl, steps, plan.offsetS.toDouble().coerceIn(0.0, tl.end.toDouble()))
+        if (plan.laps) return laps(d, tl, placed)
         val out = mutableListOf<IntervalSegment>()
         fun add(kind: IntervalKind, rep: Int?, t0: Double, t1: Double) {
             if (t1 - t0 >= 1) out += segment(d, kind, rep, t0, t1, tl.distanceAt(t1) - tl.distanceAt(t0))
@@ -235,6 +244,54 @@ object WorkoutAnalysis {
         }
         if (tl.end - start >= 20) add(IntervalKind.COOL_DOWN, null, start, tl.end.toDouble())
         return out
+    }
+
+    /** Giri in ordine: quello che sta prima del primo (≥ 20 s) e quello che avanza in fondo sono giri anche loro. */
+    private fun laps(d: WorkoutDetail, tl: Timeline, placed: List<Placed>): List<IntervalSegment> {
+        if (placed.isEmpty()) return emptyList()
+        val bounds = mutableListOf<Triple<StepKind, Double, Double>>()
+        val first = placed.first().t0
+        if (first >= 20) bounds += Triple(StepKind.LAP, 0.0, first)
+        placed.forEachIndexed { i, p -> bounds += Triple(p.step.kind, if (i == 0 && first < 20) 0.0 else p.t0, p.t1) }
+        val tail = tl.end - bounds.last().third
+        if (tail >= 20) bounds += Triple(StepKind.LAP, bounds.last().third, tl.end.toDouble())
+        else if (tail > 0) bounds[bounds.lastIndex] = bounds.last().copy(third = tl.end.toDouble())
+        return bounds.filter { it.third - it.second >= 1 }.mapIndexed { i, (kind, t0, t1) ->
+            segment(d, kind.toInterval(), i + 1, t0, t1, tl.distanceAt(t1) - tl.distanceAt(t0)).copy(lap = true)
+        }
+    }
+
+    /**
+     * Somma dei giri scritti a mano contro la corsa registrata: a tempo si confronta con la durata (quella con o
+     * senza pause, la più vicina: i giri dell'orologio possono escludere le pause), a distanza con i km.
+     * [ok] se lo scarto sta entro [LAPS_TOLERANCE_S] secondi o, a distanza, 50 m / 2%.
+     */
+    data class LapsTotal(val written: Double, val recorded: Double, val byKm: Boolean) {
+        /** Positivo = i giri superano la corsa, negativo = ne manca un pezzo. */
+        val diff: Double get() = written - recorded
+        val tolerance: Double get() = if (byKm) maxOf(50.0, recorded * 0.02) else LAPS_TOLERANCE_S.toDouble()
+        val ok: Boolean get() = abs(diff) <= tolerance
+    }
+
+    const val LAPS_TOLERANCE_S = 15
+
+    /** null se non c'è nessun giro scritto o se i giri mescolano tempo e distanza. */
+    fun lapsTotal(d: WorkoutDetail, parts: List<IntervalPart>): LapsTotal? {
+        val set = parts.filter { it.isSet }
+        if (set.isEmpty()) return null
+        return when {
+            set.all { (it.seconds ?: 0) > 0 } -> {
+                val written = set.sumOf { it.seconds!! }.toDouble()
+                val recorded = listOf(d.durationSeconds, d.movingSeconds).filter { it > 0 }
+                    .minByOrNull { abs(it - written) }?.toDouble() ?: return null
+                LapsTotal(written, recorded, byKm = false)
+            }
+            set.all { (it.meters ?: 0.0) > 0 } -> {
+                val recorded = d.distanceM?.takeIf { it > 0 } ?: distanceTimeline(d).lastOrNull()?.second ?: return null
+                LapsTotal(set.sumOf { it.meters!! }, recorded, byKm = true)
+            }
+            else -> null
+        }
     }
 
     /**

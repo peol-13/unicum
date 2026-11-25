@@ -81,7 +81,7 @@ data class IntervalPart(val seconds: Int? = null, val meters: Double? = null) {
 
 /** Tipo di un pezzo della seduta (vedi [WorkoutAnalysis.IntervalKind] per le etichette). */
 @Serializable
-enum class StepKind { WARM_UP, WORK, REST, COOL_DOWN }
+enum class StepKind { WARM_UP, WORK, REST, COOL_DOWN, LAP }
 
 /** Un pezzo della seduta in ordine: [rep] = numero della ripetuta o del blocco. */
 @Serializable
@@ -104,7 +104,14 @@ data class IntervalPlan(
     val steps: List<PlanStep>? = null,
     val offsetS: Int = 0,
     /** Nome della seduta del programma da cui viene la struttura (null = scritta nell'app). */
-    val fromPlan: String? = null
+    val fromPlan: String? = null,
+    /**
+     * Struttura a giri liberi, come i "Giri" dell'orologio: [steps] sono i giri in ordine (durate o distanze
+     * diverse), [StepKind.WORK] quelli segnati come veloci, [StepKind.LAP] gli altri; [PlanStep.rep] = numero del giro.
+     */
+    val laps: Boolean = false,
+    /** true = giri letti da Health Connect (non salvati: si ricavano a ogni apertura). */
+    val fromWatch: Boolean = false
 ) {
     /** I pezzi in ordine: quelli del programma oppure riscaldamento + reps × (veloce, recupero). */
     fun steps(): List<PlanStep> = steps ?: buildList {
@@ -116,6 +123,21 @@ data class IntervalPlan(
     }
 
     companion object {
+        /** Giri in ordine, ognuno con la sua durata o distanza; [fast] = segnato come veloce. */
+        fun ofLaps(parts: List<Pair<IntervalPart, Boolean>>, fromWatch: Boolean = false, offsetS: Int = 0): IntervalPlan? {
+            val set = parts.filter { it.first.isSet }
+            if (set.isEmpty()) return null
+            val steps = set.mapIndexed { i, (p, fast) -> PlanStep(if (fast) StepKind.WORK else StepKind.LAP, i + 1, p) }
+            return IntervalPlan(reps = steps.size, work = steps.first().part, steps = steps, laps = true, fromWatch = fromWatch, offsetS = offsetS)
+        }
+
+        /** I giri registrati dall'orologio, se la fonte li scrive in Health Connect (almeno due). */
+        fun fromWatchLaps(laps: List<WorkoutLap>): IntervalPlan? {
+            val sorted = laps.filter { it.endS > it.startS }.sortedBy { it.startS }
+            if (sorted.size < 2) return null
+            return ofLaps(sorted.map { IntervalPart(seconds = it.endS - it.startS) to false }, fromWatch = true, offsetS = sorted.first().startS.coerceAtLeast(0))
+        }
+
         /** Struttura a passi (dal programma): reps e work riassumono i tratti veloci. */
         fun ofSteps(steps: List<PlanStep>, name: String?): IntervalPlan? {
             val work = steps.filter { it.kind == StepKind.WORK }

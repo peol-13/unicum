@@ -1316,20 +1316,6 @@ fr: Temps par km indisponibles pour cet enregistrement.
 de: Km-Splits für diese Aufzeichnung nicht verfügbar.
 pt: Parciais por km indisponíveis para esta gravação.
 
-it: Pezzi presi dal programma ("%s"), collocati dove la corsa li segue meglio. Se hai fatto altro, scrivi la struttura con "Ripetute".
-en: Segments taken from the plan ("%s"), placed where the run follows them best. If you did something else, write the structure with "Intervals".
-es: Tramos tomados del plan ("%s"), colocados donde la carrera mejor los sigue. Si hiciste otra cosa, escribe la estructura con "Series".
-fr: Segments pris du programme ("%s"), placés là où la course les suit le mieux. Si tu as fait autre chose, écris la structure avec "Fractionné".
-de: Abschnitte aus dem Plan ("%s"), dort platziert, wo der Lauf ihnen am besten folgt. Wenn du etwas anderes gemacht hast, schreib den Aufbau unter "Intervalle".
-pt: Trechos tirados do plano ("%s"), colocados onde a corrida melhor os segue. Se você fez outra coisa, escreva a estrutura em "Tiros".
-
-it: I giri dell'orologio non arrivano in Health Connect: tocca "Ripetute" e scrivi la struttura (es. 10' di riscaldamento, 3 × 4' veloce e 2' di recupero) per vederle una per una.
-en: Watch laps don't reach Health Connect: tap "Intervals" and write the structure (e.g. 10' warm-up, 3 × 4' fast and 2' recovery) to see them one by one.
-es: Las vueltas del reloj no llegan a Health Connect: toca "Series" y escribe la estructura (p. ej. 10' de calentamiento, 3 × 4' rápido y 2' de recuperación) para verlas una a una.
-fr: Les tours de la montre n'arrivent pas dans Health Connect : touche "Fractionné" et écris la structure (ex. 10' d'échauffement, 3 × 4' rapide et 2' de récup) pour les voir une par une.
-de: Die Runden der Uhr kommen nicht in Health Connect an: Tippe auf "Intervalle" und schreib den Aufbau (z. B. 10' Aufwärmen, 3 × 4' schnell und 2' Pause), um sie einzeln zu sehen.
-pt: As voltas do relógio não chegam ao Health Connect: toque em "Tiros" e escreva a estrutura (ex. 10' de aquecimento, 3 × 4' rápido e 2' de recuperação) para vê-los um a um.
-
 it: FC
 en: HR
 es: FC
@@ -1441,13 +1427,6 @@ es: Volver a los datos del reloj
 fr: Revenir aux données de la montre
 de: Zurück zu den Uhrdaten
 pt: Voltar aos dados do relógio
-
-it: I giri dell'orologio non arrivano in Health Connect: scrivi come era fatta la seduta. Ogni parte a tempo (min:sec) o a distanza (km). Il resto in fondo diventa defaticamento.
-en: Watch laps don't reach Health Connect: write how the session was built. Each part by time (min:sec) or distance (km). Whatever's left at the end becomes cool-down.
-es: Las vueltas del reloj no llegan a Health Connect: escribe cómo era la sesión. Cada parte por tiempo (min:seg) o por distancia (km). Lo que sobra al final es vuelta a la calma.
-fr: Les tours de la montre n'arrivent pas dans Health Connect : écris comment était la séance. Chaque partie en temps (min:s) ou en distance (km). Le reste à la fin devient retour au calme.
-de: Die Runden der Uhr kommen nicht in Health Connect an: Schreib, wie die Einheit aufgebaut war. Jeder Teil nach Zeit (min:s) oder Distanz (km). Der Rest am Ende wird Auslaufen.
-pt: As voltas do relógio não chegam ao Health Connect: escreva como foi a sessão. Cada parte por tempo (min:seg) ou distância (km). O que sobra no fim vira desaquecimento.
 
 it: Riscaldamento
 en: Warm-up
@@ -3303,3 +3282,144 @@ es: Del Registro de Notion
 fr: Depuis le Journal Notion
 de: Aus dem Notion-Protokoll
 pt: Do Registro do Notion
+
+it: Giro
+en: Lap
+es: Vuelta
+fr: Tour
+de: Runde
+pt: Volta
+
+it: Giri
+en: Laps
+es: Vueltas
+fr: Tours
+de: Runden
+pt: Voltas
+
+it: Giro %d
+en: Lap %d
+es: Vuelta %d
+fr: Tour %d
+de: Runde %d
+pt: Volta %d
+
+it: Giri e ripetute
+en: Laps and intervals
+es: Vueltas y series
+fr: Tours et fractionné
+de: Runden und Intervalle
+pt: Voltas e tiros
+
+it: Salva giri
+en: Save laps
+es: Guardar vueltas
+fr: Enregistrer les tours
+de: Runden speichern
+pt: Salvar voltas
+
+it: Togli i giri
+en: Remove laps
+es: Quitar las vueltas
+fr: Supprimer les tours
+de: Runden entfernen
+pt: Remover as voltas
+
+it: Togli il giro %d
+en: Remove lap %d
+es: Quitar la vuelta %d
+fr: Supprimer le tour %d
+de: Runde %d entfernen
+pt: Remover a volta %d
+
+it: Aggiungi giro
+en: Add lap
+es: Añadir vuelta
+fr: Ajouter un tour
+de: Runde hinzufügen
+pt: Adicionar volta
+
+it: es. 6:40
+en: e.g. 6:40
+es: p. ej. 6:40
+fr: ex. 6:40
+de: z. B. 6:40
+pt: ex. 6:40
+
+it: il più veloce il giro %d
+en: fastest: lap %d
+es: la más rápida la vuelta %d
+fr: le plus rapide le tour %d
+de: am schnellsten Runde %d
+pt: a mais rápida a volta %d
+
+it: Pezzi presi dal programma ("%s"), collocati dove la corsa li segue meglio. Se hai fatto altro, scrivi i giri con "Giri".
+en: Segments taken from the plan ("%s"), placed where the run follows them best. If you did something else, write your laps with "Laps".
+es: Tramos tomados del plan ("%s"), colocados donde la carrera mejor los sigue. Si hiciste otra cosa, escribe las vueltas con "Vueltas".
+fr: Segments pris du programme ("%s"), placés là où la course les suit le mieux. Si tu as fait autre chose, écris les tours avec "Tours".
+de: Abschnitte aus dem Plan ("%s"), dort platziert, wo der Lauf ihnen am besten folgt. Wenn du etwas anderes gemacht hast, trag die Runden unter "Runden" ein.
+pt: Trechos tirados do plano ("%s"), colocados onde a corrida melhor os segue. Se você fez outra coisa, escreva as voltas em "Voltas".
+
+it: Giri registrati dall'orologio. Se non tornano, scrivili tu con "Giri".
+en: Laps recorded by the watch. If they don't match, write them yourself with "Laps".
+es: Vueltas registradas por el reloj. Si no cuadran, escríbelas tú con "Vueltas".
+fr: Tours enregistrés par la montre. S'ils ne correspondent pas, écris-les toi-même avec "Tours".
+de: Von der Uhr aufgezeichnete Runden. Wenn sie nicht stimmen, trag sie selbst unter "Runden" ein.
+pt: Voltas registradas pelo relógio. Se não baterem, escreva-as você em "Voltas".
+
+it: I giri dell'orologio non arrivano in Health Connect: tocca "Giri" e scrivi la durata di ogni giro, oppure la struttura delle ripetute (es. 10' di riscaldamento, 3 × 4' veloce e 2' di recupero).
+en: Watch laps don't reach Health Connect: tap "Laps" and write the duration of each lap, or the interval structure (e.g. 10' warm-up, 3 × 4' fast and 2' recovery).
+es: Las vueltas del reloj no llegan a Health Connect: toca "Vueltas" y escribe la duración de cada vuelta, o la estructura de las series (p. ej. 10' de calentamiento, 3 × 4' rápido y 2' de recuperación).
+fr: Les tours de la montre n'arrivent pas dans Health Connect : touche "Tours" et écris la durée de chaque tour, ou la structure du fractionné (ex. 10' d'échauffement, 3 × 4' rapide et 2' de récup).
+de: Die Runden der Uhr kommen nicht in Health Connect an: Tippe auf "Runden" und trag die Dauer jeder Runde ein, oder den Aufbau der Intervalle (z. B. 10' Aufwärmen, 3 × 4' schnell und 2' Pause).
+pt: As voltas do relógio não chegam ao Health Connect: toque em "Voltas" e escreva a duração de cada volta, ou a estrutura dos tiros (ex. 10' de aquecimento, 3 × 4' rápido e 2' de recuperação).
+
+
+it: Scrivi come era fatta la seduta. Ogni parte a tempo (min:sec) o a distanza (km). Il resto in fondo diventa defaticamento.
+en: Write how the session was built. Each part by time (min:sec) or distance (km). Whatever's left at the end becomes cool-down.
+es: Escribe cómo era la sesión. Cada parte por tiempo (min:seg) o por distancia (km). Lo que sobra al final es vuelta a la calma.
+fr: Écris comment était la séance. Chaque partie en temps (min:s) ou en distance (km). Le reste à la fin devient retour au calme.
+de: Schreib, wie die Einheit aufgebaut war. Jeder Teil nach Zeit (min:s) oder Distanz (km). Der Rest am Ende wird Auslaufen.
+pt: Escreva como foi a sessão. Cada parte por tempo (min:seg) ou distância (km). O que sobra no fim vira desaquecimento.
+
+it: Scrivi tutti i giri come li vedi nei giri dell'orologio: la corsa viene tagliata in quest'ordine dall'inizio e la somma deve tornare con la sua durata (scarto massimo %d s). Segna "Veloce" i tratti di sforzo.
+en: Write all the laps as you see them in the watch's laps: the run is cut in this order from the start and the total must match its duration (at most %d s off). Mark the hard parts as "Fast".
+es: Escribe todas las vueltas como las ves en las vueltas del reloj: la carrera se corta en este orden desde el inicio y la suma debe cuadrar con su duración (diferencia máxima de %d s). Marca como "Rápido" los tramos de esfuerzo.
+fr: Écris tous les tours comme tu les vois dans les tours de la montre : la course est découpée dans cet ordre depuis le début et la somme doit correspondre à sa durée (écart maximum %d s). Marque comme "Rapide" les parties d'effort.
+de: Trag alle Runden so ein, wie du sie in den Runden der Uhr siehst: Der Lauf wird in dieser Reihenfolge ab dem Start geteilt, und die Summe muss zur Dauer passen (höchstens %d s Abweichung). Markiere die harten Abschnitte als "Schnell".
+pt: Escreva todas as voltas como você as vê nas voltas do relógio: a corrida é cortada nessa ordem desde o início e a soma precisa bater com a duração (diferença máxima de %d s). Marque como "Rápido" os trechos de esforço.
+
+it: Somma dei giri: %s · corsa: %s
+en: Laps total: %s · run: %s
+es: Suma de las vueltas: %s · carrera: %s
+fr: Somme des tours : %s · course : %s
+de: Summe der Runden: %s · Lauf: %s
+pt: Soma das voltas: %s · corrida: %s
+
+it: Torna con la corsa.
+en: Matches the run.
+es: Cuadra con la carrera.
+fr: Correspond à la course.
+de: Passt zum Lauf.
+pt: Bate com a corrida.
+
+it: Mancano %s: aggiungi l'ultimo giro.
+en: %s missing: add the last lap.
+es: Faltan %s: añade la última vuelta.
+fr: Il manque %s : ajoute le dernier tour.
+de: Es fehlen %s: Füge die letzte Runde hinzu.
+pt: Faltam %s: adicione a última volta.
+
+it: Aggiungi %s come ultimo giro
+en: Add %s as the last lap
+es: Añadir %s como última vuelta
+fr: Ajouter %s comme dernier tour
+de: %s als letzte Runde hinzufügen
+pt: Adicionar %s como última volta
+
+it: I giri superano la corsa di %s: controllali.
+en: The laps exceed the run by %s: check them.
+es: Las vueltas superan la carrera en %s: revísalas.
+fr: Les tours dépassent la course de %s : vérifie-les.
+de: Die Runden sind %s länger als der Lauf: Prüf sie.
+pt: As voltas passam a corrida em %s: confira.
