@@ -15,6 +15,7 @@ object PlanStructure {
 
     private val amount = Regex("""^\s*(\d+(?:[.,]\d+)?)\s*(''|"|″|'|′|’|km\b|m\b)""")
     private val repeat = Regex("""^\s*(\d+)\s*[×xX]\s*\((.*)\)\s*$""")
+    private val repeatStart = Regex("""\d+\s*[×xX]\s*\(""")
 
     fun parse(structure: String?): List<PlanStep>? {
         if (structure.isNullOrBlank()) return null
@@ -22,15 +23,26 @@ object PlanStructure {
         return progressive(main) ?: repeats(main)
     }
 
-    /** La sequenza è la prima frase, prima di ", RPE …" o delle note. */
+    /**
+     * La sequenza: la frase con le ripetute o il progressivo (saltando quelle "non registrato", es.
+     * `Riscaldamento (non registrato): 10' facili. Blocco principale: 2×(6' + 2'), poi 25' facili = 41'.`),
+     * altrimenti la prima; senza etichetta davanti, ", RPE …" e il totale "= 41'"; "poi" vale come "+".
+     */
     private fun mainPart(text: String): String {
-        var s = text.replace('\n', ' ')
-        // Un'etichetta senza numeri davanti ("Ripetute: 10' …", tipica dei PDF) non fa parte della sequenza
-        val colon = s.indexOf(':')
-        if (colon > 0 && s.substring(0, colon).none { it.isDigit() }) s = s.substring(colon + 1).trim()
-        s = Regex("""\.\s""").find(s)?.let { s.substring(0, it.range.first) } ?: s
-        s = s.substringBefore(", RPE").substringBefore(" RPE ")
+        val sentences = text.replace('\n', ' ').split(Regex("""\.\s+""")).map { it.trim() }.filter { it.isNotEmpty() }
+        val recorded = sentences.filterNot { it.contains("non registrat", ignoreCase = true) }
+        var s = recorded.firstOrNull { sen -> repeatStart.containsMatchIn(sen) || sen.contains("progressiv", ignoreCase = true) }
+            ?: sentences.firstOrNull() ?: return ""
+        s = stripLabel(s)
+        s = s.substringBefore(", RPE").substringBefore(" RPE ").substringBefore(" = ")
+        s = s.replace(Regex(""",?\s+poi\s+""", RegexOption.IGNORE_CASE), " + ")
         return s.trim().trimEnd('.', ',')
+    }
+
+    /** Un'etichetta senza numeri davanti ("Ripetute: 10' …", tipica dei PDF) non fa parte della sequenza. */
+    private fun stripLabel(s: String): String {
+        val colon = s.indexOf(':')
+        return if (colon > 0 && s.substring(0, colon).none { it.isDigit() }) s.substring(colon + 1).trim() else s.trim()
     }
 
     /** Una durata all'inizio del testo: secondi oppure metri. */

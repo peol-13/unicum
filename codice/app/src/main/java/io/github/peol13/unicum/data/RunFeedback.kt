@@ -81,8 +81,18 @@ object RunFeedback {
         return PlanStructure.parse(planned.structure)
     }
 
-    /** Ripetute dal programma collocate sulla registrazione [raw] (con le serie), con la FC dei tratti veloci. */
-    fun autoPlan(raw: WorkoutDetail, steps: List<PlanStep>, planned: PlannedRun): IntervalPlan? {
+    /**
+     * Pezzi del programma sulla registrazione [raw] (con le serie), con la FC dei tratti veloci: i cambi si cercano nei
+     * dati veri ([LapDetection]); senza serie di velocità, pezzi a durata fissa da dove la corsa li segue meglio.
+     * [strict] = false per una seduta che non è segnata come Intervalli o Progressivo: la struttura vale solo se tutti
+     * i cambi sono sicuri (una corsa davvero facile non si spezza a forza).
+     */
+    fun autoPlan(raw: WorkoutDetail, steps: List<PlanStep>, planned: PlannedRun, strict: Boolean = true): IntervalPlan? {
+        LapDetection.detect(raw, steps, planned.name)?.let { found ->
+            if (!strict && found.uncertainChanges > 0) return null
+            return WorkoutAnalysis.withWorkHr(raw, found)
+        }
+        if (!strict) return null
         val plan = IntervalPlan.ofSteps(steps, planned.name) ?: return null
         return WorkoutAnalysis.withWorkHr(raw, plan.copy(offsetS = WorkoutAnalysis.alignPlan(raw, steps)))
     }
@@ -104,11 +114,13 @@ object RunFeedback {
             val merged = merge(app[w.externalId], l, planned)
             var auto: IntervalPlan? = null
             if (merged.intervals == null) {
-                val steps = planSteps(merged.kind, planned)
+                // Seduta a intervalli o progressiva: struttura sempre; altrimenti solo con cambi sicuri nei dati
+                val strictSteps = planSteps(merged.kind, planned)
+                val steps = strictSteps ?: planned?.let { PlanStructure.parse(it.structure) }
                 if (steps != null && planned != null) {
-                    val key = "${w.externalId}|${planned.structure}"
+                    val key = "${w.externalId}|${planned.structure}|${strictSteps != null}"
                     auto = if (autoCache.containsKey(key)) autoCache[key] else {
-                        UnicumRepository.loadWorkoutDetail(context, w.externalId)?.let { autoPlan(it, steps, planned) }
+                        UnicumRepository.loadWorkoutDetail(context, w.externalId)?.let { autoPlan(it, steps, planned, strictSteps != null) }
                             .also { autoCache[key] = it }
                     }
                 }

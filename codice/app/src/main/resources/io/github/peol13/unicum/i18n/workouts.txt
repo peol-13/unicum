@@ -3360,6 +3360,27 @@ fr: Segments pris du programme ("%s"), placés là où la course les suit le mie
 de: Abschnitte aus dem Plan ("%s"), dort platziert, wo der Lauf ihnen am besten folgt. Wenn du etwas anderes gemacht hast, trag die Runden unter "Runden" ein.
 pt: Trechos tirados do plano ("%s"), colocados onde a corrida melhor os segue. Se você fez outra coisa, escreva as voltas em "Voltas".
 
+it: Giri stimati dal programma ("%s") e dai dati veri: ogni cambio è dove ritmo e battito cambiano davvero. Se non tornano, correggili con "Modifica".
+en: Laps estimated from the plan ("%s") and the real data: each change is where pace and heart rate actually change. If they don't match, correct them with "Edit".
+es: Vueltas estimadas a partir del plan ("%s") y de los datos reales: cada cambio está donde el ritmo y el pulso cambian de verdad. Si no cuadran, corrígelas con "Editar".
+fr: Tours estimés à partir du programme (« %s ») et des données réelles : chaque changement est là où l'allure et la fréquence cardiaque changent vraiment. S'ils ne correspondent pas, corrige-les avec « Modifier ».
+de: Runden aus dem Plan („%s“) und den echten Daten geschätzt: Jeder Wechsel liegt dort, wo sich Tempo und Puls wirklich ändern. Wenn sie nicht passen, korrigiere sie mit „Bearbeiten“.
+pt: Voltas estimadas a partir do plano ("%s") e dos dados reais: cada mudança está onde o ritmo e a frequência cardíaca mudam de verdade. Se não baterem, corrija-as com "Editar".
+
+it: %d cambio è incerto: controllalo.
+en: %d change is uncertain: check it.
+es: %d cambio es dudoso: revísalo.
+fr: %d changement est incertain : vérifie-le.
+de: %d Wechsel ist unsicher: prüfe ihn.
+pt: %d mudança é incerta: confira.
+
+it: %d cambi sono incerti: controllali.
+en: %d changes are uncertain: check them.
+es: %d cambios son dudosos: revísalos.
+fr: %d changements sont incertains : vérifie-les.
+de: %d Wechsel sind unsicher: prüfe sie.
+pt: %d mudanças são incertas: confira.
+
 it: Giri registrati dall'orologio. Se non tornano, scrivili tu con "Giri".
 en: Laps recorded by the watch. If they don't match, write them yourself with "Laps".
 es: Vueltas registradas por el reloj. Si no cuadran, escríbelas tú con "Vueltas".

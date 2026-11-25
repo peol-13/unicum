@@ -111,8 +111,25 @@ data class IntervalPlan(
      */
     val laps: Boolean = false,
     /** true = giri letti da Health Connect (non salvati: si ricavano a ogni apertura). */
-    val fromWatch: Boolean = false
+    val fromWatch: Boolean = false,
+    /** true = pezzi del programma con i cambi trovati nei dati veri ([LapDetection]), non a durata fissa. */
+    val estimated: Boolean = false,
+    /** Cambi di [estimated] incerti (ritmo poco diverso o battito che non conferma). */
+    val uncertainChanges: Int = 0
 ) {
+    /**
+     * Gli stessi pezzi come giri liberi dall'inizio della registrazione (per partire da quelli quando l'utente li
+     * corregge): quello che c'è prima della struttura ([offsetS]) diventa il primo giro e, con [totalSeconds] (durata
+     * della registrazione), quello che avanza dopo l'ultimo pezzo l'ultimo giro.
+     */
+    fun asLaps(totalSeconds: Int? = null): IntervalPlan? {
+        val parts = (if (offsetS > 0) listOf(IntervalPart(seconds = offsetS) to false) else emptyList()) +
+            steps().map { it.part to (it.kind == StepKind.WORK) }
+        val used = parts.sumOf { it.first.seconds ?: 0 }
+        val rest = if (totalSeconds != null && parts.all { it.first.seconds != null }) totalSeconds - used else 0
+        return ofLaps(if (rest > 0) parts + (IntervalPart(seconds = rest) to false) else parts)
+    }
+
     /** I pezzi in ordine: quelli del programma oppure riscaldamento + reps × (veloce, recupero). */
     fun steps(): List<PlanStep> = steps ?: buildList {
         warmUp?.takeIf { it.isSet }?.let { add(PlanStep(StepKind.WARM_UP, null, it)) }

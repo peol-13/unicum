@@ -3,6 +3,7 @@ package io.github.peol13.unicum.ui.screens
 import io.github.peol13.unicum.i18n.lfmt
 
 import io.github.peol13.unicum.i18n.tr
+import io.github.peol13.unicum.i18n.trp
 
 import io.github.peol13.unicum.ui.Route
 
@@ -170,7 +171,9 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
     detail?.let { raw ->
         if (correcting) CorrectionDialog(raw, feedback, onDismiss = { correcting = false }) { f -> correcting = false; saveFeedback(f) }
         if (editingIntervals) IntervalsDialog(
-            raw, feedback.intervals, preferLaps = RunFeedback.merge(feedback, notion?.logged, notion?.planned).kind !in PlanStructure.STRUCTURED_KINDS, onDismiss = { editingIntervals = false }
+            raw, feedback.intervals, preferLaps = RunFeedback.merge(feedback, notion?.logged, notion?.planned).kind !in PlanStructure.STRUCTURED_KINDS,
+            // Senza giri scritti si parte da quelli stimati dal programma e dai dati, da correggere
+            estimated = notion?.autoPlan?.takeIf { it.estimated }, onDismiss = { editingIntervals = false }
         ) { plan ->
             editingIntervals = false
             saveFeedback(feedback.copy(intervals = plan?.let { WorkoutAnalysis.withWorkHr(raw, it) }))
@@ -298,7 +301,9 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
                 splits, segments, canEditIntervals = isRun, suggestIntervals = shown.kind in PlanStructure.STRUCTURED_KINDS,
                 fromPlan = intervalPlan?.fromPlan.takeIf { feedback.intervals == null },
                 fromWatch = feedback.intervals == null && intervalPlan?.fromWatch == true,
-                manual = feedback.intervals != null
+                manual = feedback.intervals != null,
+                estimated = feedback.intervals == null && intervalPlan?.estimated == true,
+                uncertain = if (feedback.intervals == null) intervalPlan?.uncertainChanges ?: 0 else 0
             ) { editingIntervals = true }
             Spacer(Modifier.height(14.dp))
         }
@@ -441,6 +446,9 @@ private fun SplitsCard(
     fromPlan: String?,
     fromWatch: Boolean,
     manual: Boolean,
+    /** Giri stimati dal programma e dai dati veri ([io.github.peol13.unicum.data.LapDetection]); quanti cambi incerti. */
+    estimated: Boolean = false,
+    uncertain: Int = 0,
     onEditIntervals: () -> Unit
 ) {
     var tab by rememberSaveable { mutableStateOf(0) }
@@ -448,7 +456,7 @@ private fun SplitsCard(
     UnicumCard {
         CardHeader(
             Icons.Rounded.Straighten, tr("Parziali"),
-            action = if (!canEditIntervals) null else if (manual) tr("Modifica") else tr("Giri"),
+            action = if (!canEditIntervals) null else if (manual || estimated) tr("Modifica") else tr("Giri"),
             onAction = onEditIntervals
         )
         Spacer(Modifier.height(12.dp))
@@ -467,8 +475,10 @@ private fun SplitsCard(
         if (fromPlan != null && segments.isNotEmpty() && (tab == 0 || splits.isEmpty())) {
             Spacer(Modifier.height(10.dp))
             Text(
-                tr("Pezzi presi dal programma (\"%s\"), collocati dove la corsa li segue meglio. Se hai fatto altro, scrivi i giri con \"Giri\".", fromPlan),
-                    
+                if (estimated) {
+                    tr("Giri stimati dal programma (\"%s\") e dai dati veri: ogni cambio è dove ritmo e battito cambiano davvero. Se non tornano, correggili con \"Modifica\".", fromPlan) +
+                        (if (uncertain > 0) " " + trp(uncertain, "%d cambio è incerto: controllalo.", "%d cambi sono incerti: controllali.") else "")
+                } else tr("Pezzi presi dal programma (\"%s\"), collocati dove la corsa li segue meglio. Se hai fatto altro, scrivi i giri con \"Giri\".", fromPlan),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
@@ -803,11 +813,13 @@ private fun IntervalsDialog(
     raw: WorkoutDetail,
     current: IntervalPlan?,
     preferLaps: Boolean,
+    estimated: IntervalPlan? = null,
     onDismiss: () -> Unit,
     onSave: (IntervalPlan?) -> Unit
 ) {
     val watch = remember(raw) { IntervalPlan.fromWatchLaps(raw.laps) }
-    var lapsMode by remember { mutableStateOf(current?.laps ?: (watch != null || preferLaps)) }
+    val guess = remember(estimated) { estimated?.asLaps(raw.movingSeconds.takeIf { it > 0 } ?: raw.durationSeconds) }
+    var lapsMode by remember { mutableStateOf(current?.laps ?: (watch != null || guess != null || preferLaps)) }
 
     // Ripetute
     val ivPlan = current?.takeIf { !it.laps }
@@ -818,8 +830,8 @@ private fun IntervalsDialog(
     val reps = repsText.trim().toIntOrNull()?.takeIf { it in 1..50 }
     val workPart = work.part()
 
-    // Giri: quelli salvati, altrimenti quelli dell'orologio, altrimenti due righe vuote
-    val lapSource = current?.takeIf { it.laps } ?: watch
+    // Giri: quelli salvati, altrimenti quelli dell'orologio, poi quelli stimati, altrimenti due righe vuote
+    val lapSource = current?.takeIf { it.laps } ?: watch ?: guess.takeIf { current == null }
     var lapsKm by remember { mutableStateOf(lapSource?.steps().orEmpty().let { s -> s.isNotEmpty() && s.all { it.part.meters != null } }) }
     val lapInputs = remember {
         mutableStateListOf<LapInput>().apply {

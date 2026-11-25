@@ -55,6 +55,19 @@ class PlanFromNotionTest {
     }
 
     @Test
+    fun sentenceWithTheRepeatsSkippingTheUnrecordedWarmUp() {
+        // Come nel programma del 24/11/2026: riscaldamento non registrato, "poi" al posto di "+", totale in fondo
+        val steps = PlanStructure.parse(
+            "Riscaldamento (non registrato): 10' facili a 7:45–8:15. Blocco principale (da registrare): 2×(6' a 6:55–7:05 + 2' di trotto), " +
+                "poi 25' di corsa facile a 7:45–8:15 (FC < 160) = 41'. Niente allunghi."
+        )!!
+        assertEquals(
+            listOf(StepKind.WORK to 360, StepKind.REST to 120, StepKind.WORK to 360, StepKind.REST to 120, StepKind.COOL_DOWN to 1500),
+            steps.map { it.kind to it.part.seconds }
+        )
+    }
+
+    @Test
     fun onlyIntervalOrProgressiveSessionsAreSplit() {
         val planned = PlannedRun("p", "Attivazione", "2026-11-10", "Facile", "Da fare",
             structure = "15' di corsa facile + 3×(20'' di allungo + 40'' lento) + 5' camminata, RPE 3/10.")
