@@ -103,7 +103,11 @@ fun RecoveryCard(data: RecoveryData.Loaded) {
             RingStat(
                 Modifier.weight(1f), (ready?.score ?: 0) / 100f, ready?.let { "${it.score}%" } ?: "–", tr("Prontezza"),
                 ready?.level ?: "–",
-                if (ready == null) tr("Mancano i dati delle notti") else null
+                when {
+                    ready == null -> tr("Mancano i dati delle notti")
+                    ready.score != ready.morningScore -> tr("Al risveglio %d%%", ready.morningScore)
+                    else -> null
+                }
             )
         }
         ExpandRow(open, tr("Come è calcolato"), { open = !open })
@@ -170,14 +174,23 @@ private fun RecoveryDetails(data: RecoveryData.Loaded) {
     r.reasons.forEach { DetailLine(null, it) }
     data.readiness?.let { p ->
         val parts = listOfNotNull(
-            tr("HRV %s rispetto alle notti prima", signedPercent(p.hrvDeltaPct)),
-            tr("sonno %s, di cui %s tra profondo e REM", formatDuration(p.sleepMinutes), formatDuration(p.restorativeMinutes)),
-            p.kcalDelta?.let { tr("ieri %s kcal attive rispetto al solito", lfmt("%+d", it)) }
+            tr("HRV %s rispetto alla notte prima", signedPercent(p.hrvVsLastNightPct)) +
+                " " + tr("(%s vs media)", signedPercent(p.hrvDeltaPct)),
+            tr("sonno %s, di cui %s tra profondo e REM", formatDuration(p.sleepMinutes), formatDuration(p.restorativeMinutes))
+        )
+        val sinceWaking = listOfNotNull(
+            p.workoutPoints.takeIf { it > 0 }?.let {
+                if (p.workoutsToday == 1) tr("−%d per l'allenamento di oggi, che torna man mano che recuperi", it)
+                else tr("−%d per gli allenamenti di oggi, che tornano man mano che recuperi", it)
+            },
+            p.awakePoints.takeIf { it > 0 }?.let { tr("−%d perché sei sveglio da %d ore", it, p.awakeHours.toInt()) }
         )
         DetailLine(
             tr("Prontezza") + " · " + DateUtils.relativeLabel(p.date),
-            tr("%d%%, %s:", p.score, p.level.lowercase(io.github.peol13.unicum.i18n.I18n.locale)) + " " + parts.joinToString(", ") + ". " +
-                tr("Guarda le ultime notti, non un allenamento: più sonno profondo e REM e HRV sopra la tua media la alzano, un giorno molto attivo la abbassa.")
+            tr("Al risveglio %d%%, %s:", p.morningScore, p.morningLevel.lowercase(io.github.peol13.unicum.i18n.I18n.locale)) + " " +
+                parts.joinToString(", ") + ". " +
+                (if (sinceWaking.isNotEmpty()) tr("Adesso %d%%:", p.score) + " " + sinceWaking.joinToString(", ") + ". " else "") +
+                tr("Al risveglio conta soprattutto se l'HRV sale o scende rispetto alla notte prima, poi il sonno profondo e REM. Durante il giorno scende dopo un allenamento e risale man mano che recuperi; dopo 16 ore da sveglio cala un po'.")
         )
     }
     Spacer(Modifier.height(6.dp))

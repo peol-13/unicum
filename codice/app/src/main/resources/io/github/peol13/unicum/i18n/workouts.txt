@@ -584,12 +584,12 @@ fr: Données des nuits manquantes
 de: Nachtdaten fehlen
 pt: Faltam os dados das noites
 
-it: HRV %s rispetto alle notti prima
-en: HRV %s vs the previous nights
-es: HRV %s respecto a las noches anteriores
-fr: HRV %s par rapport aux nuits précédentes
-de: HRV %s gegenüber den Nächten davor
-pt: HRV %s em relação às noites anteriores
+it: HRV %s rispetto alla notte prima
+en: HRV %s vs the night before
+es: HRV %s respecto a la noche anterior
+fr: HRV %s par rapport à la nuit précédente
+de: HRV %s gegenüber der Nacht davor
+pt: HRV %s em relação à noite anterior
 
 it: sonno %s, di cui %s tra profondo e REM
 en: sleep %s, of which %s deep and REM
@@ -598,26 +598,54 @@ fr: sommeil %s, dont %s de profond et REM
 de: Schlaf %s, davon %s Tief- und REM-Schlaf
 pt: sono %s, dos quais %s entre profundo e REM
 
-it: ieri %s kcal attive rispetto al solito
-en: yesterday %s active kcal vs usual
-es: ayer %s kcal activas respecto a lo habitual
-fr: hier %s kcal actives par rapport à d'habitude
-de: gestern %s aktive kcal gegenüber sonst
-pt: ontem %s kcal ativas em relação ao habitual
+it: Al risveglio %d%%, %s:
+en: On waking %d%%, %s:
+es: Al despertar %d%%, %s:
+fr: Au réveil %d%%, %s :
+de: Beim Aufwachen %d%%, %s:
+pt: Ao acordar %d%%, %s:
 
-it: %d%%, %s:
-en: %d%%, %s:
-es: %d%%, %s:
-fr: %d%%, %s :
-de: %d%%, %s:
-pt: %d%%, %s:
+it: Al risveglio %d%%
+en: On waking %d%%
+es: Al despertar %d%%
+fr: Au réveil %d%%
+de: Beim Aufwachen %d%%
+pt: Ao acordar %d%%
 
-it: Guarda le ultime notti, non un allenamento: più sonno profondo e REM e HRV sopra la tua media la alzano, un giorno molto attivo la abbassa.
-en: It looks at the last nights, not at one workout: more deep and REM sleep and HRV above your average raise it, a very active day lowers it.
-es: Mira las últimas noches, no un entrenamiento: más sueño profundo y REM y una HRV por encima de tu media la suben, un día muy activo la baja.
-fr: Elle regarde les dernières nuits, pas une séance : plus de sommeil profond et REM et une HRV au-dessus de ta moyenne l'augmentent, une journée très active la fait baisser.
-de: Sie betrachtet die letzten Nächte, nicht ein Training: mehr Tief- und REM-Schlaf und eine HRV über deinem Durchschnitt erhöhen sie, ein sehr aktiver Tag senkt sie.
-pt: Olha as últimas noites, não um treino: mais sono profundo e REM e HRV acima da sua média aumentam a prontidão, um dia muito ativo a diminui.
+it: Adesso %d%%:
+en: Now %d%%:
+es: Ahora %d%%:
+fr: Maintenant %d%% :
+de: Jetzt %d%%:
+pt: Agora %d%%:
+
+it: −%d per l'allenamento di oggi, che torna man mano che recuperi
+en: −%d for today's workout, which comes back as you recover
+es: −%d por el entrenamiento de hoy, que vuelven a medida que te recuperas
+fr: −%d pour la séance d'aujourd'hui, qui revient à mesure que tu récupères
+de: −%d für das heutige Training, die zurückkommen, während du dich erholst
+pt: −%d pelo treino de hoje, que voltam à medida que você se recupera
+
+it: −%d per gli allenamenti di oggi, che tornano man mano che recuperi
+en: −%d for today's workouts, which come back as you recover
+es: −%d por los entrenamientos de hoy, que vuelven a medida que te recuperas
+fr: −%d pour les séances d'aujourd'hui, qui reviennent à mesure que tu récupères
+de: −%d für die heutigen Trainings, die zurückkommen, während du dich erholst
+pt: −%d pelos treinos de hoje, que voltam à medida que você se recupera
+
+it: −%d perché sei sveglio da %d ore
+en: −%d because you have been awake for %d hours
+es: −%d porque llevas %d horas despierto
+fr: −%d parce que tu es éveillé depuis %d heures
+de: −%d, weil du seit %d Stunden wach bist
+pt: −%d porque você está acordado há %d horas
+
+it: Al risveglio conta soprattutto se l'HRV sale o scende rispetto alla notte prima, poi il sonno profondo e REM. Durante il giorno scende dopo un allenamento e risale man mano che recuperi; dopo 16 ore da sveglio cala un po'.
+en: On waking, what counts most is whether HRV goes up or down compared with the night before, then deep and REM sleep. During the day it drops after a workout and climbs back as you recover; after 16 hours awake it dips a little.
+es: Al despertar cuenta sobre todo si la HRV sube o baja respecto a la noche anterior, y después el sueño profundo y REM. Durante el día baja tras un entrenamiento y vuelve a subir a medida que te recuperas; después de 16 horas despierto baja un poco.
+fr: Au réveil, ce qui compte le plus, c'est si la HRV monte ou baisse par rapport à la nuit précédente, puis le sommeil profond et REM. Pendant la journée, elle baisse après une séance et remonte à mesure que tu récupères ; après 16 heures d'éveil, elle diminue un peu.
+de: Beim Aufwachen zählt am meisten, ob die HRV gegenüber der Nacht davor steigt oder sinkt, dann Tief- und REM-Schlaf. Im Laufe des Tages sinkt sie nach einem Training und steigt wieder, während du dich erholst; nach 16 Stunden wach sinkt sie etwas.
+pt: Ao acordar conta sobretudo se a HRV sobe ou desce em relação à noite anterior, depois o sono profundo e REM. Durante o dia ela cai depois de um treino e volta a subir à medida que você se recupera; depois de 16 horas acordado ela cai um pouco.
 
 it: Ultimo allenamento: %s
 en: Last workout: %s

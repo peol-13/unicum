@@ -399,12 +399,15 @@ object UnicumAppState {
         return before.average()
     }
 
-    /** Prontezza all'allenamento della notte che finisce nel giorno mostrato (o di quella prima, se manca). */
+    /**
+     * Prontezza all'allenamento al risveglio della notte che finisce nel giorno mostrato (o di quella prima, se manca).
+     * Quella che cambia durante il giorno sta in [io.github.peol13.unicum.data.RecoveryData.Loaded.readiness].
+     */
     fun readiness(): io.github.peol13.unicum.data.Readiness.Result? {
         fun series(type: String) = health.metrics[type].orEmpty().mapKeys { java.time.LocalDate.parse(it.key) }
         val nights = health.sleep.associateBy { java.time.LocalDate.parse(it.date) }
         return io.github.peol13.unicum.data.Readiness.latest(
-            java.time.LocalDate.parse(selectedDate), series(MetricType.HRV_NIGHT), nights, series(MetricType.ACTIVE_KCAL)
+            java.time.LocalDate.parse(selectedDate), series(MetricType.HRV_NIGHT), nights
         )
     }
 

@@ -914,7 +914,7 @@ internal fun RecoveryDetailCard() {
             Spacer(Modifier.height(6.dp))
         }
         val hrvVs = percentVs(hrv, hrvBase)?.let { " " + tr("(%s vs media)", signedPercent(it)) }.orEmpty()
-        StatRow(tr("Prontezza all'allenamento"), ready?.let { "${it.score}% · ${it.level}" } ?: NO_DATA, emphasized = true)
+        StatRow(tr("Prontezza al risveglio"), ready?.let { "${it.morningScore}% · ${it.morningLevel}" } ?: NO_DATA, emphasized = true)
         StatDivider()
         StatRow(tr("HRV notturna"), if (hrv != null) "${hrv.roundToInt()} ms$hrvVs" else NO_DATA)
         StatDivider()

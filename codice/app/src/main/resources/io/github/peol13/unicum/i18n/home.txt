@@ -606,12 +606,12 @@ fr: Par rapport à ta moyenne (%d ms) : au-dessus de la ligne, mieux que d'habit
 de: Im Vergleich zu deinem Durchschnitt (%d ms): über der Linie besser als sonst, darunter schlechter.
 pt: Em relação à sua média (%d ms): acima da linha, melhor que o normal; abaixo, pior.
 
-it: Prontezza all'allenamento
-en: Training readiness
-es: Preparación para entrenar
-fr: Disponibilité à l'entraînement
-de: Trainingsbereitschaft
-pt: Prontidão para treinar
+it: Prontezza al risveglio
+en: Readiness on waking
+es: Preparación al despertar
+fr: Disponibilité au réveil
+de: Bereitschaft beim Aufwachen
+pt: Prontidão ao acordar
 
 it: Servono almeno 4 giorni di dati per confrontare con la tua media.
 en: At least 4 days of data are needed to compare with your average.

@@ -15,7 +15,7 @@ object RecoveryData {
         val result: RecoveryEstimate.Result,
         /** FC massima usata per fatica e carico (vedi [TrainingLoad.personalMaxHr]). */
         val maxHr: Int,
-        /** Prontezza all'allenamento dalle ultime notti (null se mancano i dati). */
+        /** Prontezza all'allenamento adesso, dalle ultime notti e dagli allenamenti dopo il risveglio (null se mancano i dati). */
         val readiness: Readiness.Result? = null
     )
 
@@ -72,7 +72,8 @@ object RecoveryData {
             nightTemp = temp,
             now = now
         )
-        val readiness = Readiness.latest(today, hrv, nights, series(MetricType.ACTIVE_KCAL))
+        // Prontezza adesso: quella del risveglio meno gli allenamenti fatti dopo e la giornata lunga
+        val readiness = Readiness.latest(today, hrv, nights, sessions, result.personalFactor, now)
         Loaded(result, maxHr, readiness)
     }
 }
