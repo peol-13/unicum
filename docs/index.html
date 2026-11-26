@@ -262,7 +262,7 @@
       <h1 data-t="hero.h1">Anello, orologio, pasti e programma di corsa. In un'app sola.</h1>
       <p class="lead" data-t="hero.lead">Apri una schermata e sai come stai oggi e che corsa ti aspetta. Gratis, open source, senza account: i dati restano sul tuo telefono.</p>
       <div class="btns">
-        <a class="btn main" href="#prova" data-t="hero.btn">Scarica per Android</a>
+        <a class="btn main" href="https://github.com/peol-13/unicum/releases/latest/download/unicum.apk" data-download data-t="hero.btn">Scarica per Android</a>
         <a class="btn ghost" href="#come-funziona" data-t="nav.how">Come funziona</a>
       </div>
       <p class="small" data-t="hero.small">Gratis · Android 8 o successivo · Nessuna pubblicità</p>
@@ -357,8 +357,8 @@
       <div class="card reveal">
         <div class="n">1</div>
         <h3 data-t="how1.h">Scarica l'APK</h3>
-        <p data-t="how1.p">Dal telefono, tocca il bottone: si apre la pagina di GitHub con il file dell'ultima versione.</p>
-        <a class="btn solid" href="https://github.com/peol-13/unicum/releases/latest" target="_blank" rel="noopener" data-t="how1.btn">Scarica l'APK</a>
+        <p data-t="how1.p">Dal telefono, tocca il bottone: il download dell'ultima versione parte subito.</p>
+        <a class="btn solid" href="https://github.com/peol-13/unicum/releases/latest/download/unicum.apk" data-download data-t="how1.btn">Scarica l'APK</a>
         <div class="meta" data-t="how1.meta">Ultima versione · circa 30 MB</div>
       </div>
       <div class="card reveal" style="--d:.08s">
@@ -520,6 +520,10 @@
     // "È sicuro?": apre la risposta nelle domande frequenti
     var faq = t.closest('[data-open-faq]');
     if (faq) { var d = document.querySelector(faq.getAttribute('href')); if (d) d.open = true; }
+    // "Scarica": il link scarica subito l'APK (la pagina resta aperta) e qui si scorre ai tre passi per installarlo.
+    // Niente cambio di #: una navigazione interrotterebbe il download appena partito
+    var dl = t.closest('[data-download]');
+    if (dl) { var pr = document.getElementById('prova'); if (pr) pr.scrollIntoView({ behavior: 'smooth' }); }
   });
   if (canDialog) {
     dlg.addEventListener('click', function (e) {
