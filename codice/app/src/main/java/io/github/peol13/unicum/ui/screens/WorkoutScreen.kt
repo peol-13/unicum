@@ -268,6 +268,8 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
 
         // Con una correzione a mano i parziali (calcolati su tutta la registrazione) non sarebbero affidabili
         val splits = remember(d, feedback.isCorrected) { if (feedback.isCorrected || strength) emptyList() else WorkoutAnalysis.splits(d) }
+        // Sopra i 10 km anche i parziali da 5 km, da scegliere nel selettore
+        val splits5 = remember(splits) { if (splits.sumOf { it.meters } > 10_000) WorkoutAnalysis.splits(d, 5000.0) else emptyList() }
         if (!strength) {
             SummaryCard(d, splits)
             Spacer(Modifier.height(8.dp))
@@ -298,7 +300,7 @@ fun WorkoutScreen(externalId: String, onNavigate: (Route) -> Unit, onBack: () ->
         val segments = remember(raw, intervalPlan) { intervalPlan?.let { WorkoutAnalysis.intervals(raw, it) }.orEmpty() }
         if (splits.isNotEmpty() || segments.isNotEmpty() || isRun) {
             SplitsCard(
-                splits, segments, canEditIntervals = isRun, suggestIntervals = shown.kind in PlanStructure.STRUCTURED_KINDS,
+                splits, splits5, segments, canEditIntervals = isRun, suggestIntervals = shown.kind in PlanStructure.STRUCTURED_KINDS,
                 fromPlan = intervalPlan?.fromPlan.takeIf { feedback.intervals == null },
                 fromWatch = feedback.intervals == null && intervalPlan?.fromWatch == true,
                 manual = feedback.intervals != null,
@@ -435,11 +437,13 @@ private fun SummaryCard(d: WorkoutDetail, splits: List<WorkoutAnalysis.Split>) {
 
 /**
  * Parziali della corsa, come in Samsung Health: i giri o le ripetute (scritti dall'utente, dell'orologio o dal
- * programma) e i km. Con entrambi, due schede "Giri | 1 km" o "Ripetute | 1 km".
+ * programma, solo se il ritmo li conferma) e i km; sopra i 10 km anche i 5 km. Con più di una vista, un selettore
+ * "Giri | 1 km | 5 km" (o "Ripetute | …").
  */
 @Composable
 private fun SplitsCard(
     splits: List<WorkoutAnalysis.Split>,
+    splits5: List<WorkoutAnalysis.Split>,
     segments: List<WorkoutAnalysis.IntervalSegment>,
     canEditIntervals: Boolean,
     suggestIntervals: Boolean,
@@ -460,19 +464,31 @@ private fun SplitsCard(
             onAction = onEditIntervals
         )
         Spacer(Modifier.height(12.dp))
-        if (segments.isNotEmpty() && splits.isNotEmpty()) {
-            UnicumSegmented(listOf(if (laps) tr("Giri") else tr("Ripetute"), "1 km"), tab, { tab = it }, height = 36.dp)
+        // Viste disponibili: giri/ripetute, 1 km, 5 km
+        val views = buildList {
+            if (segments.isNotEmpty()) add(SplitView.SEGMENTS)
+            if (splits.isNotEmpty()) add(SplitView.KM)
+            if (splits5.isNotEmpty()) add(SplitView.FIVE_KM)
+        }
+        val view = views.getOrNull(tab) ?: views.firstOrNull()
+        if (views.size >= 2) {
+            UnicumSegmented(
+                views.map { when (it) { SplitView.SEGMENTS -> if (laps) tr("Giri") else tr("Ripetute"); SplitView.KM -> "1 km"; SplitView.FIVE_KM -> "5 km" } },
+                views.indexOf(view), { tab = it }, height = 36.dp
+            )
             Spacer(Modifier.height(12.dp))
         }
-        when {
-            segments.isNotEmpty() && (tab == 0 || splits.isEmpty()) -> IntervalsTable(segments)
-            splits.isNotEmpty() -> KmSplits(splits)
-            else -> Text(
+        val showSegments = view == SplitView.SEGMENTS
+        when (view) {
+            SplitView.SEGMENTS -> IntervalsTable(segments)
+            SplitView.KM -> KmSplits(splits)
+            SplitView.FIVE_KM -> KmSplits(splits5, everyKm = 5)
+            null -> Text(
                 tr("Parziali per km non disponibili per questa registrazione."),
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption
             )
         }
-        if (fromPlan != null && segments.isNotEmpty() && (tab == 0 || splits.isEmpty())) {
+        if (fromPlan != null && showSegments) {
             Spacer(Modifier.height(10.dp))
             Text(
                 if (estimated) {
@@ -482,7 +498,7 @@ private fun SplitsCard(
                 color = UnicumDark.copy(alpha = .55f), style = UnicumType.Note, lineHeight = 15.sp
             )
         }
-        if (fromWatch && segments.isNotEmpty() && (tab == 0 || splits.isEmpty())) {
+        if (fromWatch && showSegments) {
             Spacer(Modifier.height(10.dp))
             Text(
                 tr("Giri registrati dall'orologio. Se non tornano, scrivili tu con \"Giri\"."),
@@ -559,24 +575,34 @@ private fun segmentName(s: WorkoutAnalysis.IntervalSegment, blocks: Boolean): St
     else -> s.kind.label
 }
 
+private enum class SplitView { SEGMENTS, KM, FIVE_KM }
+
+/** Parziali ogni [everyKm] km: con 1 km il numero del km, con 5 km il tratto ("0–5", "5–10", "10–12,3"). */
 @Composable
-private fun KmSplits(splits: List<WorkoutAnalysis.Split>) {
+private fun KmSplits(splits: List<WorkoutAnalysis.Split>, everyKm: Int = 1) {
     val fastest = splits.minOf { it.paceSec }
     val slowest = splits.maxOf { it.paceSec }
     val track = UnicumAccent.copy(alpha = .3f)
     val bar = UnicumPrimary
+    val kmWidth = if (everyKm == 1) 34.dp else 64.dp
     Column {
         Row(Modifier.fillMaxWidth().padding(bottom = 4.dp)) {
-            Header("Km", Modifier.width(34.dp))
+            Header("Km", Modifier.width(kmWidth))
             Header(tr("Ritmo"), Modifier.weight(1f))
             Header(tr("Tempo"), Modifier.width(58.dp), TextAlign.End)
             Header(tr("FC"), Modifier.width(44.dp), TextAlign.End)
         }
         splits.forEach { s ->
             Row(Modifier.fillMaxWidth().padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
+                val from = (s.index - 1) * everyKm
                 Text(
-                    if (s.meters >= 990) s.index.toString() else lfmt("%.2f", s.meters / 1000),
-                    color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.Medium, modifier = Modifier.width(34.dp)
+                    when {
+                        everyKm == 1 -> if (s.meters >= 990) s.index.toString() else lfmt("%.2f", s.meters / 1000)
+                        s.meters >= everyKm * 1000 - 10 -> "$from–${from + everyKm}"
+                        else -> "$from–" + lfmt("%.1f", from + s.meters / 1000)
+                    },
+                    color = UnicumDark, style = UnicumType.Caption, fontWeight = FontWeight.Medium,
+                    modifier = Modifier.width(kmWidth), maxLines = 1
                 )
                 Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                     // Barra più lunga = più veloce

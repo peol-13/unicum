@@ -90,7 +90,7 @@ object WorkoutAnalysis {
 
     data class Split(
         val index: Int,
-        /** Metri del parziale: 1000, tranne l'ultimo che può essere più corto. */
+        /** Metri del parziale: 1000 (o [splits] everyM), tranne l'ultimo che può essere più corto. */
         val meters: Double,
         val seconds: Int,
         val paceSec: Int,
@@ -99,7 +99,8 @@ object WorkoutAnalysis {
         val elevationDelta: Double?
     )
 
-    fun splits(d: WorkoutDetail): List<Split> {
+    /** Parziali ogni [everyM] metri (1 km; 5 km nelle corse sopra i 10 km). */
+    fun splits(d: WorkoutDetail, everyM: Double = 1000.0): List<Split> {
         val line = distanceTimeline(d)
         if (line.size < 2) return emptyList()
         val total = line.last().second
@@ -111,7 +112,7 @@ object WorkoutAnalysis {
             val (t1, m1) = line[i]
             return if (m1 == m0) t1.toDouble() else t0 + (meters - m0) / (m1 - m0) * (t1 - t0)
         }
-        val marks = generateSequence(0.0) { it + 1000.0 }.takeWhile { it < total }.toList() + total
+        val marks = generateSequence(0.0) { it + everyM }.takeWhile { it < total }.toList() + total
         return marks.zipWithNext().mapIndexedNotNull { i, (from, to) ->
             val meters = to - from
             if (meters < 50) return@mapIndexedNotNull null

@@ -43,6 +43,16 @@ class WorkoutAnalysisTest {
     }
 
     @Test
+    fun fiveKmSplitsForLongRuns() {
+        // 12,5 km a 6'00"/km: due parziali da 5 km e l'ultimo da 2,5 km
+        val speed = (0..4500 step 5).map { WorkoutSample(it, 1000f / 360f) }
+        val splits = WorkoutAnalysis.splits(run(distanceM = 12_500.0, seconds = 4500, speed = speed), 5000.0)
+        assertEquals(listOf(5000.0, 5000.0, 2500.0), splits.map { Math.round(it.meters).toDouble() })
+        assertTrue("ritmo ${splits.first().paceSec}", splits.first().paceSec in 355..365)
+        assertTrue("tempo ${splits.first().seconds}", splits.first().seconds in 1795..1805)
+    }
+
+    @Test
     fun lastSplitCanBeShort() {
         val speed = (0..900 step 5).map { WorkoutSample(it, 1000f / 300f) }
         val splits = WorkoutAnalysis.splits(run(distanceM = 3500.0, speed = speed))

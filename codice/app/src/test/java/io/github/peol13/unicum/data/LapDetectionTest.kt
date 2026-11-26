@@ -85,6 +85,32 @@ class LapDetectionTest {
     }
 
     @Test
+    fun timedRepeatsCloseToThePlanUseTheExactDurations() {
+        // Come il 26/11/2026: 5' di riscaldamento, poi 6 × (3' + 2') guidati dall'orologio (anche l'ultimo recupero)
+        val levels = (0 until 6).flatMap { r -> listOf(300 + r * 300 to 2.85, 480 + r * 300 to 1.7) }
+        val d = run(levels, end = 2100)
+        val program = (1..6).flatMap { r ->
+            listOfNotNull(PlanStep(StepKind.WORK, r, IntervalPart(seconds = 180)), if (r < 6) PlanStep(StepKind.REST, r, IntervalPart(seconds = 120)) else null)
+        }
+        val plan = LapDetection.detect(d, program, null)!!
+        assertEquals(List(11) { if (it % 2 == 0) 180 else 120 }, plan.steps().map { it.part.seconds })
+        assertTrue("inizio ${plan.offsetS}", abs(plan.offsetS - 300) <= 6)
+    }
+
+    @Test
+    fun snapOnlyWhenEveryChangeIsClose() {
+        val program = listOf(StepKind.WORK to 180, StepKind.REST to 120, StepKind.WORK to 180).mapIndexed { i, (k, s) -> PlanStep(k, i + 1, IntervalPart(seconds = s)) }
+        fun found(vararg s: Int) = program.mapIndexed { i, p -> p.copy(part = IntervalPart(seconds = s[i])) }
+        // Cambi a 12 s al massimo: durate del programma, dall'inizio mediano (scarti 100, 96, 108, 102 → 102)
+        assertEquals(listOf(180, 120, 180) to 102, LapDetection.snapToPlan(program, found(176, 132, 174), 100, 2000).let { (st, o) -> st.map { it.part.seconds } to o })
+        // Un cambio a 40 s (giro libero, come il 24/11): resta quello trovato
+        assertEquals(listOf(220, 100, 180), LapDetection.snapToPlan(program, found(220, 100, 180), 100, 2000).first.map { it.part.seconds })
+        // Pezzi a distanza: niente aggancio
+        val meters = program.map { it.copy(part = IntervalPart(meters = 400.0)) }
+        assertEquals(listOf(176, 132, 174), LapDetection.snapToPlan(meters, found(176, 132, 174), 100, 2000).first.map { it.part.seconds })
+    }
+
+    @Test
     fun easyRunInsteadOfIntervalsIsNotSure() {
         // Programma a ripetute, ma corsa tutta allo stesso ritmo: i cambi non si possono confermare
         val d = run(emptyList(), end = 2520)

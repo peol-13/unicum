@@ -76,8 +76,35 @@ object PlanStructure {
         return out.map { it.trim() }.filter { it.isNotEmpty() }
     }
 
+    /**
+     * Un gruppo `N×(…)` seguito da un commento dopo la virgola (`6×(3' + 2'), senza l'ultimo recupero`) diventa il
+     * gruppo da solo più, se il commento comincia con una durata, un pezzo a parte (`3×(4' + 2'), 5' defaticamento`).
+     */
+    private fun splitTrailing(tokens: List<String>): Pair<List<String>, Set<Int>> {
+        val out = mutableListOf<String>()
+        val dropLastRest = mutableSetOf<Int>()
+        tokens.forEach { tok ->
+            val start = Regex("""^\s*\d+\s*[×xX]\s*\(""").find(tok)
+            if (start == null) { out += tok; return@forEach }
+            var depth = 0
+            var close = -1
+            for (i in start.range.last until tok.length) {
+                if (tok[i] == '(') depth++ else if (tok[i] == ')') { depth--; if (depth == 0) { close = i; break } }
+            }
+            if (close < 0) { out += tok; return@forEach }
+            out += tok.substring(0, close + 1)
+            val tail = tok.substring(close + 1).trim().trimStart(',', ';').trim()
+            when {
+                tail.isEmpty() -> Unit
+                part(tail) != null -> out += tail
+                Regex("""senza\s+(l['’]\s*)?ultimo\s+recupero""", RegexOption.IGNORE_CASE).containsMatchIn(tail) -> dropLastRest += out.lastIndex
+            }
+        }
+        return out to dropLastRest
+    }
+
     private fun repeats(main: String): List<PlanStep>? {
-        val tokens = splitPlus(main)
+        val (tokens, dropLastRest) = splitTrailing(splitPlus(main))
         val idx = tokens.indexOfFirst { repeat.matches(it) }
         if (idx < 0) return null
         val steps = mutableListOf<PlanStep>()
@@ -91,7 +118,8 @@ object PlanStructure {
                 if (n !in 1..50) return null
                 for (r in 1..n) {
                     steps += PlanStep(StepKind.WORK, r, work)
-                    if (rest != null) steps += PlanStep(StepKind.REST, r, rest)
+                    // "senza l'ultimo recupero": l'ultima ripetuta non ha recupero
+                    if (rest != null && !(r == n && i in dropLastRest)) steps += PlanStep(StepKind.REST, r, rest)
                 }
             } else {
                 val p = part(tok) ?: return null

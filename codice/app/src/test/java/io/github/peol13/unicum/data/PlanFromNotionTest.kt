@@ -5,6 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import kotlin.math.abs
 
 /** Struttura del programma Notion → pezzi della corsa; registro → tipo, RPE e nota. */
 class PlanFromNotionTest {
@@ -68,6 +69,27 @@ class PlanFromNotionTest {
     }
 
     @Test
+    fun commentAfterTheRepeatsAndNoLastRecovery() {
+        // Come nel programma del 26/11/2026: commento dopo la parentesi, l'ultima ripetuta senza recupero
+        val s = PlanStructure.parse(
+            "Riscaldamento (non registrato): 10' facili + 4 allunghi da 20''. Blocco principale (da registrare): " +
+                "6×(3' a 6:10–6:20 + 2' camminata/trotto), senza l'ultimo recupero = 28'. Defaticamento (non registrato): 10' trotto o camminata."
+        )
+        assertEquals(
+            "WO1:180s RE1:120s WO2:180s RE2:120s WO3:180s RE3:120s WO4:180s RE4:120s WO5:180s RE5:120s WO6:180s",
+            kinds(s)
+        )
+        // Anche il 3/12 e il 10/12
+        assertEquals(
+            "WO1:600s RE1:120s WO2:600s RE2:120s WO3:600s",
+            kinds(PlanStructure.parse("Blocco principale (da registrare): 3×(10' a 6:55–7:00 + 2' di trotto), senza l'ultimo recupero = 34'."))
+        )
+        // Commento qualsiasi: si ignora; una durata dopo la virgola è un pezzo
+        assertEquals("WO1:240s RE1:120s WO2:240s RE2:120s", kinds(PlanStructure.parse("2×(4' + 2'), tutte regolari")))
+        assertEquals("WO1:240s RE1:120s WO2:240s RE2:120s CO:300s", kinds(PlanStructure.parse("2×(4' + 2'), 5' defaticamento")))
+    }
+
+    @Test
     fun onlyIntervalOrProgressiveSessionsAreSplit() {
         val planned = PlannedRun("p", "Attivazione", "2026-11-10", "Facile", "Da fare",
             structure = "15' di corsa facile + 3×(20'' di allungo + 40'' lento) + 5' camminata, RPE 3/10.")
@@ -115,6 +137,44 @@ class PlanFromNotionTest {
         work.forEach { assertEquals(720.0, it.meters, 2.0) }
         assertEquals(WorkoutAnalysis.IntervalKind.COOL_DOWN, seg.last().kind)
         assertEquals(180, seg.last().seconds)
+    }
+
+    @Test
+    fun steadyRunKeepsKmSplitsEvenIfThePlanHasRepeats() {
+        // Programma a ripetute ma corsa tutta allo stesso ritmo: niente giri automatici, restano i km
+        val end = 1800
+        val speed = (0..end step 2).map { WorkoutSample(it, (2.4 + 0.03 * kotlin.math.sin(it / 7.0)).toFloat()) }
+        val hr = (0..end step 5).map { WorkoutSample(it, 150f) }
+        val d = WorkoutDetail(
+            externalId = "x", source = "s", date = "2026-11-26", type = "Corsa", exerciseType = 56,
+            startMillis = 0, endMillis = end * 1000L, movingSeconds = end, distanceM = 2.4 * end, speed = speed, hr = hr
+        )
+        val steps = PlanStructure.parse("6×(3' + 2'), senza l'ultimo recupero")!!
+        val planned = PlannedRun("p", "Intervalli 6×3'", "2026-11-26", "Intervalli", "Completata")
+        assertNull(RunFeedback.autoPlan(d, steps, planned, strict = true))
+        assertNull(RunFeedback.autoPlan(d, steps, planned, strict = false))
+        // Senza serie di velocità non si può controllare il ritmo: niente durate fisse
+        assertNull(RunFeedback.autoPlan(d.copy(speed = emptyList()), steps, planned))
+    }
+
+    @Test
+    fun repeatsLikeTheRunOf26November() {
+        // 6 × (3' a 2,85 m/s + 2' a 1,7 m/s), anche l'ultimo recupero registrato: i giri seguono programma e ritmo
+        fun v(t: Int) = if (t % 300 < 180) 2.85 else 1.7
+        val end = 6 * 300
+        val speed = (0..end step 2).map { WorkoutSample(it, v(it).toFloat()) }
+        var h = 140.0
+        val hr = (0..end step 2).map { t -> h += (60 + 40 * v(t) - h) * 2 / 40.0; WorkoutSample(t, h.toFloat()) }
+        val d = WorkoutDetail(
+            externalId = "x", source = "s", date = "2026-11-26", type = "Corsa", exerciseType = 56,
+            startMillis = 0, endMillis = end * 1000L, movingSeconds = end, distanceM = speed.sumOf { it.v * 2.0 }, speed = speed, hr = hr
+        )
+        val steps = PlanStructure.parse("6×(3' + 2'), senza l'ultimo recupero")!!
+        val planned = PlannedRun("p", "Intervalli 6×3'", "2026-11-26", "Intervalli", "Completata")
+        val plan = RunFeedback.autoPlan(d, steps, planned)!!
+        val laps = plan.asLaps(end)!!.steps().map { it.part.seconds!! }
+        assertEquals(12, laps.size)
+        laps.forEachIndexed { i, s -> assertTrue("giro ${i + 1}: $s", abs(s - if (i % 2 == 0) 180 else 120) <= 10) }
     }
 
     @Test

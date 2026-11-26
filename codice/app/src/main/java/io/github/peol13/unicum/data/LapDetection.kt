@@ -136,7 +136,40 @@ object LapDetection {
             // Cambio all'inizio di questo pezzo, se c'è un pezzo del programma prima
             if (k > 0 && segs[k - 1].step != null && !sure[k - 1]) uncertain++
         }
-        return IntervalPlan.ofSteps(out, name)?.copy(offsetS = offset, estimated = true, uncertainChanges = uncertain)
+        val (steps2, offset2) = snapToPlan(placed, out, offset, (n - 1) * STEP)
+        return IntervalPlan.ofSteps(steps2, name)?.copy(offsetS = offset2, estimated = true, uncertainChanges = uncertain)
+    }
+
+    /** Scarto massimo (secondi) di ogni cambio trovato da quello del programma per usare le durate esatte. */
+    const val SNAP_S = 20
+
+    /**
+     * Pezzi a tempo, giri e cambi trovati tutti entro [SNAP_S] da quelli del programma: l'orologio della seduta guidata li
+     * taglia esattamente (3' e 2', non 2:44 e 2:12), quindi si usano le durate del programma, dall'inizio che va meglio
+     * con tutti i cambi (mediana). Altrimenti (giri liberi, programma non seguito) resta quello trovato nei dati.
+     * [found] = pezzi trovati (stesso ordine di [placed]), [end] = secondi della registrazione.
+     */
+    fun snapToPlan(placed: List<PlanStep>, found: List<PlanStep>, offset: Int, end: Int): Pair<List<PlanStep>, Int> {
+        if (found.size != placed.size || placed.any { it.part.seconds == null }) return found to offset
+        // Un defaticamento scritto arriva fino alla fine: la sua durata non si confronta
+        val toEnd = placed.last().kind == StepKind.COOL_DOWN
+        val fixed = if (toEnd) placed.size - 1 else placed.size
+        if (fixed < 2) return found to offset
+        // Ogni giro a tempo vicino a quello del programma (un giro libero di 40 s in più non si aggancia)
+        if ((0 until fixed).any { abs(found[it].part.seconds!! - placed[it].part.seconds!!) > SNAP_S }) return found to offset
+        // Inizio di ogni pezzo (e fine dell'ultimo a tempo) trovato e secondo il programma
+        val real = mutableListOf(offset); val plan = mutableListOf(0)
+        for (i in 0 until fixed) { real += real.last() + found[i].part.seconds!!; plan += plan.last() + placed[i].part.seconds!! }
+        val start = real.zip(plan) { r, p -> r - p }.sorted().let { it[it.size / 2] }.coerceAtLeast(0)
+        if (real.zip(plan).any { (r, p) -> abs(r - (start + p)) > SNAP_S }) return found to offset
+        if (start + plan.last() > end) return found to offset
+        val out = (0 until fixed).map { placed[it] }.toMutableList()
+        if (toEnd) {
+            val rest = end - (start + plan.last())
+            if (rest <= 0) return found to offset
+            out += placed.last().copy(part = IntervalPart(seconds = rest))
+        }
+        return out to start
     }
 
     /** Confini (indici della griglia) dei pezzi [segs], scelti insieme. */

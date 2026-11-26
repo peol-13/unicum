@@ -83,18 +83,24 @@ object RunFeedback {
 
     /**
      * Pezzi del programma sulla registrazione [raw] (con le serie), con la FC dei tratti veloci: i cambi si cercano nei
-     * dati veri ([LapDetection]); senza serie di velocità, pezzi a durata fissa da dove la corsa li segue meglio.
-     * [strict] = false per una seduta che non è segnata come Intervalli o Progressivo: la struttura vale solo se tutti
-     * i cambi sono sicuri (una corsa davvero facile non si spezza a forza).
+     * dati veri ([LapDetection]). I giri automatici ci sono solo se **programma e ritmo sono d'accordo**: la struttura
+     * prevede dei cambi e il ritmo cambia davvero dove li mette (richiesta dell'utente, 26/11/2026). Altrimenti null e
+     * la corsa resta divisa per km (e per 5 km sopra i 10 km), anche senza serie di velocità.
+     * - [strict] = true (seduta segnata Intervalli o Progressivo): basta che almeno metà dei cambi sia sicura;
+     * - [strict] = false (altri tipi con una struttura nel programma): tutti i cambi devono essere sicuri.
      */
     fun autoPlan(raw: WorkoutDetail, steps: List<PlanStep>, planned: PlannedRun, strict: Boolean = true): IntervalPlan? {
-        LapDetection.detect(raw, steps, planned.name)?.let { found ->
-            if (!strict && found.uncertainChanges > 0) return null
-            return WorkoutAnalysis.withWorkHr(raw, found)
-        }
-        if (!strict) return null
-        val plan = IntervalPlan.ofSteps(steps, planned.name) ?: return null
-        return WorkoutAnalysis.withWorkHr(raw, plan.copy(offsetS = WorkoutAnalysis.alignPlan(raw, steps)))
+        val found = LapDetection.detect(raw, steps, planned.name) ?: return null
+        if (!paceConfirms(found, steps, strict)) return null
+        return WorkoutAnalysis.withWorkHr(raw, found)
+    }
+
+    /** Il ritmo conferma i cambi del programma: vedi [autoPlan]. */
+    fun paceConfirms(found: IntervalPlan, steps: List<PlanStep>, strict: Boolean): Boolean {
+        val changes = steps.count { it.part.isSet } - 1
+        if (changes < 1) return false
+        val sure = changes - found.uncertainChanges
+        return if (strict) sure * 2 >= changes else sure == changes
     }
 
     // Le ripetute dal programma richiedono le serie complete: si calcolano una volta per corsa e struttura
