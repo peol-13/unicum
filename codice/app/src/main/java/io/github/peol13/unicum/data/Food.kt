@@ -51,45 +51,106 @@ object FoodCatalog {
         Normalizer.normalize(text.lowercase().trim(), Normalizer.Form.NFD).replace(diacritics, "")
 
     /**
-     * Cerca tra catalogo e alimenti personalizzati. Ignora maiuscole e accenti; ogni parola
-     * digitata deve comparire nel nome. I nomi che iniziano con la ricerca vengono prima.
+     * Cerca tra catalogo e alimenti personalizzati, online o già registrati ([extra], che vincono sui nomi
+     * uguali del catalogo). Regole e ordine in [FoodSearch]: in breve, corrispondenze più precise prima,
+     * a parità i cibi generici prima dei piatti pronti e delle marche, poi i nomi più corti.
      */
     fun search(
         query: String,
         category: String? = null,
         extra: List<Food> = emptyList()
-    ): List<Food> {
-        val all = (extra + defaultFoods).distinctBy { it.name }
-        val pool = if (category == null) all else all.filter { it.category == category }
-        val q = normalize(query)
-        val words = q.split(" ").filter { it.isNotEmpty() }
-        if (words.isEmpty()) return pool
-        // Ogni nome si normalizza una volta sola (la ricerca gira a ogni lettera digitata)
-        // Si cerca nel nome mostrato (lingua dell'app) e in quello italiano del catalogo: "chicken" e "pollo"
-        return pool
-            .map { it to normalizedName(it.name) }
-            .filter { (_, n) -> words.all { n.contains(it) } }
-            .sortedWith(compareBy<Pair<Food, String>> { !it.second.startsWith(q) }.thenBy { FoodNames.label(it.first.name).length })
+    ): List<Food> = searchResult(query, category, extra).foods
+
+    /**
+     * Risultati di una ricerca, dal più pertinente. [strength] (stessa posizione di [foods]): 0 = corrispondenza
+     * buona (parole intere, singolare/plurale, inizio di parola, sinonimi, gruppi), 1 = debole (dentro una parola,
+     * errori di battitura), 2 = parziale. [partial] = nessun alimento ha tutte le parole, questi ne hanno almeno una.
+     */
+    class Result(val foods: List<Food>, val strength: List<Int>, val partial: Boolean)
+
+    /** Come [search]; se nessun alimento ha tutte le parole (e sono più d'una) restituisce quelli che ne hanno di più. */
+    fun searchResult(
+        query: String,
+        category: String? = null,
+        extra: List<Food> = emptyList()
+    ): Result {
+        val lang = io.github.peol13.unicum.i18n.I18n.language
+        val entries = ArrayList<FoodSearch.Entry>(extra.size + defaultFoods.size)
+        val seen = HashSet<String>(extra.size * 2)
+        for (f in extra) if (seen.add(f.name)) entries += entryFor(f, lang)
+        for (e in catalogIndex(lang)) if (e.food.name !in seen) entries += e
+        val pool = if (category == null) entries else entries.filter { it.food.category == category }
+        val q = FoodSearch.Query(normalize(query))
+        if (q.isEmpty) return pool.map { it.food }.let { Result(it, List(it.size) { 0 }, false) }
+        val full = rank(q, pool, partial = false)
+        if (full.isNotEmpty() || q.words.size < 2) return result(q, full, false)
+        return result(q, rank(q, pool, partial = true).take(30), true)
+    }
+
+    private class Hit(val e: FoodSearch.Entry, val cost: Int, val first: Boolean)
+
+    private fun result(q: FoodSearch.Query, hits: List<Hit>, partial: Boolean) = Result(
+        hits.map { it.e.food },
+        hits.map { h -> if (h.cost >= FoodSearch.MISSING) 2 else if (h.cost <= 2 * q.words.size) 0 else 1 },
+        partial
+    )
+
+    private fun rank(q: FoodSearch.Query, pool: List<FoodSearch.Entry>, partial: Boolean): List<Hit> {
+        val hits = ArrayList<Hit>()
+        for (e in pool) {
+            val cost = FoodSearch.score(q, e, partial)
+            if (cost >= 0) hits += Hit(e, cost, FoodSearch.startsWithFirstWord(q, e))
+        }
+        hits.sortWith(
+            compareBy<Hit> { it.cost }.thenBy { it.e.tier }.thenBy { !it.first }.thenBy { it.e.length }
+        )
+        return hits
+    }
+
+    /**
+     * Le stesse regole di [search] su un elenco qualsiasi (pasti salvati, prodotti salvati in locale): tiene
+     * chi corrisponde, dal più pertinente; ricerca vuota = elenco com'è.
+     */
+    fun <T> filter(query: String, items: List<T>, name: (T) -> String): List<T> {
+        val q = FoodSearch.Query(normalize(query))
+        if (q.isEmpty) return items
+        return items
+            .mapNotNull { item ->
+                val n = name(item)
+                val e = FoodSearch.Entry(Food(n, 0), normalize(n), n.length)
+                FoodSearch.score(q, e).takeIf { it >= 0 }?.let { Triple(item, it, n.length) }
+            }
+            .sortedWith(compareBy<Triple<T, Int, Int>> { it.second }.thenBy { it.third })
             .map { it.first }
     }
 
-    // Nomi del catalogo già normalizzati (nome mostrato + italiano), per lingua; personali e online al volo
-    private val catalogNamesByLanguage = java.util.concurrent.ConcurrentHashMap<io.github.peol13.unicum.i18n.AppLanguage, Map<String, String>>()
-    private val catalogNames: Map<String, String>
-        get() = io.github.peol13.unicum.i18n.I18n.language.let { lang ->
-            catalogNamesByLanguage.getOrPut(lang) {
-                defaultFoods.associate { f ->
-                    val shown = FoodNames.label(f.name, lang)
-                    f.name to normalize(if (shown == f.name) f.name else "$shown | ${f.name}")
-                }
-            }
+    /** La parola più lunga della ricerca ridotta alla sua forma base: per prefiltrare in SQL senza perdere i plurali. */
+    fun sqlKeyword(query: String): String? =
+        FoodSearch.queryWords(normalize(query)).maxByOrNull { it.length }
+            ?.let { w -> FoodSearch.form(w).base.takeIf { it.length >= 3 } ?: w }
+
+    // Indice del catalogo per lingua (nome mostrato + italiano): si costruisce una volta sola
+    private val catalogByLanguage = java.util.concurrent.ConcurrentHashMap<io.github.peol13.unicum.i18n.AppLanguage, List<FoodSearch.Entry>>()
+
+    private fun catalogIndex(lang: io.github.peol13.unicum.i18n.AppLanguage): List<FoodSearch.Entry> =
+        catalogByLanguage.getOrPut(lang) { defaultFoods.map { buildEntry(it, lang) } }
+
+    // Voci degli alimenti personali, online o già registrati: la ricerca gira a ogni lettera sugli stessi cibi
+    private val otherEntries = java.util.concurrent.ConcurrentHashMap<Pair<io.github.peol13.unicum.i18n.AppLanguage, Food>, FoodSearch.Entry>()
+
+    private fun entryFor(f: Food, lang: io.github.peol13.unicum.i18n.AppLanguage): FoodSearch.Entry {
+        if (otherEntries.size > 5000) otherEntries.clear()
+        return otherEntries.getOrPut(lang to f) { buildEntry(f, lang) }
+    }
+
+    /** Si cerca nel nome mostrato (lingua dell'app), in quello italiano del catalogo e nella marca: "chicken", "pollo", "barilla". */
+    private fun buildEntry(f: Food, lang: io.github.peol13.unicum.i18n.AppLanguage): FoodSearch.Entry {
+        val shown = FoodNames.label(f.name, lang)
+        val text = buildString {
+            append(shown)
+            if (shown != f.name) append(" | ").append(f.name)
+            if (!f.brand.isNullOrBlank()) append(" | ").append(f.brand)
         }
-
-    // Anche i nomi personali, online o già registrati: la ricerca gira a ogni lettera sugli stessi nomi
-    private val otherNames = java.util.concurrent.ConcurrentHashMap<String, String>()
-
-    private fun normalizedName(name: String): String = catalogNames[name] ?: run {
-        if (otherNames.size > 5000) otherNames.clear()
-        otherNames.getOrPut(name) { normalize(name) }
+        return FoodSearch.Entry(f, normalize(text), shown.length)
     }
 }

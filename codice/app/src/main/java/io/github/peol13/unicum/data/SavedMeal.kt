@@ -25,10 +25,7 @@ data class SavedMeal(
         fun merge(current: List<SavedMeal>, incoming: List<SavedMeal>): List<SavedMeal> =
             current + incoming.filter { m -> current.none { it.name.equals(m.name, true) } }
 
-        /** Pasti il cui nome contiene tutte le parole cercate (vuota = tutti). */
-        fun search(list: List<SavedMeal>, query: String): List<SavedMeal> {
-            val words = FoodCatalog.normalize(query).split(" ").filter { it.isNotEmpty() }
-            return list.filter { m -> FoodCatalog.normalize(m.name).let { n -> words.all { n.contains(it) } } }
-        }
+        /** Pasti che corrispondono alla ricerca, con le regole degli alimenti (plurali, sinonimi, errori; vuota = tutti). */
+        fun search(list: List<SavedMeal>, query: String): List<SavedMeal> = FoodCatalog.filter(query, list) { it.name }
     }
 }

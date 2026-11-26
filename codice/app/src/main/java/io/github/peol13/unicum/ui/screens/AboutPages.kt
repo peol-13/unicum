@@ -107,6 +107,7 @@ fun AboutPage(onWhatsNew: () -> Unit) {
             Spacer(Modifier.height(8.dp))
             listOf(
                 "Open Food Facts" to tr("Prodotti con marca e codici a barre · dati ODbL, © i contributori di Open Food Facts"),
+                "CREA" to tr("Piatti italiani e alimenti di base · Tabelle di composizione degli alimenti, CREA Alimenti e Nutrizione (alimentinutrizione.it)"),
                 "OpenStreetMap" to tr("Mappe dei percorsi · © i contributori di OpenStreetMap (ODbL)"),
                 "Health Connect" to tr("Dati di salute dalle app del telefono · Google"),
                 "Montserrat" to "SIL Open Font License 1.1",

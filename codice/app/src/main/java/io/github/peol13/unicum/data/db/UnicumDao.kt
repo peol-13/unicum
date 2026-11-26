@@ -120,7 +120,7 @@ interface UnicumDao {
     fun searchFoods(query: String): List<FoodEntity>
 
     // Prodotti salvati dalla ricerca online
-    @Query("SELECT * FROM foods WHERE name LIKE '%' || :word || '%' ORDER BY fetchedAt DESC LIMIT 300")
+    @Query("SELECT * FROM foods WHERE name LIKE '%' || :word || '%' OR brand LIKE '%' || :word || '%' ORDER BY fetchedAt DESC LIMIT 300")
     fun cachedFoodsLike(word: String): List<FoodEntity>
 
     @Query("SELECT * FROM foods ORDER BY fetchedAt DESC LIMIT 50")

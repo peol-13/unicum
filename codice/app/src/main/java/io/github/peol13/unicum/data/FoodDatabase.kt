@@ -2,6 +2,11 @@ package io.github.peol13.unicum.data
 
 /**
  * Database alimentare di base (valori medi per 100 g di prodotto, fonti tipo CREA/USDA).
+ * Le righe dopo "Zuppa di legumi" e i piatti pronti principali (lasagne, pasta al pomodoro/carbonara/ragù, parmigiana,
+ * pesto, ragù, sugo, frittata, besciamella, pizza margherita) sono presi dalle Tabelle di composizione degli alimenti
+ * del CREA Alimenti e Nutrizione (alimentinutrizione.it, aggiornamento dicembre 2019): la fonte va citata (NOTICE.md,
+ * crediti dell'app). Per aggiungerne altre: stessi valori della scheda CREA (energia, proteine, carboidrati disponibili,
+ * lipidi) e nome italiano semplice, con traduzioni in foods.psv.
  *
  * Ogni riga: nome | kcal | proteine | carboidrati | grassi | categoria
  * Per cibi cotti il nome lo indica esplicitamente ("cotto/a"); altrimenti il valore è a crudo/secco.
@@ -52,7 +57,7 @@ Patate al forno|95|2.5|21|0.1|Carboidrati
 Patate fritte|300|3.5|38|15|Carboidrati
 Patate dolci|86|1.6|20|0.1|Carboidrati
 Mais in scatola|85|2.8|17|1.2|Carboidrati
-Pizza margherita|255|11|33|9|Piatti pronti
+Pizza margherita|235|10.7|27.4|9.3|Piatti pronti
 Petto di pollo crudo|110|23|0|1.5|Proteine
 Petto di pollo cotto|165|31|0|3.6|Proteine
 Coscia di pollo con pelle|210|18|0|15|Proteine
@@ -284,15 +289,15 @@ Ketchup|110|1.2|26|0.2|Condimenti
 Senape|66|4|6|3.5|Condimenti
 Salsa di soia|60|8|6|0|Condimenti
 Aceto balsamico|78|0.5|17|0|Condimenti
-Pesto alla genovese|460|5|5|47|Condimenti
-Ragù di carne|130|7|5|9|Condimenti
-Sugo al pomodoro|60|1.5|9|2|Condimenti
-Besciamella|120|3.5|10|7.5|Condimenti
-Lasagne al forno|165|8|16|7|Piatti pronti
+Pesto alla genovese|250|11|1.8|21.8|Condimenti
+Ragù di carne|196|12|1.9|15.4|Condimenti
+Sugo al pomodoro|74|1.3|3.6|5.7|Condimenti
+Besciamella|139|3.9|9.5|9.5|Condimenti
+Lasagne al forno|196|11.7|13.4|10.8|Piatti pronti
 Pizza prosciutto e funghi|240|11|29|9|Piatti pronti
-Pasta al pomodoro|150|5|28|2|Piatti pronti
-Pasta alla carbonara|190|8|20|8|Piatti pronti
-Pasta al ragù|170|8|21|6|Piatti pronti
+Pasta al pomodoro|113|3.3|19.5|2.6|Piatti pronti
+Pasta alla carbonara|245|10.8|28.4|10.3|Piatti pronti
+Pasta al ragù|168|8.4|16|8|Piatti pronti
 Risotto ai funghi|140|3|23|4|Piatti pronti
 Insalata di riso|155|4|24|4.5|Piatti pronti
 Panino con prosciutto e formaggio|260|13|30|9|Piatti pronti
@@ -300,10 +305,129 @@ Hamburger con panino|255|13|24|12|Piatti pronti
 Toast prosciutto e formaggio|270|14|26|12|Piatti pronti
 Sushi nigiri|150|6|28|1.5|Piatti pronti
 Kebab|215|13|20|9|Piatti pronti
-Frittata|190|12|2|15|Piatti pronti
+Frittata|185|16.1|0|13.4|Piatti pronti
 Cotoletta impanata|240|18|11|13|Piatti pronti
-Parmigiana di melanzane|160|7|7|11|Piatti pronti
+Parmigiana di melanzane|242|7|4|21|Piatti pronti
 Zuppa di legumi|85|5|13|1.5|Piatti pronti
+Alici al forno|172|18.2|7.1|8|Piatti pronti
+Alici marinate|120|14.2|1.4|6.4|Piatti pronti
+Baccalà alla vicentina|520|21.5|0.3|47.9|Piatti pronti
+Brasato al Barolo|108|13.8|0.3|5.6|Piatti pronti
+Cannolo siciliano|325|7.2|42.7|14.6|Dolci e snack
+Castagnaccio|234|3.4|39.3|6.8|Dolci e snack
+Frittata con prosciutto cotto e formaggio|205|16.2|0.3|15.4|Piatti pronti
+Gateau di patate|156|9.1|11.6|7.7|Piatti pronti
+Gnocchi al pesto|186|6.4|21.7|8.4|Piatti pronti
+Gnocchi al ragù|175|8.4|15.4|9|Piatti pronti
+Gnocchi al pomodoro|112|2.5|19.4|2.8|Piatti pronti
+Merluzzo in umido|86|9.7|1.7|4.3|Piatti pronti
+Pan di Spagna|275|10.1|49.7|5.1|Dolci e snack
+Pasta aglio, olio e peperoncino|190|4.2|26.5|7.9|Piatti pronti
+Pasta al pesto|175|6.7|21.4|7.2|Piatti pronti
+Pasta all'amatriciana|241|7.5|28.7|11|Piatti pronti
+Pasta alle vongole|157|6.7|28.3|2.4|Piatti pronti
+Pasta burro e parmigiano|184|6|27.3|6.1|Piatti pronti
+Pasta cacio e pepe|167|6.9|27.4|3.8|Piatti pronti
+Pasta e fagioli|116|4.9|12.2|5.1|Piatti pronti
+Pasta integrale al pomodoro|132|4.6|21.3|3.2|Piatti pronti
+Pastiera|295|7.2|43.6|11|Dolci e snack
+Polenta al ragù|114|4.6|12.4|5.3|Piatti pronti
+Polenta al pomodoro|73|1|14.2|1.5|Piatti pronti
+Pomodori ripieni di riso|93|2|14.5|2.8|Piatti pronti
+Ravioli burro e salvia|238|6.5|24.7|12.9|Piatti pronti
+Ravioli al pomodoro|135|4.8|17.6|5.1|Piatti pronti
+Riso al ragù|145|6.7|13.6|7.4|Piatti pronti
+Riso al pomodoro|90|1.7|16.5|2.2|Piatti pronti
+Riso burro e parmigiano|144|3.4|22.1|5.2|Piatti pronti
+Risotto alla parmigiana|181|4.1|25.4|7.5|Piatti pronti
+Scaloppine di tacchino al limone|170|20.5|11.5|4.9|Piatti pronti
+Sogliola al vino bianco|188|19|5.6|10.1|Piatti pronti
+Spezzatino di manzo al vino rosso|161|18.1|3|8.6|Piatti pronti
+Spigola al cartoccio|126|16.2|0.9|6.4|Piatti pronti
+Torta di mele|300|5|46.3|11.5|Dolci e snack
+Trota al forno|186|20.8|5.8|8.9|Piatti pronti
+Zucchine grigliate|75|4.3|5.5|3.8|Verdura
+Gelato fior di latte|218|4.2|20.7|13.7|Dolci e snack
+Gelato alla nocciola|183|3.3|25.2|8.4|Dolci e snack
+Gelato al cioccolato|173|3.6|25.3|7.1|Dolci e snack
+Gelato stracciatella|193|2.9|31.5|7|Dolci e snack
+Gelato alla vaniglia|167|2.7|25.7|6.7|Dolci e snack
+Gelato al caffè|245|5.1|23.9|15|Dolci e snack
+Sorbetto al limone|132|0.9|34.2|0|Dolci e snack
+Ghiacciolo|137|0|36.5|0|Dolci e snack
+Cono gelato panna e cioccolato|291|5.1|34.9|15.5|Dolci e snack
+Merendina farcita al cacao|410|6.2|65.5|15.1|Dolci e snack
+Panettone|337|6.4|56.2|10.7|Dolci e snack
+Savoiardi|395|11.9|69.6|9.2|Dolci e snack
+Torrone|483|10.8|52|26.8|Dolci e snack
+Wafer ricoperto di cioccolato|498|8.2|60.3|26.6|Dolci e snack
+Wafer|452|7.1|76.2|15|Dolci e snack
+Yogurt di soia|72|5|3.9|4.2|Latticini
+Crema di funghi|56|1|4.2|4|Piatti pronti
+Crema di pomodoro|36|0.8|6.4|1|Piatti pronti
+Cacao amaro in polvere|355|20.4|11.5|25.6|Condimenti
+Cheeseburger|300|16.3|30.2|13.1|Piatti pronti
+Chicken nuggets|242|17.7|15.4|12.4|Piatti pronti
+Patatine fritte del fast food|283|3.3|37.6|13.7|Carboidrati
+Falafel|198|7.1|19.8|9.5|Piatti pronti
+Involtini primavera|238|3.5|21.6|15.4|Piatti pronti
+Maiale in agrodolce|233|8.7|17.7|14.6|Piatti pronti
+Nachos|512|6.5|63.8|26.1|Dolci e snack
+Pollo alle mandorle|182|16.5|2.4|11.9|Piatti pronti
+Ravioli cinesi al vapore|270|7.2|21.4|17.5|Piatti pronti
+Riso alla cantonese|207|5.5|29.8|7.8|Piatti pronti
+Spaghetti cinesi saltati|165|4.6|13.6|10.4|Piatti pronti
+Tabulè|95|3|14|2.4|Piatti pronti
+Nuvolette di gamberi|559|0.8|57|38|Dolci e snack
+Caciocavallo|431|35.7|2.3|31.1|Latticini
+Crescenza|281|16.1|1.9|23.3|Latticini
+Taleggio|315|19|0.9|26.2|Latticini
+Pecorino romano|409|26|1.8|33.1|Latticini
+Brie|320|19.3|0.2|26.9|Latticini
+Camembert|307|20.9|0.2|24.7|Latticini
+Robiola|338|20|2.3|27.7|Latticini
+Ricotta di pecora|157|9.5|4.2|11.5|Latticini
+Formaggino|309|11.2|6|26.9|Latticini
+Edam|326|25.5|1.4|24.3|Latticini
+Cheddar|388|26.7|0.5|31|Latticini
+Groviera|417|30.6|1.5|32.1|Latticini
+Caciotta|368|24.6|0.8|29.6|Latticini
+Formaggio spalmabile light|179|9.2|3.1|14.5|Latticini
+Coppa|400|28.9|0|31.6|Proteine
+Capocollo|344|29.1|0.9|24.9|Proteine
+Cotechino cotto|253|23.6|3.2|16.3|Proteine
+Zampone cotto|262|23.7|2.6|17.5|Proteine
+Soppressata|377|34.2|0.9|26.3|Proteine
+Salsiccia cotta in padella|324|22.2|0|26.1|Proteine
+Prosciutto cotto sgrassato|107|17|1.9|3.5|Proteine
+Prosciutto crudo sgrassato|176|29.1|0.4|6.4|Proteine
+Paté di fegato|341|12.7|1.3|31.7|Proteine
+Pizza bianca (focaccia)|306|7.9|57.9|5.9|Carboidrati
+Pizza rossa|248|7.6|40.7|6.6|Carboidrati
+Pizza al taglio pomodoro e mozzarella|255|12.1|35.5|7.6|Carboidrati
+Tortellini freschi|302|12.2|49.9|7.1|Carboidrati
+Tortellini cotti|158|6.4|26|3.7|Carboidrati
+Ravioli freschi|265|10.6|40.7|7.3|Carboidrati
+Ravioli cotti|177|7.2|27.5|4.6|Carboidrati
+Rosetta (pane)|275|9|57.6|1.9|Carboidrati
+Panini al latte|298|9|48.1|8.7|Carboidrati
+Pane azzimo|365|10.7|81.7|1|Carboidrati
+Pangrattato|357|10.1|77.8|2.1|Carboidrati
+Riso Venere crudo|355|7.8|80.4|1.3|Carboidrati
+Riso Venere cotto|160|3.5|36.9|0.3|Carboidrati
+Riso parboiled crudo|338|7.4|81.3|0.3|Carboidrati
+Grano saraceno|329|12.4|61.2|3.3|Carboidrati
+Miglio|342|11|67.8|4.2|Carboidrati
+Farro perlato cotto|178|6.2|37.3|1|Carboidrati
+Orzo perlato cotto|118|2.6|26.4|0.6|Carboidrati
+Couscous cotto|179|3.6|39.7|1.1|Carboidrati
+Quinoa cotta|140|4.8|24.3|2.5|Carboidrati
+Gnocchi di patate cotti|147|3.5|34|0.2|Carboidrati
+Farina di mais|341|8.7|73.5|2.7|Carboidrati
+Biscotti integrali|419|7.8|70.8|12.3|Dolci e snack
+Crackers integrali|402|12|61.7|11.4|Carboidrati
+Fette biscottate integrali|394|14.2|63|10|Carboidrati
+Riso soffiato|354|6|85.1|1|Carboidrati
 """
 
     val foods: List<Food> by lazy {

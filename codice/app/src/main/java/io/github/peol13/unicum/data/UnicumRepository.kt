@@ -129,14 +129,15 @@ object UnicumRepository {
         if (rows.isNotEmpty()) dao(context).upsertFoods(rows)
     }
 
-    /** Prodotti salvati che contengono tutte le parole cercate (senza maiuscole né accenti). */
+    /**
+     * Prodotti salvati che corrispondono alla ricerca, con le stesse regole del catalogo (plurali, sinonimi…):
+     * SQL prefiltra con la forma base della parola più lunga, poi [FoodCatalog.filter] decide e ordina.
+     */
     suspend fun searchCachedFoods(context: Context, query: String): List<Food> = withContext(Dispatchers.IO) {
-        val words = FoodCatalog.normalize(query).split(" ").filter { it.isNotEmpty() }
-        val rows = if (words.isEmpty()) dao(context).recentCachedFoods()
-        else dao(context).cachedFoodsLike(words.first().replace("%", "").replace("_", ""))
-        rows.map { it.toFood() }
-            .filter { f -> val n = FoodCatalog.normalize(f.name); words.all { n.contains(it) } }
-            .take(50)
+        val key = FoodCatalog.sqlKeyword(query)
+        val rows = if (key == null) dao(context).recentCachedFoods()
+        else dao(context).cachedFoodsLike(key.replace("%", "").replace("_", ""))
+        FoodCatalog.filter(query, rows.map { it.toFood() }) { f -> listOfNotNull(f.name, f.brand).joinToString(" ") }.take(50)
     }
 
     /** Un prodotto già salvato in locale, cercato per codice a barre. */

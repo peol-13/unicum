@@ -188,18 +188,27 @@ fun AddMealDialog(
         value = UnicumRepository.foodsUsedIn(context, mealType)
     }
     val typeNames = remember(typeFoods) { typeFoods.map { it.name } }
-    // Gli alimenti già scelti in passato vengono per primi: prima quelli di questo pasto, poi tutti quelli
-    // già registrati (dal più recente); a parità resta l'ordine di pertinenza della ricerca
-    val results = remember(query, customFoods, cachedFoods, usedFoods, recentNames, typeNames) {
+    // Tra le corrispondenze buone, gli alimenti già scelti in passato vengono per primi: prima quelli di questo
+    // pasto, poi tutti quelli già registrati (dal più recente). Le corrispondenze deboli (errori di battitura,
+    // pezzi di parola) e parziali restano sotto anche se già mangiate: cercando "pollo" il polpo non passa davanti.
+    // A parità resta l'ordine di pertinenza della ricerca.
+    val search = remember(query, customFoods, cachedFoods, usedFoods, recentNames, typeNames) {
         // Posizione di ogni nome nelle tre liste, calcolata una volta (non una scansione a ogni confronto)
         fun positions(names: List<String>) = HashMap<String, Int>().apply { names.forEachIndexed { i, n -> putIfAbsent(n, i) } }
         val typePos = positions(typeNames)
         val usedPos = positions(usedNames)
         val recentPos = positions(recentNames)
-        FoodCatalog.search(query, null, customFoods + cachedFoods + usedFoods).sortedBy { f ->
-            typePos[f.name] ?: usedPos[f.name]?.plus(1_000) ?: recentPos[f.name]?.plus(100_000) ?: Int.MAX_VALUE
-        }
+        val r = FoodCatalog.searchResult(query, null, customFoods + cachedFoods + usedFoods)
+        val order = r.foods.indices.sortedWith(
+            compareBy<Int> { r.strength[it] }.thenBy { i ->
+                val n = r.foods[i].name
+                typePos[n] ?: usedPos[n]?.plus(1_000) ?: recentPos[n]?.plus(100_000) ?: Int.MAX_VALUE
+            }
+        )
+        r.partial to order.map { r.foods[it] }
     }
+    val partialResults = search.first
+    val results = search.second
     // A ogni nuova ricerca (o quando arrivano i risultati) la lista riparte dall'alto
     val listState = rememberLazyListState()
     LaunchedEffect(query, results.firstOrNull()?.name) { listState.scrollToItem(0) }
@@ -586,6 +595,17 @@ fun AddMealDialog(
                         }
                         if ((blank && (recents.isNotEmpty() || customFoods.isNotEmpty())) || shownTemplates.isNotEmpty()) {
                             item(key = "a_head") { ListLabel(if (blank) tr("Tutti gli alimenti") else tr("Alimenti")) }
+                        }
+
+                        if (partialResults) {
+                            item(key = "partial") {
+                                Text(
+                                    tr("Nessun alimento con tutte le parole: ecco i più simili."),
+                                    color = UnicumDark.copy(alpha = .6f),
+                                    style = UnicumType.Detail,
+                                    modifier = Modifier.padding(vertical = 8.dp)
+                                )
+                            }
                         }
 
                         items(results, key = { "a_" + it.name }) { food -> FoodItem(food) }

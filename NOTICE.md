@@ -24,4 +24,5 @@ The name **UNICUM**, the tagline *"Your health. Unified."* and the UNICUM logo a
 - Kotlin and kotlinx.serialization: Apache License 2.0.
 - Google ML Kit barcode scanning: [ML Kit Terms](https://developers.google.com/ml-kit/terms).
 - Food data from [Open Food Facts](https://world.openfoodfacts.org): Open Database License (ODbL).
+- Part of the built-in food catalog (Italian dishes and basic foods, values per 100 g) comes from the *Tabelle di composizione degli alimenti* of [CREA Centro di ricerca Alimenti e Nutrizione](https://www.alimentinutrizione.it/tabelle-nutrizionali/) (update December 2019), reproduced with the source cited as the site requires.
 - Map tiles: © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors.

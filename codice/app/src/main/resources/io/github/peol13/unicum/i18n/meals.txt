@@ -430,6 +430,13 @@ fr: Aucun aliment trouvé pour « %s ».
 de: Kein Lebensmittel für „%s“ gefunden.
 pt: Nenhum alimento encontrado para “%s”.
 
+it: Nessun alimento con tutte le parole: ecco i più simili.
+en: No food has all the words: here are the closest.
+es: Ningún alimento tiene todas las palabras: estos son los más parecidos.
+fr: Aucun aliment ne contient tous les mots : voici les plus proches.
+de: Kein Lebensmittel enthält alle Wörter: hier die ähnlichsten.
+pt: Nenhum alimento tem todas as palavras: estes são os mais parecidos.
+
 it: Crea un nuovo alimento
 en: Create a new food
 es: Crear un alimento nuevo
