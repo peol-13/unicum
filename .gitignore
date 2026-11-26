@@ -29,6 +29,8 @@ personal.properties
 
 # Firma della release: chiavi e password mai nel repository
 keystore.properties
+# Chiave del conteggio anonimo (vedi codice/anonstats.properties.example)
+anonstats.properties
 *.jks
 *.keystore
 

@@ -956,3 +956,49 @@ es: Responder
 fr: Répondre
 de: Antworten
 pt: Responder
+
+# Aggiornamento in un tocco (UpdateBanner, ApkUpdate)
+
+it: Download in corso… %s
+en: Downloading… %s
+es: Descargando… %s
+fr: Téléchargement en cours… %s
+de: Wird heruntergeladen… %s
+pt: Baixando… %s
+
+it: Download in corso…
+en: Downloading…
+es: Descargando…
+fr: Téléchargement en cours…
+de: Wird heruntergeladen…
+pt: Baixando…
+
+it: Pronta: tocca per installarla.
+en: Ready: tap to install it.
+es: Lista: toca para instalarla.
+fr: Prête : touche pour l'installer.
+de: Bereit: Tippe, um sie zu installieren.
+pt: Pronta: toque para instalar.
+
+it: Download non riuscito: tocca per scaricarla da GitHub.
+en: Download failed: tap to get it from GitHub.
+es: No se pudo descargar: toca para bajarla desde GitHub.
+fr: Échec du téléchargement : touche pour la récupérer sur GitHub.
+de: Download fehlgeschlagen: Tippe, um sie von GitHub zu laden.
+pt: O download falhou: toque para baixar pelo GitHub.
+
+# Notifica di una nuova versione (UpdateNotifier)
+
+it: Aggiornamenti dell'app
+en: App updates
+es: Actualizaciones de la app
+fr: Mises à jour de l'app
+de: App-Updates
+pt: Atualizações do app
+
+it: Tocca per aprire l'app e installarla: i tuoi dati restano.
+en: Tap to open the app and install it: your data stays.
+es: Toca para abrir la app e instalarla: tus datos se quedan.
+fr: Touche pour ouvrir l'app et l'installer : tes données restent.
+de: Tippe, um die App zu öffnen und sie zu installieren: Deine Daten bleiben erhalten.
+pt: Toque para abrir o app e instalar: seus dados continuam.

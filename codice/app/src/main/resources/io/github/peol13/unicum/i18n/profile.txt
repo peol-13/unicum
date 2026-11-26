@@ -587,27 +587,6 @@ fr: Une fois par jour : quels écrans tu as ouverts et combien de fois, quels jo
 de: Einmal am Tag: welche Bildschirme du wie oft geöffnet hast, an welchen Tagen, App- und Android-Version, welche Verbindungen du nutzt (Health Connect, Notion). Mit einem Zufallscode, nicht mit deinem Namen. Nie Gesundheitsdaten, Mahlzeiten, Trainings oder Profil.
 pt: Uma vez por dia: quais telas você abriu e quantas vezes, em quais dias, versão do app e do Android, quais conexões você usa (Health Connect, Notion). Com um código aleatório, não com seu nome. Nunca dados de saúde, refeições, treinos ou perfil.
 
-it: Aiuti a migliorare UNICUM?
-en: Help improve UNICUM?
-es: ¿Ayudas a mejorar UNICUM?
-fr: Tu aides à améliorer UNICUM ?
-de: Hilfst du, UNICUM zu verbessern?
-pt: Ajuda a melhorar o UNICUM?
-
-it: Puoi mandare statistiche anonime su come usi l'app: servono a capire quante persone la usano e quali parti migliorare.
-en: You can send anonymous statistics on how you use the app: they help understand how many people use it and what to improve.
-es: Puedes enviar estadísticas anónimas sobre cómo usas la app: sirven para saber cuántas personas la usan y qué partes mejorar.
-fr: Tu peux envoyer des statistiques anonymes sur ton usage de l'app : elles aident à savoir combien de personnes l'utilisent et quoi améliorer.
-de: Du kannst anonyme Statistiken zur Nutzung senden: Sie zeigen, wie viele Menschen die App nutzen und was verbessert werden sollte.
-pt: Você pode enviar estatísticas anônimas sobre como usa o app: elas ajudam a entender quantas pessoas o usam e o que melhorar.
-
-it: Puoi cambiare idea quando vuoi dal Profilo → Statistiche anonime.
-en: You can change your mind anytime in Profile → Anonymous statistics.
-es: Puedes cambiar de opinión cuando quieras en Perfil → Estadísticas anónimas.
-fr: Tu peux changer d'avis quand tu veux dans Profil → Statistiques anonymes.
-de: Du kannst es jederzeit unter Profil → Anonyme Statistiken ändern.
-pt: Você pode mudar de ideia quando quiser em Perfil → Estatísticas anônimas.
-
 it: Sì, invia
 en: Yes, send
 es: Sí, enviar
@@ -806,6 +785,13 @@ fr: Produits de marque et codes-barres · données ODbL, © contributeurs d'Open
 de: Markenprodukte und Barcodes · ODbL-Daten, © Open-Food-Facts-Mitwirkende
 pt: Produtos de marca e códigos de barras · dados ODbL, © colaboradores do Open Food Facts
 
+it: Piatti italiani e alimenti di base · Tabelle di composizione degli alimenti, CREA Alimenti e Nutrizione (alimentinutrizione.it)
+en: Italian dishes and basic foods · Food Composition Tables, CREA Food and Nutrition (alimentinutrizione.it)
+es: Platos italianos y alimentos básicos · Tablas de composición de alimentos, CREA Alimentos y Nutrición (alimentinutrizione.it)
+fr: Plats italiens et aliments de base · Tables de composition des aliments, CREA Aliments et Nutrition (alimentinutrizione.it)
+de: Italienische Gerichte und Grundnahrungsmittel · Nährwerttabellen, CREA Lebensmittel und Ernährung (alimentinutrizione.it)
+pt: Pratos italianos e alimentos básicos · Tabelas de composição dos alimentos, CREA Alimentos e Nutrição (alimentinutrizione.it)
+
 it: Mappe dei percorsi · © i contributori di OpenStreetMap (ODbL)
 en: Route maps · © OpenStreetMap contributors (ODbL)
 es: Mapas de los recorridos · © colaboradores de OpenStreetMap (ODbL)
@@ -975,3 +961,44 @@ es: Primer inicio más claro: idioma, conexión con Health Connect, una guía r�
 fr: Premier lancement plus clair : langue, connexion à Health Connect, un guide rapide des fonctions principales et la carte « Premiers pas » sur l'accueil.
 de: Klarerer Start: Sprache, Verbindung mit Health Connect, eine Kurzanleitung zu den wichtigsten Funktionen und die Karte „Erste Schritte“ auf dem Start.
 pt: Primeiro uso mais claro: idioma, conexão com o Health Connect, um guia rápido das funções principais e o cartão "Primeiros passos" no Início.
+
+# Conteggio anonimo delle aperture (data/AnonCount.kt)
+
+it: Invio statistiche anonime
+en: Anonymous statistics sending
+es: Envío de estadísticas anónimas
+fr: Envoi de statistiques anonymes
+de: Senden anonymer Statistiken
+pt: Envio de estatísticas anônimas
+
+# Novità della 1.2.0 (WhatsNew.kt)
+
+it: Nei Parziali puoi scrivere giri liberi o le ripetute: i giri seguono il programma quando il ritmo lo conferma.
+en: In Splits you can log free laps or intervals: laps follow the plan when your pace confirms it.
+es: En Parciales puedes anotar vueltas libres o las series: las vueltas siguen el programa cuando el ritmo lo confirma.
+fr: Dans les Partiels tu peux noter des tours libres ou les répétitions : les tours suivent le programme quand l'allure le confirme.
+de: Bei den Teilstrecken kannst du freie Runden oder Intervalle eintragen: die Runden folgen dem Plan, wenn das Tempo es bestätigt.
+pt: Nos Parciais você pode anotar voltas livres ou as repetições: as voltas seguem o programa quando o ritmo confirma.
+
+it: Parziali anche da 5 km, per le corse sopra i 10 km.
+en: Splits also every 5 km, for runs over 10 km.
+es: Parciales también de 5 km, para las carreras de más de 10 km.
+fr: Partiels aussi par 5 km, pour les courses de plus de 10 km.
+de: Teilstrecken auch über 5 km, für Läufe über 10 km.
+pt: Parciais também de 5 km, para corridas acima de 10 km.
+
+it: Prontezza all'allenamento: una percentuale accanto al recupero, calcolata sull'HRV rispetto alla notte prima.
+en: Training readiness: a percentage next to recovery, based on your HRV compared with the night before.
+es: Preparación para entrenar: un porcentaje junto a la recuperación, calculado con la HRV respecto a la noche anterior.
+fr: Prêt à s'entraîner : un pourcentage à côté de la récupération, calculé sur la HRV par rapport à la nuit précédente.
+de: Trainingsbereitschaft: ein Prozentwert neben der Erholung, berechnet aus der HRV im Vergleich zur Vornacht.
+pt: Prontidão para treinar: uma porcentagem ao lado da recuperação, calculada com a HRV em relação à noite anterior.
+
+# Novità 1.2.0: database dei cibi e statistiche facoltative (WhatsNew.kt)
+
+it: Database dei cibi migliorato: ricerca più precisa, anche con errori di battitura o nomi al plurale.
+en: Improved food database: more precise search, even with typos or plural names.
+es: Base de alimentos mejorada: búsqueda más precisa, incluso con erratas o nombres en plural.
+fr: Base d'aliments améliorée : recherche plus précise, même avec des fautes de frappe ou des noms au pluriel.
+de: Verbesserte Lebensmittel-Datenbank: genauere Suche, auch mit Tippfehlern oder Pluralformen.
+pt: Banco de alimentos melhorado: busca mais precisa, mesmo com erros de digitação ou nomes no plural.

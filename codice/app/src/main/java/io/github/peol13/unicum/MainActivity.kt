@@ -63,6 +63,7 @@ class MainActivity : ComponentActivity() {
         MealReminders.scheduleAll(applicationContext)
         AutoBackup.init(applicationContext)
         UsageStats.init(applicationContext)
+        io.github.peol13.unicum.data.AnonCount.init(applicationContext)
         io.github.peol13.unicum.data.UpdateCheck.init(applicationContext)
         io.github.peol13.unicum.data.FeedbackPrompt.init(applicationContext)
         BackgroundSync.schedule(applicationContext)
@@ -77,6 +78,8 @@ class MainActivity : ComponentActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // Statistiche anonime (solo se l'utente ha detto sì): riepilogo dei giorni passati, max una volta al giorno
                 launch { UsageStats.sendIfDue(usageFeatures()) }
+                // Conteggio anonimo delle aperture (per tutti, senza codice; si spegne dal Profilo): max una volta al giorno
+                launch { io.github.peol13.unicum.data.AnonCount.sendIfDue(usageFeatures()) }
                 // Nuova versione su GitHub? Max una volta al giorno; il banner compare nella Home
                 launch { io.github.peol13.unicum.data.UpdateCheck.checkIfDue() }
                 // Giorni d'uso per la card "Come ti trovi?" (una volta al giorno)
@@ -215,14 +218,14 @@ private fun AppContent() {
 
     // Statistiche anonime: si conta il nome della schermata aperta (senza id) e si chiede il consenso una volta
     LaunchedEffect(screen) {
-        UsageStats.screen(
-            when (val s = screen) {
-                is Route.Workout -> "Allenamento"
-                is Route.Shoe -> "Scarpa"
-                is Route.WeekStory -> "Settimana"
-                else -> s.key
-            }
-        )
+        val name = when (val s = screen) {
+            is Route.Workout -> "Allenamento"
+            is Route.Shoe -> "Scarpa"
+            is Route.WeekStory -> "Settimana"
+            else -> s.key
+        }
+        UsageStats.screen(name)
+        io.github.peol13.unicum.data.AnonCount.screen(name)
     }
     // Una richiesta alla volta: dopo il primo avvio e mentre c'è la finestra delle novità aspetta
     if (!UnicumAppState.onboardedThisSession && !io.github.peol13.unicum.ui.screens.whatsNewPending()) UsageStatsConsentDialog()

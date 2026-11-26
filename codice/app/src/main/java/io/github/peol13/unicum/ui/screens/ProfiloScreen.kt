@@ -110,7 +110,12 @@ fun ProfiloScreen(onNavigate: (Route) -> Unit) {
     var whatsNew by remember { mutableStateOf(false) }
     if (whatsNew) WhatsNewDialog(onDismiss = { whatsNew = false })
     BackHandler(enabled = page != null) { page = null }
-    LaunchedEffect(page) { page?.let { io.github.peol13.unicum.data.UsageStats.screen("Profilo/$it") } }
+    LaunchedEffect(page) {
+        page?.let {
+            io.github.peol13.unicum.data.UsageStats.screen("Profilo/$it")
+            io.github.peol13.unicum.data.AnonCount.screen("Profilo/$it")
+        }
+    }
     // Ogni sotto-pagina parte dall'alto (prima ereditava lo scorrimento del menu: "Aspetto" si apriva già sul Tema);
     // il menu ricorda dov'era, così tornando indietro si ritrova la voce toccata
     val menuScroll = rememberScrollState()

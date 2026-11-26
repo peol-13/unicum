@@ -15,6 +15,15 @@ val personal = Properties().apply {
 }
 fun personalField(key: String): String = "\"" + (personal.getProperty(key) ?: "").trim().replace("\"", "") + "\""
 
+// Conteggio anonimo delle aperture (data/AnonCount.kt): sito GoatCounter e chiave API "solo registrare visite"
+// in anonstats.properties, fuori dal repository (vedi anonstats.properties.example). Senza file il conteggio è spento.
+val anonStats = Properties().apply {
+    val f = rootProject.file("anonstats.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+fun anonField(key: String): String = "\"" + (anonStats.getProperty(key) ?: "").trim().replace("\"", "") + "\""
+val anonSite = (anonStats.getProperty("goatcounter_site") ?: "").trim()
+
 // Firma della release: keystore.properties fuori dal repository (vedi keystore.properties.example).
 // Senza file la release esce non firmata.
 val keystore = Properties().apply {
@@ -33,8 +42,8 @@ android {
         minSdk = 26
         targetSdk = 37
         // versionCode: +1 a ogni APK pubblicato (Android installa sopra solo se è più alto)
-        versionCode = 4
-        versionName = "1.1.0"
+        versionCode = 5
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -42,6 +51,13 @@ android {
         buildConfigField("String", "PERSONAL_NOTION_PLAN", personalField("notion_plan_database"))
         buildConfigField("String", "PERSONAL_NOTION_LOG", personalField("notion_log_database"))
         buildConfigField("String", "PERSONAL_RUN_GOAL_SHORT", personalField("run_goal_short"))
+        buildConfigField(
+            "String", "ANON_COUNT_URL",
+            if (anonSite.isEmpty()) "\"\"" else "\"https://$anonSite.goatcounter.com/api/v0/count\""
+        )
+        buildConfigField("String", "ANON_COUNT_TOKEN", anonField("goatcounter_token"))
+        // true solo per provare l'invio da una build di debug (di base il debug non invia niente)
+        buildConfigField("boolean", "ANON_COUNT_DEBUG", (anonStats.getProperty("send_from_debug") == "true").toString())
     }
 
     signingConfigs {

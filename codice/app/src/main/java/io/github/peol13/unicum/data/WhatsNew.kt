@@ -12,6 +12,14 @@ object WhatsNew {
 
     val releases = listOf(
         Release(
+            "1.2.0", listOf(
+                tk("Database dei cibi migliorato: ricerca più precisa, anche con errori di battitura o nomi al plurale."),
+                tk("Nei Parziali puoi scrivere giri liberi o le ripetute: i giri seguono il programma quando il ritmo lo conferma."),
+                tk("Parziali anche da 5 km, per le corse sopra i 10 km."),
+                tk("Prontezza all'allenamento: una percentuale accanto al recupero, calcolata sull'HRV rispetto alla notte prima.")
+            )
+        ),
+        Release(
             "1.1.0", listOf(
                 tk("Pesi e corpo libero negli Allenamenti: sedute con esercizi, serie e carichi, e i kg di ogni esercizio nel tempo."),
                 tk("Registrare un pasto è più veloce: il + aggiunge al volo, la quantità si sceglie in un foglio a parte e il pasto sta in una barra in basso."),

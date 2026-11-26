@@ -23,8 +23,8 @@ import java.util.Locale
 
 /**
  * Aggiornamenti ad app chiusa: ogni circa 3 ore Android avvia [BackgroundJobService], che sincronizza Health Connect
- * (se il telefono lo permette), rilegge Notion, fa il backup automatico se è il momento, manda l'avviso sul recupero
- * e ridisegna il widget. Usa JobScheduler di Android (lo stesso meccanismo di WorkManager, senza altre librerie):
+ * (se il telefono lo permette), rilegge Notion, fa il backup automatico se è il momento, manda l'avviso sul recupero,
+ * controlla se c'è una nuova versione (con notifica) e ridisegna il widget. Usa JobScheduler di Android (lo stesso meccanismo di WorkManager, senza altre librerie):
  * i lavori sopravvivono al riavvio del telefono e Android sceglie il momento giusto per la batteria.
  */
 object BackgroundSync {
@@ -95,6 +95,10 @@ object BackgroundSync {
             RecoveryAlerts.fromHealth(health, today)?.let { RecoveryAlertNotifier.notifyOnce(app, it) }
         }
         step("Riepilogo settimana") { WeeklySummary.notifyIfDue(app) }
+        step("Aggiornamenti") {
+            UpdateCheck.init(app)
+            UpdateCheck.checkIfDue(context = app)
+        }
         step("Widget") { UnicumWidget.refresh(app) }
 
         prefs(app).edit().putLong("last_run", System.currentTimeMillis())

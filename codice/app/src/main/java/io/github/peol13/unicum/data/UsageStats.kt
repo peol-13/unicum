@@ -49,6 +49,11 @@ object UsageStats {
     private const val K_DAYS = "days"
     private const val K_SCREENS = "screens"
     private const val K_LAST_SENT = "last_sent"
+    private const val K_ASK_AFTER = "ask_after"
+    private const val K_ASKS = "asks"
+    /** Dopo tre "Non ora" la domanda non compare più: la scelta resta nel Profilo. */
+    private const val MAX_POSTPONES = 3
+    private const val POSTPONE_DAYS = 7L
 
     private lateinit var prefs: SharedPreferences
 
@@ -59,13 +64,32 @@ object UsageStats {
     fun init(context: Context) {
         prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         enabled = if (prefs.contains(K_ENABLED)) prefs.getBoolean(K_ENABLED, false) else null
+        asking = askDue(LocalDate.now())
     }
 
-    /** Va chiesto il consenso: modulo configurato, primo avvio finito, nessuna risposta ancora. */
-    val shouldAsk: Boolean get() = available && enabled == null
+    /** La domanda delle statistiche dettagliate va mostrata adesso (vedi [askDue] e [postpone]). */
+    var asking by mutableStateOf(false)
+        private set
+
+    /** Nessuna risposta ancora, meno di [MAX_POSTPONES] rinvii, e il tempo del rinvio è passato. */
+    private fun askDue(today: LocalDate): Boolean {
+        if (!available || enabled != null || !::prefs.isInitialized) return false
+        val after = prefs.getString(K_ASK_AFTER, null)?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+        return prefs.getInt(K_ASKS, 0) < MAX_POSTPONES && (after == null || !today.isBefore(after))
+    }
+
+    /** "Non ora": non è un no, la domanda torna tra [POSTPONE_DAYS] giorni. */
+    fun postpone(today: LocalDate = LocalDate.now()) {
+        prefs.edit()
+            .putString(K_ASK_AFTER, today.plusDays(POSTPONE_DAYS).toString())
+            .putInt(K_ASKS, prefs.getInt(K_ASKS, 0) + 1)
+            .apply()
+        asking = false
+    }
 
     fun choose(on: Boolean) {
         enabled = on
+        asking = false
         prefs.edit().apply {
             putBoolean(K_ENABLED, on)
             if (on) {
@@ -96,6 +120,8 @@ object UsageStats {
      */
     suspend fun sendIfDue(features: List<String>, today: LocalDate = LocalDate.now()) {
         if (!active) return
+        // Telefono di chi sviluppa (debug) ed emulatori: mai nei numeri (vedi DevDevice)
+        if (DevDevice.notCounted) return
         if (prefs.getString(K_LAST_SENT, null) == today.toString()) return
         val all = UsageCounts.decode(prefs.getString(K_SCREENS, null))
         val (past, current) = all.split(today)

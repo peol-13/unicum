@@ -45,4 +45,19 @@ class UpdateCheckTest {
         assertNull(UpdateCheck.parseRelease("""{"tag_name":"prova"}"""))
         assertEquals(UpdateCheck.RELEASES_PAGE, UpdateCheck.parseRelease("""{"tag_name":"1.2.0"}""")!!.url)
     }
+
+    @Test
+    fun picksTheApkOfTheRelease() {
+        val base = "https://github.com/peol-13/unicum/releases/download/v1.2.0/"
+        val json = """{"tag_name":"v1.2.0","html_url":"https://github.com/peol-13/unicum/releases/tag/v1.2.0","assets":[
+            {"name":"unicum-1.2.0.apk","browser_download_url":"${base}unicum-1.2.0.apk"},
+            {"name":"unicum.apk","browser_download_url":"${base}unicum.apk"}]}"""
+        assertEquals(base + "unicum.apk", UpdateCheck.parseRelease(json)!!.apkUrl)
+        // Senza "unicum.apk" va bene anche quello con la versione; file di altri siti mai
+        val solo = """{"tag_name":"v1.2.0","assets":[{"name":"unicum-1.2.0.apk","browser_download_url":"${base}unicum-1.2.0.apk"}]}"""
+        assertEquals(base + "unicum-1.2.0.apk", UpdateCheck.parseRelease(solo)!!.apkUrl)
+        val altrove = """{"tag_name":"v1.2.0","assets":[{"name":"unicum.apk","browser_download_url":"https://example.com/unicum.apk"}]}"""
+        assertNull(UpdateCheck.parseRelease(altrove)!!.apkUrl)
+        assertNull(UpdateCheck.parseRelease("""{"tag_name":"v1.2.0"}""")!!.apkUrl)
+    }
 }

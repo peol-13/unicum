@@ -36,34 +36,32 @@ private val WHAT_IS_SENT get() = tr(
         
         
 
-/** Domanda una tantum (dopo il primo avvio): sì o no alle statistiche anonime. Non si chiude senza risposta. */
+/**
+ * Domanda delle statistiche dettagliate per chi ha aggiornato (a chi installa per la prima volta la fa il primo avvio).
+ * "Sì" è il pulsante grande; "Non ora" è piccolo e la domanda torna più tardi.
+ */
 @Composable
 fun UsageStatsConsentDialog() {
-    if (!UsageStats.shouldAsk) return
+    if (!UsageStats.asking) return
     UnicumDialog(onDismiss = {}) {
-        Text(tr("Aiuti a migliorare UNICUM?"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
+        Text(tr("Ci aiuti a migliorare UNICUM?"), color = UnicumDark, style = UnicumType.Heading, fontWeight = FontWeight.SemiBold)
         Text(
-            tr("Puoi mandare statistiche anonime su come usi l'app: servono a capire quante persone la usano e quali parti migliorare."),
-                
+            tr("UNICUM è un'app nuova: le statistiche anonime ci dicono quali funzioni usi di più e quale migliorare per prima. Nessun nome, mai dati di salute."),
             color = UnicumDark, style = UnicumType.Detail, lineHeight = 20.sp
         )
         Text(WHAT_IS_SENT, color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp)
-        Text(
-            tr("Puoi cambiare idea quando vuoi dal Profilo → Statistiche anonime."),
-            color = UnicumDark.copy(alpha = .6f), style = UnicumType.Caption, lineHeight = 17.sp
-        )
         UnicumButton(tr("Sì, invia"), onClick = { UsageStats.choose(true) })
-        TextButton(onClick = { UsageStats.choose(false) }, modifier = Modifier.fillMaxWidth()) {
-            Text(tr("No, grazie"), color = UnicumPrimary, style = UnicumType.Detail, fontWeight = FontWeight.SemiBold)
+        TextButton(onClick = { UsageStats.postpone() }, modifier = Modifier.fillMaxWidth()) {
+            Text(tr("Non ora"), color = UnicumDark.copy(alpha = .55f), style = UnicumType.Caption, fontWeight = FontWeight.Medium)
         }
     }
 }
 
-/** Sotto-pagina del Profilo: interruttore e cosa viene inviato. */
+/** Sotto-pagina del Profilo: interruttore delle statistiche dettagliate. */
 @Composable
 fun UsageStatsPage() {
     UnicumCard {
-        CardHeader(Icons.Rounded.BarChart, tr("Statistiche anonime"))
+        CardHeader(Icons.Rounded.BarChart, tr("Invio statistiche anonime"))
         Spacer(Modifier.height(4.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(

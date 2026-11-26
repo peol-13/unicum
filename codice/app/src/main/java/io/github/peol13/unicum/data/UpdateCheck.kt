@@ -21,7 +21,9 @@ import java.time.LocalDate
  * - Al massimo una volta al giorno l'app chiede a GitHub qual è l'ultima release pubblicata
  *   ([LATEST_URL], una richiesta senza dati dell'utente: solo lo User-Agent con la versione dell'app).
  * - Se è più nuova di quella installata, la Home mostra un banner che porta alla pagina di download.
- * - "×" nasconde l'avviso per quella versione; alla release successiva ricompare.
+ * - Il banner non si chiude: resta finché non si installa la nuova versione.
+ * - Se la nuova versione la trova il lavoro in background ([BackgroundSync]), arriva anche una notifica
+ *   (una sola per versione; se l'app l'ha già trovata aperta, basta il banner).
  * - La versione trovata resta salvata: il banner si vede anche senza rete, e sparisce da solo
  *   quando l'utente installa la nuova versione.
  */
@@ -33,12 +35,21 @@ object UpdateCheck {
     private const val K_LAST_CHECK = "last_check"
     private const val K_LATEST = "latest_version"
     private const val K_URL = "latest_url"
-    private const val K_DISMISSED = "dismissed_version"
+    /** Ultima versione per cui c'è già stato un avviso (banner visto o notifica): una notifica sola per versione. */
+    private const val K_NOTIFIED = "notified_version"
+    private const val K_APK = "latest_apk"
+
+    /** Si scaricano solo file delle release di questo repository (vedi [ApkUpdate]). */
+    const val APK_PREFIX = AppInfo.PROJECT_URL + "/releases/download/"
 
     private lateinit var prefs: SharedPreferences
 
     /** Ultima versione pubblicata, se più nuova di quella installata e non nascosta; altrimenti null. */
     var available by mutableStateOf<String?>(null)
+        private set
+
+    /** Indirizzo dell'APK della release, per scaricarlo dentro l'app; null = si apre la pagina della release. */
+    var apkUrl by mutableStateOf<String?>(null)
         private set
 
     /** Pagina della release da aprire per scaricare l'APK. */
@@ -48,17 +59,15 @@ object UpdateCheck {
     fun init(context: Context) {
         prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         refreshState()
+        // Aggiornamento già installato (o nessuno in attesa): l'APK scaricato non serve più
+        if (available == null) ApkUpdate.cleanup(context)
     }
 
-    /** Nasconde l'avviso fino alla prossima release. */
-    fun dismiss() {
-        val v = available ?: return
-        prefs.edit().putString(K_DISMISSED, v).apply()
-        available = null
-    }
-
-    /** Chiede a GitHub l'ultima release, al massimo una volta al giorno. Gli errori si ignorano: si riprova domani. */
-    suspend fun checkIfDue(today: LocalDate = LocalDate.now()) {
+    /**
+     * Chiede a GitHub l'ultima release, al massimo una volta al giorno. Gli errori si ignorano: si riprova domani.
+     * [context] solo dal lavoro in background: se trova una versione nuova manda la notifica.
+     */
+    suspend fun checkIfDue(today: LocalDate = LocalDate.now(), context: Context? = null) {
         if (!::prefs.isInitialized) return
         if (prefs.getString(K_LAST_CHECK, null) == today.toString()) return
         val release = fetchLatest() ?: return
@@ -66,16 +75,23 @@ object UpdateCheck {
             .putString(K_LAST_CHECK, today.toString())
             .putString(K_LATEST, release.version)
             .putString(K_URL, release.url)
+            .putString(K_APK, release.apkUrl)
             .apply()
         refreshState()
+        val v = available ?: return
+        if (prefs.getString(K_NOTIFIED, null) == v) return
+        // Trovata ad app chiusa: notifica. Trovata ad app aperta: c'è già il banner.
+        if (context != null) UpdateNotifier.notify(context, v)
+        prefs.edit().putString(K_NOTIFIED, v).apply()
     }
 
     private fun refreshState() {
         val latest = prefs.getString(K_LATEST, null)
         available = latest?.takeIf {
-            isNewer(it, BuildConfig.VERSION_NAME) && it != prefs.getString(K_DISMISSED, null)
+            isNewer(it, BuildConfig.VERSION_NAME)
         }
         downloadUrl = prefs.getString(K_URL, null)?.takeIf { it.startsWith(AppInfo.PROJECT_URL) } ?: RELEASES_PAGE
+        apkUrl = prefs.getString(K_APK, null)?.takeIf { it.startsWith(APK_PREFIX) && it.endsWith(".apk") }
     }
 
     private suspend fun fetchLatest(): Release? = withContext(Dispatchers.IO) {
@@ -99,7 +115,7 @@ object UpdateCheck {
         }
     }
 
-    data class Release(val version: String, val url: String)
+    data class Release(val version: String, val url: String, val apkUrl: String? = null)
 
     /** Risposta di `/releases/latest`: "tag_name" (es. "v1.0.3") e "html_url". Bozze e pre-release si saltano. */
     fun parseRelease(json: String): Release? {
@@ -107,7 +123,16 @@ object UpdateCheck {
         if (root.optBoolean("draft") || root.optBoolean("prerelease")) return null
         val version = root.optString("tag_name").trim().removePrefix("v").removePrefix("V")
         if (parseVersion(version) == null) return null
-        return Release(version, root.optString("html_url").ifBlank { RELEASES_PAGE })
+        // L'APK da scaricare: "unicum.apk" se c'è, altrimenti il primo file .apk della release
+        val assets = root.optJSONArray("assets")
+        val apks = (0 until (assets?.length() ?: 0)).mapNotNull { i ->
+            val a = assets!!.optJSONObject(i) ?: return@mapNotNull null
+            val name = a.optString("name")
+            val url = a.optString("browser_download_url")
+            if (name.endsWith(".apk") && url.startsWith(APK_PREFIX)) name to url else null
+        }
+        val apk = (apks.firstOrNull { it.first == "unicum.apk" } ?: apks.firstOrNull())?.second
+        return Release(version, root.optString("html_url").ifBlank { RELEASES_PAGE }, apk)
     }
 
     /** "1.0.3" > "1.0.2"; "1.1" = "1.1.0". Suffissi come "-debug" si ignorano. Versioni illeggibili: mai più nuove. */

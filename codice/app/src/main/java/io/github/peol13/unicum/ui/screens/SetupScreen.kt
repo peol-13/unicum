@@ -70,6 +70,9 @@ import io.github.peol13.unicum.data.DashboardMode
 import io.github.peol13.unicum.data.LocalPlan
 import io.github.peol13.unicum.data.NotionPlan
 import io.github.peol13.unicum.data.UserSettings
+import io.github.peol13.unicum.data.UsageStats
+import androidx.compose.material.icons.rounded.BarChart
+import androidx.compose.material.icons.rounded.Lock
 import io.github.peol13.unicum.ui.components.EstimatedNumberField
 import io.github.peol13.unicum.ui.components.ExpandRow
 import io.github.peol13.unicum.ui.components.PersonalFormState
@@ -109,10 +112,12 @@ private object SetupDraft {
     var macrosOpen by mutableStateOf(false)
     /** Il sesso va scelto: nessuna risposta già segnata, così non si va avanti per sbaglio con quella sbagliata. */
     var sexChosen by mutableStateOf(false)
+    /** Statistiche dettagliate: null = non ancora scelto (serve per andare avanti). Si salvano all'ultimo passo. */
+    var statsChoice by mutableStateOf<Boolean?>(null)
 }
 
 /** I passi del primo avvio, uno per schermata; [PLAN_SETUP] c'è solo se si sceglie Notion o PDF. */
-private enum class Step { WELCOME, SEX, AGE, WEIGHT, HEIGHT, ACTIVITY, GOAL, NEEDS, HOME, HEALTH, PLAN, PLAN_SETUP, DONE }
+private enum class Step { WELCOME, SEX, AGE, WEIGHT, HEIGHT, ACTIVITY, GOAL, NEEDS, HOME, HEALTH, PLAN, PLAN_SETUP, STATS, DONE }
 
 /**
  * Primo avvio, in stile app moderna: una domanda per schermata (sesso, età, peso, altezza, attività, obiettivo),
@@ -134,8 +139,11 @@ fun SetupScreen(onDone: () -> Unit) {
 
     fun finish() {
         form.save()
+        SetupDraft.statsChoice?.let { UsageStats.choose(it) }
         UserSettings.chooseDashboardMode(SetupDraft.mode)
         UserSettings.completeOnboarding()
+        // Chi installa adesso non deve vedere le novità della versione che ha appena installato: solo chi aggiorna
+        UserSettings.markWhatsNewSeen(io.github.peol13.unicum.data.WhatsNew.core(io.github.peol13.unicum.BuildConfig.VERSION_NAME))
         UnicumAppState.markOnboardedNow()
         // Subito dopo, la guida rapida alle funzioni principali (una volta; si riapre dal Profilo)
         UserSettings.requestTour()
@@ -166,6 +174,7 @@ fun SetupScreen(onDone: () -> Unit) {
         Step.NEEDS -> form.isValid
         Step.PLAN -> SetupDraft.plan != null
         Step.SEX -> SetupDraft.sexChosen
+        Step.STATS -> SetupDraft.statsChoice != null
         else -> true
     }
 
@@ -394,6 +403,20 @@ private fun StepContent(step: Step, form: PersonalFormState) {
                 Question(tr("Importa il programma"), tr("Scegli il PDF: controlli le sedute trovate e le salvi."))
                 LocalPlanPage()
             }
+        }
+
+        Step.STATS -> {
+            Question(
+                tr("Ci aiuti a migliorare UNICUM?"),
+                tr("Puoi mandare statistiche anonime su come usi l'app. Scegli quello che preferisci: la scelta resta modificabile dal Profilo.")
+            )
+            BigOption(Icons.Rounded.BarChart, tr("Sì, invia"),
+                tr("Quali schermate apri, versione, collegamenti usati. Con un codice casuale per installazione, mai dati di salute, pasti o allenamenti."),
+                SetupDraft.statsChoice == true) { SetupDraft.statsChoice = true }
+            Spacer(Modifier.height(10.dp))
+            BigOption(Icons.Rounded.Lock, tr("No, grazie"),
+                tr("Nessun problema: l'app funziona allo stesso modo."),
+                SetupDraft.statsChoice == false) { SetupDraft.statsChoice = false }
         }
 
         Step.DONE -> Done(form)

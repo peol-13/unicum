@@ -1,0 +1,8 @@
+# Copia in anonstats.properties (ignorato da git) per accendere il conteggio anonimo delle aperture
+# (data/AnonCount.kt). Senza questo file l'app non invia niente.
+# goatcounter_site: il codice del sito GoatCounter (quello prima di .goatcounter.com).
+# goatcounter_token: chiave API creata in GoatCounter con il solo permesso di registrare visite (pageviews).
+goatcounter_site=
+goatcounter_token=
+# true solo per provare l'invio da una build di debug; di base il debug non invia niente.
+send_from_debug=false

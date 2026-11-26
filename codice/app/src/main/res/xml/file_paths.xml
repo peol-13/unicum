@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File che l'app passa ad altre app (FileProvider): solo l'APK dell'aggiornamento scaricato (data/ApkUpdate.kt). -->
+<paths>
+    <files-path name="updates" path="updates/" />
+</paths>

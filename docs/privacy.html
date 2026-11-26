@@ -44,10 +44,10 @@
     </div>
   </div>
   <h1 data-t="p.h1">Informativa sulla privacy di UNICUM</h1>
-  <p class="muted"><span data-t="p.updated">Ultimo aggiornamento: 24 novembre 2026</span><span class="only-it"> · <a href="#english">English summary</a></span></p>
+  <p class="muted"><span data-t="p.updated">Ultimo aggiornamento: 26 novembre 2026</span><span class="only-it"> · <a href="#english">English summary</a></span></p>
   <p class="muted not-it" data-t="p.note"></p>
 
-  <p data-t="p.intro">UNICUM è un'app Android sviluppata da Paolo Gobbetti (peol-13). In breve: <strong>non c'è un account, non c'è un server e i tuoi dati di salute restano sul telefono</strong>. Lo sviluppatore riceve qualcosa solo se accetti le statistiche anonime d'uso (vedi sotto): quali schermate apri, mai i tuoi dati.</p>
+  <p data-t="p.intro">UNICUM è un'app Android sviluppata da Paolo Gobbetti (peol-13). In breve: <strong>non c'è un account, non c'è un server e i tuoi dati di salute restano sul telefono</strong>. Lo sviluppatore riceve solo un conteggio anonimo delle aperture, senza alcun codice, e le statistiche d'uso dettagliate solo se le accetti (vedi sotto): mai i tuoi dati.</p>
 
   <h2 data-t="p.h.data">Quali dati usa l'app</h2>
   <ul>
@@ -64,12 +64,24 @@
   <ul>
     <li data-t="p.net1"><strong>Open Food Facts</strong>: quando cerchi un alimento online o scansioni un codice a barre, l'app invia il testo cercato o il codice.</li>
     <li data-t="p.net2"><strong>OpenStreetMap</strong>: per disegnare la mappa di una corsa, l'app scarica i riquadri della zona. Il servizio vede quindi quale zona viene richiesta, non il tuo percorso né la tua identità.</li>
-    <li data-t="p.net3"><strong>GitHub</strong>: al massimo una volta al giorno l'app chiede qual è l'ultima versione pubblicata, per avvisarti se ce n'è una più nuova. La richiesta non contiene dati tuoi, solo la versione dell'app installata.</li>
+    <li data-t="p.net3"><strong>GitHub</strong>: al massimo una volta al giorno l'app chiede qual è l'ultima versione pubblicata, per avvisarti se ce n'è una più nuova. La richiesta non contiene dati tuoi, solo la versione dell'app installata. Se tocchi l'avviso, l'app scarica da GitHub il file della nuova versione e lo apre con l'installazione di Android.</li>
     <li data-t="p.net4"><strong>Notion</strong>, solo se lo colleghi tu: l'app legge il tuo programma con un token in sola lettura che crei tu e che resta sul telefono (e nel file del backup automatico, nel posto che scegli tu, se non lo escludi).</li>
-    <li data-t="p.net5"><strong>Statistiche anonime d'uso</strong>, solo se rispondi sì alla domanda che compare dopo il primo avvio. Sono spente finché non accetti.</li>
+    <li data-t="p.net6"><strong>GoatCounter</strong>: una volta al giorno, il conteggio anonimo delle aperture descritto sotto.</li>
+    <li data-t="p.net5"><strong>Statistiche d'uso dettagliate</strong>, solo se rispondi sì alla domanda che compare dopo il primo avvio. Sono spente finché non accetti.</li>
   </ul>
 
-  <h2 data-t="p.h.stats">Statistiche anonime d'uso (facoltative)</h2>
+  <h2 data-t="p.h.anon">Conteggio anonimo delle aperture</h2>
+  <p data-t="p.anon">Serve a sapere quante installazioni usano UNICUM ogni giorno. È acceso per tutti senza bisogno di consenso perché è anonimo per costruzione: non c'è nessun codice e nessun invio si può collegare a un altro, a un telefono o a una persona. Al massimo una volta al giorno, alla prima apertura, l'app manda a <a href="https://www.goatcounter.com">GoatCounter</a> (in un sito separato da quello del sito web) questi conteggi, ognuno a sé:</p>
+  <ul>
+    <li data-t="p.anon1">che l'app è stata aperta quel giorno, con la versione dell'app;</li>
+    <li data-t="p.anon2">da quanto tempo è installata, a fasce larghe (nuova, 2-7 giorni, 8-30 giorni, oltre 30);</li>
+    <li data-t="p.anon3">la lingua dell'app e la versione di Android;</li>
+    <li data-t="p.anon4">quali funzioni sono collegate (Health Connect, programma da Notion o nell'app, scarpe), la schermata principale e il tema;</li>
+    <li data-t="p.anon5">per i giorni passati, quali schermate sono state aperte (il nome, non quante volte).</li>
+  </ul>
+  <p data-t="p.anon6">Non vengono mai inviati dati di salute, pasti, allenamenti, profilo, posizione, nome, email né il codice delle statistiche dettagliate. GoatCounter non usa cookie, non salva l'indirizzo IP e non usa i dati per altro; ogni conteggio porta un numero casuale usa e getta, diverso ogni volta, quindi nemmeno il servizio li collega tra loro. Lo sviluppatore vede solo totali giornalieri. È una misura del pubblico che le linee guida del Garante per la protezione dei dati personali (10 giugno 2021) consentono senza consenso a queste condizioni. Le versioni di prova (debug) non inviano niente.</p>
+
+  <h2 data-t="p.h.stats">Statistiche d'uso dettagliate (facoltative)</h2>
   <p data-t="p.stats">Servono a capire quante persone usano UNICUM e quali parti migliorare. Se le accetti, al massimo una volta al giorno l'app invia a un modulo Google dello sviluppatore:</p>
   <ul>
     <li data-t="p.stats1">un codice casuale creato dall'app, che distingue un'installazione dall'altra ma non dice chi sei;</li>
@@ -87,7 +99,7 @@
   </ul>
 
   <h2 data-t="p.h.site">Il sito web</h2>
-  <p data-t="p.site">Questo sito conta le visite con <a href="https://www.goatcounter.com">GoatCounter</a>, un servizio senza cookie: registra la pagina vista, il sito da cui arrivi, browser e sistema operativo, la dimensione dello schermo e il paese ricavato dall'indirizzo IP. L'indirizzo IP non viene salvato e nessuno di questi dati dice chi sei. Il sito è ospitato da GitHub Pages, che come ogni server riceve l'indirizzo IP di chi lo visita. L'app non usa GoatCounter.</p>
+  <p data-t="p.site">Questo sito conta le visite con <a href="https://www.goatcounter.com">GoatCounter</a>, un servizio senza cookie: registra la pagina vista, il sito da cui arrivi, browser e sistema operativo, la dimensione dello schermo e il paese ricavato dall'indirizzo IP. Conta anche quante volte vengono premuti i pulsanti «Scarica», senza sapere chi li preme. L'indirizzo IP non viene salvato e nessuno di questi dati dice chi sei. Il sito è ospitato da GitHub Pages, che come ogni server riceve l'indirizzo IP di chi lo visita. L'app usa GoatCounter solo per il conteggio anonimo descritto sopra.</p>
 
   <h2 data-t="p.h.warn">Avvertenza</h2>
   <p data-t="p.warn">Le stime dell'app (recupero, calorie, tempi di gara) sono indicazioni generali. UNICUM non è un dispositivo medico e non sostituisce il parere di un professionista.</p>
@@ -97,7 +109,7 @@
 
   <section class="only-it">
   <h2 id="english">English summary</h2>
-  <p>UNICUM has no account, no server and no third-party analytics. Optional anonymous usage statistics (off until you say yes) send at most once a day, to the developer's Google Form, a random install code, the days of use, how many times each screen was opened, app and Android version and which features are on (no values); never health data, meals, workouts or profile. They can be turned off in Profile, which deletes the unsent counts and the code. Health data read from Health Connect (with the permissions you grant) and everything you enter stay on your device; the app only writes your logged meals back to Health Connect. Network requests are limited to Open Food Facts (food search and barcodes), OpenStreetMap tiles (run maps), GitHub (once a day, to check for a newer app version; no personal data) and, only if you connect it, the Notion API with your own read-only token (kept on the phone and, unless you turn it off, in the automatic backup file stored where you choose). Health data is never shared, sold or used for advertising. You can revoke permissions at any time and delete all data by uninstalling the app. UNICUM is not a medical device. This website counts visits with GoatCounter (no cookies, IP addresses not stored); the app does not use it. <a href="?lang=en">Full English version</a></p>
+  <p>UNICUM has no account, no server and no third-party analytics libraries. Once a day the app sends an anonymous count of opens to GoatCounter, with no identifier of any kind: separate counts for app opened, app version, install age in broad ranges, language, Android version, connected features, main screen, theme and screens opened on past days; debug builds send nothing. Optional detailed usage statistics (off until you say yes) send at most once a day, to the developer's Google Form, a random install code, the days of use, how many times each screen was opened, app and Android version and which features are on (no values); never health data, meals, workouts or profile. They can be turned off in Profile, which deletes the unsent counts and the code. Health data read from Health Connect (with the permissions you grant) and everything you enter stay on your device; the app only writes your logged meals back to Health Connect. Network requests are limited to Open Food Facts (food search and barcodes), OpenStreetMap tiles (run maps), GitHub (once a day, to check for a newer app version, and to download it when you tap the notice; no personal data) and, only if you connect it, the Notion API with your own read-only token (kept on the phone and, unless you turn it off, in the automatic backup file stored where you choose). Health data is never shared, sold or used for advertising. You can revoke permissions at any time and delete all data by uninstalling the app. UNICUM is not a medical device. This website counts visits and taps on the Download buttons with GoatCounter (no cookies, IP addresses not stored); the app uses it only for the anonymous count above. <a href="?lang=en">Full English version</a></p>
   </section>
 </main>
 <script src="testi-privacy.js"></script>

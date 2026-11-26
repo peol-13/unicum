@@ -824,3 +824,42 @@ es: Token y bases de datos en el archivo: en un teléfono nuevo la app se vuelve
 fr: Jeton et bases de données dans le fichier : sur un nouveau téléphone l'appli se reconnecte toute seule. Le jeton ne lit que les pages partagées avec l'intégration : garde le fichier dans un endroit rien qu'à toi.
 de: Token und Datenbanken in der Datei: Auf einem neuen Handy verbindet sich die App von selbst. Das Token liest nur die mit der Integration geteilten Seiten: Bewahre die Datei an einem Ort auf, auf den nur du zugreifst.
 pt: Token e bases de dados no arquivo: num celular novo o app se reconecta sozinho. O token só lê as páginas compartilhadas com a integração: guarde o arquivo num lugar só seu.
+
+# Primo avvio: statistiche dettagliate (SetupScreen, passo STATS)
+
+it: Ci aiuti a migliorare UNICUM?
+en: Do you want to help improve UNICUM?
+es: ¿Nos ayudas a mejorar UNICUM?
+fr: Tu veux nous aider à améliorer UNICUM ?
+de: Hilfst du uns, UNICUM zu verbessern?
+pt: Você nos ajuda a melhorar o UNICUM?
+
+it: Puoi mandare statistiche anonime su come usi l'app. Scegli quello che preferisci: la scelta resta modificabile dal Profilo.
+en: You can send anonymous statistics about how you use the app. Choose what you prefer: you can change it later in Profile.
+es: Puedes enviar estadísticas anónimas sobre cómo usas la app. Elige lo que prefieras: puedes cambiarlo después en el Perfil.
+fr: Tu peux envoyer des statistiques anonymes sur ton utilisation de l'app. Choisis ce que tu préfères : tu peux changer d'avis depuis le Profil.
+de: Du kannst anonyme Statistiken darüber senden, wie du die App nutzt. Entscheide, was du möchtest: Du kannst es später im Profil ändern.
+pt: Você pode enviar estatísticas anônimas sobre como usa o app. Escolha o que preferir: pode mudar depois no Perfil.
+
+it: Quali schermate apri, versione, collegamenti usati. Con un codice casuale per installazione, mai dati di salute, pasti o allenamenti.
+en: Which screens you open, version, connections in use. With a random code per install, never health data, meals or workouts.
+es: Qué pantallas abres, versión y conexiones que usas. Con un código aleatorio por instalación, nunca datos de salud, comidas ni entrenamientos.
+fr: Quels écrans tu ouvres, version, connexions utilisées. Avec un code aléatoire par installation, jamais de données de santé, repas ni entraînements.
+de: Welche Bildschirme du öffnest, Version, genutzte Verbindungen. Mit einem zufälligen Code pro Installation, nie Gesundheitsdaten, Mahlzeiten oder Trainings.
+pt: Quais telas você abre, versão, conexões usadas. Com um código aleatório por instalação, nunca dados de saúde, refeições ou treinos.
+
+# Domanda per chi aggiorna (UsageStatsUi, UsageStatsConsentDialog)
+
+it: UNICUM è un'app nuova: le statistiche anonime ci dicono quali funzioni usi di più e quale migliorare per prima. Nessun nome, mai dati di salute.
+en: UNICUM is a new app: anonymous statistics tell us which features you use most and which to improve first. No name, never health data.
+es: UNICUM es una app nueva: las estadísticas anónimas nos dicen qué funciones usas más y cuál mejorar primero. Ningún nombre, nunca datos de salud.
+fr: UNICUM est une app récente : les statistiques anonymes nous disent quelles fonctions tu utilises le plus et laquelle améliorer en premier. Aucun nom, jamais de données de santé.
+de: UNICUM ist eine neue App: Anonyme Statistiken zeigen uns, welche Funktionen du am meisten nutzt und welche wir zuerst verbessern sollten. Kein Name, nie Gesundheitsdaten.
+pt: O UNICUM é um app novo: as estatísticas anônimas nos mostram quais funções você mais usa e qual melhorar primeiro. Nenhum nome, nunca dados de saúde.
+
+it: Nessun problema: l'app funziona allo stesso modo.
+en: No problem: the app works just the same.
+es: Ningún problema: la app funciona igual.
+fr: Pas de souci : l'app fonctionne de la même façon.
+de: Kein Problem: Die App funktioniert genauso.
+pt: Sem problema: o app funciona do mesmo jeito.

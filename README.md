@@ -27,7 +27,7 @@ Your ring tracks your sleep, your watch tracks your runs, a food app tracks your
 
 ## Features
 
-- **Nutrition**: daily calorie goal from your BMR (Mifflin-St Jeor) and activity level, macros, ~300 built-in foods in 6 languages, barcode scanner and online search via Open Food Facts. Fast logging: the foods you usually eat at that meal come first, + adds your usual amount in one tap, saved meals, "repeat from yesterday", undo. Mark a day as complete so averages only use fully logged days. Meals are written back to Health Connect.
+- **Nutrition**: daily calorie goal from your BMR (Mifflin-St Jeor) and activity level, macros, ~400 built-in foods in 6 languages (including Italian dishes from the CREA food composition tables), tolerant search (plurals, synonyms, typos), barcode scanner and online search via Open Food Facts. Fast logging: the foods you usually eat at that meal come first, + adds your usual amount in one tap, saved meals, "repeat from yesterday", undo. Mark a day as complete so averages only use fully logged days. Meals are written back to Health Connect.
 - **Deficit, honestly**: your resting burn accrues through the day instead of being subtracted all at once in the morning, so the balance is real at any hour.
 - **Runs**: every run from Health Connect with splits, heart-rate zones, pace, cadence, elevation and route map. Duplicates from different apps are merged. Intervals can be split from the plan's structure.
 - **Weights and bodyweight**: duration, calories and heart rate from your watch; exercises, sets, reps and loads from your plan (or as you actually did them), with each exercise's loads over time.
@@ -51,7 +51,8 @@ There is no account and no server. Your data stays on your phone, in a local dat
 - **Open Food Facts**, for food search and barcodes;
 - **OpenStreetMap tiles**, for route maps;
 - **GitHub**, at most once a day, to check whether a new version is out;
-- **Google Forms**, only if you agree to send anonymous usage statistics (which screens you open, never your data).
+- **GoatCounter**, once a day, an anonymous count of app opens with no identifier of any kind (version, install age in broad ranges, language, connected features, screens opened);
+- **Google Forms**, only if you agree to send detailed usage statistics (which screens you open, never your data).
 
 ## Install
 
@@ -110,7 +111,7 @@ The name **UNICUM** and its logo are not covered by the license. A modified vers
 
 - Font: [Montserrat](https://fonts.google.com/specimen/Montserrat), SIL Open Font License 1.1.
 - [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android), Apache License 2.0.
-- Food data: [Open Food Facts](https://world.openfoodfacts.org), ODbL.
+- Food data: [Open Food Facts](https://world.openfoodfacts.org), ODbL; Italian dishes and basic foods from the [CREA food composition tables](https://www.alimentinutrizione.it/tabelle-nutrizionali/) (CREA Alimenti e Nutrizione).
 - Maps: © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors.
 - Barcode scanning: Google ML Kit.
 - Material Symbols (Rounded), Apache License 2.0.
@@ -142,7 +143,7 @@ L'anello registra il sonno, l'orologio le corse, un'app i pasti, e il programma 
 
 **Sondaggio:** parteciperesti alla futura prova sul Play Store (12 persone, 14 giorni)? [Rispondi in un minuto](https://docs.google.com/forms/d/e/1FAIpQLSfcQpbejWIYUOtbkkv-rpGvtRq7Qx9fv9LEwcMOA1jQMAu49g/viewform).
 
-**Privacy**: nessun account e nessun server, i dati restano sul telefono. Statistiche d'uso anonime solo se le accetti (quali schermate apri, mai i dati). [Informativa completa](https://peol-13.github.io/unicum/privacy.html).
+**Privacy**: nessun account e nessun server, i dati restano sul telefono. L'app manda solo un conteggio anonimo delle aperture, senza alcun codice; le statistiche d'uso dettagliate solo se le accetti (quali schermate apri, mai i dati). [Informativa completa](https://peol-13.github.io/unicum/privacy.html).
 
 **Installazione**
 1. Scarica l'ultimo APK dalle [Releases](../../releases/latest).
